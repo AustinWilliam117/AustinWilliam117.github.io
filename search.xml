@@ -6777,6 +6777,8 @@ name ends
     <title>接口幂等解决方案</title>
     <url>/2021/05/17/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="什么是幂等性？"><a href="#什么是幂等性？" class="headerlink" title="什么是幂等性？"></a>什么是幂等性？</h3><p>多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）</p>
+<span id="more"></span>
+
 <h3 id="产生幂等性场景"><a href="#产生幂等性场景" class="headerlink" title="产生幂等性场景"></a>产生幂等性场景</h3><ol>
 <li>网络波动, 可能会引起重复请求</li>
 <li>用户重复操作,用户在操作时候可能会无意触发多次下单交易,甚至没有响应而有意触发多次交易</li>
@@ -6847,6 +6849,9 @@ name ends
 <p><strong>13. 全局唯一号</strong></p>
 </blockquote>
 <p>比如通过source来源 + 唯一序列号传入给后端，后端来判断请求是否重复,在并发时只能处理一个请求,其他相同并发请求要么返回请求重复,要么等待 前面请求执行完成后再执行。</p>
+<blockquote>
+<p>转载自：<a href="https://zhuanlan.zhihu.com/p/116873088">陈死狗</a></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>软件测试</category>

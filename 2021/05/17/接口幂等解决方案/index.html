@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="什么是幂等性？多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据） 产生幂等性场景 网络波动, 可能会引起重复请求 用户重复操作,用户在操作时候可能会无意触发多次下单交易,甚至没有响应而有意触发多次交易 应用使用了失效或超时重试机制(Nginx重试、RPC重试或业务层重">
+  <meta name="description" content="什么是幂等性？多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="接口幂等解决方案">
 <meta property="og:url" content="http://example.com/2021/05/17/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
 <meta property="og:site_name" content="蒙珣的博客">
-<meta property="og:description" content="什么是幂等性？多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据） 产生幂等性场景 网络波动, 可能会引起重复请求 用户重复操作,用户在操作时候可能会无意触发多次下单交易,甚至没有响应而有意触发多次交易 应用使用了失效或超时重试机制(Nginx重试、RPC重试或业务层重">
+<meta property="og:description" content="什么是幂等性？多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-17T14:28:33.000Z">
-<meta property="article:modified_time" content="2021-05-17T14:30:09.506Z">
+<meta property="article:modified_time" content="2021-05-17T14:38:23.623Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="接口测试">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-05-17 22:28:33 / Modified: 22:30:09" itemprop="dateCreated datePublished" datetime="2021-05-17T22:28:33+08:00">2021-05-17</time>
+              <time title="Created: 2021-05-17 22:28:33 / Modified: 22:38:23" itemprop="dateCreated datePublished" datetime="2021-05-17T22:28:33+08:00">2021-05-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,6 +266,8 @@
 
       
         <h3 id="什么是幂等性？"><a href="#什么是幂等性？" class="headerlink" title="什么是幂等性？"></a>什么是幂等性？</h3><p>多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）</p>
+<span id="more"></span>
+
 <h3 id="产生幂等性场景"><a href="#产生幂等性场景" class="headerlink" title="产生幂等性场景"></a>产生幂等性场景</h3><ol>
 <li>网络波动, 可能会引起重复请求</li>
 <li>用户重复操作,用户在操作时候可能会无意触发多次下单交易,甚至没有响应而有意触发多次交易</li>
@@ -336,6 +338,9 @@
 <p><strong>13. 全局唯一号</strong></p>
 </blockquote>
 <p>比如通过source来源 + 唯一序列号传入给后端，后端来判断请求是否重复,在并发时只能处理一个请求,其他相同并发请求要么返回请求重复,要么等待 前面请求执行完成后再执行。</p>
+<blockquote>
+<p>转载自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/116873088">陈死狗</a></p>
+</blockquote>
 
     </div>
 
