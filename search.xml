@@ -6875,4 +6875,154 @@ name ends
         <tag>诗词歌赋</tag>
       </tags>
   </entry>
+  <entry>
+    <title>敏捷开发</title>
+    <url>/2021/05/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="什么是敏捷开发"><a href="#什么是敏捷开发" class="headerlink" title="什么是敏捷开发"></a>什么是敏捷开发</h3><p>敏捷开发（Agile Development）是一种以人为核心、迭代、循序渐进的开发方法。</p>
+<p>它采用迭代时开发，开发方式的主要驱动核心是人。指导我们用规定的环节一步一步完成项目的开发</p>
+<span id="more"></span>
+
+<h3 id="敏捷测试常见术语"><a href="#敏捷测试常见术语" class="headerlink" title="敏捷测试常见术语"></a>敏捷测试常见术语</h3><ul>
+<li><p>Scrum：敏捷研发的框架</p>
+</li>
+<li><p>Sprint：原意为冲刺，Scrum中的Sprint无对应中文翻译，指一个迭代</p>
+</li>
+<li><p>Scrum Master：敏捷专家，敏捷研发总负责人</p>
+<p>敏捷专家以各种方式服务于产品负责人<strong>（让大家按照敏捷的方式去研发，引导项目成为敏捷开发模式）</strong></p>
+<p>以各种方式服务于Scrum团队</p>
+<p><strong>保证项目按照敏捷的方式去开展，中间环节落实不到位，要各种方式调动大家积极</strong></p>
+</li>
+<li><p>Product Owner：产品负责人简称PO</p>
+<p>产品负责人负责最大化产品以及开发团队工作的价值。实现这一点的方式会随着组织、Scrum团队以及单个团队成员的不同而不同（如果需求烂，没有好的想法。即便高质量完成任务，没有新思想和新功能，也会被淘汰。产品很重要）</p>
+</li>
+<li><p>Scrum Team：敏捷研发团队</p>
+<p>开发团队包含了专业人员，负责在每个Sprint的结尾交付潜在可发布的“完成”产品增量。只有开发团队的成员才能创造增量。</p>
+<p>开发团体由组织构建并授权，来组织和管理他们的工作。所产生的协同工作能最大化，开发团队的整体效率和效力。</p>
+<p><strong>要求：每一个迭代都能交付，可以量化的、可以给客户去展示的交付件。短平快的方式去交付</strong></p>
+</li>
+<li><p>Product Backlog：产品待办列表，指需求清单</p>
+</li>
+<li><p>Sprint Backlog：Sprint待办列表，指Sprint任务清单</p>
+</li>
+<li><p>Daily Scrum Meeting：每日站会</p>
+</li>
+<li><p>Sprint Review Meeting：Sprint评审会议</p>
+</li>
+<li><p>User Story：用户故事，指一条需求</p>
+</li>
+</ul>
+<h3 id="Scrum详细解释"><a href="#Scrum详细解释" class="headerlink" title="Scrum详细解释"></a>Scrum详细解释</h3><p>Scrum是一个用于开发和维持复杂产品的框架（6个月及以上的项目），是一个增量、迭代的开发过程。在这个框架中，整个开发过程由若干个短的迭代周期组成，一个短的迭代周期称为一个Sprint，每个Sprint的建议长度为2到4周。在Scrum中，使用产品Backlog来管理产品的需求，产品Backlog是一个按照商业价值排序的需求列表，列表条目的体现形式通常为用户story。Scrum团队总是先开发对客户具有较高价值的需求。在Sprint中，Scrum团队从产品Backlog中挑选最高优先级的需求进行开发。挑选的需求在Sprint计划会议上经过讨论、分析和估算（最长的迭代6周，不能再拆分）得到相应的任务列表，我们称它为Sprint Backlog。在每个迭代结束时，Scrum团队将递交潜在可交付的产品增量。Scrum起源于软件开发项目，但它适用于任何复杂的或是创新性的项目。</p>
+<h3 id="敏捷软件开发宣言"><a href="#敏捷软件开发宣言" class="headerlink" title="敏捷软件开发宣言"></a><a href="http://agilemanifesto.org/">敏捷软件开发宣言</a></h3><ul>
+<li>个体和互动高于流程和工具（Individuals and interactions over processes and tools）</li>
+<li>工作的软件高于详尽的文档（Working software over comprehensive documentation）</li>
+<li>客户合作高于合同谈判（Customer collaboration over contract negotiation）</li>
+<li>响应变化高于遵循计划（Responding to change over following a plan）</li>
+</ul>
+<h3 id="敏捷开发全局流程"><a href="#敏捷开发全局流程" class="headerlink" title="敏捷开发全局流程"></a>敏捷开发全局流程</h3><p><img src="%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E5%85%A8%E5%B1%80%E6%B5%81%E7%A8%8B.png" alt="敏捷开发全局流程"></p>
+<ol>
+<li><p>客户、市场、高层为软件开发提供创意（前瞻性想法）、缺陷（用户反馈不好用、有缺陷的地方）、新功能（直播带货）</p>
+</li>
+<li><p>产品负责人（Product Owner）汇总成产品功能列表，然后召开迭代拆分会（参会人员至少测试组长起步），讨论出迭代任务</p>
+</li>
+<li><p>开始正常迭代。</p>
+<p>迭代1：测试做迭代任务的需求评审、测试计划、编写测试用例、执行用例、提交bug、回归测试、发布上线。</p>
+<p>迭代2：</p>
+<p>迭代3：</p>
+<p>…</p>
+<p>每一天都会开站立会议，最终交付用户可使用的软件</p>
+</li>
+<li><p>贯穿迭代的评审会、反思会（每次迭代后，都会开）</p>
+</li>
+<li><p>敏捷专家：辐射全局、观察每一个环节是否按照正常的方式去运作、开展。（框架的监督者）</p>
+</li>
+</ol>
+<h3 id="Scrum的常见活动"><a href="#Scrum的常见活动" class="headerlink" title="Scrum的常见活动"></a>Scrum的常见活动</h3><ul>
+<li><p>产品待办事项列表梳理</p>
+<p>产品待办事项通常会很大，也很宽泛，而且想法会变来变去、优先级也会变化，所以产品待办事项梳理是一个贯穿整个Scrum项目始终的活动。该活动包含但不限于以下内容：</p>
+<ol>
+<li>保持产品待办事项列表有序（列出待办优先级）</li>
+<li>把看起来不再重要的事项移除或者降级（及时更新维护，不重要的移除或降级）</li>
+<li>增加或提升涌现出来的或变得更重要的事项（重要的事项提高优先级）</li>
+<li>将事项分解成更小的事项（大的事项分解成若干个小的事项）</li>
+<li>将事项并归为更大的事项（小事项合并成大的事项）</li>
+<li>对事项进行估算（对事项时间进行估算）</li>
+</ol>
+</li>
+<li><p>产品待办事项列表梳理的一个最大的好处，是为即将到来的几个Sprint做准备。为此，梳理时会特别关注那些即将被实现的事项。</p>
+</li>
+</ul>
+<h3 id="迭代计划（拆分）会议"><a href="#迭代计划（拆分）会议" class="headerlink" title="迭代计划（拆分）会议"></a>迭代计划（拆分）会议</h3><p>基于列好的产品需求，进行迭代的拆分</p>
+<p>[参考文章末尾图]</p>
+<ol>
+<li>会给出2-3个迭代的相对明确的任务，3个迭代后的项目变动会大很多。</li>
+<li>依赖于需求清单（优先级、客户需求大、估时），拼凑到一个项目里。</li>
+<li>征求开发经理、测试组长的意见</li>
+</ol>
+<h3 id="Scrum-看板"><a href="#Scrum-看板" class="headerlink" title="Scrum 看板"></a>Scrum 看板</h3><table>
+<thead>
+<tr>
+<th>待办</th>
+<th>处理中</th>
+<th>完成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>开发、测试人员都可以写</p>
+<p>​    <strong>通过看板清晰看到个人、团队工作的进度。</strong></p>
+<h3 id="每日站会"><a href="#每日站会" class="headerlink" title="每日站会"></a>每日站会</h3><ul>
+<li>每日站立会议是敏捷流程Scrum中的很重要的一个制度之一。</li>
+<li>功能<ul>
+<li>快速同步，让项目组内部的员工互相了解彼此的进展，从而了解项目的整体进展</li>
+<li>给每个人一种精神压力，信守承诺。这是一种面对面的精神压力，直面项目进展。</li>
+<li>培养团队的文化，让每个人意识到，我不是一个人在战斗，我们是一个团队</li>
+</ul>
+</li>
+<li>站立会议的目的<ul>
+<li>让所有人了解其他人在做什么，当前项目计划进展如何</li>
+<li>帮助大家解决哪些阻碍、做事情的问题，以及共享承诺。这些都非常有利于提高团队合作精神。</li>
+</ul>
+</li>
+</ul>
+<p>开会人员：负责相同模块的产品经理、开发、测试</p>
+<p>开会人数：10人以内</p>
+<p>开会时间：10分钟左右</p>
+<p>会议内容：1.昨天做了什么。2.今天打算做什么。3.昨天工作遇到的没解决的问题。或者遇到什么问题解决了，可以给大家参考。</p>
+<h3 id="Scrum迭代回顾会议"><a href="#Scrum迭代回顾会议" class="headerlink" title="Scrum迭代回顾会议"></a>Scrum迭代回顾会议</h3><p>在每个Sprint结束后，Scrum团队会聚在一起开Sprint回顾会议</p>
+<ul>
+<li><p>目的：回顾以下团队在流程、人际关系以及工具方面做的如何</p>
+</li>
+<li><p>团队识别出哪些做的好的，哪些做的不好的。并找出潜在的改进事项，为将来的改进制定计划。</p>
+</li>
+<li><p>所有的Scrum会议都是限定时长的，Sprint回顾会议的推荐时长是Sprint中的每一周对应一个小时</p>
+<p>（一个Sprint包含2个星期，则Sprint回顾会议时长为2小时）</p>
+</li>
+<li><p>Scrum团队总是在Scrum的框架内，改进他们自己的流程。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A(Scrum) --&gt;B(产品需求1.0版本 Product Backlog)</span><br><span class="line">    B --&gt;C[基于需求的优先级召开,会议指定迭代计划]</span><br><span class="line">    C --&gt;P[迭代1 Sprint1]</span><br><span class="line">    P --&gt;D[迭代的生命周期]</span><br><span class="line">    P --&gt;Q[迭代的整体规划]</span><br><span class="line">    Q --&gt;R(需求1)</span><br><span class="line">    Q --&gt;S(需求2)</span><br><span class="line">    Q --&gt;T(需求3)</span><br><span class="line">    Q --&gt;U(迭代回归测试)</span><br><span class="line">    D --&gt;H(需求分析)</span><br><span class="line">    D --&gt;I(迭代内计划)</span><br><span class="line">    D --&gt;J(测试计划和开发)</span><br><span class="line">    D --&gt;K(环境搭建)</span><br><span class="line">    D --&gt;L(测试执行)</span><br><span class="line">    D --&gt;M(提交缺陷)</span><br><span class="line">    D --&gt;N(回归测试)</span><br><span class="line">    D --&gt;O(发布上线验证)</span><br><span class="line">    C --&gt;E[迭代2]</span><br><span class="line">    C --&gt;F[迭代3]</span><br><span class="line">    C --&gt;G[迭代4]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>回归</p>
+<ol>
+<li><p>迭代内bug和需求的回归</p>
+</li>
+<li><p>上线前整体的回归</p>
+</li>
+<li><p>迭代与迭代版本是否有影响</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>软件测试</category>
+      </categories>
+      <tags>
+        <tag>软件测试理论</tag>
+      </tags>
+  </entry>
 </search>
