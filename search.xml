@@ -7053,6 +7053,8 @@ name ends
     <title>性能测试</title>
     <url>/2021/05/25/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><h3 id="什么是软件性能"><a href="#什么是软件性能" class="headerlink" title="什么是软件性能"></a>什么是软件性能</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>软件的性能是软件的一种<strong>非功能特性</strong>，它关注的不是软件是否能够完成特定的功能，而是在完成该功能时展示出来的及时性</p>
+<span id="more"></span>
+
 <h4 id="性能测试定义"><a href="#性能测试定义" class="headerlink" title="性能测试定义"></a>性能测试定义</h4><p>只通过自动化的测试工具模拟多种正常、峰值以及异常负载条件来对系统的各项性能指标进行测试</p>
 <h3 id="不同群体眼中的性能"><a href="#不同群体眼中的性能" class="headerlink" title="不同群体眼中的性能"></a>不同群体眼中的性能</h3><h4 id="用户眼中的视角"><a href="#用户眼中的视角" class="headerlink" title="用户眼中的视角"></a>用户眼中的视角</h4><p><img src="2021-04-11_17-02.png" alt="2021-04-11_17-02"></p>
 <h4 id="开发眼中的性能"><a href="#开发眼中的性能" class="headerlink" title="开发眼中的性能"></a>开发眼中的性能</h4><p><img src="2021-04-11_17-04.png"></p>
