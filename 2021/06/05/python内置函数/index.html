@@ -30,7 +30,7 @@
 <meta property="og:description" content="time内置函数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-05T13:28:21.000Z">
-<meta property="article:modified_time" content="2021-06-05T13:30:59.123Z">
+<meta property="article:modified_time" content="2021-06-05T14:10:26.946Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 
@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">66</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">67</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -220,7 +220,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-06-05 21:28:21 / Modified: 21:30:59" itemprop="dateCreated datePublished" datetime="2021-06-05T21:28:21+08:00">2021-06-05</time>
+              <time title="Created: 2021-06-05 21:28:21 / Modified: 22:10:26" itemprop="dateCreated datePublished" datetime="2021-06-05T21:28:21+08:00">2021-06-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -296,11 +296,11 @@
 
 <h3 id="JSON字典的序列化与反序列化"><a href="#JSON字典的序列化与反序列化" class="headerlink" title="JSON字典的序列化与反序列化"></a>JSON字典的序列化与反序列化</h3><ul>
 <li>序列化：把python的数据类型转化为str的类型过程</li>
-<li>反序列化：把str的类型转化为python的数据结构</li>
+<li>反序列化：把str的类型转化为python的数据结构<!--more-->
+json.dumps 语法</li>
 </ul>
-<p>json.dumps 语法</p>
 <blockquote>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;json.dumps(obj, <span class="attribute">skipkeys</span>=<span class="literal">False</span>, <span class="attribute">ensure_ascii</span>=<span class="literal">True</span>, <span class="attribute">check_circular</span>=<span class="literal">True</span>, <span class="attribute">allow_nan</span>=<span class="literal">True</span>, <span class="attribute">cls</span>=None, <span class="attribute">indent</span>=None, <span class="attribute">separators</span>=None, <span class="attribute">encoding</span>=<span class="string">&quot;utf-8&quot;</span>, <span class="attribute">default</span>=None, <span class="attribute">sort_keys</span>=<span class="literal">False</span>, **kw)</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json.dumps(obj, <span class="attribute">skipkeys</span>=<span class="literal">False</span>, <span class="attribute">ensure_ascii</span>=<span class="literal">True</span>, <span class="attribute">check_circular</span>=<span class="literal">True</span>, <span class="attribute">allow_nan</span>=<span class="literal">True</span>, <span class="attribute">cls</span>=None, <span class="attribute">indent</span>=None, <span class="attribute">separators</span>=None, <span class="attribute">encoding</span>=<span class="string">&quot;utf-8&quot;</span>, <span class="attribute">default</span>=None, <span class="attribute">sort_keys</span>=<span class="literal">False</span>, **kw)</span><br></pre></td></tr></table></figure>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 序列化 json.dumps()	将 Python 对象编码成 JSON 字符串</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict1 = &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;mengxun&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列化：dict--&gt;str</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict_str = json.dumps(dict1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;dict_str&#x27;</span>,<span class="built_in">type</span>(dict_str))</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;mengxun&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>&#125; &lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">str</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -356,7 +356,10 @@
     <a href="/2021/06/03/%E5%87%BD%E6%95%B0%E8%A3%85%E9%A5%B0%E5%99%A8/" rel="prev" title="函数装饰器">
       <i class="fa fa-chevron-left"></i> 函数装饰器
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/07/Python%E6%96%87%E4%BB%B6/" rel="next" title="Python文件">
+      Python文件 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -431,7 +434,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -492,13 +495,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">255k</span>
+    <span title="Symbols count total">263k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:51</span>
+    <span title="Reading time total">3:59</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
