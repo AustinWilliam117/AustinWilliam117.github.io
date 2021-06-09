@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/2.png">
 <meta property="og:image" content="http://example.com/3.png">
 <meta property="article:published_time" content="2021-06-08T16:12:11.000Z">
-<meta property="article:modified_time" content="2021-06-08T16:19:20.173Z">
+<meta property="article:modified_time" content="2021-06-09T15:18:51.988Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-06-09 00:12:11 / Modified: 00:19:20" itemprop="dateCreated datePublished" datetime="2021-06-09T00:12:11+08:00">2021-06-09</time>
+              <time title="Created: 2021-06-09 00:12:11 / Modified: 23:18:51" itemprop="dateCreated datePublished" datetime="2021-06-09T00:12:11+08:00">2021-06-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.3k</span>
+              <span>4.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -331,7 +331,7 @@
 <p>​                R=下一行的地址</p>
 <p>​                loop s0</p>
 <p>我们用 bx 作为变量，定位每行的起始地址，用 si 定位要修改的列，用[bx+3+si]的方式来对目标单元进行寻址。</p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg,ss:stacksg,ds:datasg</span><br><span class="line"></span><br><span class="line">stacksg segment</span><br><span class="line">	dw 0,0,0,0,0,0,0,0</span><br><span class="line">stacksg ends</span><br><span class="line"></span><br><span class="line">datasg segment</span><br><span class="line">	db &#39;1. display				&#39;</span><br><span class="line">	db &#39;2. brows				&#39;</span><br><span class="line">	db &#39;3. replace				&#39;</span><br><span class="line">	db &#39;4. modify				&#39;</span><br><span class="line">datasg ends</span><br><span class="line"></span><br><span class="line">codesg segment</span><br><span class="line"></span><br><span class="line">start: mov ax,stacksg</span><br><span class="line">        mov ss,ax</span><br><span class="line">        mov sp,16</span><br><span class="line">        mov ax,datasg</span><br><span class="line">        mov dx,ax</span><br><span class="line">        mov bx,0</span><br><span class="line">        mov cx,4</span><br><span class="line"></span><br><span class="line">s0:  push cx</span><br><span class="line">    mov si,3</span><br><span class="line">    mov cx,4</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">s:  mov al,[bx+si]</span><br><span class="line">    and al,11011111b</span><br><span class="line">    mov [bx+si],al</span><br><span class="line">    inc si</span><br><span class="line">    loop s</span><br><span class="line"></span><br><span class="line">    pop cx</span><br><span class="line">    add bx,16</span><br><span class="line">    loop s0</span><br><span class="line"></span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21</span><br><span class="line"></span><br><span class="line">codesg ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -497,7 +497,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">271k</span>
+    <span title="Symbols count total">272k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
