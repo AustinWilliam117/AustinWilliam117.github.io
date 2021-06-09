@@ -8198,7 +8198,7 @@ json.dumps 语法</li>
 <p>分析：</p>
 <p>datasg 中的数据的存储结构</p>
 <p>我们可以看到，在 datasg 中定义了6个字符串，每个长度为16个字节（注意，为了直观，每个字符串后面都加上了空格符，以使它们的长度刚好为16个字节）。因为它们是连续存放的，可以将这6个字符串看成一个6行16列的二维数组。按要求，需要修改每个单词的第一个字母，即二维数组的每一行的第4列（相对于行首的偏移地址为3）</p>
-<p><img src="/1.png"></p>
+<p><img src="1.png"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assume cs:codesg, ds:datasg</span><br><span class="line"></span><br><span class="line">datasg segment</span><br><span class="line">	db &#39;1. file				&#39;</span><br><span class="line">	db &#39;2. edit				&#39;</span><br><span class="line">	db &#39;3. search		    &#39;</span><br><span class="line">	db &#39;4. view				&#39;</span><br><span class="line">	db &#39;5. options		    &#39;</span><br><span class="line">	db &#39;6. help				&#39;</span><br><span class="line">datasg ends</span><br><span class="line"></span><br><span class="line">codesg segment</span><br><span class="line"></span><br><span class="line">start: mov ax,datasg</span><br><span class="line">    mov ds,ax</span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,6</span><br><span class="line">					 </span><br><span class="line">s0: mov al,[bx+3]</span><br><span class="line">    and al,11011111b</span><br><span class="line">    mov [bx+3],al</span><br><span class="line">    add bx,16</span><br><span class="line">    loop s0</span><br><span class="line">					 </span><br><span class="line">codesg ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
 
 
@@ -8208,7 +8208,7 @@ json.dumps 语法</li>
 
 <p><strong>分析：</strong></p>
 <p>datasg 中的数据的存储结构如图</p>
-<p><img src="/2.png"></p>
+<p><img src="2.png"></p>
 <p>我们需要进行 4X3次的二重循环，用变量R定位，变量C定位列。外层循环按行来进行，内层按列来进行。首先用R定位第1行，然后循环修改R行的前3列；然后再用R定位到下一行，再次循环修改R行的前3列……，如此重复直到所有的数据修改完毕，处理的过程大致如下。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	R&#x3D;第一行的地址：</span><br><span class="line">	mov cx,4</span><br><span class="line"></span><br><span class="line">s0: C&#x3D;第一列的地址</span><br><span class="line">	mov cx,3</span><br><span class="line"></span><br><span class="line">s: 改变R行，c列的字母为大写</span><br><span class="line">	C&#x3D;下一列的地址：</span><br><span class="line">	loop s</span><br><span class="line">	R&#x3D;下一行的地址</span><br><span class="line">	loop s0</span><br></pre></td></tr></table></figure>
 
@@ -8238,7 +8238,7 @@ json.dumps 语法</li>
 
 <p><strong>分析</strong></p>
 <p>datasg 中的数据的存储结构</p>
-<p><img src="/3.png"></p>
+<p><img src="3.png"></p>
 <p>在datasg中定义了4个字符串，每个长度为16个字节（注意，为了是使我们在Debug中可以直观地查看，每个字符串的后面都加上了空格，以使它们的长度刚好为16个字节）。因为它们是连续存放的，我们可以将这4个字符串看成一个4行16列的二维数组，按照要求，我们需要修改每个单词的前4个字母，即二维数组的每一行的3～6列</p>
 <p>我们需要进行4x4次的二重循环，用变量R定位行，常量3定位每行要修改的起始列，变量C定位相对于起始列的要修改的列。外层循环按行来进行，内层按列来进行。我们首先用R定位第1行，循环修改R行的3+C（0&lt;=C&lt;=3）列；然后再用R定位到下一行，再次修改R行的3+C（0&lt;=C&lt;=3）列……，如此重复直到所有的数据修改完毕。处理过程大致如下。</p>
 <p>​                R=第一行的地址：</p>
