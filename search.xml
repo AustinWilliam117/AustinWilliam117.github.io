@@ -9087,4 +9087,34 @@ name ends
         <tag>shell</tag>
       </tags>
   </entry>
+  <entry>
+    <title>shell基本输入</title>
+    <url>/2021/06/15/shell%E5%9F%BA%E6%9C%AC%E8%BE%93%E5%85%A5/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><ul>
+<li>read 命令</li>
+</ul>
+<hr>
+<h3 id="read-命令"><a href="#read-命令" class="headerlink" title="read 命令"></a>read 命令</h3><p>默认接受键盘的输入，回车符代表输入结束</p>
+<p>read 命令选项</p>
+<p>-p 打印信息</p>
+<p>-t 限定时间</p>
+<p>-s 不回显</p>
+<p>-n 输入字符个数</p>
+<span id="more"></span>
+
+<p><strong>登录小案例</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">read</span> 后面跟变量名，将输入的内容存入内存中</span></span><br><span class="line">echo -ne &quot;Login: &quot;</span><br><span class="line">read username</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">read</span> -p <span class="string">&quot;Login: &quot;</span> username 可替代前面的<span class="built_in">echo</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 后面跟命令不换行的话加分号。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -t 5 指定5秒不输入密码自动结束，-s 不显示输入的数据</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -n 6 密码只识别前6位输入的数据，多输入直接返回，并保留前6位</span></span><br><span class="line">echo -ne &quot;Password: &quot;;read -st 5 -n 6 password</span><br><span class="line">echo</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">read</span> -p 可以替换<span class="built_in">echo</span>, 但不会结束</span></span><br><span class="line">read -p &quot;Username $username, Password $password&quot;</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Login: root</span><br><span class="line">Password: 123456</span><br><span class="line">Username root, Password 123456</span><br></pre></td></tr></table></figure>
+
+<p><strong>Linux登录小脚本</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/bash</span></span><br><span class="line">clear</span><br><span class="line"></span><br><span class="line">echo &quot;Arch Linux (Core)&quot;</span><br><span class="line">echo -e &quot;Kernel `uname -r` an `uname -m`\n&quot;</span><br><span class="line"></span><br><span class="line">echo -ne &quot;$HOSTNAME Login: &quot;;read username</span><br><span class="line">read -sp &quot;Password: &quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">echo</span> -ne <span class="string">&quot;Password: &quot;</span>;<span class="built_in">read</span> -s passwd</span></span><br><span class="line"></span><br><span class="line">echo</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
 </search>
