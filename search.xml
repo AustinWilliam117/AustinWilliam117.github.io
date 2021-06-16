@@ -9039,6 +9039,8 @@ name ends
 <p>一个程序需要有0个以上输入，一个或更多输出</p>
 <h3 id="一、-echo-命令介绍"><a href="#一、-echo-命令介绍" class="headerlink" title="一、 echo 命令介绍"></a>一、 echo 命令介绍</h3><p>功能：将内容输出到默认显示设备</p>
 <p>echo 命令的功能是在显示器上显示一段文字，一般起到一个提示的作用。功能说明：显示文字</p>
+<span id="more"></span>
+
 <p>语法：echo [-ne][字符串]</p>
 <p>补充说明：echo 会将输入的字符串送往标准输出。输出的字符串间以空白字符间隔，并在最后加上换行号。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[william@William-arch ~]$ echo &quot;hello world&quot;</span><br><span class="line">hello world</span><br><span class="line"></span><br><span class="line">[william@William-arch ~]$ echo -n &quot;hello world&quot;</span><br><span class="line">hello world[william@William-arch ~]$</span><br></pre></td></tr></table></figure>

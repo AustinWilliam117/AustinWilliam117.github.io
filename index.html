@@ -433,7 +433,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 21:09:59" itemprop="dateModified" datetime="2021-06-16T21:09:59+08:00">2021-06-16</time>
+                <time title="Modified: 2021-06-16 22:40:58" itemprop="dateModified" datetime="2021-06-16T22:40:58+08:00">2021-06-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -478,44 +478,14 @@
 <p>一个程序需要有0个以上输入，一个或更多输出</p>
 <h3 id="一、-echo-命令介绍"><a href="#一、-echo-命令介绍" class="headerlink" title="一、 echo 命令介绍"></a>一、 echo 命令介绍</h3><p>功能：将内容输出到默认显示设备</p>
 <p>echo 命令的功能是在显示器上显示一段文字，一般起到一个提示的作用。功能说明：显示文字</p>
-<p>语法：echo [-ne][字符串]</p>
-<p>补充说明：echo 会将输入的字符串送往标准输出。输出的字符串间以空白字符间隔，并在最后加上换行号。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch ~]$ echo &quot;hello world&quot;</span><br><span class="line">hello world</span><br><span class="line"></span><br><span class="line">[william@William-arch ~]$ echo -n &quot;hello world&quot;</span><br><span class="line">hello world[william@William-arch ~]$</span><br></pre></td></tr></table></figure>
-
-<p>命令选型：</p>
-<p>-n 不要在最后自动换行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch ~]$ echo -n &quot;Login: &quot;;read</span><br><span class="line">Login: william</span><br><span class="line"></span><br><span class="line">[william@William-arch ~]$ echo -n &quot;date: &quot;;date +%F</span><br><span class="line">date: 2021-06-15</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>-e 若字符串中出现一下字符，则特别加以处理，而不会将它当成一般文字输出：</p>
-<p>转义字符</p>
-<p>\a 发出警报声</p>
-<p>\b 删除前一个字符</p>
-<p>\c 最后不加上换行符号</p>
-<p>\f 换行但光标仍旧停留在原来的位置</p>
-<p>\n 换行且光标移至行首</p>
-<p>\r 光标移至行首，但不换行</p>
-<p>\t 插入tab</p>
-<p>\v 与\f 相同</p>
-<p>\nnn 插入nnn（八进制）所代表的 ASCII 字符</p>
-<p>-help 显示帮助</p>
-<p>-version 显示版本信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 删除一个字符的时候，必须要加参数n，换行之后就不在同一行了，没办法删除</span></span><br><span class="line">[william@William-arch ~]$ echo -ne &quot;a\b&quot;</span><br><span class="line">[william@William-arch ~]$ </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 举例说明：倒计时</span></span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">for time in `seq 9 -1 0`; do</span><br><span class="line">    echo -n $time</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo  </span><br><span class="line"></span><br><span class="line">for time in `seq 9 -1 0`; do</span><br><span class="line">    echo -ne &quot;\b$time&quot;</span><br><span class="line">    sleep 1</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo</span><br></pre></td></tr></table></figure>
-
-<p>格式化输出</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">echo -e &#x27;\t\t\t Fruits Shop&#x27;</span><br><span class="line">echo -e &quot;\t1) Apple&quot;</span><br><span class="line">echo -e &quot;\t2) Orange&quot;</span><br><span class="line">echo -e &quot;\t3) Banana&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 结果</span></span><br><span class="line">[william@William-arch test]$ sh fruit.sh </span><br><span class="line">                         Fruits Shop</span><br><span class="line">        1) Apple</span><br><span class="line">        2) Orange</span><br><span class="line">        3) Banana</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="二、颜色代码"><a href="#二、颜色代码" class="headerlink" title="二、颜色代码"></a>二、颜色代码</h3><p>脚本中 echo 显示内容带颜色显示，echo 显示带颜色，需要使用参数 -e</p>
-<p>格式如下：</p>
-<p><code>echo -e &quot;\033[41;36m something here \033[0m&quot;</code></p>
-<p>其中41的位置代表底色，36的位置代表字的颜色</p>
-<ol>
-<li>字背景颜色和文字颜色之间是英文的””</li>
-<li>文字颜色后面有个m</li>
-<li>字符串前后没有空格，如果有的话，输出也是同样有空格</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">下面是相应的字和背景颜色，可以自己来尝试找出不同颜色搭配</span><br><span class="line">　　例</span><br><span class="line">　　echo -e “\033[31m 红色字 \033[0m”</span><br><span class="line">　　echo -e “\033[34m 黄色字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;33m 红底黄字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;37m 红底白字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">字颜色：30—–37</span><br><span class="line">　　echo -e “\033[30m 黑色字 \033[0m”</span><br><span class="line">　　echo -e “\033[31m 红色字 \033[0m”</span><br><span class="line">　　echo -e “\033[32m 绿色字 \033[0m”</span><br><span class="line">　　echo -e “\033[33m 黄色字 \033[0m”</span><br><span class="line">　　echo -e “\033[34m 蓝色字 \033[0m”</span><br><span class="line">　　echo -e “\033[35m 紫色字 \033[0m”</span><br><span class="line">　　echo -e “\033[36m 天蓝字 \033[0m”</span><br><span class="line">　　echo -e “\033[37m 白色字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">字背景颜色范围：40—–47</span><br><span class="line">　　echo -e “\033[40;37m 黑底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;37m 红底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[42;37m 绿底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[43;37m 黄底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[44;37m 蓝底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[45;37m 紫底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[46;37m 天蓝底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[47;30m 白底黑字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">最后面控制选项说明</span><br><span class="line">　　\033[0m		 									关闭所有属性</span><br><span class="line">　　\033[1m 										设置高亮度</span><br><span class="line">　　\033[4m 										下划线</span><br><span class="line">　　\033[5m 										闪烁</span><br><span class="line">　　\033[7m 										反显</span><br><span class="line">　　\033[8m 										消隐</span><br><span class="line">　　\033[30m — \33[37m 				                设置前景色</span><br><span class="line">　　\033[40m — \33[47m 				                设置背景色</span><br><span class="line">　　\033[nA 										光标上移n行</span><br><span class="line">　　\033[nB 										光标下移n行</span><br><span class="line">　　\033[nC 										光标右移n行</span><br><span class="line">　　\033[nD 										光标左移n行</span><br><span class="line">　　\033[y;xH										设置光标位置</span><br><span class="line">　　\033[2J 										清屏</span><br><span class="line">　　\033[K 											清除从光标到行尾的内容</span><br><span class="line">　　\33[s 											保存光标位置</span><br><span class="line">　　\033[u 											恢复光标位置</span><br><span class="line">　　\033[?25l 										隐藏光标</span><br><span class="line">　　\033[?25h 									    显示光标</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/06/15/shell%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
