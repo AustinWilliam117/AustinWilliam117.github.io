@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Linux一键安装包内置了apache， php， mysql这些应用程序，只需要下载解压缩即可运行禅道企业版。 Linux一键安装包分为32位和64位两个包，请大家根据操作系统的情况下载相应的包。 安装 将禅道企业版Linux一键安装包直接解压到&#x2F;opt目录下， 不要 解压到别的目录再拷贝到&#x2F;opt&#x2F;，因为这样会导致文件的所有者和读写权限改变， 也不要解压后把整个目录777权限 。  可以使用命">
+  <meta name="description" content="shell变量 变量介绍 变量分类 变量管理   一、变量介绍  在编程中，我们总有一些数据需要临时存放在内存，以待后续使用时快速读出。内存在系统启动的时候被按照1B一个单位划分为若干个块，然后统一 编号(16进制编号)，并对内存的使用情况做记录，保存在内存跟踪表中。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 禅道安装及使用">
-<meta property="og:url" content="http://example.com/2021/01/09/Linux-%E7%A6%85%E9%81%93%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="shell变量">
+<meta property="og:url" content="http://example.com/2021/06/16/shell%E5%8F%98%E9%87%8F/index.html">
 <meta property="og:site_name" content="蒙珣的博客">
-<meta property="og:description" content="Linux一键安装包内置了apache， php， mysql这些应用程序，只需要下载解压缩即可运行禅道企业版。 Linux一键安装包分为32位和64位两个包，请大家根据操作系统的情况下载相应的包。 安装 将禅道企业版Linux一键安装包直接解压到&#x2F;opt目录下， 不要 解压到别的目录再拷贝到&#x2F;opt&#x2F;，因为这样会导致文件的所有者和读写权限改变， 也不要解压后把整个目录777权限 。  可以使用命">
+<meta property="og:description" content="shell变量 变量介绍 变量分类 变量管理   一、变量介绍  在编程中，我们总有一些数据需要临时存放在内存，以待后续使用时快速读出。内存在系统启动的时候被按照1B一个单位划分为若干个块，然后统一 编号(16进制编号)，并对内存的使用情况做记录，保存在内存跟踪表中。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-01-09T06:24:51.000Z">
-<meta property="article:modified_time" content="2021-04-10T08:58:11.234Z">
+<meta property="article:published_time" content="2021-06-16T14:23:37.000Z">
+<meta property="article:modified_time" content="2021-06-16T14:24:19.295Z">
 <meta property="article:author" content="蒙珣">
-<meta property="article:tag" content="禅道">
+<meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/01/09/Linux-%E7%A6%85%E9%81%93%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="http://example.com/2021/06/16/shell%E5%8F%98%E9%87%8F/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Linux 禅道安装及使用 | 蒙珣的博客</title>
+  <title>shell变量 | 蒙珣的博客</title>
   
 
 
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/09/Linux-%E7%A6%85%E9%81%93%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/16/shell%E5%8F%98%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/icon.gif">
@@ -210,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux 禅道安装及使用
+          shell变量
         </h1>
 
         <div class="post-meta">
@@ -219,23 +219,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-01-09 14:24:51" itemprop="dateCreated datePublished" datetime="2021-01-09T14:24:51+08:00">2021-01-09</time>
+              <time title="Created: 2021-06-16 22:23:37 / Modified: 22:24:19" itemprop="dateCreated datePublished" datetime="2021-06-16T22:23:37+08:00">2021-06-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-10 16:58:11" itemprop="dateModified" datetime="2021-04-10T16:58:11+08:00">2021-04-10</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B5%8B%E8%AF%95%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">测试软件</span></a>
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
                 </span>
             </span>
 
@@ -252,7 +246,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>659</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -271,26 +265,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Linux一键安装包内置了apache， php， mysql这些应用程序，只需要下载解压缩即可运行禅道企业版。</p>
-<p>Linux一键安装包分为32位和64位两个包，请大家根据操作系统的情况下载相应的包。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li><p>将禅道企业版Linux一键安装包直接解压到/opt目录下， 不要 解压到别的目录再拷贝到/opt/，因为这样会导致文件的所有者和读写权限改变， 也不要解压后把整个目录777权限 。</p>
-<p> 可以使用命令： tar -zxvf  ZenTaoPMS.Biz1.0.zbox_64.tar.gz -C /opt</p>
-<span id="more"></span>    </li>
-<li><p>启动程序(建议使用root启动)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">执行/opt/zbox/zbox start 命令开启Apache和Mysql。</span><br><span class="line"></span><br><span class="line">执行/opt/zbox/zbox stop 命令停止Apache和Mysql。</span><br><span class="line"></span><br><span class="line">执行/opt/zbox/zbox restart 命令重启Apache和Mysql。</span><br><span class="line"></span><br><span class="line">可以使用/opt/zbox/zbox -h命令来获取关于zbox命令的帮助。</span><br><span class="line"></span><br><span class="line">其中 -ap参数 可以修改Apache的端口，-mp参数 可以修改Mysql的端口（比如：/opt/zbox/zbox -ap 8080）</span><br></pre></td></tr></table></figure></li>
+        <h2 id="shell变量"><a href="#shell变量" class="headerlink" title="shell变量"></a>shell变量</h2><ul>
+<li>变量介绍</li>
+<li>变量分类</li>
+<li>变量管理</li>
+</ul>
+<hr>
+<h3 id="一、变量介绍"><a href="#一、变量介绍" class="headerlink" title="一、变量介绍"></a>一、变量介绍</h3><blockquote>
+<ol>
+<li>在编程中，我们总有一些数据需要临时存放在内存，以待后续使用时快速读出。内存在系统启动的时候被按照1B一个单位划分为若干个块，然后统一</li>
+<li>编号(16进制编号)，并对内存的使用情况做记录，保存在内存跟踪表中。</li>
 </ol>
-<ol start="3">
-<li><p><strong>如果MySQL或Apache启动错误，可以查看是否程序已安装过或已启动,停止相关程序服务，再次执行<code>/opt/zbox/zbox restart</code></strong></p>
-<blockquote>
-<p>sudo systemctl stop mysqld.service 关闭mysql service</p>
 </blockquote>
-<p> 浏览器访问 <a target="_blank" rel="noopener" href="http://localhost/">http://localhost</a> (默认帐号 admin，密码 123456)</p>
-</li>
+<span id="more"></span>
+
+<p>1）内存占用：如果存的是一个字符则占用1个字节，如果存的是字符串则是字符串的长度加1个字节长度(\0是一个特殊字符，代表字符串结束)。</p>
+<p>2）变量名与内存空间关系：计算机中会将对应的内存空间和变量名称绑定在一起，此时代表这段内存空间已经被程序占用，其他程序不可复用；然后将变量名对应的值存在对应内存地址的空间里。</p>
+<h2 id="二、变量分类"><a href="#二、变量分类" class="headerlink" title="二、变量分类"></a>二、变量分类</h2><ol>
+<li>本地变量：用户私有变量，只有本用户可以使用，保存在家目录下的.bash_profile、.bashrc文件中</li>
+<li>全局变量：所有用户都可以使用，保存在/etc/profile、/etc/bashrc文件中</li>
+<li>用户自定义变量：用户自定义，比如脚本中的变量</li>
 </ol>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaobizhelp/281.html">禅道企业版使用帮助-Linux一键安装包安装</a></li>
-</ol>
+<p>变量名命名规则：</p>
+<ul>
+<li>命名只能使用英文字母，数字和下划线，首个字符不能以数字开头</li>
+<li>中间不能有空格，可以使用下划线</li>
+<li>不能使用标点符号</li>
+<li>不能使用bash里的关键字（可以使用help命令查看保留关键字）</li>
+</ul>
+<h4 id="临时变量"><a href="#临时变量" class="headerlink" title="临时变量"></a>临时变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch ~]$ name=&quot;william&quot;</span><br><span class="line">[william@William-arch ~]$ age=18</span><br><span class="line">[william@William-arch ~]$ score=98</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="读取变量内容"><a href="#读取变量内容" class="headerlink" title="读取变量内容"></a>读取变量内容</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch ~]$ echo $name</span><br><span class="line">william</span><br><span class="line">[william@William-arch ~]$ echo $age</span><br><span class="line">18</span><br><span class="line">[william@William-arch ~]$ echo $score</span><br><span class="line">98</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="取消变量-unset"><a href="#取消变量-unset" class="headerlink" title="取消变量 unset"></a>取消变量 unset</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch ~]$ unset name</span><br><span class="line">[william@William-arch ~]$ echo $name</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="定义全局变量-export"><a href="#定义全局变量-export" class="headerlink" title="定义全局变量 export"></a>定义全局变量 export</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch ~]$ export name=&#x27;mengxun&#x27;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述设置的变量其实都是一次性变量，系统重启就会丢失。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果希望本地变量或者全局变量可以永久使用，可以将需要设置的变量写入变量文件中即可。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="定义永久变量"><a href="#定义永久变量" class="headerlink" title="定义永久变量"></a>定义永久变量</h4><p>本地变量：用户私有变量，只有本用户可以使用，保存在家目录下的.bash_profile、.bashrc文件中</p>
+<p>全局变量：所有用户都可以使用，保存在/etc/profile、/etc/bashrc文件中</p>
 
     </div>
 
@@ -310,7 +330,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E7%A6%85%E9%81%93/" rel="tag"># 禅道</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
           </div>
 
         
@@ -319,13 +339,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/07/ssh%E6%9C%8D%E5%8A%A1%E5%91%BD%E4%BB%A4/" rel="prev" title="ssh服务命令">
-      <i class="fa fa-chevron-left"></i> ssh服务命令
+    <a href="/2021/06/15/shell%E5%9F%BA%E6%9C%AC%E8%BE%93%E5%85%A5/" rel="prev" title="shell基本输入">
+      <i class="fa fa-chevron-left"></i> shell基本输入
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/10/shell-%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="next" title="shell 基本运算符">
-      shell 基本运算符 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -384,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">2.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">shell变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%8F%98%E9%87%8F%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">一、变量介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%8F%98%E9%87%8F%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">二、变量分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%8F%98%E9%87%8F"><span class="nav-number">2.0.1.</span> <span class="nav-text">临时变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%8F%98%E9%87%8F%E5%86%85%E5%AE%B9"><span class="nav-number">2.0.2.</span> <span class="nav-text">读取变量内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E5%8F%98%E9%87%8F-unset"><span class="nav-number">2.0.3.</span> <span class="nav-text">取消变量 unset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F-export"><span class="nav-number">2.0.4.</span> <span class="nav-text">定义全局变量 export</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%B0%B8%E4%B9%85%E5%8F%98%E9%87%8F"><span class="nav-number">2.0.5.</span> <span class="nav-text">定义永久变量</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
