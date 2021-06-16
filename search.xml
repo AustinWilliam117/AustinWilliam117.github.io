@@ -9037,8 +9037,6 @@ name ends
 </ul>
 <hr>
 <p>一个程序需要有0个以上输入，一个或更多输出</p>
-<span id="more"></span>
-
 <h3 id="一、-echo-命令介绍"><a href="#一、-echo-命令介绍" class="headerlink" title="一、 echo 命令介绍"></a>一、 echo 命令介绍</h3><p>功能：将内容输出到默认显示设备</p>
 <p>echo 命令的功能是在显示器上显示一段文字，一般起到一个提示的作用。功能说明：显示文字</p>
 <p>语法：echo [-ne][字符串]</p>
@@ -9078,8 +9076,7 @@ name ends
 <li>文字颜色后面有个m</li>
 <li>字符串前后没有空格，如果有的话，输出也是同样有空格</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下面是相应的字和背景颜色，可以自己来尝试找出不同颜色搭配</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">下面是相应的字和背景颜色，可以自己来尝试找出不同颜色搭配</span><br><span class="line">　　例</span><br><span class="line">　　echo -e “\033[31m 红色字 \033[0m”</span><br><span class="line">　　echo -e “\033[34m 黄色字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;33m 红底黄字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;37m 红底白字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">字颜色：30—–37</span><br><span class="line">　　echo -e “\033[30m 黑色字 \033[0m”</span><br><span class="line">　　echo -e “\033[31m 红色字 \033[0m”</span><br><span class="line">　　echo -e “\033[32m 绿色字 \033[0m”</span><br><span class="line">　　echo -e “\033[33m 黄色字 \033[0m”</span><br><span class="line">　　echo -e “\033[34m 蓝色字 \033[0m”</span><br><span class="line">　　echo -e “\033[35m 紫色字 \033[0m”</span><br><span class="line">　　echo -e “\033[36m 天蓝字 \033[0m”</span><br><span class="line">　　echo -e “\033[37m 白色字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">字背景颜色范围：40—–47</span><br><span class="line">　　echo -e “\033[40;37m 黑底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;37m 红底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[42;37m 绿底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[43;37m 黄底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[44;37m 蓝底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[45;37m 紫底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[46;37m 天蓝底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[47;30m 白底黑字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">最后面控制选项说明</span><br><span class="line">　　\033[0m		 									关闭所有属性</span><br><span class="line">　　\033[1m 										设置高亮度</span><br><span class="line">　　\033[4m 										下划线</span><br><span class="line">　　\033[5m 										闪烁</span><br><span class="line">　　\033[7m 										反显</span><br><span class="line">　　\033[8m 										消隐</span><br><span class="line">　　\033[30m — \33[37m 				                设置前景色</span><br><span class="line">　　\033[40m — \33[47m 				                设置背景色</span><br><span class="line">　　\033[nA 										光标上移n行</span><br><span class="line">　　\033[nB 										光标下移n行</span><br><span class="line">　　\033[nC 										光标右移n行</span><br><span class="line">　　\033[nD 										光标左移n行</span><br><span class="line">　　\033[y;xH										设置光标位置</span><br><span class="line">　　\033[2J 										清屏</span><br><span class="line">　　\033[K 											清除从光标到行尾的内容</span><br><span class="line">　　\33[s 											保存光标位置</span><br><span class="line">　　\033[u 											恢复光标位置</span><br><span class="line">　　\033[?25l 										隐藏光标</span><br><span class="line">　　\033[?25h 									    显示光标</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux</category>
       </categories>

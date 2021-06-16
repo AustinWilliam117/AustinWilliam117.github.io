@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="echo 命令 颜色输出   一个程序需要有0个以上输入，一个或更多输出">
+  <meta name="description" content="echo 命令 颜色输出   一个程序需要有0个以上输入，一个或更多输出 一、 echo 命令介绍功能：将内容输出到默认显示设备 echo 命令的功能是在显示器上显示一段文字，一般起到一个提示的作用。功能说明：显示文字 语法：echo [-ne][字符串] 补充说明：echo 会将输入的字符串送往标准输出。输出的字符串间以空白字符间隔，并在最后加上换行号。 12345[william@Willi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell格式化输出">
 <meta property="og:url" content="http://example.com/2021/06/15/shell%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/index.html">
 <meta property="og:site_name" content="蒙珣的博客">
-<meta property="og:description" content="echo 命令 颜色输出   一个程序需要有0个以上输入，一个或更多输出">
+<meta property="og:description" content="echo 命令 颜色输出   一个程序需要有0个以上输入，一个或更多输出 一、 echo 命令介绍功能：将内容输出到默认显示设备 echo 命令的功能是在显示器上显示一段文字，一般起到一个提示的作用。功能说明：显示文字 语法：echo [-ne][字符串] 补充说明：echo 会将输入的字符串送往标准输出。输出的字符串间以空白字符间隔，并在最后加上换行号。 12345[william@Willi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-15T15:11:39.000Z">
-<meta property="article:modified_time" content="2021-06-15T15:13:04.823Z">
+<meta property="article:modified_time" content="2021-06-16T13:09:59.981Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -219,10 +219,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-06-15 23:11:39 / Modified: 23:13:04" itemprop="dateCreated datePublished" datetime="2021-06-15T23:11:39+08:00">2021-06-15</time>
+              <time title="Created: 2021-06-15 23:11:39" itemprop="dateCreated datePublished" datetime="2021-06-15T23:11:39+08:00">2021-06-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-06-16 21:09:59" itemprop="dateModified" datetime="2021-06-16T21:09:59+08:00">2021-06-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -246,14 +252,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.3k</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>2 mins.</span>
             </span>
 
         </div>
@@ -271,8 +277,6 @@
 </ul>
 <hr>
 <p>一个程序需要有0个以上输入，一个或更多输出</p>
-<span id="more"></span>
-
 <h3 id="一、-echo-命令介绍"><a href="#一、-echo-命令介绍" class="headerlink" title="一、 echo 命令介绍"></a>一、 echo 命令介绍</h3><p>功能：将内容输出到默认显示设备</p>
 <p>echo 命令的功能是在显示器上显示一段文字，一般起到一个提示的作用。功能说明：显示文字</p>
 <p>语法：echo [-ne][字符串]</p>
@@ -312,8 +316,7 @@
 <li>文字颜色后面有个m</li>
 <li>字符串前后没有空格，如果有的话，输出也是同样有空格</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下面是相应的字和背景颜色，可以自己来尝试找出不同颜色搭配</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">下面是相应的字和背景颜色，可以自己来尝试找出不同颜色搭配</span><br><span class="line">　　例</span><br><span class="line">　　echo -e “\033[31m 红色字 \033[0m”</span><br><span class="line">　　echo -e “\033[34m 黄色字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;33m 红底黄字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;37m 红底白字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">字颜色：30—–37</span><br><span class="line">　　echo -e “\033[30m 黑色字 \033[0m”</span><br><span class="line">　　echo -e “\033[31m 红色字 \033[0m”</span><br><span class="line">　　echo -e “\033[32m 绿色字 \033[0m”</span><br><span class="line">　　echo -e “\033[33m 黄色字 \033[0m”</span><br><span class="line">　　echo -e “\033[34m 蓝色字 \033[0m”</span><br><span class="line">　　echo -e “\033[35m 紫色字 \033[0m”</span><br><span class="line">　　echo -e “\033[36m 天蓝字 \033[0m”</span><br><span class="line">　　echo -e “\033[37m 白色字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">字背景颜色范围：40—–47</span><br><span class="line">　　echo -e “\033[40;37m 黑底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[41;37m 红底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[42;37m 绿底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[43;37m 黄底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[44;37m 蓝底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[45;37m 紫底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[46;37m 天蓝底白字 \033[0m”</span><br><span class="line">　　echo -e “\033[47;30m 白底黑字 \033[0m”</span><br><span class="line">　　</span><br><span class="line">最后面控制选项说明</span><br><span class="line">　　\033[0m		 									关闭所有属性</span><br><span class="line">　　\033[1m 										设置高亮度</span><br><span class="line">　　\033[4m 										下划线</span><br><span class="line">　　\033[5m 										闪烁</span><br><span class="line">　　\033[7m 										反显</span><br><span class="line">　　\033[8m 										消隐</span><br><span class="line">　　\033[30m — \33[37m 				                设置前景色</span><br><span class="line">　　\033[40m — \33[47m 				                设置背景色</span><br><span class="line">　　\033[nA 										光标上移n行</span><br><span class="line">　　\033[nB 										光标下移n行</span><br><span class="line">　　\033[nC 										光标右移n行</span><br><span class="line">　　\033[nD 										光标左移n行</span><br><span class="line">　　\033[y;xH										设置光标位置</span><br><span class="line">　　\033[2J 										清屏</span><br><span class="line">　　\033[K 											清除从光标到行尾的内容</span><br><span class="line">　　\33[s 											保存光标位置</span><br><span class="line">　　\033[u 											恢复光标位置</span><br><span class="line">　　\033[?25l 										隐藏光标</span><br><span class="line">　　\033[?25h 									    显示光标</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -483,13 +486,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">308k</span>
+    <span title="Symbols count total">309k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">4:40</span>
+    <span title="Reading time total">4:41</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
