@@ -9199,4 +9199,85 @@ name ends
         <tag>2021</tag>
       </tags>
   </entry>
+  <entry>
+    <title>shell数组</title>
+    <url>/2021/06/17/shell%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><ul>
+<li>数组介绍</li>
+<li>基本数组</li>
+<li>关联数组</li>
+<li>案列分享</li>
+</ul>
+<hr>
+<h3 id="数组介绍"><a href="#数组介绍" class="headerlink" title="数组介绍"></a>数组介绍</h3><p>一个变量只能存一个值，但是现实中又又很多值需要存储，那么变量就有些拘谨了。比如做一个学员信息表，一个班50个人，每个人6条信息，我们需要定义300个变量才能完成。恐怖恐怖，这只是一个班的学生，一个学校呢？一个市呢？……我想静静了！</p>
+<p>仔细想想上述的案例，一个学生六个信息:ID、姓名、性别、年龄、成绩、班级。可不可以定义六个变量就能存储这六类信息呢？答案是当然可以的！变量不行，我们就用数组。</p>
+<span id="more"></span>
+
+<h3 id="基本数组"><a href="#基本数组" class="headerlink" title="基本数组"></a>基本数组</h3><p>数组可以让用户一次赋予多个值，需要读取数据时只需通过索引调用就可以方便读出了。</p>
+<h4 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h4><p><code>数组名称=(元素1 元素2 元素3 ...)</code></p>
+<h3 id="数组读出"><a href="#数组读出" class="headerlink" title="数组读出"></a>数组读出</h3><p><code>$&#123;数组名称&#125;[索引]</code></p>
+<h4 id="数组赋值"><a href="#数组赋值" class="headerlink" title="数组赋值"></a>数组赋值</h4><p><strong>一次赋一个值</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">array[0]=&#x27;tom&#x27;</span><br><span class="line"></span><br><span class="line">array[1]=&#x27;william&#x27;</span><br><span class="line"></span><br><span class="line">array[2]=&#x27;peter&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一次赋多个值</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">array2=(tom jack alice)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 希望是将该文件中的每一个行作为一个元素赋值给数组array3</span></span><br><span class="line">array3=(`cat /etc/passwd`) </span><br><span class="line"></span><br><span class="line">array4=(`ls /var/ftp/Shell/for*`)</span><br><span class="line"></span><br><span class="line"> array5=(tom jack alice “bash shell”)</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看数组</strong></p>
+<p><code>declare -a</code>  查看系统所有数组</p>
+<p><strong>访问数组元数</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 访问数组中第一个元素</span></span><br><span class="line">echo $&#123;array1[0]&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 访问数组中所有元素</span></span><br><span class="line">echo $&#123;array1[@]&#125;</span><br><span class="line">echo $&#123;array1[*]&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 统计数组元素的个数</span></span><br><span class="line">echo $&#123;#array1&#123;@&#125;&#125;</span><br><span class="line">echo $&#123;#array1&#123;*&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取数组元素的索引</span></span><br><span class="line">echo $&#123;!array1[@]&#125;</span><br><span class="line">echo $&#123;!array1[*]&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从数组下标1开始</span></span><br><span class="line">echo $&#123;array1[@]:1&#125;</span><br><span class="line">echo $&#123;array1[*]:1&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从数组下标1开始，访问两个元素</span></span><br><span class="line">echo $&#123;array1[@]:1:2&#125;</span><br><span class="line">echo $&#123;array1[*]:1:2&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>遍历数组</strong></p>
+<p>默认数组通过数组元素的个数进行遍历</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@William-arch ~]$ array=(<span class="string">&#x27;a&#x27;</span> <span class="string">&#x27;b&#x27;</span> <span class="string">&#x27;c&#x27;</span> <span class="string">&#x27;d&#x27;</span>)</span><br><span class="line"></span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[0]&#125;</span></span><br><span class="line">a</span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[1]&#125;</span></span><br><span class="line">b</span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[2]&#125;</span></span><br><span class="line">c</span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[3]&#125;</span></span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+
+
+
+<p>方法二：针对关联数组可以通过数组元素的索引进行遍历</p>
+<h3 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h3><p>关联数组可以允许用户自定义数组的索引，这样使用起来更加方便、高效</p>
+<p><strong>定义关联数组</strong></p>
+<p>声明关联数组变量 <code>declare -A array</code></p>
+<p><strong>关联数组赋值</strong></p>
+<p>方法一：一次赋一个值</p>
+<p><code>数组名[索引]=变量名</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ass_array[index1]=pear</span><br><span class="line"></span><br><span class="line">ass_array[index2]=apple</span><br><span class="line"></span><br><span class="line">ass_array[index3]=orange</span><br><span class="line"></span><br><span class="line">ass_array[index4]=peach</span><br></pre></td></tr></table></figure>
+
+<p>方法二：一次赋多个值</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ass_array=([index1]=william [index2]=austin [index3]=peter)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>查看数组</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@William-arch ~]$ <span class="built_in">declare</span> -A | grep ass_array</span><br><span class="line">ass_array=( [1]=pear [2]=apple [3]=orange [4]=peach )</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>访问数组元素</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;ass_array[index2]&#125;</span> 访问数组中的第二个元数</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;ass_array@]&#125;</span> 访问数组中所有元数 等同于 <span class="built_in">echo</span> <span class="variable">$&#123;array1[*]&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#ass_array[@]&#125;</span> 获得数组元数的个数</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;!ass_array[@]&#125;</span> 获得数组元数的索引</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>遍历数组</strong></p>
+<p>通过数组元数的索引进行遍历,针对关联数组可以通过数组元素的索引进行遍历</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@William-arch ~]$ <span class="built_in">declare</span> -A array</span><br><span class="line"></span><br><span class="line">[william@William-arch ~]$ array=(<span class="string">&#x27;a&#x27;</span> <span class="string">&#x27;b&#x27;</span> <span class="string">&#x27;c&#x27;</span> <span class="string">&#x27;d&#x27;</span>)</span><br><span class="line"></span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[0]&#125;</span></span><br><span class="line">a</span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[1]&#125;</span></span><br><span class="line">b</span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[2]&#125;</span></span><br><span class="line">c</span><br><span class="line">[william@William-arch ~]$ <span class="built_in">echo</span> <span class="variable">$&#123;array[3]&#125;</span></span><br><span class="line">d</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="案例分享——学员信息系统"><a href="#案例分享——学员信息系统" class="headerlink" title="案例分享——学员信息系统"></a>案例分享——学员信息系统</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">for ((i=0;i&lt;3;i++))</span><br><span class="line">   do</span><br><span class="line">      read -p &quot;输入第$((i + 1))个人名: &quot; name[$i]</span><br><span class="line">      read -p &quot;输入第$[$i + 1]个年龄: &quot; age[$i]</span><br><span class="line">      read -p &quot;输入第`expr $i + 1`个性别: &quot; gender[$i]</span><br><span class="line">done</span><br><span class="line">clear</span><br><span class="line">      echo -e &quot;\t\t\t\t学员查询系统&quot;</span><br><span class="line">while :</span><br><span class="line">   do</span><br><span class="line">      cp=0</span><br><span class="line"><span class="meta">#</span><span class="bash">      <span class="built_in">echo</span> -e <span class="string">&quot;\t\t\t\t学员查询系统&quot;</span></span></span><br><span class="line">      read -p &quot;输入要查询的姓名: &quot; xm</span><br><span class="line">      [ $xm == &quot;Q&quot; ]&amp;&amp;exit</span><br><span class="line">      for ((i=0;i&lt;3;i++))</span><br><span class="line">         do</span><br><span class="line">              if [ &quot;$xm&quot; == &quot;$&#123;name[$i]&#125;&quot; ];then</span><br><span class="line">                  echo &quot;$&#123;name[$i]&#125; $&#123;age[$i]&#125; $&#123;gender[$i]&#125;&quot;</span><br><span class="line">                  cp=1</span><br><span class="line">              fi</span><br><span class="line">      done</span><br><span class="line">      [ $cp -eq 0 ]&amp;&amp;echo &quot;not found student&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+
+
+<p>作业：</p>
+<ul>
+<li>使用关联数组统计文件 /etc/passwd 中用户的不同类型shell的数量</li>
+<li>使用关联数组按扩展名统计指定目录中文件的数量</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
 </search>
