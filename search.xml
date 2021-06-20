@@ -9470,4 +9470,83 @@ name ends
         <tag>自动化测试</tag>
       </tags>
   </entry>
+  <entry>
+    <title>实验7 寻址方式在结构化数据访问中的应用</title>
+    <url>/2021/06/20/%E5%AE%9E%E9%AA%8C7-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>实验7 寻址方式在结构化数据访问中的应用</p>
+<p>Power idea 公司从 1975 年成立一直到 1995 年的基本情况如下。</p>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>收入（千美元）</th>
+<th>雇员（人）</th>
+<th>人均收入（千美元）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1975</td>
+<td>16</td>
+<td>3</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1976</td>
+<td>22</td>
+<td>7</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1977</td>
+<td>382</td>
+<td>9</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1978</td>
+<td>1356</td>
+<td>13</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1979</td>
+<td>2390</td>
+<td>28</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1980</td>
+<td>8000</td>
+<td>38</td>
+<td>?</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1995</td>
+<td>5937000</td>
+<td>17800</td>
+<td>?</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<p>下面的程序中，已经定义好了这些数据：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"></span><br><span class="line">;实验7 寻址方式在结构化数据访问中的应用</span><br><span class="line"></span><br><span class="line">;编程 将 data 段中的数据按照如下格式写入到 table 段中，并计算21年中的人均收入（取整）</span><br><span class="line">;结果也按照下面的格式保存在 table 段中</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line"></span><br><span class="line">    db &#39;1975&#39;,&#39;1976&#39;,&#39;1977&#39;,&#39;1978&#39;,&#39;1979&#39;,&#39;1980&#39;,&#39;1981&#39;,&#39;982&#39;,&#39;1983&#39;</span><br><span class="line">    db &#39;1984&#39;,&#39;1985&#39;,&#39;1986&#39;,&#39;1987&#39;,&#39;1988&#39;,&#39;1989&#39;,&#39;1990&#39;,&#39;1991&#39;,&#39;1992&#39;</span><br><span class="line">    db &#39;1993&#39;,&#39;1994&#39;,&#39;1995&#39;</span><br><span class="line">    ; 以上是表示21年的21个字符串 year</span><br><span class="line"></span><br><span class="line">    dd 16,22,382,1356,2390,8000,16000,24486,50065,97479,140417,197514</span><br><span class="line">    dd 345980,590827,803530,1183000,1843000,2759000,3753000,4649000,5937000</span><br><span class="line">    ; 以上表示21年公司总收入的21个数据</span><br><span class="line"></span><br><span class="line">    dw 3,7,9,13,28,38,130,220,476,778,1001,1442,2258,2793,4037,5635,8226</span><br><span class="line">    dw 11542,14430,15257,17800</span><br><span class="line">    ; 以上是表示21年公司的员工数量</span><br><span class="line">    </span><br><span class="line">    ; 8位除法还是16位除法，div 寄存器还是 div 内存 数据从哪里来，数据移动 比较好。通过栈比较好，还是通过寄存器比较好</span><br><span class="line"></span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">table segment</span><br><span class="line">               ;0123456789ABCDEF</span><br><span class="line">    db 21 dup (&#39;year summ ne ?? &#39;)</span><br><span class="line"></span><br><span class="line">table ends</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>编程，将 data 段中的数据按如下格式写入到 table 段中，并计算 21 年中的人均收入（取整），结果也按照下面的格式保存在 table 段中。</p>
+<p><img src="1.png"></p>
+<p>提示，可将 data 段中的数据看成是多个数组，而将 table 中的数据看成一个结构型数据的数组，每个结构型数据中包含多个数据项。可用 bx 定位每个结构型数据，用 idata 定位数据项，用 si 定位数组项中的每个元素，对于 table 中的数据的访问可采用**[bx].idata<strong>和</strong>[bx].idata[si]**的寻址方式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"></span><br><span class="line">;实验7 寻址方式在结构化数据访问中的应用</span><br><span class="line"></span><br><span class="line">;编程 将 data 段中的数据按照如下格式写入到 table 段中，并计算21年中的人均收入（取整）</span><br><span class="line">;结果也按照下面的格式保存在 table 段中</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line"></span><br><span class="line">    db &#39;1975&#39;,&#39;1976&#39;,&#39;1977&#39;,&#39;1978&#39;,&#39;1979&#39;,&#39;1980&#39;,&#39;1981&#39;,&#39;982&#39;,&#39;1983&#39;</span><br><span class="line">    db &#39;1984&#39;,&#39;1985&#39;,&#39;1986&#39;,&#39;1987&#39;,&#39;1988&#39;,&#39;1989&#39;,&#39;1990&#39;,&#39;1991&#39;,&#39;1992&#39;</span><br><span class="line">    db &#39;1993&#39;,&#39;1994&#39;,&#39;1995&#39;</span><br><span class="line">    ; 以上是表示21年的21个字符串 year</span><br><span class="line"></span><br><span class="line">    dd 16,22,382,1356,2390,8000,16000,24486,50065,97479,140417,197514</span><br><span class="line">    dd 345980,590827,803530,1183000,1843000,2759000,3753000,4649000,5937000</span><br><span class="line">    ; 以上表示21年公司总收入的21个数据</span><br><span class="line"></span><br><span class="line">    dw 3,7,9,13,28,38,130,220,476,778,1001,1442,2258,2793,4037,5635,8226</span><br><span class="line">    dw 11542,14430,15257,17800</span><br><span class="line">    ; 以上是表示21年公司的员工数量</span><br><span class="line"></span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">table segment</span><br><span class="line">               ;0123456789ABCDEF</span><br><span class="line">    db 21 dup (&#39;year summ ne ?? &#39;)</span><br><span class="line"></span><br><span class="line">table ends</span><br><span class="line"></span><br><span class="line">stack segment stack</span><br><span class="line">    db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:      mov ax,stack</span><br><span class="line">            mov ss,ax</span><br><span class="line">            mov sp,128</span><br><span class="line"></span><br><span class="line">            mov ax,data</span><br><span class="line">            mov ds,ax</span><br><span class="line"></span><br><span class="line">            mov ax,table</span><br><span class="line">            mov es,ax</span><br><span class="line"></span><br><span class="line">            mov si,0        ;ds:[si]</span><br><span class="line">            mov di,84       ;ds:[di]</span><br><span class="line">            mov bx,168      ;ds:[bx]</span><br><span class="line">            mov bp,0        ;es:[bp]</span><br><span class="line"></span><br><span class="line">            mov cx,21</span><br><span class="line"></span><br><span class="line">inputTable: push ds:[si]</span><br><span class="line">            pop es:[bp]</span><br><span class="line">            push ds:[si+2]</span><br><span class="line">            pop es:[bp+2]</span><br><span class="line"></span><br><span class="line">            ;之后因为被除数为4个字节，32位。需要AX和DX两个寄存器存放，DX存放高16位，AX存放低16位</span><br><span class="line">            mov ax,ds:[di]</span><br><span class="line">            mov dx,ds:[di+2]</span><br><span class="line">            mov es:[bp+5],ax</span><br><span class="line">            mov es:[bp+7],dx</span><br><span class="line"></span><br><span class="line">            push ds:[bx]</span><br><span class="line">            pop es:[bp+0AH]</span><br><span class="line"></span><br><span class="line">            div word ptr ds:[bx]</span><br><span class="line">            mov es:[bp+0DH],ax</span><br><span class="line"></span><br><span class="line">            add si,4</span><br><span class="line">            add di,4</span><br><span class="line">            add bx,2</span><br><span class="line">            add bp,16</span><br><span class="line">            loop inputTable</span><br><span class="line"></span><br><span class="line">            mov ax,4c00h</span><br><span class="line">            int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
 </search>

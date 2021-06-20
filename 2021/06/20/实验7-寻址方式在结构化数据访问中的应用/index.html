@@ -22,20 +22,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="实验4 [bx] 和 loop 的使用 1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”">
+  <meta name="description" content="实验7 寻址方式在结构化数据访问中的应用 Power idea 公司从 1975 年成立一直到 1995 年的基本情况如下。    年份 收入（千美元） 雇员（人） 人均收入（千美元）    1975 16 3 ?   1976 22 7 ?   1977 382 9 ?   1978 1356 13 ?   1979 2390 28 ?   1980 8000 38 ?   …      199">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实验4 [bx]和loop的使用">
-<meta property="og:url" content="http://example.com/2021/05/11/%E5%AE%9E%E9%AA%8C4-bx-%E5%92%8Cloop%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="实验7 寻址方式在结构化数据访问中的应用">
+<meta property="og:url" content="http://example.com/2021/06/20/%E5%AE%9E%E9%AA%8C7-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="蒙珣的博客">
-<meta property="og:description" content="实验4 [bx] 和 loop 的使用 1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”">
+<meta property="og:description" content="实验7 寻址方式在结构化数据访问中的应用 Power idea 公司从 1975 年成立一直到 1995 年的基本情况如下。    年份 收入（千美元） 雇员（人） 人均收入（千美元）    1975 16 3 ?   1976 22 7 ?   1977 382 9 ?   1978 1356 13 ?   1979 2390 28 ?   1980 8000 38 ?   …      199">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-11T15:13:20.000Z">
-<meta property="article:modified_time" content="2021-05-11T15:16:22.517Z">
+<meta property="og:image" content="http://example.com/2021/06/20/%E5%AE%9E%E9%AA%8C7-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/1.png">
+<meta property="article:published_time" content="2021-06-20T15:09:55.000Z">
+<meta property="article:modified_time" content="2021-06-20T15:11:52.169Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/06/20/%E5%AE%9E%E9%AA%8C7-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/1.png">
 
-<link rel="canonical" href="http://example.com/2021/05/11/%E5%AE%9E%E9%AA%8C4-bx-%E5%92%8Cloop%E7%9A%84%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="http://example.com/2021/06/20/%E5%AE%9E%E9%AA%8C7-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -48,7 +50,7 @@
   };
 </script>
 
-  <title>实验4 [bx]和loop的使用 | 蒙珣的博客</title>
+  <title>实验7 寻址方式在结构化数据访问中的应用 | 蒙珣的博客</title>
   
 
 
@@ -197,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/11/%E5%AE%9E%E9%AA%8C4-bx-%E5%92%8Cloop%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/20/%E5%AE%9E%E9%AA%8C7-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/icon.gif">
@@ -210,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          实验4 [bx]和loop的使用
+          实验7 寻址方式在结构化数据访问中的应用
         </h1>
 
         <div class="post-meta">
@@ -221,7 +223,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-05-11 23:13:20 / Modified: 23:16:22" itemprop="dateCreated datePublished" datetime="2021-05-11T23:13:20+08:00">2021-05-11</time>
+              <time title="Created: 2021-06-20 23:09:55 / Modified: 23:11:52" itemprop="dateCreated datePublished" datetime="2021-06-20T23:09:55+08:00">2021-06-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,14 +248,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.2k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>3 mins.</span>
             </span>
 
         </div>
@@ -265,29 +267,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>实验4 [bx] 和 loop 的使用</p>
-<h4 id="1-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH"><a href="#1-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH" class="headerlink" title="1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)"></a>1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)</h4><h4 id="2-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH-，程序中只能使用9条指令，9条指令中包括-“mov-ax-4c00h”-和-“int-21h”"><a href="#2-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH-，程序中只能使用9条指令，9条指令中包括-“mov-ax-4c00h”-和-“int-21h”" class="headerlink" title="2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”"></a>2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”</h4><span id="more"></span>
+        <p>实验7 寻址方式在结构化数据访问中的应用</p>
+<p>Power idea 公司从 1975 年成立一直到 1995 年的基本情况如下。</p>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>收入（千美元）</th>
+<th>雇员（人）</th>
+<th>人均收入（千美元）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1975</td>
+<td>16</td>
+<td>3</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1976</td>
+<td>22</td>
+<td>7</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1977</td>
+<td>382</td>
+<td>9</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1978</td>
+<td>1356</td>
+<td>13</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1979</td>
+<td>2390</td>
+<td>28</td>
+<td>?</td>
+</tr>
+<tr>
+<td>1980</td>
+<td>8000</td>
+<td>38</td>
+<td>?</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1995</td>
+<td>5937000</td>
+<td>17800</td>
+<td>?</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
 
-<p>1和2题一起写</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,0</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov cx,40h</span><br><span class="line">	mov bx,200h</span><br><span class="line">	s:mov [bx],bx</span><br><span class="line">	inc bx</span><br><span class="line">	loop s</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>下面的程序中，已经定义好了这些数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"></span><br><span class="line">;实验7 寻址方式在结构化数据访问中的应用</span><br><span class="line"></span><br><span class="line">;编程 将 data 段中的数据按照如下格式写入到 table 段中，并计算21年中的人均收入（取整）</span><br><span class="line">;结果也按照下面的格式保存在 table 段中</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line"></span><br><span class="line">    db &#39;1975&#39;,&#39;1976&#39;,&#39;1977&#39;,&#39;1978&#39;,&#39;1979&#39;,&#39;1980&#39;,&#39;1981&#39;,&#39;982&#39;,&#39;1983&#39;</span><br><span class="line">    db &#39;1984&#39;,&#39;1985&#39;,&#39;1986&#39;,&#39;1987&#39;,&#39;1988&#39;,&#39;1989&#39;,&#39;1990&#39;,&#39;1991&#39;,&#39;1992&#39;</span><br><span class="line">    db &#39;1993&#39;,&#39;1994&#39;,&#39;1995&#39;</span><br><span class="line">    ; 以上是表示21年的21个字符串 year</span><br><span class="line"></span><br><span class="line">    dd 16,22,382,1356,2390,8000,16000,24486,50065,97479,140417,197514</span><br><span class="line">    dd 345980,590827,803530,1183000,1843000,2759000,3753000,4649000,5937000</span><br><span class="line">    ; 以上表示21年公司总收入的21个数据</span><br><span class="line"></span><br><span class="line">    dw 3,7,9,13,28,38,130,220,476,778,1001,1442,2258,2793,4037,5635,8226</span><br><span class="line">    dw 11542,14430,15257,17800</span><br><span class="line">    ; 以上是表示21年公司的员工数量</span><br><span class="line">    </span><br><span class="line">    ; 8位除法还是16位除法，div 寄存器还是 div 内存 数据从哪里来，数据移动 比较好。通过栈比较好，还是通过寄存器比较好</span><br><span class="line"></span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">table segment</span><br><span class="line">               ;0123456789ABCDEF</span><br><span class="line">    db 21 dup (&#39;year summ ne ?? &#39;)</span><br><span class="line"></span><br><span class="line">table ends</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h4 id="3-下面的程序的功能是将-“mov-ax-4c00h”-之前的指令复制到内存-0-200-处，补全程序。上机调试，跟踪运行结果。"><a href="#3-下面的程序的功能是将-“mov-ax-4c00h”-之前的指令复制到内存-0-200-处，补全程序。上机调试，跟踪运行结果。" class="headerlink" title="3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。"></a>3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,________  cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov ax,0020h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov bx,0</span><br><span class="line">	mov cx,________  17h</span><br><span class="line">	s:mov al,[bx]</span><br><span class="line">    mov es:[bx],al</span><br><span class="line">    inc bx</span><br><span class="line">    loop s</span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<p>提示：</p>
-<ul>
-<li>复制的是什么？从哪里到哪里？</li>
-<li>复制的是什么？有多少个字节？你如何知道要复制的字节的数量？</li>
-</ul>
-<p>cx寄存器在循环语句中，常作为计数器使用，loop循环语句把cx寄存器中的值作为判断是否循环的依据。</p>
-<p>CX寄存器在debug调试一个可执行程序时，CX的初始值为该程序的字节尺寸大小。</p>
-<p>*<em>3.<strong><strong>下面程序的功能是将mov ax,4c00H</strong></strong>之前的指令复制到内存0:200***</em>处，补全程序，上机调试，跟踪运行结果：**</p>
-<p>程序分析：</p>
-<p>【1】使用debug调试一个EXE文件时候，使用r命令查看寄存器状态，其中cx寄存器的值（初始值）就是该程序代码的大小（按照字节数）。我们可以通过运行debug程序来调试生成的EXE文件，前提你先将CX寄存器赋个值。</p>
-<p>​    侧面验证CX寄存器的另一个作用。</p>
-<p>【2】cs段寄存器中存储的是指向程序代码段的段地址。此实验是将程序的代码（按字节）复制，故将cs寄存器中的指向代码的段地址赋值给ax，再通过ax寄存器赋值给ds段寄存器。（为什么不能支持从段寄存器cs直接赋值给段寄存器ds呢？回忆下，在8086CPU中，ds、ss、cs、es四个段寄存器存放的都是段地址，在CPU和我们来看。其他的寄存器一般存放的都是数据。</p>
-<p>​    这4个段寄存器支持从其他寄存器中赋值，但不允许立即数直接赋值给段寄存器。）</p>
-<p>【3】[bx]作为偏移地址为bx的内存单元，它支持的段地址默认是存储在ds段寄存器中的。    本例中ds：[bx]指向的是存储代码段的内存单元（源内存段）。由于ds被占用了，故被写入的内存单元的段地址就没有存储的段寄存器了，es寄存器上场了，es存储了地址为0020H的段地址（目标内存段），那么同样使用[bx]偏移地址的话，必须明确的指出它的前缀，故es：[bx]就指向了内存是0200H的内存单元地址段。</p>
-
+<p>编程，将 data 段中的数据按如下格式写入到 table 段中，并计算 21 年中的人均收入（取整），结果也按照下面的格式保存在 table 段中。</p>
+<p><img src="1.png"></p>
+<p>提示，可将 data 段中的数据看成是多个数组，而将 table 中的数据看成一个结构型数据的数组，每个结构型数据中包含多个数据项。可用 bx 定位每个结构型数据，用 idata 定位数据项，用 si 定位数组项中的每个元素，对于 table 中的数据的访问可采用**[bx].idata<strong>和</strong>[bx].idata[si]**的寻址方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"></span><br><span class="line">;实验7 寻址方式在结构化数据访问中的应用</span><br><span class="line"></span><br><span class="line">;编程 将 data 段中的数据按照如下格式写入到 table 段中，并计算21年中的人均收入（取整）</span><br><span class="line">;结果也按照下面的格式保存在 table 段中</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line"></span><br><span class="line">    db &#39;1975&#39;,&#39;1976&#39;,&#39;1977&#39;,&#39;1978&#39;,&#39;1979&#39;,&#39;1980&#39;,&#39;1981&#39;,&#39;982&#39;,&#39;1983&#39;</span><br><span class="line">    db &#39;1984&#39;,&#39;1985&#39;,&#39;1986&#39;,&#39;1987&#39;,&#39;1988&#39;,&#39;1989&#39;,&#39;1990&#39;,&#39;1991&#39;,&#39;1992&#39;</span><br><span class="line">    db &#39;1993&#39;,&#39;1994&#39;,&#39;1995&#39;</span><br><span class="line">    ; 以上是表示21年的21个字符串 year</span><br><span class="line"></span><br><span class="line">    dd 16,22,382,1356,2390,8000,16000,24486,50065,97479,140417,197514</span><br><span class="line">    dd 345980,590827,803530,1183000,1843000,2759000,3753000,4649000,5937000</span><br><span class="line">    ; 以上表示21年公司总收入的21个数据</span><br><span class="line"></span><br><span class="line">    dw 3,7,9,13,28,38,130,220,476,778,1001,1442,2258,2793,4037,5635,8226</span><br><span class="line">    dw 11542,14430,15257,17800</span><br><span class="line">    ; 以上是表示21年公司的员工数量</span><br><span class="line"></span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">table segment</span><br><span class="line">               ;0123456789ABCDEF</span><br><span class="line">    db 21 dup (&#39;year summ ne ?? &#39;)</span><br><span class="line"></span><br><span class="line">table ends</span><br><span class="line"></span><br><span class="line">stack segment stack</span><br><span class="line">    db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:      mov ax,stack</span><br><span class="line">            mov ss,ax</span><br><span class="line">            mov sp,128</span><br><span class="line"></span><br><span class="line">            mov ax,data</span><br><span class="line">            mov ds,ax</span><br><span class="line"></span><br><span class="line">            mov ax,table</span><br><span class="line">            mov es,ax</span><br><span class="line"></span><br><span class="line">            mov si,0        ;ds:[si]</span><br><span class="line">            mov di,84       ;ds:[di]</span><br><span class="line">            mov bx,168      ;ds:[bx]</span><br><span class="line">            mov bp,0        ;es:[bp]</span><br><span class="line"></span><br><span class="line">            mov cx,21</span><br><span class="line"></span><br><span class="line">inputTable: push ds:[si]</span><br><span class="line">            pop es:[bp]</span><br><span class="line">            push ds:[si+2]</span><br><span class="line">            pop es:[bp+2]</span><br><span class="line"></span><br><span class="line">            ;之后因为被除数为4个字节，32位。需要AX和DX两个寄存器存放，DX存放高16位，AX存放低16位</span><br><span class="line">            mov ax,ds:[di]</span><br><span class="line">            mov dx,ds:[di+2]</span><br><span class="line">            mov es:[bp+5],ax</span><br><span class="line">            mov es:[bp+7],dx</span><br><span class="line"></span><br><span class="line">            push ds:[bx]</span><br><span class="line">            pop es:[bp+0AH]</span><br><span class="line"></span><br><span class="line">            div word ptr ds:[bx]</span><br><span class="line">            mov es:[bp+0DH],ax</span><br><span class="line"></span><br><span class="line">            add si,4</span><br><span class="line">            add di,4</span><br><span class="line">            add bx,2</span><br><span class="line">            add bp,16</span><br><span class="line">            loop inputTable</span><br><span class="line"></span><br><span class="line">            mov ax,4c00h</span><br><span class="line">            int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -315,13 +363,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/05/04/Selenium%E7%AC%94%E8%AE%B0/" rel="prev" title="Selenium笔记">
-      <i class="fa fa-chevron-left"></i> Selenium笔记
+    <a href="/2021/06/19/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%A1%86%E6%9E%B6/" rel="prev" title="Appium自动化框架">
+      <i class="fa fa-chevron-left"></i> Appium自动化框架
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/" rel="next" title="实验5 编写、调试具体多个段的程序">
-      实验5 编写、调试具体多个段的程序 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -380,7 +425,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BC%96%E7%A8%8B%EF%BC%8C%E5%90%91%E5%86%85%E5%AD%98-0-200-0-23F-%E4%BE%9D%E6%AC%A1%E4%BC%A0%E9%80%81%E6%95%B0%E6%8D%AE-0-63-3FH"><span class="nav-number">1.</span> <span class="nav-text">1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BC%96%E7%A8%8B%EF%BC%8C%E5%90%91%E5%86%85%E5%AD%98-0-200-0-23F-%E4%BE%9D%E6%AC%A1%E4%BC%A0%E9%80%81%E6%95%B0%E6%8D%AE-0-63-3FH-%EF%BC%8C%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%8F%AA%E8%83%BD%E4%BD%BF%E7%94%A89%E6%9D%A1%E6%8C%87%E4%BB%A4%EF%BC%8C9%E6%9D%A1%E6%8C%87%E4%BB%A4%E4%B8%AD%E5%8C%85%E6%8B%AC-%E2%80%9Cmov-ax-4c00h%E2%80%9D-%E5%92%8C-%E2%80%9Cint-21h%E2%80%9D"><span class="nav-number">2.</span> <span class="nav-text">2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8A%9F%E8%83%BD%E6%98%AF%E5%B0%86-%E2%80%9Cmov-ax-4c00h%E2%80%9D-%E4%B9%8B%E5%89%8D%E7%9A%84%E6%8C%87%E4%BB%A4%E5%A4%8D%E5%88%B6%E5%88%B0%E5%86%85%E5%AD%98-0-200-%E5%A4%84%EF%BC%8C%E8%A1%A5%E5%85%A8%E7%A8%8B%E5%BA%8F%E3%80%82%E4%B8%8A%E6%9C%BA%E8%B0%83%E8%AF%95%EF%BC%8C%E8%B7%9F%E8%B8%AA%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
