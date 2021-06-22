@@ -9549,4 +9549,23 @@ name ends
         <tag>汇编</tag>
       </tags>
   </entry>
+  <entry>
+    <title>实验8 分析一个奇怪的程序</title>
+    <url>/2021/06/22/%E5%AE%9E%E9%AA%8C8-%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E5%A5%87%E6%80%AA%E7%9A%84%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>实验8 分析一个奇怪的程序</p>
+<p>分析下面的程序，在运行前思考：这个程序可以正确返回吗？</p>
+<p>`运行后在思考：为什么是这个结果？</p>
+<p>通过这个程序加深对相关内容的理解</p>
+<span id="more"></span>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line"></span><br><span class="line">        mov ax,4c00h            ;占3个字节</span><br><span class="line">        int 21h                 ;占2个字节</span><br><span class="line"></span><br><span class="line">start:  mov ax,0                ;占3个字节</span><br><span class="line">    s:  nop                     ;EB CPU执行到nop指令什么都不做，占用一个字节</span><br><span class="line">        nop                     ;F6 当s处复制立了s2的指令后也要执行跳转，而IP位于s4处</span><br><span class="line"></span><br><span class="line">        ;将s2复制到s处</span><br><span class="line">    s4: mov di,offset s         ;di&#x3D;0008,得到s的偏移地址。 标号处的地址 + jmp指令后的第一个字节的地址 向前转移</span><br><span class="line">        mov si,offset s2        ;si&#x3D;0020</span><br><span class="line">        mov ax,cs:[si]          ;ax&#x3D;076A:0020&#x3D;F6EB</span><br><span class="line">        mov cs:[di],ax          ;076A:0008&#x3D;076A:0020</span><br><span class="line"></span><br><span class="line">    s0: jmp short s             ;接着跳转到s的偏移地址</span><br><span class="line"></span><br><span class="line">    s1: mov ax,0                ;ax&#x3D;0</span><br><span class="line">        int 21h</span><br><span class="line">        mov ax,0                ;ax&#x3D;0</span><br><span class="line"></span><br><span class="line">    s2: jmp short s1            ;跳转指令 短转移 -128～127 EBxx(xx代替位移的范围)</span><br><span class="line">    s3: nop                     ;当CS:IP指向jmp内存单元读取指令后，读取的指令进入指令缓存器，IP+2     OFFSET s3 + F6(-10)</span><br><span class="line"></span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
 </search>
