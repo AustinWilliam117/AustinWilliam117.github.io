@@ -29,15 +29,15 @@
 <meta property="og:site_name" content="蒙珣的博客">
 <meta property="og:description" content="实验9 根据材料编程 编程：在屏幕中间分别显示绿色、绿底红色、白底蓝色的字符串 ‘welcome to masm!’。 编程所需的知识通过阅读、分析下面的材料获得。 80*25彩色字符模式显示缓冲区的结构:">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1088066/201811/1088066-20181107115311298-2014128480.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1088066/201811/1088066-20181107115559957-1903156725.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1088066/201811/1088066-20181107120025756-558698789.png">
+<meta property="og:image" content="http://example.com/2021/06/23/%E5%AE%9E%E9%AA%8C9-%E6%A0%B9%E6%8D%AE%E6%9D%90%E6%96%99%E7%BC%96%E7%A8%8B/1.png">
+<meta property="og:image" content="http://example.com/2021/06/23/%E5%AE%9E%E9%AA%8C9-%E6%A0%B9%E6%8D%AE%E6%9D%90%E6%96%99%E7%BC%96%E7%A8%8B/2.png">
+<meta property="og:image" content="http://example.com/2021/06/23/%E5%AE%9E%E9%AA%8C9-%E6%A0%B9%E6%8D%AE%E6%9D%90%E6%96%99%E7%BC%96%E7%A8%8B/3.png">
 <meta property="article:published_time" content="2021-06-23T15:13:45.000Z">
-<meta property="article:modified_time" content="2021-06-23T15:14:32.962Z">
+<meta property="article:modified_time" content="2021-06-23T15:23:02.458Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="汇编">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1088066/201811/1088066-20181107115311298-2014128480.png">
+<meta name="twitter:image" content="http://example.com/2021/06/23/%E5%AE%9E%E9%AA%8C9-%E6%A0%B9%E6%8D%AE%E6%9D%90%E6%96%99%E7%BC%96%E7%A8%8B/1.png">
 
 <link rel="canonical" href="http://example.com/2021/06/23/%E5%AE%9E%E9%AA%8C9-%E6%A0%B9%E6%8D%AE%E6%9D%90%E6%96%99%E7%BC%96%E7%A8%8B/">
 
@@ -225,7 +225,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-06-23 23:13:45 / Modified: 23:14:32" itemprop="dateCreated datePublished" datetime="2021-06-23T23:13:45+08:00">2021-06-23</time>
+              <time title="Created: 2021-06-23 23:13:45 / Modified: 23:23:02" itemprop="dateCreated datePublished" datetime="2021-06-23T23:13:45+08:00">2021-06-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,11 +293,11 @@
 <p>例如:在显示器的0行0列显示黑底绿色的字符串’ABCDEF’</p>
 <p>(‘A’的ASCLL码值为41H，02H表示黑底绿色)</p>
 <p>显示缓冲区里的内容为:</p>
-<p><img src="https://img2018.cnblogs.com/blog/1088066/201811/1088066-20181107115311298-2014128480.png" alt="img"></p>
+<p><img src="1.png" alt="img"></p>
 <p>可以看出，在显示缓冲区中，偶地址存放字符，奇地址存放字符的颜色属性。</p>
 <p>一个在屏幕上显示的字符，具有前景(字符色)和背景(底色)两种颜色，字符还可以以高亮度和闪烁的方式显示。前景色、背景色、闪烁、高亮等信息被记录在属性字节中。</p>
 <p>属性字节的格式:</p>
-<p><img src="https://img2018.cnblogs.com/blog/1088066/201811/1088066-20181107115559957-1903156725.png" alt="img"></p>
+<p><img src="2.png" alt="img"></p>
 <p>可以按位设置属性字节，从而配出各种不同的前景色和背景色。</p>
 <p>比如:</p>
 <p>红底绿字，属性字节为:01000010B;</p>
@@ -308,7 +308,7 @@
 <p>例如:在显示器的0行0列显示红底高亮闪烁绿色的字符串’ABCDEF’</p>
 <p>（红底高亮闪烁绿色，属性字节为:11001010B, CAH）</p>
 <p>显示缓冲区里的内容为:</p>
-<p><img src="https://img2018.cnblogs.com/blog/1088066/201811/1088066-20181107120025756-558698789.png" alt="img"></p>
+<p><img src="3.png" alt="img"></p>
 <p>注意：闪烁的效果必须在全屏DOS方式下才能看到。</p>
 <p>一行可以放80个字符，也就是160个字节（一个字符两个字节，一个存放ASCII码，一个存放属性）。一页可以显示25行，一页也就有160*25=4000个字节</p>
 <p>那么第一行的最后一个字节为158[9EH]（第一个字节从零开始）</p>
