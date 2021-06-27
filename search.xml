@@ -9646,7 +9646,9 @@ name ends
   <entry>
     <title>实验10 编写子程序</title>
     <url>/2021/06/26/%E5%AE%9E%E9%AA%8C10-%E7%BC%96%E5%86%99%E5%AD%90%E7%A8%8B%E5%BA%8F/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="call-指令，组织数据和组织代码的方式，给我们的启发"><a href="#call-指令，组织数据和组织代码的方式，给我们的启发" class="headerlink" title="call 指令，组织数据和组织代码的方式，给我们的启发"></a>call 指令，组织数据和组织代码的方式，给我们的启发</h3><table>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="call-指令，组织数据和组织代码的方式，给我们的启发"><a href="#call-指令，组织数据和组织代码的方式，给我们的启发" class="headerlink" title="call 指令，组织数据和组织代码的方式，给我们的启发"></a>call 指令，组织数据和组织代码的方式，给我们的启发</h3><br/>
+
+<table>
 <thead>
 <tr>
 <th>设置参数</th>
@@ -9665,8 +9667,9 @@ name ends
 <td>输出</td>
 </tr>
 </tbody></table>
-<p><strong>### 编写子程序</strong></p>
-<p>在这次实验中，我们要别写3个子程序，通过它们来认识几个常见的问题和掌握解决这些问题的方法。</p>
+<br/>
+
+<h3 id="编写子程序"><a href="#编写子程序" class="headerlink" title="编写子程序"></a>编写子程序</h3><p>在这次实验中，我们要别写3个子程序，通过它们来认识几个常见的问题和掌握解决这些问题的方法。</p>
 <h4 id="1-显示子字符串"><a href="#1-显示子字符串" class="headerlink" title="1.显示子字符串"></a>1.显示子字符串</h4><p><strong>问题</strong></p>
 <p>显示字符串是现实工作中经常用到的功能，应该编写一个通用的子程序来实现这个功能。我们应该提供灵活的调用接口，使调用者可以决定显示的位置（行、列）、内容和颜色。</p>
 <p><strong>子程序描述</strong></p>
