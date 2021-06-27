@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">82</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">83</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -192,6 +192,134 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/26/%E5%AE%9E%E9%AA%8C10-%E7%BC%96%E5%86%99%E5%AD%90%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/26/%E5%AE%9E%E9%AA%8C10-%E7%BC%96%E5%86%99%E5%AD%90%E7%A8%8B%E5%BA%8F/" class="post-title-link" itemprop="url">实验10 编写子程序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-26 22:34:34" itemprop="dateCreated datePublished" datetime="2021-06-26T22:34:34+08:00">2021-06-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-06-27 23:32:22" itemprop="dateModified" datetime="2021-06-27T23:32:22+08:00">2021-06-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="call-指令，组织数据和组织代码的方式，给我们的启发"><a href="#call-指令，组织数据和组织代码的方式，给我们的启发" class="headerlink" title="call 指令，组织数据和组织代码的方式，给我们的启发"></a>call 指令，组织数据和组织代码的方式，给我们的启发</h3><table>
+<thead>
+<tr>
+<th>设置参数</th>
+<th>组织代码</th>
+<th>输入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>程序处理</td>
+<td>组织代码</td>
+<td>程序处理</td>
+</tr>
+<tr>
+<td>程序的返回值</td>
+<td>组织数据</td>
+<td>输出</td>
+</tr>
+</tbody></table>
+<p><strong>### 编写子程序</strong></p>
+<p>在这次实验中，我们要别写3个子程序，通过它们来认识几个常见的问题和掌握解决这些问题的方法。</p>
+<h4 id="1-显示子字符串"><a href="#1-显示子字符串" class="headerlink" title="1.显示子字符串"></a>1.显示子字符串</h4><p><strong>问题</strong></p>
+<p>显示字符串是现实工作中经常用到的功能，应该编写一个通用的子程序来实现这个功能。我们应该提供灵活的调用接口，使调用者可以决定显示的位置（行、列）、内容和颜色。</p>
+<p><strong>子程序描述</strong></p>
+<p>名称：show_str</p>
+<p>功能：在指定的位置，用指定的颜色，显示一个用0结束的字符串</p>
+<p>参数：(dh)=行号(取值范围0～24)，(dl)=列号(取值范围0～79)</p>
+<p>​              (cl)=颜色，ds:si 指向字符串的首地址</p>
+<p>返回：无</p>
+<p>应用举例：在屏幕的8行3列，用绿色显示 data 段中的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">    db &#39;Welcome to masm!&#39;,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:      mov dh,8</span><br><span class="line">            mov dl,3</span><br><span class="line">            mov cl,2</span><br><span class="line">            mov ax,data</span><br><span class="line">            mov ds,ax</span><br><span class="line">            mov si,0</span><br><span class="line">            call show_str</span><br><span class="line"></span><br><span class="line">            mov ax,4c00h</span><br><span class="line">            int 21h</span><br><span class="line"></span><br><span class="line">show_str:   .</span><br><span class="line">            .</span><br><span class="line">            .</span><br><span class="line">            .</span><br><span class="line">            .</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>式例中，想要把所有功能都归结到一个子程序中，很不好。这样功能不明确，而且看着混乱，不易维护。</p>
+<p>参考答案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">    db &#39;Welcome to masm!&#39;,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment stack</span><br><span class="line">    db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;名称：show_str</span><br><span class="line"></span><br><span class="line">;功能：在指定的位置，用指定的颜色，显示一个用0结束的字符串</span><br><span class="line"></span><br><span class="line">;参数：(dh)&#x3D;行号(取值范围0～24)，(dl)&#x3D;列号(取值范围0～79),(cl)&#x3D;颜色，ds:si 指向字符串的首地址</span><br><span class="line"></span><br><span class="line">;返回：无</span><br><span class="line"></span><br><span class="line">;应用举例：在屏幕的8行3列，用绿色显示 data 段中的字符串</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">    start:  mov ax,stack</span><br><span class="line">            mov ss,ax</span><br><span class="line">            mov sp,128</span><br><span class="line"></span><br><span class="line">            call init_reg</span><br><span class="line"></span><br><span class="line">            mov di,0</span><br><span class="line"></span><br><span class="line">            mov dh,8</span><br><span class="line">            call get_row</span><br><span class="line">            add di,ax           ;拿到行的返回值</span><br><span class="line"></span><br><span class="line">            mov dl,3</span><br><span class="line">            call get_col</span><br><span class="line">            add di,ax           ;拿到列的返回值</span><br><span class="line"></span><br><span class="line">            mov cl,2</span><br><span class="line">            mov dl,cl</span><br><span class="line"></span><br><span class="line">            mov si,0</span><br><span class="line">            call show_str</span><br><span class="line"></span><br><span class="line">            mov ax,4c00h</span><br><span class="line">            int 21h</span><br><span class="line"></span><br><span class="line">show_str:   push cx</span><br><span class="line">            push dx</span><br><span class="line">            push ds</span><br><span class="line">            push es</span><br><span class="line">            push si</span><br><span class="line">            push di</span><br><span class="line"></span><br><span class="line">            mov cx,0</span><br><span class="line"></span><br><span class="line">showStr:    mov cl,ds:[si]</span><br><span class="line">            jcxz showStrRet</span><br><span class="line">            mov es:[di],cl      ;偶数字节</span><br><span class="line">            mov es:[di+1],dl    ;奇数显示颜色</span><br><span class="line">            add di,2</span><br><span class="line">            inc si</span><br><span class="line">            jmp showStr         ;用jmp做while循环，知道cx&#x3D;0,跳转至showStrRet</span><br><span class="line"></span><br><span class="line">showStrRet: pop di										;子程序开始前将所有寄存器都放入栈中，子程序返回后恢复，防止寄存器冲突</span><br><span class="line">            pop si</span><br><span class="line">            pop es</span><br><span class="line">            pop ds</span><br><span class="line">            pop dx</span><br><span class="line">            pop cx</span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">get_row:    mov al,160</span><br><span class="line">            mul dh              ;一行160个字节，乘8就是8行</span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">get_col:    mov al,3</span><br><span class="line">            mul dl              ;屏幕一个字符占2个字节</span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;初始化寄存器</span><br><span class="line">init_reg:   mov bx,0B800H</span><br><span class="line">            mov es,bx</span><br><span class="line"></span><br><span class="line">            mov bx,data</span><br><span class="line">            mov ds,bx</span><br><span class="line"></span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="2-解决除法溢出的问题"><a href="#2-解决除法溢出的问题" class="headerlink" title="2.解决除法溢出的问题"></a>2.解决除法溢出的问题</h4><h4 id="3-数值显示"><a href="#3-数值显示" class="headerlink" title="3.数值显示"></a>3.数值显示</h4>
+      
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1135,112 +1263,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/15/shell%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/icon.gif">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/15/shell%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">shell格式化输出</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-06-15 23:11:39" itemprop="dateCreated datePublished" datetime="2021-06-15T23:11:39+08:00">2021-06-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-06-16 22:40:58" itemprop="dateModified" datetime="2021-06-16T22:40:58+08:00">2021-06-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>echo 命令</li>
-<li>颜色输出</li>
-</ul>
-<hr>
-<p>一个程序需要有0个以上输入，一个或更多输出</p>
-<h3 id="一、-echo-命令介绍"><a href="#一、-echo-命令介绍" class="headerlink" title="一、 echo 命令介绍"></a>一、 echo 命令介绍</h3><p>功能：将内容输出到默认显示设备</p>
-<p>echo 命令的功能是在显示器上显示一段文字，一般起到一个提示的作用。功能说明：显示文字</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/06/15/shell%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1312,7 +1334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1373,13 +1395,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">328k</span>
+    <span title="Symbols count total">330k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">4:58</span>
+    <span title="Reading time total">5:01</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
