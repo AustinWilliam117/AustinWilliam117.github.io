@@ -9692,4 +9692,70 @@ name ends
         <tag>汇编</tag>
       </tags>
   </entry>
+  <entry>
+    <title>实验11 编写子程序</title>
+    <url>/2021/06/28/%E5%AE%9E%E9%AA%8C11-%E7%BC%96%E5%86%99%E5%AD%90%E7%A8%8B%E5%BA%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>实验11</p>
+<p><strong>debug 模式下标志位的显示</strong></p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>真值为1</th>
+<th>假值为0</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OF</td>
+<td>OV</td>
+<td>NV</td>
+<td>OV = overflow（溢出）</td>
+<td>NV = not overflow</td>
+</tr>
+<tr>
+<td>SF</td>
+<td>NG</td>
+<td>PL</td>
+<td>NG = negative（负数）</td>
+<td>PL = Positve</td>
+</tr>
+<tr>
+<td>ZF</td>
+<td>ZR</td>
+<td>NZ</td>
+<td>ZR=Zero</td>
+<td>NZ = not Zero</td>
+</tr>
+<tr>
+<td>PF</td>
+<td>PE</td>
+<td>PO</td>
+<td>PE = EVEN（偶数）</td>
+<td>PO  = ODD</td>
+</tr>
+<tr>
+<td>CF</td>
+<td>CV</td>
+<td>NC</td>
+<td>CV = Carry Yes（进位）</td>
+<td>NC = not Carry</td>
+</tr>
+<tr>
+<td>DF</td>
+<td>DN</td>
+<td>UP</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
 </search>
