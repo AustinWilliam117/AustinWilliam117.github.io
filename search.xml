@@ -9695,8 +9695,7 @@ name ends
   <entry>
     <title>实验11 编写子程序</title>
     <url>/2021/06/28/%E5%AE%9E%E9%AA%8C11-%E7%BC%96%E5%86%99%E5%AD%90%E7%A8%8B%E5%BA%8F/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>实验11</p>
-<p><strong>debug 模式下标志位的显示</strong></p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p><strong>debug 模式下标志位的显示</strong></p>
 <table>
 <thead>
 <tr>
@@ -9739,7 +9738,7 @@ name ends
 <td>CF</td>
 <td>CV</td>
 <td>NC</td>
-<td>CV = Carry Yes（进位）</td>
+<td>CY = Carry Yes（进位）</td>
 <td>NC = not Carry</td>
 </tr>
 <tr>
@@ -9750,7 +9749,7 @@ name ends
 <td></td>
 </tr>
 </tbody></table>
-]]></content>
+<span id="more"></span>]]></content>
       <categories>
         <category>计算机基础</category>
       </categories>
