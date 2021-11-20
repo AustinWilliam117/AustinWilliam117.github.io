@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. 了解自己的硬盘分区通过软件 rufus 制作的启动U盘安装的 manjaro。制作启动U盘之前，先要了解自己的电脑是 GPT 分区还是 MBR 分区，以及查看自己电脑是 UEFI 引导启动还是 Legancy 引导方式启动。这让你制作出正确的启动U盘。关于如何查看自己电脑是 GPT 分区还是 MBR 分区，可以参见这里，一般来说，现在预装 win10 的电脑基本都是GPT分区 。 这里有两个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Manjaro安装笔记">
+<meta property="og:url" content="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="1. 了解自己的硬盘分区通过软件 rufus 制作的启动U盘安装的 manjaro。制作启动U盘之前，先要了解自己的电脑是 GPT 分区还是 MBR 分区，以及查看自己电脑是 UEFI 引导启动还是 Legancy 引导方式启动。这让你制作出正确的启动U盘。关于如何查看自己电脑是 GPT 分区还是 MBR 分区，可以参见这里，一般来说，现在预装 win10 的电脑基本都是GPT分区 。 这里有两个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/tupian4.png">
+<meta property="article:published_time" content="2019-10-19T16:11:44.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="Manjaro">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%871.png">
+
+<link rel="canonical" href="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Manjaro安装笔记 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/10/20/Manjaro%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Manjaro安装笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-20 00:11:44" itemprop="dateCreated datePublished" datetime="2019-10-20T00:11:44+08:00">2019-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>6 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-了解自己的硬盘分区"><a href="#1-了解自己的硬盘分区" class="headerlink" title="1. 了解自己的硬盘分区"></a>1. 了解自己的硬盘分区</h2><p>通过软件 rufus 制作的启动U盘安装的 manjaro。制作启动U盘之前，先要了解自己的电脑是 GPT 分区还是 MBR 分区，以及查看自己电脑是 UEFI 引导启动还是 Legancy 引导方式启动。这让你制作出正确的启动U盘。关于如何查看自己电脑是 GPT 分区还是 MBR 分区，可以参见<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/f3ad7d0f29874709c2345b4f.html">这里</a>，一般来说，现在预装 win10 的电脑基本都是GPT分区 。</p>
+<p>这里有两个注意的地方，一个是在选择的时候 ，<strong>注意选择是以 GPT 的方式烧制，还是以 MBR 的方式烧制，这里的选项跟你电脑本身相关</strong>。第二个是 <strong>manjaro 只能以 DD 镜像模式写入</strong>（这里我也不知道为什么，网上是说可能无法安装）。</p>
+<p>制作完U盘，会显示U盘只有3M多，这是正常现象。可以参考<a target="_blank" rel="noopener" href="https://itsfoss.com/create-live-usb-manjaro-linux/">https://itsfoss.com/create-live-usb-manjaro-linux/</a></p>
+<span id="more"></span>
+
+
+<h2 id="2-关闭安全启动"><a href="#2-关闭安全启动" class="headerlink" title="2. 关闭安全启动"></a>2. 关闭安全启动</h2><p>由于是先装的 Windows ，在开始之前，<strong>请确保自己关闭了安全启动</strong>，以避免不必要的麻烦（我就出现过无法进入manjaroU盘引导的问题，安装好manjaro系统后开启安全启动，manjaro引导丢失的问题。之后再关闭安全启动，引导恢复）。如何关闭，也请自行谷歌。</p>
+<h2 id="3-显卡驱动问题"><a href="#3-显卡驱动问题" class="headerlink" title="3. 显卡驱动问题"></a>3. 显卡驱动问题</h2><p>显卡驱动一直都是linux装机的一个大问题（起码我装过的ubuntu和manjaro都是这样）</p>
+<p><strong>进入安装界面时，显卡 driver 选择 nonfree，确定后移动到 boot Manjaro 那一行，按下 e ，在 quiet 后面那行加上如下一句：</strong></p>
+<blockquote>
+<p>nomodeset systemd.mask=mhwd-live.service</p>
+</blockquote>
+<p>其中，<font color="pink">nomodeset</font> 指示内核<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/207175/what-does-nomodeset-do">不用加载</a>显卡驱动</p>
+<blockquote>
+<p>The newest kernels have moved the video mode setting into the kernel. So all the programming of the hardware specific clock rates and registers on the video card happen in the kernel rather than in the X driver when the X server starts… This makes it possible to have high resolution nice looking splash (boot) screens and flicker free transitions from boot splash to login screen. Unfortunately, on some cards this doesnt work properly and you end up with a black screen. Adding the nomodeset parameter instructs the kernel to not load video drivers and use BIOS modes instead until X is loaded.</p>
+</blockquote>
+<p>而<font color="pink">systemd.mask=mhwd-live.service </font>参数的作用，则是 <a target="_blank" rel="noopener" href="https://forum.manjaro.org/t/disable-driver-detection-for-live-media/17070/8">disable MHWD</a>:</p>
+<blockquote>
+<p>Issue was due to MHWD running during boot creating a fallback xorg conf setting the driver to vesa which is not supported on EFI systems. It’s not clear if the Manjaro devs will address the behaviour but it can be worked around by disabling MHWD from running during boot. At the boot selection prompt, press e and add to the end systemd.mask=mhwd-live.service. X will detect and handle drivers itself fine, the kernel driver for the VGA device lspci -nnk | grep VGA -A2 should show itself in use.</p>
+</blockquote>
+<p>然后，按下 Ctrl + x或F10保存并进入安装界面(live session)，进入之后，别急，打开终端，进入这个目录：<font color="pink">/usr/lib/calamares/modules/mhwdcfg</font>,编辑<font color="pink">main.py:sudo vim</font> &gt;</p>
+<blockquote>
+<p>sudo vi /usr/lib/calamares/modules/mhwdcfg/main.py</p>
+</blockquote>
+<p>编辑为如下形式：</p>
+<p>change:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">	<span class="keyword">for</span> b <span class="keyword">in</span> self.bus:</span><br><span class="line">		<span class="keyword">for</span> <span class="built_in">id</span> <span class="keyword">in</span> self.identifier[<span class="string">&#x27;net&#x27;</span>]:</span><br><span class="line">			self.configure(b,<span class="built_in">id</span>)</span><br><span class="line">		<span class="keyword">for</span> <span class="built_in">id</span> <span class="keyword">in</span> self.identifier[<span class="string">&#x27;video&#x27;</span>]:</span><br><span class="line">		self.configure(b,<span class="built_in">id</span>)</span><br><span class="line">		<span class="keyword">return</span> Node</span><br></pre></td></tr></table></figure>
+
+<p>to:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">return</span> Node</span><br></pre></td></tr></table></figure>
+
+<p><strong>不改写成如图格式，可能会遇到安装一半卡死的情况。</strong></p>
+<h2 id="4-分区"><a href="#4-分区" class="headerlink" title="4. 分区"></a>4. 分区</h2><p>自定义分区的话，一般来说，这几个分区一定要有：<font color="pink">/</font>，<font color="pink">/boot</font>或者<font color="pink">/boot/efi</font>，<font color="pink">home</font>。<font color="pink">swap</font>（交换分区）可分可不分，不过一般建议多少还是给点。（分区方案可以<a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/installation_guide/s2-diskpartrecommend-x86">参见这里</a>）</p>
+<p>最后，还有最最重要的/boot分区 ，因为我是GPT分区， uefi 启动，事先已经有一个100M的空间，所以笔者直接把<font color="pink">/boot/efi</font>挂载在已经存在的efi分区上，也就是分区时看见的大小为100M的那个分区（windows10的分区）：</p>
+<p><img src="%E5%9B%BE%E7%89%871.png"></p>
+<p>重启计算机可能会遇到开机黑屏的情况，需要在manjaro的引导界面，将选项移动至manjaro选项，按e进入，在 quiet 后面那行加上如下一句</p>
+<blockquote>
+<p>nouveau.modeset=0</p>
+</blockquote>
+<h2 id="5-配置系统"><a href="#5-配置系统" class="headerlink" title="5. 配置系统"></a>5. 配置系统</h2><ul>
+<li><h4 id="解决N卡问题"><a href="#解决N卡问题" class="headerlink" title="解决N卡问题"></a>解决N卡问题</h4><p>安装完成后最重要的<strong>第一步就是修改grub</strong>，解决开机黑屏问题(避免每次开机都要在grub输入一堆参数)。因此，进入系统的第一步，是编辑<font color="pink">/etc/default/grub</font>文件，在quiet下面加上如下的参数：</p>
+<p><img src="%E5%9B%BE%E7%89%872.png"></p>
+<p>然后在终端输入<font color="pink">sudo update-grub</font>更新 grub 配置。在安装专有显卡驱动后，编辑/etc/default/grub文件，在quiet下面加上如下的参数。（<strong>否则可能会卡机卡死或黑屏，能不动N卡尽量还是不要乱搞</strong>）</p>
+<p><img src="%E5%9B%BE%E7%89%873.png"></p>
+<p>同样，然后在终端输入<font color="pink">sudo update-grub</font>更新 grub 配置。</p>
+<p><font color="red">已知问题</font>：<strong>这样设置会使每次开机屏幕亮度最大，需要手动调节。并且将下方命令设置为开机脚本，并不        管用</strong></p>
+<p>#查看最大屏幕亮度</p>
+<p>cat  /sys/class/backlight/intel_backlight/max_brightness</p>
+<p>#设置默认屏幕亮度</p>
+<p>echo 800 &gt; /sys/class/backlight/intel_backlight/brightness</p>
+</li>
+</ul>
+<ul>
+<li><h4 id="使用国内源"><a href="#使用国内源" class="headerlink" title="使用国内源"></a>使用国内源</h4><blockquote>
+<p>sudo pacman-mirrors -i -c China -m rank</p>
+</blockquote>
+<p>在弹出窗口中选择排第一位的源，然后刷新缓存：</p>
+<blockquote>
+<p>sudo pacman -Syy</p>
+</blockquote>
+<p>然后添加 ArchLinuxCN 的源，编辑<font color="pink">/etc/pacman.conf</font>，在文件末尾添加如下内容：</p>
+<blockquote>
+<p>[archlinuxcn]</p>
+<p>SigLevel = Optional TrustedOnly</p>
+<p>Server = <a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/archlinuxcn/$arch">https://mirrors.ustc.edu.cn/archlinuxcn/$arch</a></p>
+</blockquote>
+<p>之后刷新缓存，导入 <font color="pink">archlinuxcn-keyring </font>：</p>
+<blockquote>
+<p>sudo pacman -Syy &amp;&amp; sudo pacman -S archlinuxcn-keyring &amp;&amp; sudo pacman -Syy</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="6-Manjaro安装后常见问题解决"><a href="#6-Manjaro安装后常见问题解决" class="headerlink" title="6. Manjaro安装后常见问题解决"></a>6. Manjaro安装后常见问题解决</h2><ul>
+<li><h4 id="解决Manjaro更新后字体方框问题，即进入tty后会出现方块字"><a href="#解决Manjaro更新后字体方框问题，即进入tty后会出现方块字" class="headerlink" title="解决Manjaro更新后字体方框问题，即进入tty后会出现方块字"></a>解决Manjaro更新后字体方框问题，即进入tty后会出现方块字</h4><blockquote>
+<p>sudo pacman -S wqy-microhei</p>
+</blockquote>
+</li>
+<li><h4 id="Manjaro安装搜狗输入法"><a href="#Manjaro安装搜狗输入法" class="headerlink" title="Manjaro安装搜狗输入法"></a>Manjaro安装搜狗输入法</h4><blockquote>
+<p>sudo pacman -S yaourt</p>
+</blockquote>
+<blockquote>
+<p>yaourt -S qtwebkit-bin</p>
+</blockquote>
+<blockquote>
+<p>sudo pacman -S fcitx-sogoupinyin fcitx-configtool fcitx-im fcitx-sogoupinyin</p>
+</blockquote>
+<blockquote>
+<p>sudo pacman -U <a target="_blank" rel="noopener" href="https://arch-archive.tuna.tsinghua.edu.cn/2019/04-29/community/os/x86_64/fcitx-qt4-4.2.9.6-1-x86_64.pkg.tar.xz">https://arch-archive.tuna.tsinghua.edu.cn/2019/04-29/community/os/x86_64/fcitx-qt4-4.2.9.6-1-x86_64.pkg.tar.xz</a></p>
+</blockquote>
+<blockquote>
+<p>sudo nano /etc/environment</p>
+</blockquote>
+<p>粘贴下面进去</p>
+<p>export GTK_IM_MODULE=fcitx</p>
+<p>export QT_IM_MODULE=fcitx</p>
+<p>export XMODIFIERS=”@im=fcitx”</p>
+<p>终端输入</p>
+<blockquote>
+<p>qtconfig-qt4</p>
+</blockquote>
+<p>找到interfac，然后看到Defult Input Method，设置为fcitx左上角save保存</p>
+<p>如果设置不生效的话尝试写进~/.xporfile里面</p>
+</li>
+</ul>
+<ul>
+<li><h4 id="解决Windows和Linux双系统时间不一致问题"><a href="#解决Windows和Linux双系统时间不一致问题" class="headerlink" title="解决Windows和Linux双系统时间不一致问题"></a>解决Windows和Linux双系统时间不一致问题</h4><blockquote>
+<p>sudo timedatectl set-local-rtc true</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="7-Manjaro美化"><a href="#7-Manjaro美化" class="headerlink" title="7. Manjaro美化"></a>7. Manjaro美化</h2><ul>
+<li><h4 id="连接蓝牙设备"><a href="#连接蓝牙设备" class="headerlink" title="连接蓝牙设备"></a>连接蓝牙设备</h4>如果你的manjaro连接蓝牙总是断开，就算连上也没有声音，等等问题。<br>可以尝试更换内核版本，或者阅读下这篇文章，可能对你有帮助<br><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Bluetooth_headset">https://wiki.archlinux.org/index.php/Bluetooth_headset</a>_<br><strong>在链接后面添加_(简体中文)，直接点击链接会没有下划线，需要手动加上，即可查看中文文档</strong><br>虽然我看了半天也没弄好，还是更换成LTS版本的内核，瞬间就快乐了。<br>更换内核需要在grub界面选择</li>
+</ul>
+<ul>
+<li><h4 id="个人喜好的设置"><a href="#个人喜好的设置" class="headerlink" title="个人喜好的设置"></a>个人喜好的设置</h4><ul>
+<li><p>桌面行为设置</p>
+<ol>
+<li>桌面特效：个人喜欢的桌面特效为魔灯和摆动窗口</li>
+<li>工作空间：点击行为更改成双击打开文件夹</li>
+</ol>
+</li>
+<li><p>窗口管理</p>
+<ol>
+<li>窗口行为：在高级里将放置策略更改为居中</li>
+</ol>
+</li>
+<li><p>附加程序安装器<br><img src="tupian4.png"></p>
+</li>
+</ul>
+</li>
+<li><h4 id="Dock拦的安装"><a href="#Dock拦的安装" class="headerlink" title="Dock拦的安装"></a>Dock拦的安装</h4><blockquote>
+<p>sudo pacman -S latte-dock</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><h4 id="配置详情（cpu温度是显示错误）"><a href="#配置详情（cpu温度是显示错误）" class="headerlink" title="配置详情（cpu温度是显示错误）"></a>配置详情（cpu温度是显示错误）</h4> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">██████████████████  ████████     william@william-pc</span><br><span class="line">██████████████████  ████████     OS: Manjaro 18.1.1 Juhraya</span><br><span class="line">██████████████████  ████████     Kernel: x86_64 Linux 5.2.21-1-MANJARO</span><br><span class="line">██████████████████  ████████     Uptime: 14m</span><br><span class="line">████████            ████████     Packages: 1267</span><br><span class="line">████████  ████████  ████████       Shell: zsh 5.7.1</span><br><span class="line">████████  ████████  ████████       Resolution: 1920x1080</span><br><span class="line">████████  ████████  ████████       DE: KDE 5.62.0 / Plasma 5.16.5</span><br><span class="line">████████  ████████  ████████       WM: KWin</span><br><span class="line">████████  ████████  ████████       GTK Theme: Breath [GTK2], Mojave-light-alt [GTK3]</span><br><span class="line">████████  ████████  ████████       Icon Theme: Adwaita</span><br><span class="line">████████  ████████  ████████       Font: Noto Sans Regular</span><br><span class="line">████████  ████████  ████████       Disk: 24G / 165G (15%)</span><br><span class="line">████████  ████████  ████████       CPU: Intel Core i7-7700HQ @ 8x 3.8GHz [62.0°C]</span><br><span class="line">                                 GPU: Mesa DRI Intel(R) HD Graphics 630 (Kaby Lake GT2) </span><br><span class="line">                                 RAM: 3498MiB / 15918MiB</span><br><span class="line">  </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="8-Manjaro常用软件安装"><a href="#8-Manjaro常用软件安装" class="headerlink" title="8. Manjaro常用软件安装"></a>8. Manjaro常用软件安装</h2><ul>
+<li><h4 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h4><p>科学上网可以参考如下地址，下载electron-ssr</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/shadowsocksrr/electron-ssr">https://github.com/shadowsocksrr/electron-ssr</a></p>
+<p>Google chrome可使用SwitchyOmega，关于SwitchyOmega的离线下载网址如下：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/FelisCatus/SwitchyOmega/releases">https://github.com/FelisCatus/SwitchyOmega/releases</a></p>
+<p>Manjaro安装SwitchyOmega时，需将google chrome设置为开发者模式，将离线包后缀改为.zip，再将离线包拖入google chrome即可。</p>
+<p>auto switch用到的规则链表<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</a></p>
+</li>
+<li><h4 id="TIM-QQ"><a href="#TIM-QQ" class="headerlink" title="TIM/QQ"></a>TIM/QQ</h4><p>可参考<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av61530440">https://www.bilibili.com/video/av61530440</a></p>
+<p>可能以后腾讯就出linux版本了</p>
+</li>
+<li><h4 id="百度云网盘"><a href="#百度云网盘" class="headerlink" title="百度云网盘"></a>百度云网盘</h4><p>由于百度云盘出了Linux版，我们可以下载.deb的文件包（<strong>也可使用dpkg包管理来安装.deb包，但不推荐</strong><font color="pink">sudo dpkg -i package.deb</font>）</p>
+<p>检查有没有安装debtap</p>
+<blockquote>
+<p>sudo pacman -Q debtap</p>
+</blockquote>
+<p>没有就安装</p>
+<blockquote>
+<p>yaourt -S debtap</p>
+</blockquote>
+<p>升级</p>
+<blockquote>
+<p>debtap sudo debtap -u</p>
+</blockquote>
+<p>使用方法</p>
+<blockquote>
+<p>sudo debtap xxx.deb</p>
+</blockquote>
+<p>安装时会提示输入包名，以及license。包名随意，license就填GPL吧。上述操作完成后会在deb包同级目录生成x.tar.xz文件，直接用pacman安装即可</p>
+<blockquote>
+<p>sudo pacman -U xxx.tar.xz</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><h4 id="网易云音乐无法输入中文修复"><a href="#网易云音乐无法输入中文修复" class="headerlink" title="网易云音乐无法输入中文修复"></a>网易云音乐无法输入中文修复</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.先安装qcef这个软件包</span></span><br><span class="line">pacman -S qcef</span><br><span class="line"><span class="comment">#2.编辑/opt/netease/netease-cloud-music/netease-cloud-music.bash，把它改成这样：</span></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"><span class="attribute">HERE</span>=<span class="string">&quot;<span class="variable">$(dirname &quot;$(readlink -f &quot;$&#123;0&#125;&quot;)</span>&quot;</span>)&quot;</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">LD_LIBRARY_PATH</span>=/usr/lib</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">QT_PLUGIN_PATH</span>=<span class="string">&quot;<span class="variable">$&#123;HERE&#125;</span>&quot;</span>/plugins</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">QT_QPA_PLATFORM_PLUGIN_PATH</span>=<span class="string">&quot;<span class="variable">$&#123;HERE&#125;</span>&quot;</span>/plugins/platforms</span><br><span class="line">exec <span class="string">&quot;<span class="variable">$&#123;HERE&#125;</span>&quot;</span>/netease-cloud-music <span class="variable">$@</span></span><br><span class="line"><span class="comment">#3.安装vlc这个包</span></span><br><span class="line">pacman -S vlc</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="VirtualBox-Kernel-driver-not-installed-rc-1908"><a href="#VirtualBox-Kernel-driver-not-installed-rc-1908" class="headerlink" title="VirtualBox Kernel driver not installed (rc=-1908)"></a>VirtualBox Kernel driver not installed (rc=-1908)</h4><blockquote>
+<p>uname -a</p>
+</blockquote>
+<p>它将显示类似该Linux用户4.6 .0-1-MANJARO ＃1 SMP PREEMPT的内容Mon May 16 02:44:59 2016 x86_64 GNU / Linux</p>
+<p>内核版本以粗体显示，因此请为您的内核号安装virtualbox主机模块，以上面显示的内容替换46。</p>
+<blockquote>
+<p>sudo pacman -S linux46-virtualbox-host-modules</p>
+</blockquote>
+<p>现在加载您的virtualbox模块</p>
+<blockquote>
+<p>sudo /sbin/rcvboxdrv setup</p>
+</blockquote>
+<p>Virtualbox现在应该可以正常运行-否则，请使用pamac并卸载与virtualbox相关的任何内容，然后安装“ virtualbox”软件包，如果您告诉它所使用的内核版本，它将为您完成以上操作</p>
+</li>
+</ul>
+<h2 id="9-参考文档"><a href="#9-参考文档" class="headerlink" title="9. 参考文档"></a>9. 参考文档</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/imilano/article/details/83217039">【Linux折腾记】manjaro初体验</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://gist.github.com/mauri870/5a54e415140875b9150ca31c491811f6">Installation of Manjaro 17 and nvidia/bumblebee drivers on Avell G1513</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/installation_guide/s2-diskpartrecommend-x86">recommended partitioning scheme</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://manjaro.top/post/jie-jue-manjaro-geng-xin-hou-zi-ti-fang-kuang-wen-ti/">解决Manjaro更新后字体方框问题</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://manjaro.top/post/manjaro-an-zhuang-sou-gou-shu-ru-fa/">Manjaro安装搜狗输入法</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/aaazz47/article/details/78696899">如何解决 Windows和Manjaro双系统时间差8小时的问题</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://hufangyun.com/2017/zsh-plugin/">zsh设置</a></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Manjaro/" rel="tag"># Manjaro</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/10/22/coc-nvim%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="next" title="coc.nvim报错解决方案">
+      coc.nvim报错解决方案 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%86%E8%A7%A3%E8%87%AA%E5%B7%B1%E7%9A%84%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">1. 了解自己的硬盘分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%85%B3%E9%97%AD%E5%AE%89%E5%85%A8%E5%90%AF%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">2. 关闭安全启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">3. 显卡驱动问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%86%E5%8C%BA"><span class="nav-number">4.</span> <span class="nav-text">4. 分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">5. 配置系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3N%E5%8D%A1%E9%97%AE%E9%A2%98"><span class="nav-number">5.0.1.</span> <span class="nav-text">解决N卡问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90"><span class="nav-number">5.0.2.</span> <span class="nav-text">使用国内源</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Manjaro%E5%AE%89%E8%A3%85%E5%90%8E%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-number">6.</span> <span class="nav-text">6. Manjaro安装后常见问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3Manjaro%E6%9B%B4%E6%96%B0%E5%90%8E%E5%AD%97%E4%BD%93%E6%96%B9%E6%A1%86%E9%97%AE%E9%A2%98%EF%BC%8C%E5%8D%B3%E8%BF%9B%E5%85%A5tty%E5%90%8E%E4%BC%9A%E5%87%BA%E7%8E%B0%E6%96%B9%E5%9D%97%E5%AD%97"><span class="nav-number">6.0.1.</span> <span class="nav-text">解决Manjaro更新后字体方框问题，即进入tty后会出现方块字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Manjaro%E5%AE%89%E8%A3%85%E6%90%9C%E7%8B%97%E8%BE%93%E5%85%A5%E6%B3%95"><span class="nav-number">6.0.2.</span> <span class="nav-text">Manjaro安装搜狗输入法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3Windows%E5%92%8CLinux%E5%8F%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98"><span class="nav-number">6.0.3.</span> <span class="nav-text">解决Windows和Linux双系统时间不一致问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Manjaro%E7%BE%8E%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">7. Manjaro美化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87"><span class="nav-number">7.0.1.</span> <span class="nav-text">连接蓝牙设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E5%96%9C%E5%A5%BD%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.0.2.</span> <span class="nav-text">个人喜好的设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dock%E6%8B%A6%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">7.0.3.</span> <span class="nav-text">Dock拦的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%AF%A6%E6%83%85%EF%BC%88cpu%E6%B8%A9%E5%BA%A6%E6%98%AF%E6%98%BE%E7%A4%BA%E9%94%99%E8%AF%AF%EF%BC%89"><span class="nav-number">7.0.4.</span> <span class="nav-text">配置详情（cpu温度是显示错误）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Manjaro%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">8.</span> <span class="nav-text">8. Manjaro常用软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91"><span class="nav-number">8.0.1.</span> <span class="nav-text">科学上网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TIM-QQ"><span class="nav-number">8.0.2.</span> <span class="nav-text">TIM&#x2F;QQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E4%BA%91%E7%BD%91%E7%9B%98"><span class="nav-number">8.0.3.</span> <span class="nav-text">百度云网盘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87%E4%BF%AE%E5%A4%8D"><span class="nav-number">8.0.4.</span> <span class="nav-text">网易云音乐无法输入中文修复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VirtualBox-Kernel-driver-not-installed-rc-1908"><span class="nav-number">8.0.5.</span> <span class="nav-text">VirtualBox Kernel driver not installed (rc&#x3D;-1908)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">9.</span> <span class="nav-text">9. 参考文档</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="\1. time \2. os \3. sys \4. classmethod 修饰符 \5. JSON字典的序列化与反序列化 如果你从Python解释器退出再进入，那么你定义的所有的方法和变量就都消失了。为此Python提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被成为模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python内置函数">
+<meta property="og:url" content="http://example.com/2021/06/05/python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="\1. time \2. os \3. sys \4. classmethod 修饰符 \5. JSON字典的序列化与反序列化 如果你从Python解释器退出再进入，那么你定义的所有的方法和变量就都消失了。为此Python提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被成为模块">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-05T13:28:21.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/06/05/python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>python内置函数 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/05/python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python内置函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-05 21:28:21" itemprop="dateCreated datePublished" datetime="2021-06-05T21:28:21+08:00">2021-06-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>7 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>\1. time</p>
+<p>\2. os</p>
+<p>\3. sys</p>
+<p>\4. classmethod 修饰符</p>
+<p>\5. JSON字典的序列化与反序列化</p>
+<p>如果你从Python解释器退出再进入，那么你定义的所有的方法和变量就都消失了。为此Python提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被成为模块</p>
+<span id="more"></span>
+
+<h3 id="time内置函数"><a href="#time内置函数" class="headerlink" title="time内置函数"></a>time内置函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取时间戳（1970年开始计时）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取当前时间的时间戳</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(time.time()))</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">1622864228</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取当前时间</span></span><br><span class="line"><span class="built_in">print</span>(time.localtime(time.time()))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">time.struct_time(tm_year=2021, tm_mon=6, tm_mday=5, tm_hour=11, tm_min=35, tm_sec=42, tm_wday=5, tm_yday=156, tm_isdst=0)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化输出当前时间</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%y-%m-%d %H:%M:%S&#x27;</span>, time.localtime()))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">21-06-05 11:39:11</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># time.sleep(2) 休眠2秒</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="os内置函数"><a href="#os内置函数" class="headerlink" title="os内置函数"></a>os内置函数</h3><p>在python中，os模块提供了对操作系统进行操作的接口。查看os模块使用的方法为dir()，查看该模块的帮助方法为help()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在D盘创建文件夹log</span></span><br><span class="line">os.mkdir(<span class="string">&#x27;d:/log&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重命名文件夹</span></span><br><span class="line">os.rename(<span class="string">&#x27;d:/log&#x27;</span>,<span class="string">&#x27;d:newLog&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除文件夹</span></span><br><span class="line">os.rmdir(<span class="string">&#x27;d:/newLog&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;对目录文件的处理&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取当前文件的目录 `os.path.dirname(__file__)`</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;当前文件的目录为：&#x27;</span>, os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取当前文件的目录的上一级目录</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;当前文件的上一级目录为：&#x27;</span>,os.path.dirname(os.path.dirname(__file__)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实现对当前文件下其他文件的拼接</span></span><br><span class="line">base_dir = os.path.dirname(__file__)</span><br><span class="line"><span class="comment"># 将本文件目录下的login文件与当前目录地址拼接</span></span><br><span class="line"><span class="built_in">print</span>(os.path.join(base_dir,<span class="string">&#x27;login&#x27;</span>))</span><br><span class="line"><span class="comment"># 读取login文件下内容</span></span><br><span class="line">f = <span class="built_in">open</span>(os.path.join(base_dir,<span class="string">&#x27;login&#x27;</span>),<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(f.read())</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;请求参数不确定，有可能一个，也可能N个参数&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">*args,**kwargs</span>):</span></span><br><span class="line">    <span class="keyword">return</span> kwargs</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(func(name=<span class="string">&#x27;mengxun&#x27;</span>,age=<span class="string">&#x27;18&#x27;</span>,address=<span class="string">&#x27;beijing&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="sys模块"><a href="#sys模块" class="headerlink" title="sys模块"></a>sys模块</h3><p>sys 提供对解释器使用或维护的一些变量以及与解释器强烈交互的函数的访问</p>
+<ul>
+<li>import sys 引入 python 标准库中的 sys.py 模块</li>
+<li>sys.argv 是一个包含命令行参数的列表</li>
+<li>sys.path 包含了一个 Python 解释器自动查找所需模块的路径的列表</li>
+</ul>
+<p>sys.argv[]说白了就是一个从程序外部获取参数的桥梁，这个“外部”很关键，所以那些试图从代码来说明它作用的解释一直没看明白。因为我们从外部取得的参数可以是多个，所以获得的是一个列表（list)，也就是说sys.argv其实可以看作是一个列表，所以才能用[]提取其中的元素。其第一个元素是程序本身，随后才依次是外部给予的参数。</p>
+<p>下面我们通过一个极简单的test.py程序的运行结果来说明它的用法。将其保存在~/Desktop/test.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">a = sys.argv[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
+
+<p>得到的结果为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test.py</span><br></pre></td></tr></table></figure>
+
+<p>然后我们将代码中的0改为1：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">a = sys.argv[<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
+
+<p>然后在shell中输入一个参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python test.py what</span></span><br><span class="line"></span><br><span class="line">what</span><br></pre></td></tr></table></figure>
+
+<p>得到的结果为我们输入的参数what，看到这里你是不是还不明白呢，那我们在把代码改一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">a = sys.argv[<span class="number">2</span>:]</span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
+
+<p>这次我们在shell中多添加几个参数，以空格隔开：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python test.py a b c d e f g</span></span><br><span class="line"></span><br><span class="line">[&#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;, &#x27;f&#x27;, &#x27;g&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>我们再稍微更改一下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">a = sys.argv[:<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
+
+<p>我们在shell中输入和上次一样的值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python test.py a b c d e f g</span></span><br><span class="line"></span><br><span class="line">[&#x27;test.py&#x27;, &#x27;a&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>应该大彻大悟了吧。sys.argv[ ]其实就是一个列表，里边的项为用户输入的参数，关键就是要明白这参数是从程序外部输入的，而非代码本身的什么地方，要想看到它的效果就应该将程序保存了，从外部来运行程序并给出参数</p>
+<p><strong>变量</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> sys.argv[<span class="number">1</span>] == <span class="string">&#x27;sleep&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;sleep&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;end&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">$ python file.py sleep</span><br><span class="line">sleep</span><br><span class="line"></span><br><span class="line">$ python file.py s</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p><strong>常用的方法</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看版本号</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(sys.version)</span><br><span class="line"><span class="number">3.9</span><span class="number">.5</span> (tags/v3<span class="number">.9</span><span class="number">.5</span>:0a7dcbd, May  <span class="number">3</span> <span class="number">2021</span>, <span class="number">17</span>:<span class="number">27</span>:<span class="number">52</span>) [MSC v<span class="number">.1928</span> <span class="number">64</span> bit (AMD64)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看平台</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(sys.platform)</span><br><span class="line">win32</span><br></pre></td></tr></table></figure>
+
+<p><strong>python包下的模块明显存在，而就是提示不存在</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看python的包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> sys.path:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line">    </span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">C:\Python39\python39.<span class="built_in">zip</span></span><br><span class="line">C:\Python39\DLLs</span><br><span class="line">C:\Python39\lib</span><br><span class="line">C:\Python39</span><br><span class="line">C:\Python39\lib\site-packages</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>标准库：C:\Python39\lib</li>
+<li>第三方库：C:\Python39\lib\site-packages</li>
+<li>自定义的库：</li>
+</ol>
+<p>如果自己写的包，无法调用。可以通过<code>sys.path.append()</code>加入到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys </span><br><span class="line"></span><br><span class="line">sys.path.append(<span class="string">&#x27;包的地址&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比如 sys.path.append(&#x27;D:\git\GITHUB\stack\day3&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> login <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">index() <span class="comment"># 调用login文件下的函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以再次查看sys.path路径</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> sys.path</span><br><span class="line">	<span class="built_in">print</span>(item)  </span><br></pre></td></tr></table></figure>
+
+<p><strong>IDE代码可以正常执行，当把代码上传到Linux中或CI之后，提示模块不存在</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以在文件之前添加这样的代码</span></span><br><span class="line"></span><br><span class="line">file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),<span class="string">&#x27;包名&#x27;</span>)</span><br><span class="line">sys.path.append(file_path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> 包下的文件名 <span class="keyword">import</span> 函数</span><br><span class="line"><span class="keyword">from</span> 包下的文件名 <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="JSON字典的序列化与反序列化"><a href="#JSON字典的序列化与反序列化" class="headerlink" title="JSON字典的序列化与反序列化"></a>JSON字典的序列化与反序列化</h3><ul>
+<li>序列化：把python的数据类型转化为str的类型过程</li>
+<li>反序列化：把str的类型转化为python的数据结构</li>
+</ul>
+<p>json.dumps 语法</p>
+<blockquote>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;json.dumps(obj, <span class="attribute">skipkeys</span>=<span class="literal">False</span>, <span class="attribute">ensure_ascii</span>=<span class="literal">True</span>, <span class="attribute">check_circular</span>=<span class="literal">True</span>, <span class="attribute">allow_nan</span>=<span class="literal">True</span>, <span class="attribute">cls</span>=None, <span class="attribute">indent</span>=None, <span class="attribute">separators</span>=None, <span class="attribute">encoding</span>=<span class="string">&quot;utf-8&quot;</span>, <span class="attribute">default</span>=None, <span class="attribute">sort_keys</span>=<span class="literal">False</span>, **kw)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 序列化 json.dumps()	将 Python 对象编码成 JSON 字符串</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict1 = &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;mengxun&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列化：dict--&gt;str</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict_str = json.dumps(dict1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">&#x27;dict_str&#x27;</span>,<span class="built_in">type</span>(dict_str))</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;mengxun&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>&#125; &lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">str</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>sort_keys=True</code> 告诉编码器按照字典排序(a到z)输出，如果是字典类型的python对象，就把关键字按照字典排序。</p>
+<p><code>indent</code>参数根据数据格式缩进显示，读起来更加清晰</p>
+<p><code>separators</code>分隔符的意思，参数意思分别为不同dict项之间的分隔符和dict项内key和value之间的分隔符，把：和，后面的空格都除去了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用参数让JSON数据格式化输出</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict1 = &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;mengxun&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">18</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict_str = json.dumps(dict1,sort_keys=<span class="literal">True</span>,indent=<span class="number">4</span>,separators=(<span class="string">&#x27;,&#x27;</span>,<span class="string">&#x27;:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#123;\n    &quot;age&quot;:18,\n    &quot;name&quot;:&quot;mengxun&quot;\n&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>json.loads</p>
+<p>json.loads 用于解码 JSON 数据。该函数返回 Python 字段的数据类型</p>
+<p>语法</p>
+<blockquote>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json.loads(s<span class="comment">[, encoding<span class="comment">[, cls<span class="comment">[, object_hook<span class="comment">[, parse_float<span class="comment">[, parse_int<span class="comment">[, parse_constant<span class="comment">[, object_pairs_hook<span class="comment">[, **kw]</span>]</span>]</span>]</span>]</span>]</span>]</span>]</span>)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 反序列化 json.loads() 将已编码的 JSON 字符串解码为 Python 对象</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>jsonData = <span class="string">&#x27;&#123;&quot;name&quot;:&quot;mengxun&quot;,&quot;age&quot;:18&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text = json.loads(jsonData)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(text,<span class="built_in">type</span>(text))</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;mengxun&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span>&#125; &lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">dict</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>列表的序列化与反序列化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表的序列化</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&#x27;admin&#x27;</span>,<span class="string">&#x27;mengxun&#x27;</span>,<span class="number">18</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list_str = json.dumps(list1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(list_str,<span class="built_in">type</span>(list_str))</span><br><span class="line"></span><br><span class="line">[<span class="string">&quot;admin&quot;</span>, <span class="string">&quot;mengxun&quot;</span>, <span class="number">18</span>] &lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">str</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"># 列表的反序列化</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">import</span> <span class="title">json</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">str_list</span> = <span class="title">json</span>.<span class="title">loads</span>(<span class="params">list_str</span>)</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span>(<span class="params">str_list,<span class="built_in">type</span>(<span class="params">str_list</span>)</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">[&#x27;<span class="title">admin</span>&#x27;, &#x27;<span class="title">mengxun</span>&#x27;, 18] &lt;<span class="title">class</span> &#x27;<span class="title">list</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>元组的序列化与反序列化</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple1=(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列化</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tuple_str = json.dumps(tuple1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(tuple_str,<span class="built_in">type</span>(tuple_str))</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] &lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">str</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"># 反序列化</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">str_tuple</span> = <span class="title">json</span>.<span class="title">loads</span>(<span class="params">tuple_str</span>)</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span>(<span class="params">str_tuple,<span class="built_in">type</span>(<span class="params">str_tuple</span>)</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">[1, 2, 3] &lt;<span class="title">class</span> &#x27;<span class="title">list</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="Python-os-path-模块"><a href="#Python-os-path-模块" class="headerlink" title="Python os.path() 模块"></a>Python os.path() 模块</h3><p>os.path 模块主要用于获取文件的属性</p>
+<p>以下是os.path 模块的几种常用方法</p>
+<table>
+<thead>
+<tr>
+<th>os.path.abspath(path)</th>
+<th>返回绝对路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>os.path.basename(path)</td>
+<td>返回文件名</td>
+</tr>
+<tr>
+<td>os.path.commonprefix(list)</td>
+<td>返回list(多个路径)中，所有path共有的最长的路径</td>
+</tr>
+<tr>
+<td>os.path.dirname(path)</td>
+<td>返回文件路径</td>
+</tr>
+<tr>
+<td>os.path.exists(path)</td>
+<td>如果路径 path 存在，返回 True；如果路径 path 不存在，返回 False。</td>
+</tr>
+<tr>
+<td>os.path.lexists</td>
+<td>路径存在则返回True,路径损坏也返回True</td>
+</tr>
+<tr>
+<td>os.path.expanduser(path)</td>
+<td>把path中包含的”<del>“和”</del>user”转换成用户目录</td>
+</tr>
+<tr>
+<td>os.path.expandvars(path)</td>
+<td>根据环境变量的值替换path中包含的”$name”和”${name}”</td>
+</tr>
+<tr>
+<td>os.path.getatime(path)</td>
+<td>返回最近访问时间（浮点型秒数）</td>
+</tr>
+<tr>
+<td>os.path.getmtime(path)</td>
+<td>返回最近文件修改时间</td>
+</tr>
+<tr>
+<td>os.path.getctime(path)</td>
+<td>返回文件 path 创建时间</td>
+</tr>
+<tr>
+<td>os.path.getsize(path)</td>
+<td>返回文件大小，如果文件不存在就返回错误</td>
+</tr>
+<tr>
+<td>os.path.isabs(path)</td>
+<td>判断是否为绝对路径</td>
+</tr>
+<tr>
+<td>os.path.isfile(path)</td>
+<td>判断路径是否为文件</td>
+</tr>
+<tr>
+<td>os.path.isdir(path)</td>
+<td>判断路径是否为目录</td>
+</tr>
+<tr>
+<td>os.path.islink(path)</td>
+<td>判断路径是否为链接</td>
+</tr>
+<tr>
+<td>os.path.ismount(path)</td>
+<td>判断路径是否为挂载点</td>
+</tr>
+<tr>
+<td>os.path.join(path1[, path2[, …]])</td>
+<td>把目录和文件名合成一个路径</td>
+</tr>
+<tr>
+<td>os.path.normcase(path)</td>
+<td>转换path的大小写和斜杠</td>
+</tr>
+<tr>
+<td>os.path.normpath(path)</td>
+<td>规范path字符串形式</td>
+</tr>
+<tr>
+<td>os.path.realpath(path)</td>
+<td>返回path的真实路径</td>
+</tr>
+<tr>
+<td>os.path.relpath(path[, start])</td>
+<td>从start开始计算相对路径</td>
+</tr>
+<tr>
+<td>os.path.samefile(path1, path2)</td>
+<td>判断目录或文件是否相同</td>
+</tr>
+<tr>
+<td>os.path.sameopenfile(fp1, fp2)</td>
+<td>判断fp1和fp2是否指向同一文件</td>
+</tr>
+<tr>
+<td>os.path.samestat(stat1, stat2)</td>
+<td>判断stat tuple stat1和stat2是否指向同一个文件</td>
+</tr>
+<tr>
+<td>os.path.split(path)</td>
+<td>把路径分割成 dirname 和 basename，返回一个元组</td>
+</tr>
+<tr>
+<td>os.path.splitdrive(path)</td>
+<td>一般用在 windows 下，返回驱动器名和路径组成的元组</td>
+</tr>
+<tr>
+<td>os.path.splitext(path)</td>
+<td>分割路径，返回路径名和文件扩展名的元组</td>
+</tr>
+<tr>
+<td>os.path.splitunc(path)</td>
+<td>把路径分割为加载点与文件</td>
+</tr>
+<tr>
+<td>os.path.walk(path, visit, arg)</td>
+<td>遍历path，进入每个目录都调用visit函数，visit函数必须有3个参数(arg, dirname, names)，dirname表示当前目录的目录名，names代表当前目录下的所有文件名，args则为walk的第三个参数</td>
+</tr>
+<tr>
+<td>os.path.supports_unicode_filenames</td>
+<td>设置是否支持unicode路径名</td>
+</tr>
+</tbody></table>
+<p>实例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(os.path.basename(<span class="string">&#x27;~/Desktop/runboot.txt&#x27;</span>))		<span class="comment"># 返回文件名</span></span><br><span class="line"><span class="built_in">print</span>(os.path.dirname(<span class="string">&#x27;~/Desktop/runboot.txt&#x27;</span>))			<span class="comment"># 返回目录路径</span></span><br><span class="line"><span class="built_in">print</span>(os.path.split(<span class="string">&#x27;~/Desktop/runboot.txt&#x27;</span>))				<span class="comment"># 分割文件名和路径</span></span><br><span class="line"><span class="built_in">print</span>(os.path.join(<span class="string">&#x27;~&#x27;</span>,<span class="string">&#x27;test&#x27;</span>,<span class="string">&#x27;runboot.txt&#x27;</span>))				<span class="comment"># 将目录和文件名合成一个路径</span></span><br></pre></td></tr></table></figure>
+
+<p>执行以上程序输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">runboot.txt</span><br><span class="line">~/Desktop</span><br><span class="line">~/test/runboot.txt</span><br><span class="line">~/test/runboot.txt</span><br></pre></td></tr></table></figure>
+
+<p>以下实例输出文件的相关信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> </span><br><span class="line">file=<span class="string">&#x27;/root/runoob.txt&#x27;</span> <span class="comment"># 文件路径</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span>( os.path.getatime(file) )   <span class="comment"># 输出最近访问时间</span></span><br><span class="line"><span class="built_in">print</span>( os.path.getctime(file) )   <span class="comment"># 输出文件创建时间</span></span><br><span class="line"><span class="built_in">print</span>( os.path.getmtime(file) )   <span class="comment"># 输出最近修改时间</span></span><br><span class="line"><span class="built_in">print</span>( time.gmtime(os.path.getmtime(file)) )  <span class="comment"># 以struct_time形式输出最近修改时间</span></span><br><span class="line"><span class="built_in">print</span>( os.path.getsize(file) )   <span class="comment"># 输出文件大小（字节为单位）</span></span><br><span class="line"><span class="built_in">print</span>( os.path.abspath(file) )   <span class="comment"># 输出绝对路径</span></span><br><span class="line"><span class="built_in">print</span>( os.path.normpath(file) )  <span class="comment"># 规范path字符串形式</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1623576450.1366549</span></span><br><span class="line"><span class="number">1623576450.1366549</span></span><br><span class="line"><span class="number">1623576450.1366549</span></span><br><span class="line">time.struct_time(tm_year=<span class="number">2021</span>, tm_mon=<span class="number">6</span>, tm_mday=<span class="number">13</span>, tm_hour=<span class="number">9</span>, tm_min=<span class="number">27</span>, tm_sec=<span class="number">30</span>, tm_wday=<span class="number">6</span>, tm_yday=<span class="number">164</span>, tm_isdst=<span class="number">0</span>)</span><br><span class="line"><span class="number">531</span></span><br><span class="line">/root/runoob.txt</span><br><span class="line">/root/runoob.txt</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/03/%E5%87%BD%E6%95%B0%E8%A3%85%E9%A5%B0%E5%99%A8/" rel="prev" title="函数装饰器">
+      <i class="fa fa-chevron-left"></i> 函数装饰器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/07/Python%E6%96%87%E4%BB%B6/" rel="next" title="Python文件">
+      Python文件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#time%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">time内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#os%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">os内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sys%E6%A8%A1%E5%9D%97"><span class="nav-number">3.</span> <span class="nav-text">sys模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON%E5%AD%97%E5%85%B8%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">JSON字典的序列化与反序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number"></span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-os-path-%E6%A8%A1%E5%9D%97"><span class="nav-number">1.</span> <span class="nav-text">Python os.path() 模块</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

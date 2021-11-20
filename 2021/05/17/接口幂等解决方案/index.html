@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是幂等性？多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接口幂等解决方案">
+<meta property="og:url" content="http://example.com/2021/05/17/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="什么是幂等性？多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-17T14:28:33.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="接口测试">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/05/17/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>接口幂等解决方案 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/17/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          接口幂等解决方案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-17 22:28:33" itemprop="dateCreated datePublished" datetime="2021-05-17T22:28:33+08:00">2021-05-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="什么是幂等性？"><a href="#什么是幂等性？" class="headerlink" title="什么是幂等性？"></a>什么是幂等性？</h3><p>多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）</p>
+<span id="more"></span>
+
+<h3 id="产生幂等性场景"><a href="#产生幂等性场景" class="headerlink" title="产生幂等性场景"></a>产生幂等性场景</h3><ol>
+<li>网络波动, 可能会引起重复请求</li>
+<li>用户重复操作,用户在操作时候可能会无意触发多次下单交易,甚至没有响应而有意触发多次交易</li>
+<li>应用使用了失效或超时重试机制(Nginx重试、RPC重试或业务层重试等)</li>
+<li>页面重复刷新</li>
+<li>使用浏览器后退按钮重复之前的操作,导致重复提交表单</li>
+<li>使用浏览器历史记录重复提交表单</li>
+<li>浏览器重复的HTTP请求</li>
+<li>定时任务重复执行</li>
+<li>用户双击提交按钮</li>
+</ol>
+<h3 id="幂等在哪一层实现？"><a href="#幂等在哪一层实现？" class="headerlink" title="幂等在哪一层实现？"></a>幂等在哪一层实现？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据访问层</span><br><span class="line">注: 只要数据库交互的那一层都可以实现,</span><br></pre></td></tr></table></figure>
+
+<h3 id="幂等性解决方案"><a href="#幂等性解决方案" class="headerlink" title="幂等性解决方案"></a>幂等性解决方案</h3><blockquote>
+<p><strong>1. 按钮只可操作一次</strong></p>
+</blockquote>
+<p>一般是提交后把按钮置灰或loding状态,消除用户因为重复点击而产生的重复记录,比如添加操作,由于点击两次而产生两条记录</p>
+<blockquote>
+<p><strong>2. token机制</strong></p>
+</blockquote>
+<p>功能上允许重复提交,但要保证重复提交不产生副作用,比如点击n次只产生一条记录,具体实现就是进入页面时申请一个token,然后后面所有的请求都带上这个token,后端根据token来避免重复请求。</p>
+<blockquote>
+<p><strong>3. 使用Post/Redirect/Get模式</strong></p>
+</blockquote>
+<p>在提交后执行页面重定向,这就是所谓的Post-Redirect—Get(PRG)模式,简单来说就是当用户提交连表单后,跳转到一个重定向的信息页面,这样就避免用户按F5刷新导致的重复提交,而且也不会出现浏览器表单重复提交的警告,也能消除按浏览器前进和后退导致同样重复提交的问题。</p>
+<blockquote>
+<p><strong>4. 在session存放特殊标志</strong></p>
+</blockquote>
+<p>在服务端,生成一个唯一的标识符,将它存入session,同时前端获取这个标识符的值将它写入表单的隐藏中,用于用户输入信息后点击一起提交,在服务器端,获取表单中隐藏字段的值,与session中的唯一标识符比较,相等说明是首次提交,就处理本次请求,然后将session中的唯一标识符移除,不相等则表示是重复提交,不再做处理。</p>
+<blockquote>
+<p><strong>5. 使用唯一索引防止新增脏数据</strong></p>
+</blockquote>
+<p>利用数据库唯一索引机制,当数据重复时,插入数据库会抛出异常,保证不会出现脏数据。</p>
+<blockquote>
+<p><strong>6. Token + Redis</strong></p>
+</blockquote>
+<p><strong>以订单为例:</strong></p>
+<p>第一阶段:在进入到提交订单页面之前,需要订单系统根据用户信息向后端发起一个申请Token的请求,后端将Token保存到Redis缓存中,为第二阶段操作使用。</p>
+<p>第二阶段: 订单系统拿着申请到的token发起提交订单请求,后端会检查Redis中是否存在该Token, 如果存在, 表示第一次发起订单提交请求,开始逻辑处理,处理完逻辑后删除Redis中的Token 当有重复请求的时候,检查缓存中Token是否存在。不存在表示非法请求。</p>
+<blockquote>
+<p><strong>7. 状态机</strong></p>
+</blockquote>
+<p>针对更新操作,比如业务上需要修改订单状态,例如订单状态有待支付、支付中、支付成功、支付失败、订单超时关闭等,在设计的时候最好只支持状态的单向改变(不可逆),也就是在更新的时候where条件里可以加上status = {状态},多次调用的话实际上也只会执行一次。</p>
+<blockquote>
+<p><strong>8. 乐观锁</strong></p>
+</blockquote>
+<p>如果更新已有数据,可以进行加锁更新,也可以设计表结构时使用乐观锁,通过version来做乐观锁,这样既能保证执行效率,又能保证幂等, 乐观锁的version版本在更新业务数据要自增<br><code>update table set version = version + 1 where id = #&#123;id&#125; and version = #&#123;version&#125;</code><br><strong>示例:</strong> 当有重复请求的时候,第一个请求会获取当前商品的version版本号,得到的version为1,紧接着由于第一个请求还没更新商品的version,第二个请求获取的version依然也是1, 这时候第一个请求操作更新的时候带上version并作为条件并且自增更新,这时候商品的version就会变成2,当第二个请求去操作更新的时候明显version不一致导致更新失败。</p>
+<blockquote>
+<p><strong>9. 防重表</strong></p>
+</blockquote>
+<p>以支付为例: 使用唯一主键去做防重表的唯一索引,比如使用订单号作为防重表的唯一索引,每一次请求都根据订单号向防重表中插入一条数据,插入成功说明可以处理后面的业务,当处理完业务逻辑之后删除防重表中的订单号数据,后续如果有重复请求,则会因为防重表唯一索引原因导致插入失败,直接返回操作失败,直到第一次请求返回结果,可以看出防重表作用就是加锁的功能。<br><code>注: 最好结合状态机幂等先判断一下</code></p>
+<blockquote>
+<p><strong>10. select + insert or update or delete</strong></p>
+</blockquote>
+<p>该方案就是操作之前先查询一下,符合要求再插入,该方案在没有并发的系统中可以解决幂等问题，在单JVM有并发的时候可以用JVM加锁来保证幂等性,在分布式环境它是无法保证幂等性,可以使用分布式来保证。</p>
+<blockquote>
+<p><strong>11. 分布式锁</strong></p>
+</blockquote>
+<p>在进入方法时,先去获取锁,假如获取到锁,就继续后面的流程,假如没有获取到锁就等待锁释放后直到获取锁,当执行完方法时则进行释放锁。</p>
+<p>该解决方案可以用来解决分布式系统幂等性。</p>
+<p>常用的分布式锁实现采用的方案是 Redis 和 Zookeeper等工具,使用分布式锁类似于防重表,将防重并发放到缓存中,较为高效,思路相同,同一时间只能完成一次支付请求。</p>
+<p><code>注: 获取锁最好设置个超时时间,防止意外没有释放到锁</code></p>
+<blockquote>
+<p><strong>12. 缓冲队列</strong></p>
+</blockquote>
+<p>将请求都快速地接收下来后放入缓冲队列中,后续使用异步任务处理队列中的数据,过滤掉重复的请求,该解决方案优点是同步处理改成异步处理、高吞吐量,缺点则是不能及时地返回请求结果,需要后续轮询得处理结果。</p>
+<blockquote>
+<p><strong>13. 全局唯一号</strong></p>
+</blockquote>
+<p>比如通过source来源 + 唯一序列号传入给后端，后端来判断请求是否重复,在并发时只能处理一个请求,其他相同并发请求要么返回请求重复,要么等待 前面请求执行完成后再执行。</p>
+<blockquote>
+<p>转载自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/116873088">陈死狗</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/" rel="tag"># 接口测试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/" rel="prev" title="实验5 编写、调试具体多个段的程序">
+      <i class="fa fa-chevron-left"></i> 实验5 编写、调试具体多个段的程序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/18/%E6%B1%89%E6%B1%9F/" rel="next" title="汉江">
+      汉江 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%82%E7%AD%89%E6%80%A7%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是幂等性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E5%B9%82%E7%AD%89%E6%80%A7%E5%9C%BA%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">产生幂等性场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%82%E7%AD%89%E5%9C%A8%E5%93%AA%E4%B8%80%E5%B1%82%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">幂等在哪一层实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%82%E7%AD%89%E6%80%A7%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">幂等性解决方案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

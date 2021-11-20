@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="实验5 编写、调试具体多个段的程序 1.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验5 编写、调试具体多个段的程序">
+<meta property="og:url" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="实验5 编写、调试具体多个段的程序 1.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/1.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/2.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/3.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/4.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/5.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/6.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/7.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/8.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/9.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/10.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/11.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/12.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/13.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/14.png">
+<meta property="og:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/15.png">
+<meta property="article:published_time" content="2021-05-15T09:04:51.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="汇编">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/1.png">
+
+<link rel="canonical" href="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>实验5 编写、调试具体多个段的程序 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/15/%E5%AE%9E%E9%AA%8C5-%E7%BC%96%E5%86%99%E3%80%81%E8%B0%83%E8%AF%95%E5%85%B7%E4%BD%93%E5%A4%9A%E4%B8%AA%E6%AE%B5%E7%9A%84%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实验5 编写、调试具体多个段的程序
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-15 17:04:51" itemprop="dateCreated datePublished" datetime="2021-05-15T17:04:51+08:00">2021-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>7.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>7 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>实验5 编写、调试具体多个段的程序</p>
+<h2 id="1-将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。"><a href="#1-将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。" class="headerlink" title="1.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。"></a>1.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。</h2><span id="more"></span>
+
+<p>汇编代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"> </span><br><span class="line">data segment</span><br><span class="line">        dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h</span><br><span class="line">data ends</span><br><span class="line"> </span><br><span class="line">stack segment</span><br><span class="line">        dw 0,0,0,0,0,0,0,0</span><br><span class="line">stack ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line">start:  mov ax,stack</span><br><span class="line">        mov ss,ax</span><br><span class="line">        mov sp,16</span><br><span class="line"> </span><br><span class="line">        mov ax,data</span><br><span class="line">        mov ds,ax</span><br><span class="line"> </span><br><span class="line">        push ds:[0]</span><br><span class="line">        push ds:[2]</span><br><span class="line">        pop ds:[2]</span><br><span class="line">        pop ds:[0]</span><br><span class="line"> </span><br><span class="line">        mov ax,4c00h</span><br><span class="line">        int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CPU执行程序，程序返回前，data段中的数据____。</li>
+<li>CPU执行程序，程序返回前，CS=____，SS=<strong><strong>，DS=</strong></strong> 。</li>
+<li>设程序加载后，CODE段的段地址为X，则DATA段的段地址为____ ，STACK段的段地址为____ 。</li>
+</ul>
+<p>程序分析：由于是初次接触，我们逐步讲解</p>
+<p><strong>此程序考察的是内存中数据段和栈段的定义。</strong></p>
+<p>程序共定义了3个段（<strong>依次是数据段、栈段、代码段，注意前后的顺序</strong>）</p>
+<ul>
+<li>一个数据段，data段。首先明确，在程序运行开始（标号start处），这个数据段就已经被定义好了，并且分配了内存空间，并赋值了。</li>
+<li>一个栈段，stack。同理这个数据段在没有被人工定义为栈结构时，也被定义好了。并且分配了内存空间，并赋值了</li>
+<li>一个代码段</li>
+</ul>
+<p>此程序编译并连接后，使用 debug 调试（<font color="#CB4335">这里需要注意，一下的段地址可能由于系统不同而存在差异，主要是理解概念</font>）</p>
+<p><img src="1.png"></p>
+<p>程序分析：我们什么也没有执行，此时我们在 data 段定义的数据在哪？</p>
+<p>在 ds:0100H 处（原来我们讲过，程序最开始时 ds:00~ds:100H 是留给程序与操作系统通讯使用的 psp 内存段，参考书中 p92），也就是我们在 ds:100H、075A:100H（因为 ds 是 075A，所以075A:100H）或 0759:00 处可以看见这些定义的数据。见下图</p>
+<p><code>-d ds:100</code></p>
+<p><img src="2.png"></p>
+<blockquote>
+<p>mov ax,stack</p>
+<p>mov ss,ax</p>
+<p>mov sp,16</p>
+</blockquote>
+<p>直到这3个指令执行完毕，此时stack数据段被人工指定为了栈结构，（ss）=offset stack，也就是说此时ss段寄存器变量才赋值为stack段的段地址。sp指针指向了栈顶。</p>
+<p><img src="3.png"></p>
+<p>我们在上图中，看到 ss=0769，执行完这3个指令后，我们发现 ss=076B，我们用 d 命令查询：</p>
+<p><img src="4.png"></p>
+<p>我们定义的数据在内存中的位置在程序装载后，位置是固定的，也就是说数据段的物理地址一直是固定的，只不过我们表述这个数据段时，采用了不同的段地址和偏移地址。</p>
+<p>我们将 ss 指向了 stack 段内存，也就是说，stack 这个内存段从现在开始被人工的当做了栈空间使用。在这16个字节空间里，原来都是00；为什么现在有其他数据了？这个我们先别管。它是一些其他的有用信息。</p>
+<blockquote>
+<p>mov ax,data</p>
+<p>mov ds,ax</p>
+</blockquote>
+<p>直到上面2个指令执行完毕，ds 段寄存器的值才是 offset data，也就是说此时ds指向了data段，ds:[0] 和 data:[0] 是等价的。</p>
+<p>此时的段地址存储在ds中；也是默认的段地址寄存器；内存单元表示直接使用 [idata] 寻址就行，也可以使用 ds:[idata]。[0]代表第一个内存单元地址；[2]代表第三个内存单元地址。</p>
+<p>同理：我们执行这二个指令后，将ds指向了data段。</p>
+<blockquote>
+<p>push ds:[0]</p>
+</blockquote>
+<p>指令含义：将 data 段中从第一个内存单元地址开始，按照字单元（2个字节），压栈到ss栈（或stack栈中）；通俗的讲，就是将 23 01 这二个字节按字为单元压栈。此时sp变量有变化，原来sp=0010H（16），压栈后：(sp)=(sp) - 2 = 16 - 2 = 000EH。</p>
+<p><img src="5.png"></p>
+<p>也就是说栈顶改变了。（这个变化，你可以使用debug中的t命令一步一步的执行后查看）。此时我们查看下栈中有变化吗？</p>
+<p><code>-d ss:0 f</code></p>
+<p><img src="6.png"></p>
+<p>我们发现栈中确实存储了 01 23 这2个数据，而且明确了栈空间结构是从高地址向低地址发展的。至于栈中其他数据，我们不必理会。</p>
+<blockquote>
+<p>push ds:[2]</p>
+</blockquote>
+<p>指令含义：同理，将data段中从第三个内存单元地址开始，按照字单元（2个字节），压栈到ss栈（或stack栈中）；通俗的讲，就是将56 04这二个字节按字为单元压栈。此时sp变量有变化，原来sp=000EH（14）；压栈后（sp）=（sp）-2=14-2=000CH。也就是说栈顶改变了SP=000C。</p>
+<p><img src="7.png"></p>
+<p><code>-d ss:0 f</code></p>
+<p><img src="8.png"></p>
+<blockquote>
+<p>pop ds:[2]</p>
+</blockquote>
+<p>指令含义：将栈中数据按字弹出，写入到段地址是ds（它的值是offset data或在我们的系统中是DS=0B65），偏移地址是[2]的内存单元中。如果默认段地址是ds，此指令直接可以写成：pop [2]</p>
+<p>指令执行后：sp值有变化，因为是弹出一个字，故（sp）=（sp）+2 =000CH+2=000EH。也就是说栈顶指针sp指向有变化了。</p>
+<p><img src="9.png"></p>
+<p>这里注意栈空间中存储栈帧的顺序，也是在以后使用栈结构时候需要注意的原则：先进后出；后进先出。我们查看下data段数据变化</p>
+<p><img src="10.png"></p>
+<p>其实在内存第3、4字节中是pop弹栈回写的数据。实际是没有变化，但是经过了pop的回写的。</p>
+<blockquote>
+<p>pop ds:[0]</p>
+</blockquote>
+<p>  指令含义：同理如上面，不多说了。</p>
+<p><strong>参考答案</strong></p>
+<ul>
+<li><p>CPU执行程序，程序返回前，data段中的数据____。</p>
+<p><em>不变</em></p>
+</li>
+<li><p>CPU执行程序，程序返回前，CS=，SS=，DS=____ 。</p>
+<p>CS=076C、SS=076B、DS=076A</p>
+</li>
+<li><p>设程序加载后，CODE段的段地址为X，则DATA段的段地址为____ ，STACK段的段地址为____ 。</p>
+<p>data段的段地址为 X-2，stack段的段地址为 X-1</p>
+</li>
+</ul>
+<h2 id="2-将下面的程序编译连接，用Debug加载、跟踪，然后回答问题"><a href="#2-将下面的程序编译连接，用Debug加载、跟踪，然后回答问题" class="headerlink" title="2.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题"></a>2.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题</h2><p>汇编程序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"> </span><br><span class="line">data segment</span><br><span class="line">    dw 0123h,0456h</span><br><span class="line">data ends</span><br><span class="line"> </span><br><span class="line">stack segment</span><br><span class="line">    dw 0,0</span><br><span class="line">stack ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">    mov ax,stack      </span><br><span class="line">    mov ss,ax</span><br><span class="line">    mov sp,16         </span><br><span class="line"> </span><br><span class="line">    mov ax,data       </span><br><span class="line">    mov ds,ax</span><br><span class="line"> </span><br><span class="line">    push ds:[0]</span><br><span class="line">    push ds:[2]</span><br><span class="line">    pop ds:[2]</span><br><span class="line">    pop ds:[0]</span><br><span class="line"> </span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CPU执行程序，程序返回前，data段中的数据____。</li>
+<li>CPU执行程序，程序返回前，CS=____，SS=<strong><strong>，DS=</strong></strong> 。</li>
+<li>设程序加载后，CODE段的段地址为X，则DATA段的段地址为____ ，STACK段的段地址为____ 。</li>
+<li>对于如下定义的段：<pre><code>name segment
+    ......
+name ends
+</code></pre>
+  如果段中数据位 N 个字节，程序加载后，该段实际占据空间为____ </li>
+</ul>
+<p><strong>程序分析：</strong>（不再详细分析了）</p>
+<p><strong>首先明确：</strong>虽然我们在 data段 和 stack段 中只定义初始化了4个字节的内存，但在汇编中，直接给你分配了16个字节的空间，不足的按00补全。</p>
+<p><strong>结论：</strong>数据段和栈段在程序加载后实际占据的空间都是以16个字节为单位的。如果不足，以0补全填充。</p>
+<p> 在debug中查看：-d ds:100 （ 不知道为什么 ds:100 的 往上看前面解释）</p>
+<p><img src="11.png"></p>
+<p>g 1d 执行到 cs:1d 位置，程序中就是 mov ax, 4C00h</p>
+<p><img src="12.png"></p>
+<p><strong>参考答案</strong></p>
+<ul>
+<li><p>CPU执行程序，程序返回前，data段中的数据____。</p>
+<p><em>不变</em></p>
+</li>
+<li><p>CPU执行程序，程序返回前，CS=____，SS=<strong><strong>，DS=</strong></strong> 。</p>
+<p>CS=076C、SS=076B、DS=076A</p>
+</li>
+<li><p>设程序加载后，CODE段的段地址为X，则DATA段的段地址为____ ，STACK段的段地址为____ 。</p>
+<p>data段的段地址为 X-2，stack段的段地址为 X-1</p>
+</li>
+<li><p>对于如下定义的段：</p>
+<pre><code>name segment
+    ......
+name ends
+</code></pre>
+<p>  如果段中数据位 N 个字节，程序加载后，该段实际占据空间为（N/16的取整数+1）<em>16个字节，如果 N小于16，那么实际占用16个字节（理解这个小问题）；如果N大于16，那么实际占用（N/16的取整数+1）</em>16个字节。其实都是这个公式。</p>
+</li>
+</ul>
+<h2 id="3-将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。"><a href="#3-将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。" class="headerlink" title="3.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。"></a>3.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。</h2><p>汇编代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">    mov ax,stack      </span><br><span class="line">    mov ss,ax</span><br><span class="line">    mov sp,16         </span><br><span class="line"> </span><br><span class="line">    mov ax,data       </span><br><span class="line">    mov ds,ax</span><br><span class="line"> </span><br><span class="line">    push ds:[0]</span><br><span class="line">    push ds:[2]</span><br><span class="line">    pop ds:[2]</span><br><span class="line">    pop ds:[0]</span><br><span class="line"> </span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line"> </span><br><span class="line">data segment</span><br><span class="line">    dw 0123h,0456h</span><br><span class="line">data ends</span><br><span class="line"> </span><br><span class="line">stack segment</span><br><span class="line">    dw 0,0</span><br><span class="line">stack ends</span><br><span class="line"> </span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CPU执行程序，程序返回前，data段中的数据____。</li>
+<li>CPU执行程序，程序返回前，CS=____，SS=<strong><strong>，DS=</strong></strong> 。</li>
+<li>设程序加载后，CODE段的段地址为X，则DATA段的段地址为____ ，STACK段的段地址为____ 。</li>
+</ul>
+<p>程序分析：<font color="#CB4335">这次只不过是将 data 和 stack 段放到了 code 段后面了。那么就要注意他们段地址的变化了。</font></p>
+<p>程序返回前查看（程序执行结束前）</p>
+<p><img src="13.png"></p>
+<p><strong>总结：</strong>在汇编源代码中，我们定义的 code 是程序执行的代码（它存储在一个我们人为规定的段code中，在程序装载时，分配空间，并将机器码写入到这段内存中）；其他的数据段（无论是逻辑上的stack段，data段等）与代码段都相邻。只不过是装载、分配内存前后的问题</p>
+<p><strong>参考答案</strong></p>
+<ul>
+<li><p>CPU执行程序，程序返回前，data段中的数据____。</p>
+<p><em>执行程序后，data段有16个字节空间，前两个字数据不变，其余为00补全了</em></p>
+</li>
+<li><p>CPU执行程序，程序返回前，CS=____，SS=<strong><strong>，DS=</strong></strong> 。</p>
+<p><em>CS=076A，SS=076E，DS=076D</em></p>
+</li>
+<li><p>设程序加载后，CODE段的段地址为X，则DATA段的段地址为____ ，STACK段的段地址为____ 。</p>
+<p><em>data 段地址为 X+3，stack段地址为 X+4</em></p>
+</li>
+</ul>
+<p><strong>（为什么是这样？怎么计算的？看cx，</strong><font color="#CB4335">程序加载时，我们发现cx=0044，含义：此程序所有机器码占用的空间是44H=68字节（cx 指示 程序机器码占用空间的大小）</font>，<strong>data 和 stack 由于定义的都是小于16个字节，一律按照16个字节分配空间，其余补00；剩余的36个字节就是code段真正的可执行的机器码。由于code段不足48个字节（3*16），故程序加载时也补0了）</strong></p>
+<p>我们可以使用debug看看：-d cs:0</p>
+<p><img src="14.png"></p>
+<h2 id="4-如果将-1-、-2-、-3-题中的最后一条伪指令“end-start”改为“end”-也就是说不指明程序的入口-，则那个程序仍然可以正确执行？请说明原因。"><a href="#4-如果将-1-、-2-、-3-题中的最后一条伪指令“end-start”改为“end”-也就是说不指明程序的入口-，则那个程序仍然可以正确执行？请说明原因。" class="headerlink" title="4. 如果将(1)、(2)、(3)题中的最后一条伪指令“end start”改为“end”(也就是说不指明程序的入口)，则那个程序仍然可以正确执行？请说明原因。"></a>4. 如果将(1)、(2)、(3)题中的最后一条伪指令“end start”改为“end”(也就是说不指明程序的入口)，则那个程序仍然可以正确执行？请说明原因。</h2><p><strong>答案：</strong>如果不指名程序的（code段的）入口，并且使用 end 替换 end start，都能正常运行。但只有（3）题中程序可以正确的执行（因为只有它是在内存中可执行代码在最前面）。</p>
+<p><strong>讲解：</strong>因为如果不指名入口，程序会从加载进内存的第一个单元起开始执行，前二个题中，定义的是数据，但CPU还是将数据当做指令代码执行了。只不过程序执行时逻辑上是错误了。但真的能执行的。</p>
+<p>如果指明了程序的入口，CPU会直接从入口处开始执行真正的机器码，直到遇到中断指令返回。此种方式能够确保程序逻辑上的正确。因此有必要为程序来指明入口。</p>
+<p>网上许多答案都是不太明确！</p>
+<h2 id="5-编写-code-段中的代码，将-a段-和-b段-数据依次相加，结果存入c段"><a href="#5-编写-code-段中的代码，将-a段-和-b段-数据依次相加，结果存入c段" class="headerlink" title="5.编写 code 段中的代码，将 a段 和 b段 数据依次相加，结果存入c段"></a>5.<strong>编写 code</strong> 段中的代码，将 a段 和 b段 数据依次相加，结果存入c段</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">a segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">a ends</span><br><span class="line"></span><br><span class="line">b segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">b ends</span><br><span class="line"></span><br><span class="line">c segment</span><br><span class="line">    db 0,0,0,0,0,0,0,0</span><br><span class="line">c ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:</span><br><span class="line">    ?</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>书上解题思路：使用 段 es 首先指向 a 段 ，ds 指向 c 段，a 段 和 c 段相加保存在 c 段，然后 es 再 指向 b ，b 段再 和 c 段相加保存在 c 段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">a segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">a ends</span><br><span class="line"> </span><br><span class="line">b segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">b ends</span><br><span class="line"> </span><br><span class="line">c segment</span><br><span class="line">    db 0,0,0,0,0,0,0,0</span><br><span class="line">c ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">    mov ax,a</span><br><span class="line">    mov es,ax</span><br><span class="line">    </span><br><span class="line">    mov ax,c</span><br><span class="line">    mov ds,ax</span><br><span class="line">    </span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,8</span><br><span class="line">s1:</span><br><span class="line">    mov ax,es:[bx]</span><br><span class="line">    add[bx],ax</span><br><span class="line">    add bx,2</span><br><span class="line">    loop s1</span><br><span class="line">    mov ax,b </span><br><span class="line">    mov es,ax</span><br><span class="line">    mov ds,ax </span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,8</span><br><span class="line">s2:</span><br><span class="line">    mov ax,es:[bx]</span><br><span class="line">    add[bx],ax</span><br><span class="line">    add bx,2</span><br><span class="line">    loop s2</span><br><span class="line">    </span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p><strong>程序分析：</strong></p>
+<p>​    （1）这个题目一下子搞出3个数据段了。呵呵，貌似我们段寄存器不够用了。cs（代码段），ss（栈段），这二个千万别碰！那只有ds和es了。思路：将a和b段我们用一个段地址表示，存储在ds中；c段我们存储在es中。？这种方式好吗？不太好。</p>
+<p>​    （2）上面已经体会了，当一个数据段不足16个字节时，按16个字节分配内存空间，其余的补0。我们发现a、b段都是定义了8个字节的数值。并且是相邻的（肯定是的），那么a段的地址我们使用[bx+idata]表示，b段我们也使用[bx+idata]表示。这种方式没有把a段和b段分开。</p>
+<p>​    （3）最终决定：将es指向c段，ds分开分别的指向a段和b段，这样我们在一个循环内完成所有的工作了；程序中使用了栈保存了ds的值；</p>
+<p>汇编代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"> </span><br><span class="line">a segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">a ends</span><br><span class="line"> </span><br><span class="line">b segment</span><br><span class="line">    db 1,2,3,4,5,6,7,8</span><br><span class="line">b ends</span><br><span class="line"> </span><br><span class="line">cz segment</span><br><span class="line">    db 0,0,0,0,0,0,0,0</span><br><span class="line">cz ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line"> </span><br><span class="line">start:</span><br><span class="line"> </span><br><span class="line">    mov ax,a</span><br><span class="line">    mov ds,ax            ;ds指向a段</span><br><span class="line"> </span><br><span class="line">    mov ax,b</span><br><span class="line">    mov es,ax            ;es指向b段</span><br><span class="line"> </span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,8             ;计算8次，故计数器为8</span><br><span class="line"> </span><br><span class="line">s:</span><br><span class="line">    mov dl, [bx]         ;将ds:[bx]内存单元按字节送入dl，此循环用到ax</span><br><span class="line">    add dl, es:[bx]      ;将ds:[bx]与es:[bx]内存单元值相加</span><br><span class="line">    push ds              ;保护ds值，因为下面用到ds了</span><br><span class="line">    mov ax, cz          ;我的编译器不认C这个段的标号，故改成了CZ</span><br><span class="line">    mov ds, ax          ;将ds指向cz段</span><br><span class="line">    mov [bx], dl        ;将dl（a和b相对应内存单元内容之和）写入cz中</span><br><span class="line">    pop ds               ;将ds恢复</span><br><span class="line">    inc bx              ;bx递增</span><br><span class="line">    loop s</span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line"> </span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果分析：</strong></p>
+<p>​    （1）ds段寄存器在程序中可以存储不同的内存段的段地址，并不是唯一存储一个段地址，es也是如此。</p>
+<p>​    （2）合理利用系统自动创建的栈空间，利用栈空间来保存暂存的数据。注意压栈和弹栈的顺序，确保操作的是一个数据对象。</p>
+<p>​    （3）在遇到多个数据段的情况下，这种方式可以利用一个段寄存器来对多个内存段寻址。</p>
+<p>​    （4）在实际工程中，在程序中保存的数据，都是程序的一些必须的初始化的数据，其他的数据都应保存在磁盘文件中，需要时才读入内存中。此例中的a、b、cz段都是其他的数据，在这里就是演示。</p>
+<h2 id="6-编写code段中代码，用push指令将a段中前8个字型数据逆转到存储b段中。"><a href="#6-编写code段中代码，用push指令将a段中前8个字型数据逆转到存储b段中。" class="headerlink" title="6.编写code段中代码，用push指令将a段中前8个字型数据逆转到存储b段中。"></a>6.编写code段中代码，用push指令将a段中前8个字型数据逆转到存储b段中。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">a segment</span><br><span class="line">    dw 1,2,3,4,5,6,7,8,9,0ah,0bh,0ch,0dh,0eh,0fh,0ffh</span><br><span class="line">a ends</span><br><span class="line"></span><br><span class="line">b segment</span><br><span class="line">    dw 0,0,0,0,0,0,0,0</span><br><span class="line">b ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:</span><br><span class="line">    ?</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>程序分析：</strong></p>
+<p>​    （1）理解掌握栈的原理，先进后出，从高地址向低地址发展。也就是说先压栈的数据，在栈底，最后被pop出。</p>
+<p>​    （2）对于数据段，我们定义2个，ds指向a段，ss指向b。ss指向了b段，也就意味着b段是人工创建的一个栈结构了。</p>
+<p>​    （3）对于push和pop指令：操作的是一个栈帧或栈单元，它的操作数是一个字，在8086CPU中是一个字，2个字节，这个在a、b段定义时我们应该发现，它们都是定义的字。如果定义的是db字节呢？呵呵。一样的。</p>
+<p>汇编代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"> </span><br><span class="line">a segment</span><br><span class="line">    dw 1,2,3,4,5,6,7,8,9,0ah,0bh,0ch,0dh,0eh,0fh,0ffh</span><br><span class="line">a ends</span><br><span class="line"> </span><br><span class="line">b segment</span><br><span class="line">    dw 0,0,0,0,0,0,0,0</span><br><span class="line">b ends</span><br><span class="line"> </span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">    mov ax,a</span><br><span class="line">    mov ds,ax        ;ds指向a段</span><br><span class="line"> </span><br><span class="line">    mov ax,b</span><br><span class="line">    mov ss,ax        ;ss指向了b段</span><br><span class="line">    mov sp,16        ;初始化栈顶，ss：sp指向了栈顶，意味着b段是个栈结构了。</span><br><span class="line"> </span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,8         ;循环读取a段8次，因为是前8个字</span><br><span class="line">s:</span><br><span class="line">    push ds:[bx] ;直接将a段中的字单元内存压栈即可。这样在栈中的存储结构就是逆序的</span><br><span class="line">    add bx,2</span><br><span class="line">    loop s</span><br><span class="line">    </span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<p><code>-d ds:0</code></p>
+<p><img src="15.png"></p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_171daf8e00102xclx.html">http://blog.sina.com.cn/s/blog_171daf8e00102xclx.html</a></p>
+<p>汇编语言实验答案 (王爽)：<a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/a1cd7c6c1fb91a37f111f18583d049649b660ede.html">https://wenku.baidu.com/view/a1cd7c6c1fb91a37f111f18583d049649b660ede.html</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B1%87%E7%BC%96/" rel="tag"># 汇编</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/11/%E5%AE%9E%E9%AA%8C4-bx-%E5%92%8Cloop%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="实验4 [bx]和loop的使用">
+      <i class="fa fa-chevron-left"></i> 实验4 [bx]和loop的使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/17/%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="next" title="接口幂等解决方案">
+      接口幂等解决方案 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%B0%86%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%9E%E6%8E%A5%EF%BC%8C%E7%94%A8Debug%E5%8A%A0%E8%BD%BD%E3%80%81%E8%B7%9F%E8%B8%AA%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">1.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B0%86%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%9E%E6%8E%A5%EF%BC%8C%E7%94%A8Debug%E5%8A%A0%E8%BD%BD%E3%80%81%E8%B7%9F%E8%B8%AA%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">2.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%B0%86%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%9E%E6%8E%A5%EF%BC%8C%E7%94%A8Debug%E5%8A%A0%E8%BD%BD%E3%80%81%E8%B7%9F%E8%B8%AA%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">3.将下面的程序编译连接，用Debug加载、跟踪，然后回答问题。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%A6%82%E6%9E%9C%E5%B0%86-1-%E3%80%81-2-%E3%80%81-3-%E9%A2%98%E4%B8%AD%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%9D%A1%E4%BC%AA%E6%8C%87%E4%BB%A4%E2%80%9Cend-start%E2%80%9D%E6%94%B9%E4%B8%BA%E2%80%9Cend%E2%80%9D-%E4%B9%9F%E5%B0%B1%E6%98%AF%E8%AF%B4%E4%B8%8D%E6%8C%87%E6%98%8E%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%85%A5%E5%8F%A3-%EF%BC%8C%E5%88%99%E9%82%A3%E4%B8%AA%E7%A8%8B%E5%BA%8F%E4%BB%8D%E7%84%B6%E5%8F%AF%E4%BB%A5%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%EF%BC%9F%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0%E3%80%82"><span class="nav-number">4.</span> <span class="nav-text">4. 如果将(1)、(2)、(3)题中的最后一条伪指令“end start”改为“end”(也就是说不指明程序的入口)，则那个程序仍然可以正确执行？请说明原因。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%BC%96%E5%86%99-code-%E6%AE%B5%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%B0%86-a%E6%AE%B5-%E5%92%8C-b%E6%AE%B5-%E6%95%B0%E6%8D%AE%E4%BE%9D%E6%AC%A1%E7%9B%B8%E5%8A%A0%EF%BC%8C%E7%BB%93%E6%9E%9C%E5%AD%98%E5%85%A5c%E6%AE%B5"><span class="nav-number">5.</span> <span class="nav-text">5.编写 code 段中的代码，将 a段 和 b段 数据依次相加，结果存入c段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%BC%96%E5%86%99code%E6%AE%B5%E4%B8%AD%E4%BB%A3%E7%A0%81%EF%BC%8C%E7%94%A8push%E6%8C%87%E4%BB%A4%E5%B0%86a%E6%AE%B5%E4%B8%AD%E5%89%8D8%E4%B8%AA%E5%AD%97%E5%9E%8B%E6%95%B0%E6%8D%AE%E9%80%86%E8%BD%AC%E5%88%B0%E5%AD%98%E5%82%A8b%E6%AE%B5%E4%B8%AD%E3%80%82"><span class="nav-number">6.</span> <span class="nav-text">6.编写code段中代码，用push指令将a段中前8个字型数据逆转到存储b段中。</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

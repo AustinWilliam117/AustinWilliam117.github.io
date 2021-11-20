@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="禅道软件使用流程1. 创建角色步骤  使用管理员登录    点击组织菜单    选择用户，点击添加用户，或者点击“批量添加”    2. 创建产品步骤  由产品经理登录禅道    点击“产品”视图    点击添加产品按钮，即可添加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禅道使用流程">
+<meta property="og:url" content="http://example.com/2021/01/14/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="禅道软件使用流程1. 创建角色步骤  使用管理员登录    点击组织菜单    选择用户，点击添加用户，或者点击“批量添加”    2. 创建产品步骤  由产品经理登录禅道    点击“产品”视图    点击添加产品按钮，即可添加">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/14/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/%E7%A6%85%E9%81%93%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B.png">
+<meta property="article:published_time" content="2021-01-14T13:41:44.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="禅道">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/14/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/%E7%A6%85%E9%81%93%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B.png">
+
+<link rel="canonical" href="http://example.com/2021/01/14/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>禅道使用流程 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/14/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          禅道使用流程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-14 21:41:44" itemprop="dateCreated datePublished" datetime="2021-01-14T21:41:44+08:00">2021-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="%E7%A6%85%E9%81%93%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B.png" alt="禅道使用流程图 展开全文查看"></p>
+<h1 id="禅道软件使用流程"><a href="#禅道软件使用流程" class="headerlink" title="禅道软件使用流程"></a>禅道软件使用流程</h1><h2 id="1-创建角色"><a href="#1-创建角色" class="headerlink" title="1. 创建角色"></a>1. 创建角色</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li><ol>
+<li>使用管理员登录</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击组织菜单</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>选择用户，点击添加用户，或者点击“批量添加”</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-创建产品"><a href="#2-创建产品" class="headerlink" title="2. 创建产品"></a>2. 创建产品</h2><h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li><ol>
+<li>由产品经理登录禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击“产品”视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>点击添加产品按钮，即可添加</li>
+</ol>
+</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="3-创建产品计划"><a href="#3-创建产品计划" class="headerlink" title="3. 创建产品计划"></a>3. 创建产品计划</h2><h3 id="1-产品经理登录"><a href="#1-产品经理登录" class="headerlink" title="1. 产品经理登录"></a>1. 产品经理登录</h3><h3 id="2-进入产品中，点击“计划”菜单，填写相应的计划信息即可"><a href="#2-进入产品中，点击“计划”菜单，填写相应的计划信息即可" class="headerlink" title="2. 进入产品中，点击“计划”菜单，填写相应的计划信息即可"></a>2. 进入产品中，点击“计划”菜单，填写相应的计划信息即可</h3><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li><ol>
+<li>可以帮助产品人员控制产品的研发过程</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>帮助相关人员了解产品进度，以做好后续工作安排</li>
+</ol>
+</li>
+</ul>
+<h2 id="4-创建产品模块"><a href="#4-创建产品模块" class="headerlink" title="4. 创建产品模块"></a>4. 创建产品模块</h2><h3 id="1-有产品经理登录"><a href="#1-有产品经理登录" class="headerlink" title="1. 有产品经理登录"></a>1. 有产品经理登录</h3><h3 id="2-选择“产品”视图，点击“模块”菜单—-gt-添加产品相应模块即可"><a href="#2-选择“产品”视图，点击“模块”菜单—-gt-添加产品相应模块即可" class="headerlink" title="2. 选择“产品”视图，点击“模块”菜单—&gt;添加产品相应模块即可"></a>2. 选择“产品”视图，点击“模块”菜单—&gt;添加产品相应模块即可</h3><h3 id="好处：可以帮助产品人员对产品有一个宏观认识"><a href="#好处：可以帮助产品人员对产品有一个宏观认识" class="headerlink" title="好处：可以帮助产品人员对产品有一个宏观认识"></a>好处：可以帮助产品人员对产品有一个宏观认识</h3><h2 id="5-需求创建"><a href="#5-需求创建" class="headerlink" title="5. 需求创建"></a>5. 需求创建</h2><h3 id="1-由产品经理登录"><a href="#1-由产品经理登录" class="headerlink" title="1. 由产品经理登录"></a>1. 由产品经理登录</h3><h3 id="2-选择“产品”视图，点击“需求”菜单—-gt-点击右侧的“提需求”按钮即可"><a href="#2-选择“产品”视图，点击“需求”菜单—-gt-点击右侧的“提需求”按钮即可" class="headerlink" title="2. 选择“产品”视图，点击“需求”菜单—&gt;点击右侧的“提需求”按钮即可"></a>2. 选择“产品”视图，点击“需求”菜单—&gt;点击右侧的“提需求”按钮即可</h3><h3 id="注意：填写相应的需求模块、所属计划、需求是否需要评审、需求名称、优先级"><a href="#注意：填写相应的需求模块、所属计划、需求是否需要评审、需求名称、优先级" class="headerlink" title="注意：填写相应的需求模块、所属计划、需求是否需要评审、需求名称、优先级"></a>注意：填写相应的需求模块、所属计划、需求是否需要评审、需求名称、优先级</h3><h2 id="6-需求评审"><a href="#6-需求评审" class="headerlink" title="6. 需求评审"></a>6. 需求评审</h2><h3 id="当需求提出以后为草稿状态，需要产品主管对需求进行评审"><a href="#当需求提出以后为草稿状态，需要产品主管对需求进行评审" class="headerlink" title="当需求提出以后为草稿状态，需要产品主管对需求进行评审"></a>当需求提出以后为草稿状态，需要产品主管对需求进行评审</h3><h3 id="评审状态"><a href="#评审状态" class="headerlink" title="评审状态"></a>评审状态</h3><ul>
+<li><p>确认通过</p>
+</li>
+<li><p>有待明确</p>
+<ul>
+<li>需求需要继续完善</li>
+</ul>
+</li>
+<li><p>拒绝</p>
+<ul>
+<li><p>给出拒绝原因</p>
+<ul>
+<li>已完成</li>
+<li>已细分</li>
+<li>重复</li>
+<li>延期</li>
+<li>不做</li>
+<li>已取消</li>
+<li>设计如此</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="只有进入激活状态的需求才能进行后续的开发"><a href="#只有进入激活状态的需求才能进行后续的开发" class="headerlink" title="只有进入激活状态的需求才能进行后续的开发"></a>只有进入激活状态的需求才能进行后续的开发</h3><h3 id="注意：需求评审在公司是一个线下会议，有多人决定，评审完毕后在禅道添加记录即可"><a href="#注意：需求评审在公司是一个线下会议，有多人决定，评审完毕后在禅道添加记录即可" class="headerlink" title="注意：需求评审在公司是一个线下会议，有多人决定，评审完毕后在禅道添加记录即可"></a>注意：需求评审在公司是一个线下会议，有多人决定，评审完毕后在禅道添加记录即可</h3><h2 id="7-需求变更"><a href="#7-需求变更" class="headerlink" title="7. 需求变更"></a>7. 需求变更</h2><h3 id="当需求内容（标题-描述-附件信息等）的变化都需要执行变更流程"><a href="#当需求内容（标题-描述-附件信息等）的变化都需要执行变更流程" class="headerlink" title="当需求内容（标题/描述/附件信息等）的变化都需要执行变更流程"></a>当需求内容（标题/描述/附件信息等）的变化都需要执行变更流程</h3><h3 id="步骤-2"><a href="#步骤-2" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li><ol>
+<li>产品经理登录禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在“产品”试图下选择需求—&gt;选中需求，点击变更按钮，对需求内容变更</li>
+</ol>
+</li>
+<li><p>变更的状态</p>
+<ul>
+<li><p>确认通过</p>
+</li>
+<li><p>有待明确</p>
+</li>
+<li><p>撤销变更</p>
+<ul>
+<li>会回到变更之前的版本</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="注意如果提出需求变更，并勾选“不需要评审”则直接进入激活状态，不勾选“不需要评审”需要执行审批流"><a href="#注意如果提出需求变更，并勾选“不需要评审”则直接进入激活状态，不勾选“不需要评审”需要执行审批流" class="headerlink" title="注意如果提出需求变更，并勾选“不需要评审”则直接进入激活状态，不勾选“不需要评审”需要执行审批流"></a>注意如果提出需求变更，并勾选“不需要评审”则直接进入激活状态，不勾选“不需要评审”需要执行审批流</h3><h2 id="8-立项"><a href="#8-立项" class="headerlink" title="8. 立项"></a>8. 立项</h2><h3 id="召开立项会议"><a href="#召开立项会议" class="headerlink" title="召开立项会议"></a>召开立项会议</h3><ul>
+<li><ol>
+<li>产品经理需求告诉项目人员会议时间/地点</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>产品经理讲解需求内容，并且把需求中经过不需要的去除</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>项目组成员估算完成需求的工作量</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>对需求进行任务分解</li>
+</ol>
+</li>
+</ul>
+<h3 id="建立项目"><a href="#建立项目" class="headerlink" title="建立项目"></a>建立项目</h3><ul>
+<li><ol>
+<li>项目经理登陆禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击“项目”视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>点击“添加项目”，填写项目信息即可</li>
+</ol>
+</li>
+<li><p>注意：</p>
+<ul>
+<li><p>项目代号，团队/公司人员知晓即可</p>
+</li>
+<li><p>选择关联产品</p>
+</li>
+<li><p>访问控制</p>
+<ul>
+<li><p>默认</p>
+<ul>
+<li>只要“项目”视图的成员都可以访问</li>
+</ul>
+</li>
+<li><p>私有的</p>
+<ul>
+<li>项目团队成员可以访问</li>
+</ul>
+</li>
+<li><p>定义白名单</p>
+<ul>
+<li>相应组下的成员可以访问</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="添加团队"><a href="#添加团队" class="headerlink" title="添加团队"></a>添加团队</h3><ul>
+<li>注意：当创建玩项目后可以直接点击设置团队，来组织项目中的成员（包括测试/开发）</li>
+<li>团队也可以在项目创建完成以后点击“项目”视图—&gt;团队—&gt;团队管理，添加团队人员</li>
+</ul>
+<h3 id="确定项目中的需求"><a href="#确定项目中的需求" class="headerlink" title="确定项目中的需求"></a>确定项目中的需求</h3><ul>
+<li><ol>
+<li>项目经理登陆禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击“项目”视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>点击“需求”菜单—&gt;点击关联需求—&gt;勾选项目中需要完成的需求</li>
+</ol>
+</li>
+</ul>
+<h3 id="分解需求"><a href="#分解需求" class="headerlink" title="分解需求"></a>分解需求</h3><ul>
+<li><p>将需求分解给相应的开发及测试人员</p>
+</li>
+<li><p>分解步骤</p>
+<ul>
+<li><ol>
+<li>项目经理登陆禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击“项目”视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>点击“需求”菜单—&gt;选择需求—&gt;点击分解任务按钮</li>
+</ol>
+</li>
+<li><p>注意</p>
+<ul>
+<li><p>任务类型</p>
+<ul>
+<li>事物：可以指派给多个人，主要用来做总结</li>
+</ul>
+</li>
+<li><p>添加完任务后</p>
+<ul>
+<li>可以继续分配任务</li>
+<li>可以进入任务列表</li>
+<li>可以返回到需求列表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注意：实际工作中，不能项目经理一个人包办，而是多个角色自由领取相应的任务</p>
+</li>
+</ul>
+<h2 id="9-开发阶段"><a href="#9-开发阶段" class="headerlink" title="9. 开发阶段"></a>9. 开发阶段</h2><h3 id="1-领取任务及每天的工作量"><a href="#1-领取任务及每天的工作量" class="headerlink" title="1. 领取任务及每天的工作量"></a>1. 领取任务及每天的工作量</h3><ul>
+<li>当剩余时间为0时，自动提示结束任务</li>
+</ul>
+<h3 id="2-创建版本"><a href="#2-创建版本" class="headerlink" title="2. 创建版本"></a>2. 创建版本</h3><ul>
+<li><p>步骤</p>
+<ul>
+<li><ol>
+<li>由开发人员登陆禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击“项目”视图</li>
+</ol>
+</li>
+<li><p>点击“版本”菜单—&gt;创建版本</p>
+<ul>
+<li>注意：版本名称：产品名_版本号_状态（stble/beta）_日期</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-版本关联需求"><a href="#3-版本关联需求" class="headerlink" title="3. 版本关联需求"></a>3. 版本关联需求</h3><ul>
+<li><p>注意：默认版本是不可之间关联需求的，所以需要管理员赋予权限</p>
+</li>
+<li><p>步骤</p>
+<ul>
+<li><ol>
+<li>由管理员登陆禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>进入“组织”视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>选择“权限”—&gt;找到开发组—&gt;点击“权限维护”按钮—&gt;找到“版本”项—&gt;选择“关联需求”</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>由开发登陆禅道—&gt;找到项目—&gt;版本—&gt;选中版本，点击“关联需求”选项</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-提测"><a href="#4-提测" class="headerlink" title="4. 提测"></a>4. 提测</h3><ul>
+<li><p>步骤</p>
+<ul>
+<li><ol>
+<li>开发人员登陆禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>选择测试视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>选择“测试”菜单</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>点击提交测试即可</li>
+</ol>
+</li>
+<li><p>注意：</p>
+<ul>
+<li>负责人：是指测试人员</li>
+<li>测试优先级：数字越小优先级越高</li>
+<li>描述：可以描述一些测试需要注意的地方</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="10-测试阶段"><a href="#10-测试阶段" class="headerlink" title="10. 测试阶段"></a>10. 测试阶段</h2><h3 id="1-编写测试用例"><a href="#1-编写测试用例" class="headerlink" title="1. 编写测试用例"></a>1. 编写测试用例</h3><ul>
+<li><p>步骤</p>
+<ul>
+<li><ol>
+<li>测试人员登陆禅道</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击“测试”视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>选择“用例”菜单，点击“创建用例”</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-用例关联版本"><a href="#2-用例关联版本" class="headerlink" title="2. 用例关联版本"></a>2. 用例关联版本</h3><ul>
+<li><p>步骤</p>
+<ul>
+<li><ol>
+<li>测试人员进行登陆</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击测试视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>点击版本—&gt;选择关联用例即可</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-用例评审"><a href="#3-用例评审" class="headerlink" title="3. 用例评审"></a>3. 用例评审</h3><ul>
+<li><p>在禅道用例评审默认是闭关的，如果想要对用例进行评审，禅道管理员需要进入—&gt;后台—&gt;自定义—&gt;用例—&gt;评审流程，开启即可</p>
+</li>
+<li><p>评审结果</p>
+<ul>
+<li>继续完善</li>
+<li>确认通过</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-执行测试用例"><a href="#4-执行测试用例" class="headerlink" title="4. 执行测试用例"></a>4. 执行测试用例</h3><ul>
+<li><p>步骤</p>
+<ul>
+<li><ol>
+<li>由测试人员登陆</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>选择“测试”视图</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>找到相应的用例，点击执行即可</li>
+</ol>
+<ul>
+<li>当执行过程中如果出现bug，则直接转bug</li>
+</ul>
+</li>
+<li><ol start="4">
+<li>提交bug</li>
+</ol>
+<ul>
+<li>可以在用例执行中提bug</li>
+<li>也可以在“测试”视图下提bug</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-解决bug"><a href="#5-解决bug" class="headerlink" title="5. 解决bug"></a>5. 解决bug</h3><ul>
+<li><ol>
+<li>开发人员确认该bug存在</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>点击“解决”</li>
+</ol>
+<ul>
+<li><p>解决方案</p>
+<ul>
+<li>设计如此</li>
+<li>重复bug</li>
+<li>外部原因</li>
+<li>已解决</li>
+<li>无法重现</li>
+<li>延期处理</li>
+<li>不予处理 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-回归测试"><a href="#6-回归测试" class="headerlink" title="6. 回归测试"></a>6. 回归测试</h3><ul>
+<li>回归测试过程中，如果该bug依然存在，那么需要激活</li>
+<li>如果bug不存在则关闭，如果一段时间后又出现，则重新激活</li>
+</ul>
+<h2 id="11-总结"><a href="#11-总结" class="headerlink" title="11. 总结"></a>11. 总结</h2><p>围绕禅道介绍公司流程</p>
+<ol>
+<li><p>产品经理—&gt;收集信息</p>
+<p>建立产品</p>
+<ul>
+<li>产品计划（很有必要存在：1. 产品经理可以控制产品过程中的优先级 2. 对于项目人员可通过了解产品进度，以做后续安排）</li>
+<li>新建模块</li>
+<li>新建模块对应需求</li>
+<li>需求评审（实际上是线下会议）</li>
+<li>需求变更—&gt;也需要变更审核流程</li>
+</ul>
+</li>
+<li><p>项目经理</p>
+<p>建立项目（基于产品）</p>
+<ul>
+<li>组建团队（包括测试、开发）</li>
+<li>确定项目中要做的需求</li>
+<li>对进行任务分解—&gt;开发、测试等等<ul>
+<li>注意：任务类型：事物，可以分配给多个人，主要用来做总结</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>开发</p>
+<p>领取任务</p>
+<ul>
+<li>统计每天工作量</li>
+<li>提交版本：产品名_版本号_状态（stble,beta）_日期</li>
+<li>提交测试</li>
+</ul>
+</li>
+<li><p>测试</p>
+<ul>
+<li>编写测试用例</li>
+<li>用例评审—&gt;默认是关闭的，需要管理员开启</li>
+<li>执行用例—&gt;转bug</li>
+<li>由开发人员进行修复（先确认-&gt;再修改状态）</li>
+<li>回归测试：如果有问题则激活，否则关闭</li>
+</ul>
+</li>
+</ol>
+<p><a href="/download/pdf/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B.pdf">点击下载禅道使用流程pdf</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A6%85%E9%81%93/" rel="tag"># 禅道</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/" rel="prev" title="软件测试笔记">
+      <i class="fa fa-chevron-left"></i> 软件测试笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%8F%90%E9%97%AE/" rel="next" title="软件测试常规提问">
+      软件测试常规提问 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A6%85%E9%81%93%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">禅道软件使用流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E8%A7%92%E8%89%B2"><span class="nav-number">1.1.</span> <span class="nav-text">1. 创建角色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.1.</span> <span class="nav-text">步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E4%BA%A7%E5%93%81"><span class="nav-number">1.2.</span> <span class="nav-text">2. 创建产品</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E4%BA%A7%E5%93%81%E8%AE%A1%E5%88%92"><span class="nav-number">1.3.</span> <span class="nav-text">3. 创建产品计划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86%E7%99%BB%E5%BD%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 产品经理登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9B%E5%85%A5%E4%BA%A7%E5%93%81%E4%B8%AD%EF%BC%8C%E7%82%B9%E5%87%BB%E2%80%9C%E8%AE%A1%E5%88%92%E2%80%9D%E8%8F%9C%E5%8D%95%EF%BC%8C%E5%A1%AB%E5%86%99%E7%9B%B8%E5%BA%94%E7%9A%84%E8%AE%A1%E5%88%92%E4%BF%A1%E6%81%AF%E5%8D%B3%E5%8F%AF"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 进入产品中，点击“计划”菜单，填写相应的计划信息即可</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%9B%E5%BB%BA%E4%BA%A7%E5%93%81%E6%A8%A1%E5%9D%97"><span class="nav-number">1.4.</span> <span class="nav-text">4. 创建产品模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9C%89%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86%E7%99%BB%E5%BD%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 有产品经理登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%80%89%E6%8B%A9%E2%80%9C%E4%BA%A7%E5%93%81%E2%80%9D%E8%A7%86%E5%9B%BE%EF%BC%8C%E7%82%B9%E5%87%BB%E2%80%9C%E6%A8%A1%E5%9D%97%E2%80%9D%E8%8F%9C%E5%8D%95%E2%80%94-gt-%E6%B7%BB%E5%8A%A0%E4%BA%A7%E5%93%81%E7%9B%B8%E5%BA%94%E6%A8%A1%E5%9D%97%E5%8D%B3%E5%8F%AF"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 选择“产品”视图，点击“模块”菜单—&gt;添加产品相应模块即可</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%BD%E5%A4%84%EF%BC%9A%E5%8F%AF%E4%BB%A5%E5%B8%AE%E5%8A%A9%E4%BA%A7%E5%93%81%E4%BA%BA%E5%91%98%E5%AF%B9%E4%BA%A7%E5%93%81%E6%9C%89%E4%B8%80%E4%B8%AA%E5%AE%8F%E8%A7%82%E8%AE%A4%E8%AF%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">好处：可以帮助产品人员对产品有一个宏观认识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E9%9C%80%E6%B1%82%E5%88%9B%E5%BB%BA"><span class="nav-number">1.5.</span> <span class="nav-text">5. 需求创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%94%B1%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86%E7%99%BB%E5%BD%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 由产品经理登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%80%89%E6%8B%A9%E2%80%9C%E4%BA%A7%E5%93%81%E2%80%9D%E8%A7%86%E5%9B%BE%EF%BC%8C%E7%82%B9%E5%87%BB%E2%80%9C%E9%9C%80%E6%B1%82%E2%80%9D%E8%8F%9C%E5%8D%95%E2%80%94-gt-%E7%82%B9%E5%87%BB%E5%8F%B3%E4%BE%A7%E7%9A%84%E2%80%9C%E6%8F%90%E9%9C%80%E6%B1%82%E2%80%9D%E6%8C%89%E9%92%AE%E5%8D%B3%E5%8F%AF"><span class="nav-number">1.5.2.</span> <span class="nav-text">2. 选择“产品”视图，点击“需求”菜单—&gt;点击右侧的“提需求”按钮即可</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A%E5%A1%AB%E5%86%99%E7%9B%B8%E5%BA%94%E7%9A%84%E9%9C%80%E6%B1%82%E6%A8%A1%E5%9D%97%E3%80%81%E6%89%80%E5%B1%9E%E8%AE%A1%E5%88%92%E3%80%81%E9%9C%80%E6%B1%82%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E8%AF%84%E5%AE%A1%E3%80%81%E9%9C%80%E6%B1%82%E5%90%8D%E7%A7%B0%E3%80%81%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.5.3.</span> <span class="nav-text">注意：填写相应的需求模块、所属计划、需求是否需要评审、需求名称、优先级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E9%9C%80%E6%B1%82%E8%AF%84%E5%AE%A1"><span class="nav-number">1.6.</span> <span class="nav-text">6. 需求评审</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E9%9C%80%E6%B1%82%E6%8F%90%E5%87%BA%E4%BB%A5%E5%90%8E%E4%B8%BA%E8%8D%89%E7%A8%BF%E7%8A%B6%E6%80%81%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BA%A7%E5%93%81%E4%B8%BB%E7%AE%A1%E5%AF%B9%E9%9C%80%E6%B1%82%E8%BF%9B%E8%A1%8C%E8%AF%84%E5%AE%A1"><span class="nav-number">1.6.1.</span> <span class="nav-text">当需求提出以后为草稿状态，需要产品主管对需求进行评审</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E5%AE%A1%E7%8A%B6%E6%80%81"><span class="nav-number">1.6.2.</span> <span class="nav-text">评审状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E6%9C%89%E8%BF%9B%E5%85%A5%E6%BF%80%E6%B4%BB%E7%8A%B6%E6%80%81%E7%9A%84%E9%9C%80%E6%B1%82%E6%89%8D%E8%83%BD%E8%BF%9B%E8%A1%8C%E5%90%8E%E7%BB%AD%E7%9A%84%E5%BC%80%E5%8F%91"><span class="nav-number">1.6.3.</span> <span class="nav-text">只有进入激活状态的需求才能进行后续的开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A%E9%9C%80%E6%B1%82%E8%AF%84%E5%AE%A1%E5%9C%A8%E5%85%AC%E5%8F%B8%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E4%B8%8B%E4%BC%9A%E8%AE%AE%EF%BC%8C%E6%9C%89%E5%A4%9A%E4%BA%BA%E5%86%B3%E5%AE%9A%EF%BC%8C%E8%AF%84%E5%AE%A1%E5%AE%8C%E6%AF%95%E5%90%8E%E5%9C%A8%E7%A6%85%E9%81%93%E6%B7%BB%E5%8A%A0%E8%AE%B0%E5%BD%95%E5%8D%B3%E5%8F%AF"><span class="nav-number">1.6.4.</span> <span class="nav-text">注意：需求评审在公司是一个线下会议，有多人决定，评审完毕后在禅道添加记录即可</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E9%9C%80%E6%B1%82%E5%8F%98%E6%9B%B4"><span class="nav-number">1.7.</span> <span class="nav-text">7. 需求变更</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E9%9C%80%E6%B1%82%E5%86%85%E5%AE%B9%EF%BC%88%E6%A0%87%E9%A2%98-%E6%8F%8F%E8%BF%B0-%E9%99%84%E4%BB%B6%E4%BF%A1%E6%81%AF%E7%AD%89%EF%BC%89%E7%9A%84%E5%8F%98%E5%8C%96%E9%83%BD%E9%9C%80%E8%A6%81%E6%89%A7%E8%A1%8C%E5%8F%98%E6%9B%B4%E6%B5%81%E7%A8%8B"><span class="nav-number">1.7.1.</span> <span class="nav-text">当需求内容（标题&#x2F;描述&#x2F;附件信息等）的变化都需要执行变更流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">1.7.2.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%A6%82%E6%9E%9C%E6%8F%90%E5%87%BA%E9%9C%80%E6%B1%82%E5%8F%98%E6%9B%B4%EF%BC%8C%E5%B9%B6%E5%8B%BE%E9%80%89%E2%80%9C%E4%B8%8D%E9%9C%80%E8%A6%81%E8%AF%84%E5%AE%A1%E2%80%9D%E5%88%99%E7%9B%B4%E6%8E%A5%E8%BF%9B%E5%85%A5%E6%BF%80%E6%B4%BB%E7%8A%B6%E6%80%81%EF%BC%8C%E4%B8%8D%E5%8B%BE%E9%80%89%E2%80%9C%E4%B8%8D%E9%9C%80%E8%A6%81%E8%AF%84%E5%AE%A1%E2%80%9D%E9%9C%80%E8%A6%81%E6%89%A7%E8%A1%8C%E5%AE%A1%E6%89%B9%E6%B5%81"><span class="nav-number">1.7.3.</span> <span class="nav-text">注意如果提出需求变更，并勾选“不需要评审”则直接进入激活状态，不勾选“不需要评审”需要执行审批流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%AB%8B%E9%A1%B9"><span class="nav-number">1.8.</span> <span class="nav-text">8. 立项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AC%E5%BC%80%E7%AB%8B%E9%A1%B9%E4%BC%9A%E8%AE%AE"><span class="nav-number">1.8.1.</span> <span class="nav-text">召开立项会议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.8.2.</span> <span class="nav-text">建立项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%9B%A2%E9%98%9F"><span class="nav-number">1.8.3.</span> <span class="nav-text">添加团队</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E9%9C%80%E6%B1%82"><span class="nav-number">1.8.4.</span> <span class="nav-text">确定项目中的需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E8%A7%A3%E9%9C%80%E6%B1%82"><span class="nav-number">1.8.5.</span> <span class="nav-text">分解需求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E5%BC%80%E5%8F%91%E9%98%B6%E6%AE%B5"><span class="nav-number">1.9.</span> <span class="nav-text">9. 开发阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%A2%86%E5%8F%96%E4%BB%BB%E5%8A%A1%E5%8F%8A%E6%AF%8F%E5%A4%A9%E7%9A%84%E5%B7%A5%E4%BD%9C%E9%87%8F"><span class="nav-number">1.9.1.</span> <span class="nav-text">1. 领取任务及每天的工作量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC"><span class="nav-number">1.9.2.</span> <span class="nav-text">2. 创建版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%89%88%E6%9C%AC%E5%85%B3%E8%81%94%E9%9C%80%E6%B1%82"><span class="nav-number">1.9.3.</span> <span class="nav-text">3. 版本关联需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%8F%90%E6%B5%8B"><span class="nav-number">1.9.4.</span> <span class="nav-text">4. 提测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="nav-number">1.10.</span> <span class="nav-text">10. 测试阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">1.10.1.</span> <span class="nav-text">1. 编写测试用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%94%A8%E4%BE%8B%E5%85%B3%E8%81%94%E7%89%88%E6%9C%AC"><span class="nav-number">1.10.2.</span> <span class="nav-text">2. 用例关联版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%94%A8%E4%BE%8B%E8%AF%84%E5%AE%A1"><span class="nav-number">1.10.3.</span> <span class="nav-text">3. 用例评审</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">1.10.4.</span> <span class="nav-text">4. 执行测试用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%A7%A3%E5%86%B3bug"><span class="nav-number">1.10.5.</span> <span class="nav-text">5. 解决bug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%9B%9E%E5%BD%92%E6%B5%8B%E8%AF%95"><span class="nav-number">1.10.6.</span> <span class="nav-text">6. 回归测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-%E6%80%BB%E7%BB%93"><span class="nav-number">1.11.</span> <span class="nav-text">11. 总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

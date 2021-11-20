@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>蒙珣的博客</title>
+  
+  <subtitle>我的肺吸入空气般的时间，呼出飘落沙粒般的过去</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-11-11T14:08:04.000Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>蒙珣</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode 分糖果</title>
+    <link href="http://example.com/2021/11/11/leetcode-%E5%88%86%E7%B3%96%E6%9E%9C/"/>
+    <id>http://example.com/2021/11/11/leetcode-%E5%88%86%E7%B3%96%E6%9E%9C/</id>
+    <published>2021-11-11T14:03:06.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="575-分糖果"><a href="#575-分糖果" class="headerlink" title="575. 分糖果"></a><a href="https://leetcode-cn.com/problems/distribute-candies/">575. 分糖果</a></h4><p>Alice 有 n 枚糖，其中第 i 枚糖的类型为 candyType[i] 。Alice 注意到她的体重正在增长，所以前去拜访了一位医生。</p><p>医生建议 Alice 要少摄入糖分，只吃掉她所有糖的 n / 2 即可（n 是一个偶数）。Alice 非常喜欢这些糖，她想要在遵循医生建议的情况下，尽可能吃到最多不同种类的糖。</p><p>给你一个长度为 n 的整数数组 candyType ，返回： Alice 在仅吃掉 n / 2 枚糖的情况下，可以吃到糖的最多种类数。</p><span id="more"></span><p>示例 1：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：candyType = [1,1,2,2,3,3]</span><br><span class="line">输出：3</span><br><span class="line">解释：Alice 只能吃 6 / 2 = 3 枚糖，由于只有 3 种糖，她可以每种吃一枚。</span><br></pre></td></tr></table></figure><p>示例 2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：candyType = [1,1,2,3]</span><br><span class="line">输出：2</span><br><span class="line">解释：Alice 只能吃 4 / 2 = 2 枚糖，不管她选择吃的种类是 [1,2]、[1,3] 还是 [2,3]，她只能吃到两种不同类的糖。</span><br></pre></td></tr></table></figure><p>示例 3：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：candyType = [6,6,6,6]</span><br><span class="line">输出：1</span><br><span class="line">解释：Alice 只能吃 4 / 2 = 2 枚糖，尽管她能吃 2 枚，但只能吃到 1 种糖。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>n == candyType.length</li><li>2 &lt;= n &lt;= 104</li><li>n 是一个偶数</li><li>-105 &lt;= candyType[i] &lt;= 105</li></ul><p>设糖果数为N，由于妹妹只能分到一半的糖果，所以答案不会超过n/2；另一方面，一共有M种，答案也不会超过M</p><p>若M &lt;= n/2，则每种糖果至少可分一颗给妹妹，此时最多能分M个糖果</p><p>若M &gt; n/2，只能分到n/2种糖果，每种糖果分一颗，此时最多能分n/2个糖果</p><p>贪心算法</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">distrubuteCandies</span>(<span class="params">self,candyType</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">min</span>(<span class="built_in">len</span>(<span class="built_in">set</span>(candyType)),<span class="built_in">len</span>(candyType)//<span class="number">2</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;575-分糖果&quot;&gt;&lt;a href=&quot;#575-分糖果&quot; class=&quot;headerlink&quot; title=&quot;575. 分糖果&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/distribute-candies/&quot;&gt;575. 分糖果&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Alice 有 n 枚糖，其中第 i 枚糖的类型为 candyType[i] 。Alice 注意到她的体重正在增长，所以前去拜访了一位医生。&lt;/p&gt;
+&lt;p&gt;医生建议 Alice 要少摄入糖分，只吃掉她所有糖的 n / 2 即可（n 是一个偶数）。Alice 非常喜欢这些糖，她想要在遵循医生建议的情况下，尽可能吃到最多不同种类的糖。&lt;/p&gt;
+&lt;p&gt;给你一个长度为 n 的整数数组 candyType ，返回： Alice 在仅吃掉 n / 2 枚糖的情况下，可以吃到糖的最多种类数。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="leetcode" scheme="http://example.com/tags/leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2021.11的雪</title>
+    <link href="http://example.com/2021/11/07/2021-11%E7%9A%84%E9%9B%AA/"/>
+    <id>http://example.com/2021/11/07/2021-11%E7%9A%84%E9%9B%AA/</id>
+    <published>2021-11-07T12:40:26.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>2021年11月06号晚，下了北京的第一场雪。（过年那段时间的不算哈）</p><p>我之前约了自然博物馆，因为之前鸽了两次，如果再去不就要被拉黑了。所以我早上顶着风雪，还好赶上了12：00入场。</p><span id="more"></span><p><img src="1.jpg"><br></br></p><p><img src="2.jpg"><br></br></p><p><img src="3.jpg"></p><p>礼品店的礼物好像已经不太适合我了（真的有点幼稚）。唉，可能没有童心了，不过这个狗狗还可以。</p><p><img src="4.jpg"><br></br></p><p><img src="6.jpg"></p><p>中午去了KFC，本来是想去吃火锅的，毕竟下雪嘛。但是一个人吃好像没啥感觉，索性就算了，下雪吃冰淇淋也很美的。</p><p><img src="5.jpg"></p><p>在吃饭的时候，就在想才13点啊，一会去哪逛呢？看了看地图，就去了天坛。雪后的天坛很美，后悔没有在早上就来，那时候还在下雪，而且人少，应该会更美。</p><p><img src="7.jpg"><br></br></p><p><img src="8.jpg"><br></br></p><p><img src="9.jpg"></p><p>今年秋天的叶子刚变黄，还没掉完，就下雪了。感觉夏-&gt;秋-&gt;冬都没几天</p><p><img src="10.jpg"></p><p>听说每年下雪去故宫等地方，因为冰锥下落而去整形外科的人很多，还好我没事…</p><p><img src="11.jpg"><br></br></p><p><img src="12.jpg"></p><p>好了，伴随着夕阳，我也要回家了。</p><p><img src="13.jpg"><br></br></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;2021年11月06号晚，下了北京的第一场雪。（过年那段时间的不算哈）&lt;/p&gt;
+&lt;p&gt;我之前约了自然博物馆，因为之前鸽了两次，如果再去不就要被拉黑了。所以我早上顶着风雪，还好赶上了12：00入场。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>三体：死神永生</title>
+    <link href="http://example.com/2021/11/06/%E4%B8%89%E4%BD%93-%E6%AD%BB%E7%A5%9E%E6%B0%B8%E7%94%9F/"/>
+    <id>http://example.com/2021/11/06/%E4%B8%89%E4%BD%93-%E6%AD%BB%E7%A5%9E%E6%B0%B8%E7%94%9F/</id>
+    <published>2021-11-06T10:37:19.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>他们都说程心很圣母，但想想她也是被人推上去的。</p><p>在最开始不过是一个PIA（星防御理事会战略情报局）的管理层。维德提出送大脑，程心确实是想到了云天明，毕竟是熟悉的人，所以能想到。</p><span id="more"></span><p>至于云天明对程心的暗恋，不论多感人，不过是感动自己，感动观众而已。被喜欢的人不会因“爱”而感动，这里的爱是爱情的爱，而不是一个人对自己好的情感的爱。</p><p>其实，我们都知道我们被云天明感动的，不过也是一个人对另一个人好，而另外一个人完全不当回事。换做现实生活中的自己又何尝不是！对一个不爱你的人来说，你所做的一切什么都不是。你做出了很大的牺牲，仅仅是感动了她一下而已，觉得有愧于你，但那也不是想和你在一起。</p><p>对于云天明来说，他不需要这个。对于那些喜欢别人而不被他人所爱的人来说，也不需要这种感动。</p><p>之后，在竞选了执剑人的时候，确实是人们选择了圣母的程心。因为人们看到了她的善良，人们需要这种温柔的美。因为罗辑是那个”暴君“，人们害怕他，和平的年代人们总会这样。想想确实很可笑，但书中人人类，是我们每一个人的缩影。像是无法摆脱的枷锁，像是一条无形的锁链，到那个时候人们就是会做出这样的事。</p><p>不过有一点，程心确实被冲昏了头。就是当所有人都觉得程心可以的时候，程心自己也把这个问题想的太过简单了。她在联合国抱着婴儿说自己要竞选执剑人的那一刻，真的是不能忘记，或许将成为是一个经典。</p><p>在她刚刚成为执剑人的那一刻，三体就发起了进攻，她丢掉了遥控器，她按不下去。这其实也是很多人觉得她圣母的时候。但我们并不是程心，我们没有站在程心所站的位置，也没有经历过程心所经历的一切。这也并不是给程心开脱什么，毕竟当她看到被入侵的那一刻，她没有履行自己的职责就不是一个好的执剑人了。但试想一下自己，是否又能在那一刻按下遥控器让所有地球人，三体人全部陪葬呢？</p><p>要知道，当你按下去的那一刻，可能三体会出于报复，对地球进行毁灭性的打击，或者惨无人道的杀戮，又或者地球人自己对程心的谴责等等。毕竟黑暗森林的打击没有那么快么。虽然说三体入侵后对人类的侵占也是很没有人道的，最后竟然让人们互相蚕食。</p><p>想象一下吧，你在单位、学校、家庭等各种场合的畏首畏尾真的可以承担这个大任吗？程心也不过是和我们一样的人。</p><p>不过可能程心对云天明的一直都是一种依靠，而非爱情吧。因为从送星星到三个故事，她的感动都不是那种我想和你在一起，而是一种很温暖的依靠的感觉。这一点也能在最后去他们的那颗星星上可以体现，她渴望见到他，那就是喜欢他吗？并不是，因为看到关一帆的时候，她也有那种依靠感，毕竟当时以为全人类都没有了嘛。</p><p>不过最后云天明和AA在一起了，也是什么伦理剧哈哈哈。公开暗恋我的人，竟然跟我最好的闺蜜在一起了。也算是挺好吧，书中的剧情永远没有现实生活中离谱。</p><p>云天明能放下程心，开始自己的生活就已经很不错了。</p><p>最后程心留下5公斤的生态球，书中为一个开放结局，到底有没有重启不得而知。这样感觉程心也是一个被动型人格的人，容易受到他人的观念所左右。</p><p>说了好的情感话题，其实第三部，死神永生真的很好看，上演了全人类的猜忌、生存大戏。真的是大为震撼，不过还是感觉大刘在这方面刻画的比较少，可能编剧不让过？不过他自己没怎么写过这样的内容吧。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;他们都说程心很圣母，但想想她也是被人推上去的。&lt;/p&gt;
+&lt;p&gt;在最开始不过是一个PIA（星防御理事会战略情报局）的管理层。维德提出送大脑，程心确实是想到了云天明，毕竟是熟悉的人，所以能想到。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="书评" scheme="http://example.com/categories/%E4%B9%A6%E8%AF%84/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 安装多个版本JDK并设置默认版本</title>
+    <link href="http://example.com/2021/11/03/Linux-%E5%AE%89%E8%A3%85%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%ACJDK%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC/"/>
+    <id>http://example.com/2021/11/03/Linux-%E5%AE%89%E8%A3%85%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%ACJDK%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC/</id>
+    <published>2021-11-03T12:32:36.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote><p>一台设备不能同事运行两个 Java 版本</p></blockquote><ol><li><p>官网下载 JDK 版本，<code>jdk-8u181-linux-x64.tar.gz</code></p></li><li><p>使用 ssh 工具上传安装包到 Linux 系统，传至：<code>/usr/local</code></p></li><li><p>Linux 用户安装的程序一般放在 <code>/usr/local</code>下</p></li></ol><span id="more"></span><ol start="4"><li><p>使用命令解压：tar zxcf jdk-8u181-linux-x64.tar.gz， 解压安装包到 /usr/local/下</p></li><li><p>配置环境变量</p><p>用管理员用户root对 /etc/profile进行编辑，添加如下内容：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/local/jdk1.8.0_181   -- jdk所在目录</span><br><span class="line">export JRE_HOME=/usr/local/jdk1.8.0_181/jre -- jre所在目录</span><br><span class="line">export CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin</span><br></pre></td></tr></table></figure></li><li><p>退出vim编辑器，使环境设置立即生效 <code>source /etc/profile</code></p></li><li><p>使用<code>java -version</code>命令查看档期那系统正在使用的java版本</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS ~]# java -version</span><br><span class="line">java version &quot;1.7.0&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.7.0)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.170, mixed mode)</span><br></pre></td></tr></table></figure><p>发现并不是新安装的jdk版本，使用命令更改当前系统使用的jdk版本</p><p><code>alternatives --config java</code></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS ~]# alternatives --config java</span><br><span class="line"></span><br><span class="line">There are 3 programs which provide &#x27;java&#x27;.</span><br><span class="line"></span><br><span class="line">  Selection    Command</span><br><span class="line">-----------------------------------------------</span><br><span class="line">*+ 1           /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java</span><br><span class="line">   2           /usr/lib/jvm/jre-1.6.0-openjdk.x86_64/bin/java</span><br><span class="line">   3           /usr/lib/jvm/jre-1.5.0-gcj/bin/java</span><br></pre></td></tr></table></figure><p>没有新安装的1.8.1版本jdk，需要使用命令将新安装的jdk放入到java bin中</p><p><code>alternatives --install /usr/bin/java java /usr/local/jdk1.8.0_181/bin/java 4</code></p><p>再使用<code>alternatives --config java</code>，此时可以看到新安装的 版本，然后选择即可：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS ~]# alternatives --config java</span><br><span class="line"></span><br><span class="line">There are 4 programs which provide &#x27;java&#x27;.</span><br><span class="line"></span><br><span class="line">  Selection    Command</span><br><span class="line">-----------------------------------------------</span><br><span class="line">*+ 1           /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/bin/java</span><br><span class="line">   2           /usr/lib/jvm/jre-1.6.0-openjdk.x86_64/bin/java</span><br><span class="line">   3           /usr/lib/jvm/jre-1.5.0-gcj/bin/java</span><br><span class="line">   4           /usr/local/jdk1.8.0_181/bin/java</span><br><span class="line"></span><br><span class="line">Enter to keep the current selection[+], or type selection number: 4</span><br><span class="line">[root@CentOS ~]# java -version</span><br><span class="line">java version &quot;1.8.0_181&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_181-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;一台设备不能同事运行两个 Java 版本&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;官网下载 JDK 版本，&lt;code&gt;jdk-8u181-linux-x64.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用 ssh 工具上传安装包到 Linux 系统，传至：&lt;code&gt;/usr/local&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Linux 用户安装的程序一般放在 &lt;code&gt;/usr/local&lt;/code&gt;下&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>存在的艺术</title>
+    <link href="http://example.com/2021/11/03/%E5%AD%98%E5%9C%A8%E7%9A%84%E8%89%BA%E6%9C%AF/"/>
+    <id>http://example.com/2021/11/03/%E5%AD%98%E5%9C%A8%E7%9A%84%E8%89%BA%E6%9C%AF/</id>
+    <published>2021-11-03T12:27:34.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote><p>请读原著，作者的思想仅能通过原著获得。还没有读这本书，先占个坑，目前正在读他的另一本《爱的艺术》</p></blockquote><p>传统精神分析的另一危险，</p><p>在于这样一个事实。</p><p>即病人往往只是生成想做出改变。</p><p>如果他患有恼人的症状，</p><p>如失眠、阳痿、恐惧当权者、</p><p>与异性关系不愉快</p><p>或只是感觉萎靡不振，</p><p>他当然希望能摆脱这些。</p><p>谁不想呢？</p><span id="more"></span></br><p>但他不愿意经历</p><p>在成长和孤独中必须要经历的痛苦。</p><p>他是如何面对该困境呢？</p><p>他期望着只需遵循“基本规则”</p><p>不费考虑，</p><p>想到什么就说什么</p><p>以为这样就可以被治愈，</p><p>无疼痛，也无需努力 </p></br><p>总之，他认为通过谈话就可以被“救赎”。</p><p>但世上没有这样的事情。</p><p>如果不曾经历痛苦或不愿意经历，</p><p>没有人能够成长，</p><p>也没有人能追求到</p><p>任何值得追求到的东西。</p></br><hr><p>如果他仍是一个人，</p><p>而非一件物品时，</p><p>这个人就会有孤独感、无力感，</p><p>与现今社会有隔离感。</p></br><p>正因为清醒，</p><p>他才不禁感到痛苦，</p><p>尽管他可以体验喜悦和明晰的瞬间，</p><p>而这些是他“正常”的同代人体会不到的。</p></br><p>得神经症也不令人意外，</p><p>因为这个健全的人</p><p>生活在一个疯狂的社会，</p><p>而不是以前那种一个病态的人</p><p>试图让自己适应一个病态的社会</p><p>所引发的神经症。</p></br><p>在对他对自己做进一步分析的过程中，</p><p>也就是说，在更加独立更加自主的过程中，</p><p>他的神经质症状会自愈。</p><p>说到底，各种神经症的发生都意味着</p><p>一个人没能解开存在之谜。</p><hr><p>每天早晨应该进行至少三十分钟的自我分析，</p><p>如果可能的话，</p><p>尽量在相同的时间和地点，</p><p>并应尽量避免外界的干扰。</p></br><p>在不得不等待，</p><p>或“无事可做”，</p><p>或在地铁里、飞机上时，</p><p>都可以进行，</p><p>而不是马上去阅读一本杂志，</p><p>和别人聊天或者做白日梦。</p><p>BGM</p><p>Olafur Arnalds - Agust</p><p>Robert Haigh - Clear Water</p><p>Martin Ermen - Gymnpedie Nr.1</p>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;请读原著，作者的思想仅能通过原著获得。还没有读这本书，先占个坑，目前正在读他的另一本《爱的艺术》&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;传统精神分析的另一危险，&lt;/p&gt;
+&lt;p&gt;在于这样一个事实。&lt;/p&gt;
+&lt;p&gt;即病人往往只是生成想做出改变。&lt;/p&gt;
+&lt;p&gt;如果他患有恼人的症状，&lt;/p&gt;
+&lt;p&gt;如失眠、阳痿、恐惧当权者、&lt;/p&gt;
+&lt;p&gt;与异性关系不愉快&lt;/p&gt;
+&lt;p&gt;或只是感觉萎靡不振，&lt;/p&gt;
+&lt;p&gt;他当然希望能摆脱这些。&lt;/p&gt;
+&lt;p&gt;谁不想呢？&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>时间在流动</title>
+    <link href="http://example.com/2021/11/01/%E6%97%B6%E9%97%B4%E5%9C%A8%E6%B5%81%E5%8A%A8/"/>
+    <id>http://example.com/2021/11/01/%E6%97%B6%E9%97%B4%E5%9C%A8%E6%B5%81%E5%8A%A8/</id>
+    <published>2021-11-01T01:30:00.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-JQXANrKc" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="16964043" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>回想过去一年，时间的齿轮永不停歇的转动，一圈又一圈 。</p><p>当我听着2020年的歌单的时候，我感觉不出那是什么时候听到的。</p><p>感觉很遥远，但仔细想想也不过一年。</p><p>一年！活着好像没有什么感觉，一切瞬息万变，一切好像有没有变。</p><p>时间的尺度上，我太渺小了。</p><p>我感到很孤独，很无助，很害怕。</p><span id="more"></span></br><p>感觉我有很多事情没有做，但每一个都没能抓住。</p><p>人他在时间的缝隙中悄然流逝。</p><p>我无能为力，我孤立无援。</p><p>我甚至没有一个可以诉说，可以倾听的对象。</p></br><p>每天上下班只有看书，或者书为我打造的世界中，勉强喘息。</p><p>已经是十一月的深秋了，说明这一年已经快要结束。</p><p>可是这一年的伊始，我还是历历在目啊，仿佛就在昨天。</p><p>时间在我不经意间流逝了，我无能为力</p></br><p>每一天都是上一天的叠加，然后把他们压扁成一天，甚至只有一道微弱的痕迹。</p></br><p>关于未来的打算</p><p>我想考研，圆自己一个梦，铺平以后的路。</p><p>我想去考公务员，然后可有混吃等死。</p><p>这样我有更多的时间做自己喜欢的事情，或者虚度光阴。</p><p>不再用怕35岁的中年危机。</p></br><p>或许我能在这几年拥有一段爱情，但我不敢开始，也太想开始。</p><p>我害怕拥有，害怕失去。</p><p>害怕拥有他阻碍了我的发展，害怕失去他丢失了好不容易好转的我。</p></br><p>2021.11.1 9:30</p>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-JQXANrKc&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;16964043&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+&lt;/br&gt;
+
+&lt;p&gt;回想过去一年，时间的齿轮永不停歇的转动，一圈又一圈 。&lt;/p&gt;
+&lt;p&gt;当我听着2020年的歌单的时候，我感觉不出那是什么时候听到的。&lt;/p&gt;
+&lt;p&gt;感觉很遥远，但仔细想想也不过一年。&lt;/p&gt;
+&lt;p&gt;一年！活着好像没有什么感觉，一切瞬息万变，一切好像有没有变。&lt;/p&gt;
+&lt;p&gt;时间的尺度上，我太渺小了。&lt;/p&gt;
+&lt;p&gt;我感到很孤独，很无助，很害怕。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>生活就是这样，凄迷中藏着希望，阴冷中透着温暖。</title>
+    <link href="http://example.com/2021/10/30/%E7%94%9F%E6%B4%BB%E5%B0%B1%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%8C%E5%87%84%E8%BF%B7%E4%B8%AD%E8%97%8F%E7%9D%80%E5%B8%8C%E6%9C%9B%EF%BC%8C%E9%98%B4%E5%86%B7%E4%B8%AD%E9%80%8F%E7%9D%80%E6%B8%A9%E6%9A%96%E3%80%82/"/>
+    <id>http://example.com/2021/10/30/%E7%94%9F%E6%B4%BB%E5%B0%B1%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%8C%E5%87%84%E8%BF%B7%E4%B8%AD%E8%97%8F%E7%9D%80%E5%B8%8C%E6%9C%9B%EF%BC%8C%E9%98%B4%E5%86%B7%E4%B8%AD%E9%80%8F%E7%9D%80%E6%B8%A9%E6%9A%96%E3%80%82/</id>
+    <published>2021-10-30T14:56:23.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-UhJFUDYT" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1495052210" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><blockquote><p>您已偏离路线，已为您重新规划，请在合适的位置掉头。</p></blockquote><span id="more"></span><p>记得小时候，我珍藏着一包红包，但是表弟看见了，一直找我要。我当然是不肯给的，可以父命难为，再说还有舅舅、舅妈看着我呢。于是便给了他，让他好好珍惜。</p><p>可能轻易得到的东西，在他人眼里便是一文不值吧，看得我那叫一个心疼。</p><p>可是过了这么久，十几年了吧。对我来说，那早就是轻易就能得到的东西。）</p><p>时间总会淡忘一切，在时间的尺度上，再在乎的东西，经过岁月的沉淀都会退去颜色。</p><p>时间让自己更为强大，强大到不再在意那个东西，那个人了。</p><p>对于那个强大的自己来说，有则为生活增添光彩，没有生活也有滋有味</p><p>不过，那时候的自己，是真的。现在的自己也是真的，只是可怜年少单纯、傻傻的自己一去不复还。</p><p>我很高兴，我成长了！我也很难过，我成长了</p>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-UhJFUDYT&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;1495052210&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+&lt;/br&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;您已偏离路线，已为您重新规划，请在合适的位置掉头。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>时光飞逝，我已不再年少</title>
+    <link href="http://example.com/2021/10/25/%E6%97%B6%E5%85%89%E9%A3%9E%E9%80%9D%EF%BC%8C%E6%88%91%E5%B7%B2%E4%B8%8D%E5%86%8D%E5%B9%B4%E5%B0%91/"/>
+    <id>http://example.com/2021/10/25/%E6%97%B6%E5%85%89%E9%A3%9E%E9%80%9D%EF%BC%8C%E6%88%91%E5%B7%B2%E4%B8%8D%E5%86%8D%E5%B9%B4%E5%B0%91/</id>
+    <published>2021-10-25T14:08:15.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-TSnyjvtY" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="442315772" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>今天和苗帅聊天，发现已经快11月了。这一年过的好快，快到我没有留下什么影响。</p><p>还记得年初，北京漫天的黄沙，好像就在不久前。也许3月的时候，和现在一样冷而产生的错觉吧。</p><span id="more"></span><p><img src="1.jpg" alt="3.15号的黄沙"></p><center>3.15号的黄沙</center></br><p>只记得北京的7月，下班还能迎着夕阳，每天都会带雨伞，以防突如其来的大雨。</p><p>似乎这一切，都在不久前，但仔细想想却也是3个月前的事情了。</p><p>时间过的好快，快到你稍有不备，它就会偷偷从你身边溜走，当你回想起来的时候，感叹时间是那么遥远。</p><p><img src="2.jpg" alt="7.8号的雷雨天"></p><center>7.8号的雷雨天</center></br><p>每天重复的日子，似乎都堆叠成了一天，只有那些特别的天气，才能让我觉得那是另外一天。也许因为这样，我才会觉得那些日子似乎才在昨天吧。</p><p>10年前的自己，和10年后的自己有什么区别呢？还是那个天真、单纯的傻孩子罢了。但年龄、长相、婚姻、周围的人，又时刻提醒着我，已经不再是那个小孩子了。</p><p>哎！</p><p>怎么说呢，以前挺想回到小时候的，但现在又不太想了，不知道是为什么。</p><p>不过希望，我能好好爱自己。那个小时候的自己已经长大了，可能他的心还没有，那也请现在的你多多照顾他吧。</p>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-TSnyjvtY&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;442315772&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+&lt;/br&gt;
+
+&lt;p&gt;今天和苗帅聊天，发现已经快11月了。这一年过的好快，快到我没有留下什么影响。&lt;/p&gt;
+&lt;p&gt;还记得年初，北京漫天的黄沙，好像就在不久前。也许3月的时候，和现在一样冷而产生的错觉吧。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>心灵之旅</title>
+    <link href="http://example.com/2021/10/17/%E5%BF%83%E7%81%B5%E4%B9%8B%E6%97%85/"/>
+    <id>http://example.com/2021/10/17/%E5%BF%83%E7%81%B5%E4%B9%8B%E6%97%85/</id>
+    <published>2021-10-17T13:53:33.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-mKJUcWZc" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="469933" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>这个周六来了一场香山心灵之旅，随心而走不问方向，不问目的，就是散心。</p><span id="more"></span><p><img src="1.jpg"></p><p>这也导致我跑到了野山中，一个人旅行真的很不错，但我千辛万苦以为爬到山顶的时候，其实是在半山腰，而山腰上进入有马路，还有一群外出游客…</p><p>我想我终于知道为什么那么喜欢《荒野大镖客2》了，因为风景真的很美，和我路过的风景很像，可惜手机拍不出来那个效果。</p><p>这趟旅程从早上9：30一直走到13：00才算回归本来的路线。</p><p><img src="2.jpg"></p><p><img src="3.jpg"></p><p><img src="4.jpg"></p><p><img src="5.jpg"></p><p><img src="6.jpg"></p><p><img src="7.jpg"></p><p><img src="8.jpg"></p><p><img src="9.jpg"></p><p><img src="10.jpg"></p><p><img src="11.jpg"></p><p>好在遇到了碧云寺，我认为比香山美多了，可能现在香山还没有红叶吧</p><p>碧云寺还有很多罗汉像和佛像我没有拍摄</p><p><img src="12.jpg"></p><p><img src="13.jpg"></p><p><img src="14.jpg"></p><p><img src="15.jpg"></p><p><img src="16.jpg"></p><p><img src="17.jpg"></p><p><img src="18.jpg"></p><p><img src="19.jpg"></p><p>之后便是香山山顶了，不留遗憾还特地给自己求了段姻缘，那时候手冻僵了，字有点丑…</p><p><img src="20.jpg"></p><p>下午5点回去的时候，正门人好多，而且买卖街好热闹，让我想起了3年前去成都锦里的时候，真是怀念啊。</p><p><img src="21.jpg"></p><p>有机会，一定要带朋友来爬香山，吃好吃的，再去看看我的祈福牌子</p>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-mKJUcWZc&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;469933&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+&lt;/br&gt;
+
+&lt;p&gt;这个周六来了一场香山心灵之旅，随心而走不问方向，不问目的，就是散心。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>七月</title>
+    <link href="http://example.com/2021/10/13/%E4%B8%83%E6%9C%88/"/>
+    <id>http://example.com/2021/10/13/%E4%B8%83%E6%9C%88/</id>
+    <published>2021-10-13T12:52:10.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>　　七月流火，九月授衣。一之日觱发，二之日栗烈。无衣无褐，何以卒岁。三之日于耜，四之日举趾。同我妇子，馌彼南亩，田畯至喜。</p><p>　　七月流火，九月授衣。春日载阳，有鸣仓庚。女执懿筐，遵彼微行，爰求柔桑。春日迟迟，采蘩祁祁。女心伤悲，殆及公子同归。</p><p>　　七月流火，八月萑苇。蚕月条桑，取彼斧斨，以伐远扬，猗彼女桑。七月鸣鵙，八月载绩。载玄载黄，我朱孔阳，为公子裳。</p><span id="more"></span><p>　　四月秀葽，五月鸣蜩。八月其获，十月陨萚。一之日于貉，取彼狐狸，为公子裘。二之日其同，载缵武功，言私其豵，献豜于公。</p><p>　　五月斯螽动股，六月莎鸡振羽，七月在野，八月在宇，九月在户，十月蟋蟀入我床下。穹窒熏鼠，塞向墐户。嗟我妇子，曰为改岁，入此室处。</p><p>　　六月食郁及薁，七月亨葵及菽，八月剥枣，十月获稻，为此春酒，以介眉寿。七月食瓜，八月断壶，九月叔苴，采荼薪樗，食我农夫。</p><p>　　九月筑场圃，十月纳禾稼。黍稷重穋，禾麻菽麦。嗟我农夫，我稼既同，上入执宫功。昼尔于茅，宵尔索綯。亟其乘屋，其始播百谷。</p><p>　　二之日凿冰冲冲，三之日纳于凌阴。四之日其蚤，献羔祭韭。九月肃霜，十月涤场。朋酒斯飨，曰杀羔羊。跻彼公堂，称彼兕觥，万寿无疆。</p><hr><p><strong>豳风</strong>1<strong>·七月</strong></p><p>七月流火2，九月授衣3。一之日觱发4，二之日栗烈5。无衣无褐6，何以卒岁7。三之日于耜8，四之日举趾9。同我妇子10，馌彼南亩11，田畯至喜12。</p><blockquote><ol><li>豳（bīn）风：《诗经》十五国风之一，共七篇。豳：古邑名，在今陕西旬邑、彬县一带。</li><li>七月流火：火：或称大火，星名，即心宿。流：流动。每年夏历五月，黄昏时候，这星当正南方，也就是正中和最高的位置。过了六月就偏西向下了，这就叫做“流”。</li><li>授衣：将裁制冬衣的工作交给女工。九月丝麻等事结束，所以在这时开始做冬衣。</li><li>一之日：十月以后第一个月的日子。为豳历纪日法。觱（bì）发：大风触物声。</li><li>栗烈：或作“凛冽”，形容气寒。</li><li>褐：粗布衣。</li><li>卒岁：终岁。</li><li>于耜（sì）：修理耒耜（耕田起土之具）。于：犹“为”。</li><li>举趾：举脚而耕。趾：足。</li><li>妇子：妻子和小孩。</li><li>馌（yè）：馈送食物。亩：指田身。田耕成若干垄，高处为亩，低处为畎。田垄东西向的叫做“东亩”，南北向的叫做“南亩”。</li><li>田畯（jùn）：农官名，又称农正或田大夫。</li></ol></blockquote><p>七月流火，九月授衣。春日载阳13，有鸣仓庚14。女执懿筐15，遵彼微行16，爰求柔桑17。春日迟迟18，采蘩祁祁19。女心伤悲，殆及公子同归20。</p><blockquote><ol start="13"><li>春日：指二月。载：始。阳：温暖。</li><li>仓庚：鸟名，就是黄莺。</li><li>懿（yì）：深。</li><li>微行：小径，小路。</li><li>爰（yuán）：语词，犹“曰”。柔桑：初生的桑叶。</li><li>迟迟：天长的意思。</li><li>蘩（fán）：菊科植物，即白蒿。古人用于祭祀，女子在嫁前有“教成之祭”。一说用蘩“沃”蚕子，则蚕易出，所以养蚕者需要它。其法未详。祁祁：众多（指采蘩者）。</li><li>殆及公子同归：是说怕被公子强迫带回家去。一说指怕被女公子带去陪嫁。公子，指国君之子。</li></ol></blockquote><p>七月流火，八月萑苇21。蚕月条桑22，取彼斧斨23，以伐远扬24，猗彼女桑25。七月鸣鵙26，八月载绩。载玄载黄27，我朱孔阳28，为公子裳。</p><blockquote><ol start="21"><li>萑（huán）苇：芦苇。八月萑苇长成，收割下来，可以做箔。</li><li>蚕月：指夏历三月。条桑：修剪桑树。</li><li>斨（qiāng）：方孔的斧头。</li><li>远扬：指长得太长而高扬的枝条。</li><li>猗（yǐ）：《说文》《广雅》作“掎”（jǐ），牵引。“掎桑”是用手拉着桑枝来采叶。南朝乐府诗《采桑度》云：“系条采春桑，采叶何纷纷”，似先用绳系桑然后拉着绳子采。女桑：小桑。</li><li>鵙（jú）：鸟名，即伯劳。</li><li>玄：黑而赤的颜色。玄、黄指丝织品与麻织品的染色。</li><li>朱：赤色。阳：鲜明。</li></ol></blockquote><p>四月秀葽29，五月鸣蜩30。八月其获，十月陨萚31。一之日于貉32，取彼狐狸，为公子裘。二之日其同33，载缵武功34，言私其豵35，献豜于公36。</p><blockquote><ol start="29"><li>秀葽（yāo）：言远志结实。葽：植物名，今名远志。</li><li>蜩（tiáo）：蝉。</li><li>陨萚（tuò）：落叶。</li><li>于貉：《郑笺》：“于貉，往博貉以自为裘也。”貉（hé）：哺乳动物。外貌像狐狸，昼伏夜出。 </li><li>同：聚合，言狩猎之前聚合众人。</li><li>缵（zuǎn）：继续。武功：指田猎。</li><li>私其豵（zōng） [9] ：言小兽归猎者私有。豵：一岁小猪，这里用来代表比较小的兽。</li><li>豜（jiān）：三岁的猪，代表大兽。大兽献给公家。</li></ol></blockquote><p>五月斯螽动股37，六月莎鸡振羽38，七月在野，八月在宇，九月在户，十月蟋蟀入我床下。穹窒熏鼠39，塞向墐户40。嗟我妇子，曰为改岁41，入此室处。</p><blockquote><ol start="37"><li>斯螽（zhōng）：虫名，蝗类，即蚱蜢、蚂蚱。动股：言斯螽发出鸣声。旧说斯螽以两股相切发声。</li><li>莎鸡：虫名，今名纺织娘。振羽：言鼓翅发声。</li><li>穹窒（zhì）：言将室内满塞的角落搬空，搬空了才便于熏鼠。穹：穷尽，清除；一说空隙。窒：堵塞。</li><li>向：朝北的窗户。墐（jìn）：用泥涂抹。贫家门扇用柴竹编成，涂泥使它不通风。</li><li>曰：《汉书》引作“聿”，语词。改岁：旧年将尽，新年快到。</li></ol></blockquote><p>六月食郁及薁42，七月亨葵及菽43，八月剥枣44，十月获稻，为此春酒45，以介眉寿46。七月食瓜，八月断壶47，九月叔苴48，采荼薪樗49，食我农夫。</p><blockquote><ol start="42"><li>郁：植物名，唐棣之类。树高五六尺，果实像李子，赤色。薁（yù）：植物名，果实大如桂圆。一说为野葡萄。</li><li>菽（shū）：豆的总名。</li><li>剥（pū）：通“扑”，打，击。</li><li>春酒：冬天酿酒经春始成，叫做“春酒”。枣和稻都是酿酒的原料。</li><li>介：祈求。眉寿：长寿，人老眉间有豪毛，叫秀眉，所以长寿称眉寿。</li><li>壶：葫芦。</li><li>叔：拾。苴（jū）：秋麻之籽，可以吃。</li><li>荼（tú）：菜名，即苦菜。 [11] 薪樗（chū）：言采樗木为薪。樗：木名，臭椿。</li></ol></blockquote><p>九月筑场圃50，十月纳禾稼51。黍稷重穋52，禾麻菽麦53。嗟我农夫，我稼既同，上入执宫功54。昼尔于茅，宵尔索绹55。亟其乘屋56，其始播百谷。</p><blockquote><ol start="50"><li>场：打谷的场地。圃：菜园。春夏做菜园的地方秋冬就做成场地，所以场圃连成一词。</li><li>纳：收进谷仓。稼：古读如“故”。禾稼：谷类通称。</li><li>重（tóng） [12] ：即“穜”，是先种后熟的谷。穋（lù）：即“稑”（lù），稑是后种先熟的谷。</li><li>禾：此处专指一种谷，即今之小米。</li><li>宫功：指建筑宫室，或指室内的事。功：事。</li><li>索绹（táo）：打绳子。索：动词，指制绳。绹：绳索。</li><li>亟：急。乘屋：盖屋。茅和绳都是盖屋需用的东西。</li></ol></blockquote><p>二之日凿冰冲冲57，三之日纳于凌阴58。四之日其蚤59，献羔祭韭60。九月肃霜61，十月涤场62。朋酒斯飨63，曰杀羔羊。跻彼公堂64，称彼兕觥65，万寿无疆66。</p><blockquote><ol start="57"><li>冲冲：凿冰之声。</li><li>凌：指聚集的水。阴：指藏冰之处。</li><li>蚤：取。一说通“早”，古代的一种祭祖仪式。</li><li>献羔祭韭：用羔羊和韭菜祭祖。《礼记·月令》说仲春献羔开冰，四之日正是仲春。</li><li>肃霜：犹“肃爽”，深秋清凉的样子。</li><li>涤场：清扫场地。一说即“涤荡”，草木摇落无余。</li><li>朋酒：两樽酒。</li><li>跻（jī）：登。公堂：或指公共场所，不一定是国君的朝堂。</li><li>称：举起。兕（sì）觥（gōng）：角爵。古代用兽角做的酒器。</li><li>万：大。无疆：无穷。</li></ol></blockquote><hr><center>七月<p>先秦-诗经</p><ul><li>七月流火，九月授衣。</br><br><strong>七月大火向西落，九月妇女缝寒衣。</strong></br><br>一之日觱发，二之日栗烈。<br><br><strong>十一月北风劲吹，十二月寒气袭人。</strong></br><br>无衣无褐，何以卒岁。</br><br><strong>没有好衣没粗衣，怎么度过这年底？</strong></br><br>三之日于耜，四之日举趾。</br><br><strong>正月开始修锄犁，二月下地去耕种。</strong></br><br>同我妇子，馌彼南亩。</br><br><strong>带着妻儿一同去，把饭送到向阳的土地上去。</strong></br><br>田畯至喜。</br><br><strong>田官十分高兴。</strong></br><br>七月流火，九月授衣。</br><br><strong>七月大火向西落，九月妇女缝寒衣。</strong></br><br>春日载阳，有鸣仓庚。</br><br><strong>春天阳光暖融融，黄鹂婉转唱着歌。</strong></br><br>女执懿筐，遵彼微行，爰求柔桑。</br><br><strong>姑娘提着深竹筐，一路沿着小道走，伸手采摘嫩桑叶。</strong></br><br>春日迟迟，采蘩祁祁。</br><br><strong>春来日子渐渐长，人来人往采白蒿。</strong></br><br>女心伤悲，殆及公子同归。</br><br><strong>姑娘心中好伤悲，害怕要随贵人嫁他乡。</strong></br><br>七月流火，八月萑苇。</br><br><strong>七月大火向西落，八月要把芦苇割。</strong></br><br>蚕月条桑，取彼斧斨，以伐远扬，猗彼女桑。</br><br><strong>三月修剪桑树枝，取来锋利的斧头，砍掉高高长枝条，攀着细枝摘嫩桑。</strong></br><br>七月鸣鵙，八月载绩。</br><br><strong>七月伯劳声声叫，八月开始把麻织。</strong></br><br>载玄载黄，我朱孔阳，为公子裳。</br><br><strong>染丝有黑又有黄，我的红色更鲜亮，献给贵人做衣裳。</strong></br><br>四月秀葽，五月鸣蜩。</br><br><strong>四月远志结了籽，五月知了阵阵叫。</strong></br><br>八月其获，十月陨箨。</br><br><strong>八月田间收获忙，十月树上叶子落。</strong></br><br>一之日于貉，取彼狐狸，为公子裘。</br><br><strong>十一月上山猎貉，猎取狐狸皮毛好，送给贵人做皮袄。</strong></br><br>二之日其同，载缵武功，言私其豵，献豜于公。</br><br><strong>十二月猎人会合，继续操练打猎功，打到小猪归自己，猎到大猪献王公。</strong></br><br>五月斯螽动股，六月莎鸡振羽。</br><br><strong>五月蚱蜢弹腿叫，六月纺织娘振翅。</strong></br><br>七月在野，八月在宇。</br><br><strong>七月蟋蟀在田野，八月来到屋檐下。</strong></br><br>九月在户，十月蟋蟀入我床下。</br><br><strong>九月蟋蟀进门口，十月钻进我床下。</strong></br><br>穹窒熏鼠，塞向墐户。</br><br><strong>堵塞鼠洞熏老鼠，封好北窗糊门缝。</strong></br><br>嗟我妇子，曰为改岁，入此室处。</br><br><strong>叹我妻儿好可怜，岁末将过新年到，迁入这屋把身安。</strong></br><br>六月食郁及薁，七月亨葵及菽。</br><br><strong>六月食李和葡萄，七月煮葵又煮豆。</strong></br><br>八月剥枣，十月获稻。</br><br><strong>八月开始打红枣，十月下田收稻谷。</strong></br><br>为此春酒，以介眉寿。</br><br><strong>酿成春酒美又香，为了主人求长寿。</strong></br><br>七月食瓜，八月断壶，九月叔苴，采荼薪樗，食我农夫。</br><br><strong>七月里面可吃瓜，八月到来摘葫芦，九月拾起秋麻子，采摘苦菜又砍柴，养活农夫把心安。</strong></br><br>九月筑场圃，十月纳禾稼。</br><br><strong>九月修筑打谷场，十月庄稼收进仓。</strong></br><br>黍稷重穋，禾麻菽麦。</br><br><strong>黍稷早稻和晚稻，粟麻豆麦全入仓。</strong></br><br>嗟我农夫，我稼既同，上入执宫功。</br><br><strong>叹我农夫真辛苦，庄稼刚好收拾完，又为官家筑宫室。</strong></br><br>昼尔于茅，宵尔索綯。</br><br><strong>白天要去割茅草，夜里赶着搓绳索。</strong></br><br>亟其乘屋，其始播百谷。</br><br><strong>赶紧上房修好屋，开春还得种百谷。</strong></br><br>二之日凿冰冲冲，三之日纳于凌阴。</br><br><strong>十二月凿冰冲冲，正月搬进冰窖中。</strong></br><br>四之日其蚤，献羔祭韭。</br><br><strong>二月开初祭祖先，献上韭菜和羊羔。</strong></br><br>九月肃霜，十月涤场。</br><br><strong>九月寒来始降霜，十月清扫打谷场。</strong></br><br>朋酒斯飨，曰杀羔羊。</br><br><strong>两槽美酒敬宾客，宰杀羊羔大家尝。</strong></br><br>跻彼公堂，称彼兕觥，万寿无疆。</br><br><strong>登上主人的庙堂，举杯共同敬主人，齐声高呼寿无疆。</strong></br></li></ul></center><hr><div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="https://www.bilibili.com/video/BV1uv411G7s8"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe></div>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;　　七月流火，九月授衣。一之日觱发，二之日栗烈。无衣无褐，何以卒岁。三之日于耜，四之日举趾。同我妇子，馌彼南亩，田畯至喜。&lt;/p&gt;
+&lt;p&gt;　　七月流火，九月授衣。春日载阳，有鸣仓庚。女执懿筐，遵彼微行，爰求柔桑。春日迟迟，采蘩祁祁。女心伤悲，殆及公子同归。&lt;/p&gt;
+&lt;p&gt;　　七月流火，八月萑苇。蚕月条桑，取彼斧斨，以伐远扬，猗彼女桑。七月鸣鵙，八月载绩。载玄载黄，我朱孔阳，为公子裳。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="诗词歌赋" scheme="http://example.com/tags/%E8%AF%97%E8%AF%8D%E6%AD%8C%E8%B5%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git操作命令</title>
+    <link href="http://example.com/2021/10/10/Git%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/"/>
+    <id>http://example.com/2021/10/10/Git%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</id>
+    <published>2021-10-10T09:37:27.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote><p>创建仓库</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure><blockquote><p>使用固定目录作为本地仓库</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init 目录</span><br></pre></td></tr></table></figure><blockquote><p>提交</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git add 具体文件</span><br><span class="line">git commit -m <span class="string">&quot;说明文案&quot;</span></span><br></pre></td></tr></table></figure><span id="more"></span><blockquote><p>克隆远程仓库到本地</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git 地址</span><br></pre></td></tr></table></figure><blockquote><p>显示当前 git 配置</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure><blockquote><p>设置提交用户名 - 全局</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;runoob&quot;</span></span><br><span class="line">git config --global user.enail <span class="built_in">test</span>@runoob.com</span><br></pre></td></tr></table></figure><blockquote><p>简单命令</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git add 添加文件到仓库</span><br><span class="line">git status查看仓库当前的状态，显示有变更的文件</span><br><span class="line">git diff比较文件得不同，即暂存区和工作区得差异</span><br><span class="line">git commit提交暂存区到本地仓库</span><br><span class="line">git reset回退版本</span><br><span class="line">git rm删除工作区文件</span><br><span class="line">git mv移动或重命名工作文件</span><br><span class="line">git <span class="built_in">log</span>查看历史提交记录</span><br><span class="line">git blame &lt;file&gt; 以列表形式查看指定文件得历史修改记录</span><br><span class="line">git remote远程仓库操作</span><br><span class="line">git fetch从远程获取代码库</span><br><span class="line">git pull下载远程代码并合并</span><br><span class="line">git push上传远程代码并合并</span><br></pre></td></tr></table></figure><blockquote><p>分支管理</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">创建分支：git branch 分支名</span><br><span class="line">切换分支：git checkout 分支名</span><br><span class="line">合并分支：git merge</span><br><span class="line">列出所有分支：git branch</span><br><span class="line">创建分支别切换：git checkout -b 分支名</span><br><span class="line">删除分支：git branch -d 分支名</span><br></pre></td></tr></table></figure><blockquote><p>分支合并</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 新分支</span><br></pre></td></tr></table></figure><blockquote><p>冲突管理</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff查看冲突git commit -am <span class="string">&quot;修改代码说明&quot;</span>git merge 新分支名cat 冲突文件名手动修改后git status -sgit add 冲突文件名git commit 提交</span><br></pre></td></tr></table></figure><blockquote><p>Git 查看提交历史</p></blockquote><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --onelinegit blame 文件名</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;创建仓库&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git init&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;使用固定目录作为本地仓库&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git init 目录&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;提交&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git add .&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git add 具体文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git commit -m &lt;span class=&quot;string&quot;&gt;&amp;quot;说明文案&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    
+    <category term="git" scheme="http://example.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>部署hexo后github pages页面未更新或无法打开问题</title>
+    <link href="http://example.com/2021/10/07/%E9%83%A8%E7%BD%B2hexo%E5%90%8Egithub-pages%E9%A1%B5%E9%9D%A2%E6%9C%AA%E6%9B%B4%E6%96%B0%E6%88%96%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98/"/>
+    <id>http://example.com/2021/10/07/%E9%83%A8%E7%BD%B2hexo%E5%90%8Egithub-pages%E9%A1%B5%E9%9D%A2%E6%9C%AA%E6%9B%B4%E6%96%B0%E6%88%96%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98/</id>
+    <published>2021-10-07T13:55:28.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    
+    
+    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>氓</title>
+    <link href="http://example.com/2021/10/07/%E6%B0%93/"/>
+    <id>http://example.com/2021/10/07/%E6%B0%93/</id>
+    <published>2021-10-07T11:18:23.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><center>氓之蚩蚩，抱布贸丝。<br>匪来贸丝，来即我谋。<br>送子涉淇，至于顿丘。<br>匪我愆期，子无良媒。<br>将子无怒，秋以为期。<br><span id="more"></span><br><p>乘彼垝垣，以望复关。<br>不见复关，泣涕涟涟。<br>既见复关，载笑载言。<br>尔卜尔筮，体无咎言。<br>以尔车来，以我贿迁。</p><p>桑之未落，其叶沃若。<br>于嗟鸠兮，无食桑葚！<br>于嗟女兮，无与士耽！<br>士之耽兮，犹可说也。<br>女之耽兮，不可说也。</p><p>桑之落矣，其黄而陨。<br>自我徂尔，三岁食贫。<br>淇水汤汤，渐车帷裳。<br>女也不爽，士贰其行。<br>士也罔极，二三其德。</p><p>三岁为妇，靡室劳矣。<br>夙兴夜寐，靡有朝矣。<br>言既遂矣，至于暴矣。<br>兄弟不知，咥其笑矣。<br>静言思之，躬自悼矣。</p><p>及尔偕老，老使我怨。<br>淇则有岸，隰则有泮。<br>总角之宴，言笑晏晏。<br>信誓旦旦，不思其反。<br>反是不思，亦已焉哉！</p></center>]]></content>
+    
+    
+    <summary type="html">&lt;center&gt;
+氓之蚩蚩，抱布贸丝。&lt;br&gt;
+匪来贸丝，来即我谋。&lt;br&gt;
+送子涉淇，至于顿丘。&lt;br&gt;
+匪我愆期，子无良媒。&lt;br&gt;
+将子无怒，秋以为期。&lt;br&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="诗词歌赋" scheme="http://example.com/tags/%E8%AF%97%E8%AF%8D%E6%AD%8C%E8%B5%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>那些美丽的风景</title>
+    <link href="http://example.com/2021/10/05/%E9%82%A3%E4%BA%9B%E7%BE%8E%E4%B8%BD%E7%9A%84%E9%A3%8E%E6%99%AF/"/>
+    <id>http://example.com/2021/10/05/%E9%82%A3%E4%BA%9B%E7%BE%8E%E4%B8%BD%E7%9A%84%E9%A3%8E%E6%99%AF/</id>
+    <published>2021-10-05T12:32:12.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-GxATheZI" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="28352987" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>第一百篇文章了，给自己留个纪念，分享一些生活中的风景，希望在以后的生活中砥砺前行，做更好的自己。</p><span id="more"></span><p><img src="1.jpg" alt="2021.8.20">2021.8.20<br></br><br><img src="2.jpg" alt="2021.8.5">2021.8.5<br></br><br><img src="3.jpg" alt="2021.8.5">2021.8.5<br></br><br><img src="4.jpg" alt="2021.4.12">2021.4.12<br></br><br><img src="7.jpg" alt="2021.4.12">2021.4.12<br></br><br><img src="5.jpg" alt="2021.7.30">2021.7.30<br></br><br><img src="6.jpg" alt="2021.7.8">2021.7.8<br></br><br><img src="8.jpg" alt="2021.8.17">2021.8.17<br></br><br><img src="9.jpg" alt="2021.8.26">2021.8.26<br></br><br><img src="23.jpg" alt="2021.8.5">2021.8.5<br></br><br><img src="22.jpg" alt="2021.8.26">2021.8.26<br></br><br><img src="12.jpg" alt="2021.8.27">2021.8.27<br></br><br><img src="13.jpg" alt="2021.8.28">2021.8.28<br></br><br><img src="14.jpg" alt="2021.8.31">2021.8.31<br></br><br><img src="15.jpg" alt="2021.9.2">2021.9.2<br></br><br><img src="16.jpg" alt="2021.8.28">2021.8.28<br></br><br><img src="17.jpg" alt="2021.8.28">2021.8.28<br></br><br><img src="18.jpg" alt="2021.8.26">2021.8.26<br></br><br><img src="19.jpg" alt="2021.9.5">2021.9.5<br></br><br><img src="20.jpg" alt="2021.5.3">2021.5.3<br></br><br><img src="21.jpg" alt="2021.5.26">2021.5.26<br></br></p>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-GxATheZI&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;28352987&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+&lt;/br&gt;
+
+&lt;p&gt;第一百篇文章了，给自己留个纪念，分享一些生活中的风景，希望在以后的生活中砥砺前行，做更好的自己。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>杂谈</title>
+    <link href="http://example.com/2021/10/05/%E6%9D%82%E8%B0%88/"/>
+    <id>http://example.com/2021/10/05/%E6%9D%82%E8%B0%88/</id>
+    <published>2021-10-05T11:12:12.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-geBBGNib" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1879348415" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p><strong>幸福是不可以通过直接追求而获得的。</strong></p><p>如果以赚钱为目的去做生意的话，永远也赚不来钱，或者永远也赚不到大钱。你只有以你做的这个产品为目的，你才能有可能在这个过程当中，赚到所谓的钱。</p><p>追求钱也好，幸福也好，爱情也好。这些都是不能直接去追求的，他们本身就很缥缈，很概念化，没有一个标准。</p><p>但是我们可以追求自己的理想，或者自己想做的事情。通过追求这些来间接达到追求金钱、幸福和爱情等等。</p><p>所以才有了“爱自己才能爱别人”，一味的对别人好，也只是在追求这个幸福的过程，爱情的过程而已。追求的太纯粹了，反而失去了自我。</p><span id="more"></span><p><strong>幸福也不是永恒的幸福,而是那一刻的幸福</strong></p><p>当我挑灯夜战准备考试最后成功的时候，成功的那一刻是幸福的，或者是那一段时间是幸福的。但之后还有更多的挑战在等待着我们。</p><p>我们希望这种幸福可以延续，我们希望可以获得更多的这样的幸福，但幸福从来不是一个永恒的状态，他就是那一刻的状态，他就是那一念的状态。</p><p>在现当代，看不清这个事情最惨烈的一个群体就是，痴情的女子。</p><p>我很喜欢西方的婚礼，他们大部分都会在教堂里去举行。他要以上帝之名，来见证我们这段婚姻。</p><p>所以这个时候一般神父就会问这个新郎：你是不是愿意娶你眼前的这位女子为妻，并与她缔结婚姻。不管贫穷还是富有，不管健康还是疾病，你要永远的爱她、守护她、接受她，永远的矢志不渝直到生命的尽头。</p><p>新郎肯定会说我愿意，这时候的新娘一定会感动的痛哭流涕。可是呢，这样的事情过去了一年两年三年之后，两人的争吵变得越来越多，这个妻子就会拿当初的事情来说事：你当初说过你会永远爱我的，你现在怎么这样了。</p><p>有的更严重的想法会说：你就是一个渣男，你就是骗我的。</p><p>其实即便人家是一个渣男。我们也应该做一个清醒的女王，<strong>你怎么会把誓言这种事情当真呢？</strong>，他跟你说永远的时候就是永远啊，只不过那个永远只是代表那一刻的永远，在那一刻你就是他的世界。</p><p>所以，不要为爱情冲昏了头脑，我们都知道这些事情是很难办到的。自己都不行，何况去要求他人。所以我从来或者很少承诺自己办不到的事情，或者是誓言。因为我知道，这很难，说的不过都是空话而已。</p><p><strong>所以说，痴情的人没必要，为守护一个当初本就不切实际的誓言，把一刻当成了永远，去留恋一辈子。</strong>如果你们分手了，离婚了，那下一个更好。</p><p>世界没有真正的永恒，何况是善变的人。我们就是在这种状态中频繁转变的，又为什么要奢求这种幸福的状态让它持久呢？没有可能的吧！</p><p><strong>我们追求幸福的体验其实就是当你全神贯注去做一件事情的时候，只有通过这件事情，你才能过滤掉那些干扰你的信息。</strong></p><blockquote><p>以上内容来自“杨一哟”，只有一点点自己的见解。</p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-geBBGNib&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;1879348415&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+&lt;/br&gt;
+
+&lt;p&gt;&lt;strong&gt;幸福是不可以通过直接追求而获得的。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果以赚钱为目的去做生意的话，永远也赚不来钱，或者永远也赚不到大钱。你只有以你做的这个产品为目的，你才能有可能在这个过程当中，赚到所谓的钱。&lt;/p&gt;
+&lt;p&gt;追求钱也好，幸福也好，爱情也好。这些都是不能直接去追求的，他们本身就很缥缈，很概念化，没有一个标准。&lt;/p&gt;
+&lt;p&gt;但是我们可以追求自己的理想，或者自己想做的事情。通过追求这些来间接达到追求金钱、幸福和爱情等等。&lt;/p&gt;
+&lt;p&gt;所以才有了“爱自己才能爱别人”，一味的对别人好，也只是在追求这个幸福的过程，爱情的过程而已。追求的太纯粹了，反而失去了自我。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>读书的四种境界</title>
+    <link href="http://example.com/2021/09/20/%E8%AF%BB%E4%B9%A6%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%A2%83%E7%95%8C/"/>
+    <id>http://example.com/2021/09/20/%E8%AF%BB%E4%B9%A6%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%A2%83%E7%95%8C/</id>
+    <published>2021-09-20T13:05:46.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。"><a href="#1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。" class="headerlink" title="1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。"></a>1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。</h4><p>当我们沉浸在书籍中的时候，现实就已经不存在了。但当走出书房时，我还是那个无能为力的懦弱之辈<br>这难道不是一种自我欺骗吗，如果读书只是一种逃避，那么读书和吸毒、读书和放纵又有什么区别呢？<br>不都是为了逃避庸碌空虚的生活吗？一个在双十一剁了一晚上手的人和一个读了一晚上书的人，<br>真的有本质上的区别吗？难道不都是带着暂时的兴奋和事后的疲倦吗？乘兴而来，败兴而归。</p><span id="more"></span><h4 id="2-我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。"><a href="#2-我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。" class="headerlink" title="2.我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。"></a>2.我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。</h4><p>有时这种营造的美，并不真实，而且带有强烈的虚伪和自我欺骗。<br>这些虚构的故事是他真实的想法，却也是他无法实现的愿望。<br>所以很多文人都喜欢通过文字来获得救赎。更有可能走向自欺欺人的道路。<br>我们在书籍中所营造的完美世界，在现实生活中依然不完美。</p><p>这种境界就好像是在阅读言情小说，将自己营造成男女主人公。沉浸在自己幻想的世界中，当你合上书本的那一刻，一个真实且残酷的世界便又在你眼前了。</p><p>【人偏向追求完美，通过读书营造完美世界，虚构的完美世界是我们真实想法，但可能是我们未实现的愿望，也是自我欺骗】</p><h4 id="3-我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。"><a href="#3-我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。" class="headerlink" title="3.我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。"></a>3.我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。</h4><p>读书既是一种出世，也是一种入世。<br>书籍可以拓展我们接轨人类经验的总和。我们个体是独特的，但在我们人类总经验中我们并不独特。<br>当特殊时刻来临的时候，你到底是被拯救的还是被淹没的。</p><pre><code>读书让我们理解世界，书籍拓展我们个体经验，让我们接轨于人类经验总和每个他者与自己休戚相关，无论过去、现在、未来无论虚构非虚构作品，探讨的都是人类在各种情境中的选择可以通过每一部伟大的作品，认识自己，理解自己，当我们越理解世界，我们越理解自己</code></pre><h4 id="4-我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心"><a href="#4-我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心" class="headerlink" title="4.我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心"></a>4.我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心</h4><p>这些书籍能不能帮助我们，成为人类历史长河中的高光一刻。</p><p>虽然这种高光一刻，在有些人看来是一种愚蠢。</p><p>书籍能否帮助我们成就高光一刻？即使会发生各种不好的事情，我们还是要努力。</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">莱维（意大利）《坚不可摧》———— 二战励志题材</span><br><span class="line"></span><br><span class="line">威廉·戈尔丁 《蝇王》———— 反映自己内心的幽暗</span><br><span class="line"></span><br><span class="line">赫胥黎 《美丽新世界》 ———— 反思科技与幸福</span><br><span class="line"></span><br><span class="line">陀思妥耶夫斯基 ————《白痴》</span><br><span class="line"></span><br><span class="line">海明威 ————《丧钟为谁而鸣》</span><br><span class="line"></span><br><span class="line">苏格拉底 ————《申辩篇》</span><br></pre></td></tr></table></figure><p>人类的智慧从根本上来说是否定的智慧</p><p>我们今生活着的唯一意义就是超越今生</p><p>思考：这个世界有好的标准吗？如果每个人都有好的标准，凭什么你口中的好，对我而言就是好的呢？</p><p>当然要警惕全盘否定的观念。</p><br><div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="https://www.bilibili.com/video/BV1do4y1k74t?spm_id_from=333.999.0.0"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe></div]]></content>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&quot;&gt;&lt;a href=&quot;#1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&quot; class=&quot;headerlink&quot; title=&quot;1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&quot;&gt;&lt;/a&gt;1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&lt;/h4&gt;&lt;p&gt;当我们沉浸在书籍中的时候，现实就已经不存在了。但当走出书房时，我还是那个无能为力的懦弱之辈&lt;br&gt;这难道不是一种自我欺骗吗，如果读书只是一种逃避，那么读书和吸毒、读书和放纵又有什么区别呢？&lt;br&gt;不都是为了逃避庸碌空虚的生活吗？一个在双十一剁了一晚上手的人和一个读了一晚上书的人，&lt;br&gt;真的有本质上的区别吗？难道不都是带着暂时的兴奋和事后的疲倦吗？乘兴而来，败兴而归。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>孽子</title>
+    <link href="http://example.com/2021/09/20/%E5%AD%BD%E5%AD%90/"/>
+    <id>http://example.com/2021/09/20/%E5%AD%BD%E5%AD%90/</id>
+    <published>2021-09-20T13:05:19.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-sgtwAEPJ" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1496743563" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><br><p>那些青春鸟们，他们因为环境因素各有各的苦难，没办法像其他人那样拥有一个美好的少年时光。但是他们从没有放弃对生活的希望，小玉、阿青、吴敏、老鼠他们又迈向了新的生活啊！</p><p>生活总是会变得更好的，不是吗！</p><p>让我们一起跑吧！</p><span id="more"></span><p><img src="2.jpg" alt="美好的一天"></p>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-sgtwAEPJ&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;1496743563&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+&lt;br&gt;
+
+&lt;p&gt;那些青春鸟们，他们因为环境因素各有各的苦难，没办法像其他人那样拥有一个美好的少年时光。但是他们从没有放弃对生活的希望，小玉、阿青、吴敏、老鼠他们又迈向了新的生活啊！&lt;/p&gt;
+&lt;p&gt;生活总是会变得更好的，不是吗！&lt;/p&gt;
+&lt;p&gt;让我们一起跑吧！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="书评" scheme="http://example.com/categories/%E4%B9%A6%E8%AF%84/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实验17 编写包含多个功能子程序的中断例程</title>
+    <link href="http://example.com/2021/09/02/%E5%AE%9E%E9%AA%8C17-%E7%BC%96%E5%86%99%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E5%8A%9F%E8%83%BD%E5%AD%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%AD%E6%96%AD%E4%BE%8B%E7%A8%8B/"/>
+    <id>http://example.com/2021/09/02/%E5%AE%9E%E9%AA%8C17-%E7%BC%96%E5%86%99%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E5%8A%9F%E8%83%BD%E5%AD%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%AD%E6%96%AD%E4%BE%8B%E7%A8%8B/</id>
+    <published>2021-09-02T14:07:05.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>1.编程，接收用户的键盘输入，输入”r”，将屏幕上的字符设置为红色；输入”g”，将屏幕上的字符设置为绿色；输入”b”，将屏幕上的字符设置为蓝色</p><span id="more"></span><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:      mov ah,0</span><br><span class="line">            int 16h</span><br><span class="line"></span><br><span class="line">            mov ah,1</span><br><span class="line">            cmp al,&#x27;r&#x27;</span><br><span class="line">            je red</span><br><span class="line">            </span><br><span class="line">            cmp al,&#x27;g&#x27;</span><br><span class="line">            je green</span><br><span class="line"></span><br><span class="line">            cmp al,&#x27;b&#x27;</span><br><span class="line">            je blue</span><br><span class="line">            jmp short sret</span><br><span class="line"></span><br><span class="line">red:        shl ah,1</span><br><span class="line">            </span><br><span class="line">green:      shl ah,1</span><br><span class="line"></span><br><span class="line">blue:       mov bx,0b800h</span><br><span class="line">            mov es,bx</span><br><span class="line">            mov bx,1</span><br><span class="line">            mov cx,2000</span><br><span class="line"></span><br><span class="line">s:          and byte ptr es:[bx],11111000b</span><br><span class="line">            or es:[bx],ah</span><br><span class="line">            add bx,2</span><br><span class="line">            loop s</span><br><span class="line"></span><br><span class="line">sret:       mov ax,4c00h</span><br><span class="line">            int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure><p>编写一个接收字符串输入的子程序，实现下面3个基本功能。因为在输入的过程中需要显示，子程序的参数如下<br>(dh)、(dl)字符串在屏幕上显示行、列位置<br>ds:si指向字符串的存储空间，字符串以0为结尾符</p><p>最基本的字符串输入程序，需具备下面的功能<br>1.在输入的同时需要显示这个字符串<br>2.一般在输入回车符后，字符串输入结束<br>3.能够删除已经输入的字符</p><p>我们可以简单的确定程序的处理过程<br>1.调用int 16h读取键盘输入<br>2.如果是字符，进入字符栈，显示字符栈中的所有字符；继续执行步骤1<br>3.如果是退格键，从字符栈中弹出一个字符，显示字符栈中的所有字符，继续执行步骤1<br>4.如果是Enter键，向字符栈中压入0，返回</p><p>子程序：字符栈的入栈、出栈和显示<br>参数说明：(ah)=功能号，0表示入栈，1表示出栈，2表示显示<br>ds:si 指向字符栈空间<br>对于0号功能：(al)=入栈字符<br>对于1号功能：(al)=返回的字符<br>对于2号功能：(dh)、(dl)=字符串在屏幕上显示的行、列位置</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">charstack:jmp short charstack</span><br><span class="line"></span><br><span class="line">tabledwcharpush,charpop,charshow</span><br><span class="line">topdw0;栈顶</span><br><span class="line"></span><br><span class="line">charstart:push bx</span><br><span class="line">push dx</span><br><span class="line">push di</span><br><span class="line">push es</span><br><span class="line"></span><br><span class="line">cmp ah,2</span><br><span class="line">ja sret</span><br><span class="line">mov bl,ah</span><br><span class="line">mov bh,0</span><br><span class="line">add bx,bx</span><br><span class="line">jmp word ptr table[bx]</span><br><span class="line"></span><br><span class="line">charpush:mov bx,top</span><br><span class="line">mov [si][bx],al</span><br><span class="line">inc top</span><br><span class="line">jmp sret</span><br><span class="line"></span><br><span class="line">charpop:cmp top,0</span><br><span class="line">je sret</span><br><span class="line">dec top</span><br><span class="line">mov bx,top</span><br><span class="line">mov al,[si][bx]</span><br><span class="line">jmp sret</span><br><span class="line"></span><br><span class="line">sharshow:mov bx,0b800h</span><br><span class="line">mov es,bx</span><br><span class="line">mov al,160</span><br><span class="line">mov ah,0</span><br><span class="line">mul dh</span><br><span class="line">mov di,ax</span><br><span class="line">add dl,dl</span><br><span class="line">mov dh,0</span><br><span class="line">add di,dx</span><br><span class="line"></span><br><span class="line">mov bx,0</span><br><span class="line"></span><br><span class="line">charshows:cmp bx,top</span><br><span class="line">jne noempty</span><br><span class="line">mov byte ptr es:[di],&#x27; &#x27;</span><br><span class="line">jmp sret</span><br><span class="line"></span><br><span class="line">noempty:mov al,[si][bx]</span><br><span class="line">mov es:[di],al</span><br><span class="line">mov byte ptr es:[di+2],&#x27; &#x27;</span><br><span class="line">inc bx</span><br><span class="line">add di,2</span><br><span class="line">jmp charshows</span><br><span class="line"></span><br><span class="line">sret:pop es</span><br><span class="line">pop di</span><br><span class="line">pop dx</span><br><span class="line">pop bx</span><br><span class="line">ret</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;1.编程，接收用户的键盘输入，输入”r”，将屏幕上的字符设置为红色；输入”g”，将屏幕上的字符设置为绿色；输入”b”，将屏幕上的字符设置为蓝色&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="汇编" scheme="http://example.com/tags/%E6%B1%87%E7%BC%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实验16 编写包含多个功能子程序的中断例程</title>
+    <link href="http://example.com/2021/08/25/%E5%AE%9E%E9%AA%8C16-%E7%BC%96%E5%86%99%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E5%8A%9F%E8%83%BD%E5%AD%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%AD%E6%96%AD%E4%BE%8B%E7%A8%8B/"/>
+    <id>http://example.com/2021/08/25/%E5%AE%9E%E9%AA%8C16-%E7%BC%96%E5%86%99%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E5%8A%9F%E8%83%BD%E5%AD%90%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%AD%E6%96%AD%E4%BE%8B%E7%A8%8B/</id>
+    <published>2021-08-25T13:07:07.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>编写子程序，以十六进制的形式在屏幕中间显示给定的字节型数据</p><span id="more"></span><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line"></span><br><span class="line">array    db  88h,0FFh,0Fh,0CCh,3Fh</span><br><span class="line"></span><br><span class="line">number   db  &#x27;0123456789ABCDEF&#x27;</span><br><span class="line"></span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">    db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:      mov ax,stack</span><br><span class="line">            mov ss,ax</span><br><span class="line">            mov sp,128</span><br><span class="line"></span><br><span class="line">            call init_reg</span><br><span class="line"></span><br><span class="line">            call show_byte</span><br><span class="line"></span><br><span class="line">            mov ax,4c00h</span><br><span class="line">            int 21h</span><br><span class="line"></span><br><span class="line">;====================================================</span><br><span class="line">show_byte:  mov si,offset array             </span><br><span class="line">            mov di,160*10+40*2</span><br><span class="line">            mov cx,5</span><br><span class="line"></span><br><span class="line">showByte:   mov al,ds:[si]</span><br><span class="line">            call show_hex</span><br><span class="line">            inc si</span><br><span class="line">            loop showByte</span><br><span class="line"></span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;====================================================</span><br><span class="line">show_hex:   jmp showHex</span><br><span class="line"></span><br><span class="line">showHex:    mov ah,al</span><br><span class="line">            and al,00001111B</span><br><span class="line">            shr ah,1</span><br><span class="line">            shr ah,1</span><br><span class="line">            shr ah,1</span><br><span class="line">            shr ah,1</span><br><span class="line"></span><br><span class="line">            mov bx,0</span><br><span class="line">            mov bl,al</span><br><span class="line"></span><br><span class="line">            mov al,ds:number[bx]</span><br><span class="line"></span><br><span class="line">            mov bl,ah</span><br><span class="line">            mov ah,ds:number[bx]</span><br><span class="line"></span><br><span class="line">            mov es:[di],ah</span><br><span class="line">            mov es:[di+2],al</span><br><span class="line"></span><br><span class="line">            add di,6</span><br><span class="line"></span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;====================================================</span><br><span class="line">init_reg:   mov bx,0B800H</span><br><span class="line">            mov es,bx</span><br><span class="line"></span><br><span class="line">            mov bx,data</span><br><span class="line">            mov ds,bx</span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;编写子程序，以十六进制的形式在屏幕中间显示给定的字节型数据&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://example.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="汇编" scheme="http://example.com/tags/%E6%B1%87%E7%BC%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>恋爱小观点</title>
+    <link href="http://example.com/2021/08/15/%E6%81%8B%E7%88%B1%E5%B0%8F%E8%A7%82%E7%82%B9/"/>
+    <id>http://example.com/2021/08/15/%E6%81%8B%E7%88%B1%E5%B0%8F%E8%A7%82%E7%82%B9/</id>
+    <published>2021-08-15T13:05:58.000Z</published>
+    <updated>2021-11-11T14:08:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote><p>摘自李玟瑾老师</p></blockquote><center>=============================人格和爱情观的形成1=============================</center><br><p>人最高层面的心里就是反思，说过说学习思维是正向的——从简单到复杂，往深了走。我们的解决问题的思维是正好相反的。比如医生给人看病是知道结果，也知道你怎么得的病，才能给你治好。还有一种思维是360度的，向我们看自己的后脑勺是看不见的，所以需要借助两个镜子。 </p><p>那么反思也需要借助两个东西，一个必须具有抽象思维的能力，把一个事情他能够在脑中重现。第二个必须具有一个内化的标准，这个标准是他在长大过程当中逐渐接受的，那些事能做，那些事不能做，我们叫良知。</p><p>如果这个东西他没有内化，这个人就根本没有反思的标准。</p><span id="more"></span><br><center>=============================人格和爱情观的形成2=============================</center><br><p>真正作为爱的话，如果说真的爱一个人，就应该让对方感到舒服，不应该让对勉强，让对方心里头委屈。</p><p>所以在男女性文化中，什么样是一个好的男性呢？</p><p>其实在初中阶段，爸爸妈妈就应该要跟自己的孩子去聊。如果是个女孩，就妈妈跟她聊。如果是个男孩，就爸爸跟他聊。聊什么呢，就是妈妈可以跟女儿聊，我当初怎么看上你爸爸的。</p><p>男人最重要的是什么，你看你爸缺点在哪儿，但是他的优点是什么?</p><p>而爸爸要跟男孩说，女人最重要的是什么，我当初怎么看上你妈妈的？</p><p>让孩子在初中这个阶段，就是青春期刚开始，要去学会识别男人和女人那些品质是最重要。</p><p>人能我觉得是这样，你不要觉得我追求他不成，就认为我这辈子就完了，当然他肯定不是你的。其实两人要是对上的话，他就是老天造就的，就是你的。</p><br><div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="https://www.bilibili.com/video/BV1nW411X71v"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe></div><script>console.log("我觉得我会放不下，所以不想和你做朋友。只留下QQ和steam我们最初的联系方式，我觉得这样我会好受很多。");console.log("可能这会让你很难受吧，所以你把它们也都删掉了。说好我们还可以一起玩游戏的呢，哈哈哈，终究是都放不下对方吧。");console.log("这样也好就让时间抹平一切，大步向前走，再爱也不回头！");</script><br><br><p><img src="1.jpg"></p><center>来自iPhone的死亡拍摄(*/ω＼*)</center><br><!-- ![](2.jpg)<center>来自iPhone的直男拍摄○|￣|_</center> --><br>我的下巴其实还算窄的，不知道为啥拍成了这样。哈哈哈，瓜子脸拍成了国字脸。（可能是刚运动完，毛细血管扩张的结果？？？）下次一定要再拍一张，放在这上面，那一定是酷酷的我（嗯，自信又帅气！！！）。<br>在镜子下对比了半天，原来是不愿意低下“高贵的”头颅，把下颌骨拍成了下巴，那天胡子也没刮，糟糕的大叔形象。23333333]]></content>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;摘自李玟瑾老师&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;center&gt;=============================人格和爱情观的形成1=============================&lt;/center&gt;
+&lt;br&gt;
+
+&lt;p&gt;人最高层面的心里就是反思，说过说学习思维是正向的——从简单到复杂，往深了走。我们的解决问题的思维是正好相反的。比如医生给人看病是知道结果，也知道你怎么得的病，才能给你治好。还有一种思维是360度的，向我们看自己的后脑勺是看不见的，所以需要借助两个镜子。 &lt;/p&gt;
+&lt;p&gt;那么反思也需要借助两个东西，一个必须具有抽象思维的能力，把一个事情他能够在脑中重现。第二个必须具有一个内化的标准，这个标准是他在长大过程当中逐渐接受的，那些事能做，那些事不能做，我们叫良知。&lt;/p&gt;
+&lt;p&gt;如果这个东西他没有内化，这个人就根本没有反思的标准。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="2021" scheme="http://example.com/tags/2021/"/>
+    
+  </entry>
+  
+</feed>

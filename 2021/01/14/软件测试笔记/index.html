@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一、软件缺陷的定义1. 软件为实现产品说明书要求的功能2. 软件出现了产品说，明书指明不应该出现的功能3. 软件实现了产品说明书未提到的功能4. 软件未实现产品说明书虽未明确提及但应该实现的目标5. 用户不易理解、不易使用、运行缓慢或者（从测试角度看）最终用户会认为不好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件测试笔记">
+<meta property="og:url" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="一、软件缺陷的定义1. 软件为实现产品说明书要求的功能2. 软件出现了产品说，明书指明不应该出现的功能3. 软件实现了产品说明书未提到的功能4. 软件未实现产品说明书虽未明确提及但应该实现的目标5. 用户不易理解、不易使用、运行缓慢或者（从测试角度看）最终用户会认为不好">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/v%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/w%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B.png">
+<meta property="og:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/%E7%BC%BA%E9%99%B7%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
+<meta property="og:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/%E9%80%BB%E8%BE%91%E8%A6%86%E7%9B%96%E6%B5%8B%E8%AF%95.jpg">
+<meta property="article:published_time" content="2021-01-13T16:02:42.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="软件测试基本理论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B.png">
+
+<link rel="canonical" href="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>软件测试笔记 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          软件测试笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-14 00:02:42" itemprop="dateCreated datePublished" datetime="2021-01-14T00:02:42+08:00">2021-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、软件缺陷的定义"><a href="#一、软件缺陷的定义" class="headerlink" title="一、软件缺陷的定义"></a>一、软件缺陷的定义</h2><h4 id="1-软件为实现产品说明书要求的功能"><a href="#1-软件为实现产品说明书要求的功能" class="headerlink" title="1. 软件为实现产品说明书要求的功能"></a>1. 软件为实现产品说明书要求的功能</h4><h4 id="2-软件出现了产品说，明书指明不应该出现的功能"><a href="#2-软件出现了产品说，明书指明不应该出现的功能" class="headerlink" title="2. 软件出现了产品说，明书指明不应该出现的功能"></a>2. 软件出现了产品说，明书指明不应该出现的功能</h4><h4 id="3-软件实现了产品说明书未提到的功能"><a href="#3-软件实现了产品说明书未提到的功能" class="headerlink" title="3. 软件实现了产品说明书未提到的功能"></a>3. 软件实现了产品说明书未提到的功能</h4><h4 id="4-软件未实现产品说明书虽未明确提及但应该实现的目标"><a href="#4-软件未实现产品说明书虽未明确提及但应该实现的目标" class="headerlink" title="4. 软件未实现产品说明书虽未明确提及但应该实现的目标"></a>4. 软件未实现产品说明书虽未明确提及但应该实现的目标</h4><h4 id="5-用户不易理解、不易使用、运行缓慢或者（从测试角度看）最终用户会认为不好"><a href="#5-用户不易理解、不易使用、运行缓慢或者（从测试角度看）最终用户会认为不好" class="headerlink" title="5. 用户不易理解、不易使用、运行缓慢或者（从测试角度看）最终用户会认为不好"></a>5. 用户不易理解、不易使用、运行缓慢或者（从测试角度看）最终用户会认为不好</h4><span id="more"></span>
+
+<h2 id="二、软件测试的定义和目的"><a href="#二、软件测试的定义和目的" class="headerlink" title="二、软件测试的定义和目的"></a>二、软件测试的定义和目的</h2><h4 id="1-正向思维的定义"><a href="#1-正向思维的定义" class="headerlink" title="1. 正向思维的定义"></a>1. 正向思维的定义</h4><blockquote>
+<p>出发点：使自己确信产品还能够正常工作的评价一个程序和系统的特性或能力，</p>
+<p>​                并确定他是否能达到期望的结果，软件测试就是以此为目的的任何行为。</p>
+</blockquote>
+<h4 id="2-逆向思维的定义"><a href="#2-逆向思维的定义" class="headerlink" title="2. 逆向思维的定义"></a>2. 逆向思维的定义</h4><blockquote>
+<p>出发点：</p>
+<ul>
+<li>测试是为了发现错误而执行一个程序或系统的过程</li>
+<li>测试是为了证明程序有错，而不是证明程序无错误</li>
+<li>一个好的测试用例在于他能发现以前未发现的错误</li>
+<li>一个成功的测试用例市发现了以前未发现的错误测试</li>
+</ul>
+</blockquote>
+<h4 id="3-IEEE定义的软件测试"><a href="#3-IEEE定义的软件测试" class="headerlink" title="3. IEEE定义的软件测试"></a>3. IEEE定义的软件测试</h4><blockquote>
+<ul>
+<li>在规定条件下运行系统或构件的过程：观察和记录结果，并对系统或构件的某方面给出评价</li>
+<li>分析软件项目的过程：检测现有状况和所需状况之间的不同，并评估项目的特性</li>
+</ul>
+</blockquote>
+<h4 id="4-广义的软件测试"><a href="#4-广义的软件测试" class="headerlink" title="4. 广义的软件测试"></a>4. 广义的软件测试</h4><blockquote>
+<ul>
+<li>软件测试是对软件形成过程中的所有工作产品（包括程序以及相关文档）进行测试，而不是仅仅对程序的运行进行测试</li>
+<li><strong>确认</strong>  通过检查和提供客观证据来证实特定目的的功能或应用i是否已经实现</li>
+<li><strong>验证</strong>  通过检查和提供客观证据来证实指定的需求是否满足</li>
+</ul>
+</blockquote>
+<h4 id="5-软件测试的目的"><a href="#5-软件测试的目的" class="headerlink" title="5. 软件测试的目的"></a>5. 软件测试的目的</h4><blockquote>
+<ul>
+<li>以最少的人力、物力的时间找出软件中潜在的各种错误和缺陷，保证各种错误额缺陷得以修复，避免软件发布后由于潜在软件错误和缺陷造成的隐患所带来的商业风险。</li>
+<li>同时利用测试过程中得到的测试结果和测试信息，作为后续项目开发和测试过程改进的重要输入，避免在将来的项目和测试开发中重复同样的错误；</li>
+<li>采用更加高效的测试管理手段，提高软件的效率和软件产品的质量。</li>
+</ul>
+</blockquote>
+<h4 id="6-测试和调试的区别"><a href="#6-测试和调试的区别" class="headerlink" title="6. 测试和调试的区别"></a>6. 测试和调试的区别</h4><ul>
+<li>在主体、目标、方法和思路上都有所不同</li>
+<li>测试是从已知条件开始，使用预先定义的过程，并且有预知的结果；调试是从未知的条件开始，结果的过程可能不可预计</li>
+<li>测试可以计划，可以预先制定测试用例和过程，工作精度可以度量；描述调试的过程或持续时间相对比较困难</li>
+<li>测试的对象包括软件开发过程中的文档、数据以及代码，而调试的对象一般来说只是代码</li>
+</ul>
+<h4 id="7-软件测试的对象"><a href="#7-软件测试的对象" class="headerlink" title="7. 软件测试的对象"></a>7. 软件测试的对象</h4><p>源程序、目标程序、数据及相关文档</p>
+<h2 id="三、软件生命周期模型"><a href="#三、软件生命周期模型" class="headerlink" title="三、软件生命周期模型"></a>三、软件生命周期模型</h2><h3 id="瀑布模型（要求会画图）"><a href="#瀑布模型（要求会画图）" class="headerlink" title="瀑布模型（要求会画图）"></a>瀑布模型（要求会画图）</h3><p><img src="%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B.png" alt="瀑布模型图"></p>
+<p>存在问题</p>
+<blockquote>
+<ul>
+<li>强调时间顺序的严格执行。前阶段不完成，后阶段不开始</li>
+<li>将i测试放在编码之后。<font color="#dd0000">没有体现出测试贯穿软件生命周期的原则。可以避免需求的问题一直延续到代码完成才暴露或者被发现</font></li>
+</ul>
+</blockquote>
+<p>优点</p>
+<blockquote>
+<ul>
+<li>为项目提供了按阶段划分的检查点</li>
+<li>当前一阶段完成后，只需要关注后续阶段即可</li>
+</ul>
+</blockquote>
+<p>缺点</p>
+<blockquote>
+<ul>
+<li>各个阶段的划分完全固定，阶段之间产生大量的文档，极大地增加了工作量</li>
+<li>线性开发，用户等到整个过程的末期才能见到开发的成果，从而增加了开发的风险。</li>
+<li>瀑布模型不适用于用户需求的变化。</li>
+</ul>
+</blockquote>
+<h3 id="原型模型"><a href="#原型模型" class="headerlink" title="原型模型"></a>原型模型</h3><ul>
+<li>原型模型弥补了瀑布模型的不足，更关注用户需求的正确性，也符合人们软件结构开发习惯。</li>
+<li>原型模型需要迅速建造一个可运行的软件原型</li>
+<li>工作中很多公司把i原型模型称为DEMO，即演示版。</li>
+<li>经典应用工具：Axure，制作原型</li>
+</ul>
+<h3 id="增量模型"><a href="#增量模型" class="headerlink" title="增量模型"></a>增量模型</h3><ul>
+<li>把软件分割成独立的模块，分批次的完成和交付。</li>
+<li>缺点：打破原有的软件框架和结构，可能会带来一定风险。</li>
+<li>增量模型一般回合迭代模型一起使用</li>
+</ul>
+<h3 id="迭代模型"><a href="#迭代模型" class="headerlink" title="迭代模型"></a>迭代模型</h3><ul>
+<li>迭代包括产生产品发布（稳定、可执行的产品版本）的全部开发活动和要使用该发布必须的所有其他元素，强调开发的深入</li>
+<li>在某种程度上，开发迭代是一次完整地经过所有工作流程的过程：需求分析、设计、实施和测试工作流程。</li>
+<li>迭代过程具有以下优点：<ul>
+<li>降低了在一个增量上的开支风险</li>
+<li>降低了产品无法按照既定进度进入市场的风险</li>
+<li>加快了整个开发工作的进度</li>
+<li>迭代u过程这种模式使适应需求的变化会变得更容易</li>
+</ul>
+</li>
+</ul>
+<h3 id="螺旋模型"><a href="#螺旋模型" class="headerlink" title="螺旋模型"></a>螺旋模型</h3><blockquote>
+<ul>
+<li>螺旋模型是一种演化软件开发过程模型，他兼顾了快速迭代的特征以及瀑布模型的系统化于严格监控</li>
+<li>引入了其他模型不具备的风险分析，使软件在无法排除重大风险时有机会停止，以减小损失。</li>
+<li>螺旋模型适合大型昂贵的系统级软件应用</li>
+</ul>
+</blockquote>
+<h3 id="敏捷模型"><a href="#敏捷模型" class="headerlink" title="敏捷模型"></a>敏捷模型</h3><p>敏捷模型的原则：快速迭代、让测试人员和开发着参与需求讨论、编写可测试的需求文档、多沟通，尽量减少文档、做好产品原型、及早考虑测试</p>
+<p>个体和互动    高于    流程和工具</p>
+<p>工作和软件    高于    详尽的文档</p>
+<p>客户合作        高于    合同谈判</p>
+<p>响应变化        高于    遵循计划</p>
+<h2 id="四、软件测试流程"><a href="#四、软件测试流程" class="headerlink" title="四、软件测试流程"></a>四、软件测试流程</h2><p><img src="%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B.png" alt="软件测试流程图"></p>
+<h3 id="软件测试过程模型"><a href="#软件测试过程模型" class="headerlink" title="软件测试过程模型"></a>软件测试过程模型</h3><h4 id="1-V-模型：揭示了开发过程于测试过程中各阶段的对应关系"><a href="#1-V-模型：揭示了开发过程于测试过程中各阶段的对应关系" class="headerlink" title="1. V 模型：揭示了开发过程于测试过程中各阶段的对应关系"></a>1. V 模型：揭示了开发过程于测试过程中各阶段的对应关系</h4><p><img src="v%E6%A8%A1%E5%9E%8B.png" alt="v模型图"></p>
+<ul>
+<li>缺点与不足：<ol>
+<li>V 模型不仅仅把测试过程作为在需求分析、系统设计以及编码最后的一个阶段，忽视了测试对需求分析、系统设计的验证；</li>
+<li>需求的满足情况一直到后期的验收测试才被验证；</li>
+<li>没有体现出“尽早地和不断地进行软件测试”的原则</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-W-模型"><a href="#2-W-模型" class="headerlink" title="2. W 模型"></a>2. W 模型</h4><p><img src="w%E6%A8%A1%E5%9E%8B.png" alt="w模型图"></p>
+<ul>
+<li>由两个V字型模型组成，分别代表测试与开发过程，明确表示出了测试与开发的并行关系</li>
+<li>优点：<ul>
+<li>测试的活动与软件开发同步进行</li>
+<li>测试对象不仅仅是程序，包括需求的设计</li>
+<li>尽早发现软件缺陷可降低软件开发成本</li>
+</ul>
+</li>
+<li>局限性<ul>
+<li>在 W 模型中，需求、设计、编码等活动被视为串行的，这样就无法支持灵活的迭代</li>
+</ul>
+</li>
+</ul>
+<h4 id="H模型"><a href="#H模型" class="headerlink" title="H模型"></a>H模型</h4><ul>
+<li>H模型将测试活动完全独立起来，形成了一个完全独立的流程，将测试准备活动和测试执行活动清晰地体现出来</li>
+<li>H模型揭示了一个原理：软件测试是一个独立的流程</li>
+<li>H模型指出软件测试要尽早准备，尽早执行；只要某个测试达到准备就绪点，测试执行活动就可以开展，并且不同的测试活动可按照某个次序i先后进行，也可以反复进行。</li>
+</ul>
+<h4 id="X模型"><a href="#X模型" class="headerlink" title="X模型"></a>X模型</h4><ul>
+<li>X模型也是对V模型的改进，X模型u提出针对单独的程序片段进行相互分离的编码和测试，此后通过频繁的交接，通过集成最终合成为可执行的程序。</li>
+<li>X模型还定位了探索性测试，这是不进行事先计划的特殊类型的测试，这一方式往往能帮助有经验的测试人员在测试计划之外发现更多的软件错误</li>
+</ul>
+<h3 id="软件测试过程理念"><a href="#软件测试过程理念" class="headerlink" title="软件测试过程理念"></a>软件测试过程理念</h3><ul>
+<li>尽早测试<ul>
+<li>测试人员早期参与软件测试</li>
+<li>尽早的开展测试执行工作</li>
+</ul>
+</li>
+<li>全面测试<ul>
+<li>对软件的所有产品进行全面的测试</li>
+<li>软件开发及测试人员（有时包括用户）全面的参与</li>
+</ul>
+</li>
+<li>全过程测试<ul>
+<li>测试 人员要充分关注开发过程</li>
+<li>测试人员要对测试的全过程进行全程的跟踪</li>
+</ul>
+</li>
+<li>独立的、迭代的测试<ul>
+<li>测试活动是独立的</li>
+<li>测试活动应该i是循环往复、不断的进行</li>
+</ul>
+</li>
+</ul>
+<h3 id="软件测试分类"><a href="#软件测试分类" class="headerlink" title="软件测试分类"></a>软件测试分类</h3><h4 id="1-按照开发阶段分类"><a href="#1-按照开发阶段分类" class="headerlink" title="1.按照开发阶段分类"></a>1.按照开发阶段分类</h4><ul>
+<li><p>按照开发阶段划分</p>
+<ul>
+<li><p>单元测试：单元测试又称模块测试，是针对软件设计的最小单位–程序模块进行h正确性检验的测试工作。其目的在于检查每个程序单元是否正确实现详细设计说明中的模块功能、性能、接口和设计约束等要求，发现各模块内部可能存在的各种错误。单元测试需要从程序的内部结构出发设计测试用例。多个模块可以平行地独立进行单元测试</p>
+</li>
+<li><p>集成测试：集成测试也叫组装测试。通常在单元测试的基础上，将所有的程序模块进行有序的、递增的测试。集成测试是检验程序单元或部件的接口关系，逐步集成为符合概要设计要求的程序部件或整个系统。</p>
+</li>
+<li><p>按照开发阶段：</p>
+<ul>
+<li>确认测试：确认测试也叫有效性测试。是在模拟的环境下，验证软件的所有功能和性能及其他特性是否与用户的预期要求一致。通过了确认测试之后的软件，才具备了进入系统测试的资格。（一般不作为正式的测试环节）</li>
+<li>系统测试：系统测试是在真实的系统运行的环境下，检查完的程序系统是否和系统（包括硬件、外设、网络和系统软件、支持平台等）正确配置、连接，并最终满足用户的所有需求</li>
+<li>验收测试：是软件产品检验的最后一个环节。按照项目任务书或合同、供需双方约定的验收依据文档进行的对整个系统的测试与评审，决定是否接受或拒收系统。</li>
+</ul>
+</li>
+<li><p>按照测试技术划分：</p>
+<ul>
+<li><p>黑盒测试：通过软件的外部表现来发现其缺陷和错误。黑盒测试法吧测试对象看成一个黑盒子，完全不考虑程序内部结构和处理过程。黑盒测试是在程序界面处进行的测试，他只是检查程序是否按照需求规格说明书的规定正常实现。</p>
+</li>
+<li><p>白盒测试：通过对程序内部结构的分析、检测来寻找问题。白盒测试可以把程序看成装在一个透名的盒子里，检查是否所有的结构及路径是否都正确，检查软件内部动作是否按照设计说明的规定正常进行。</p>
+</li>
+<li><p>灰盒测试：介于白盒测试与黑盒测试之间的测试。灰盒测试关注输出对于输入的正确性同时也关注内部表现，但这种关注不像白盒测试那样详细、完整，只是通过一些表征性的现象、时间、标志来判断内部的运行状态。</p>
+</li>
+</ul>
+</li>
+<li><p>按照代码运行划分：</p>
+<ul>
+<li><p>静态测试：</p>
+<blockquote>
+<ol>
+<li>指不实际运行被测对象，而只是静态地检查程序代码、界面或文档中可能存在错误的过程</li>
+<li>代码测试：主要测试代码是否符合相应的标准和规范</li>
+<li>界面测试：主要测试软件的实际界面与需求中的说明是否相符</li>
+<li>文档测试：主要测试用户手册和需求说明是否真正符合用户的实际需求</li>
+</ol>
+</blockquote>
+</li>
+<li><p>动态测试：指实际运行被测对象，输入相印的测试数据，检查实际输出结果和预期结果是否相符的过程。所以我们判断一个测试属于动态测试还是静态测试，唯一的标准就是看是否运行程序。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>按照软件特性划分</p>
+<ul>
+<li><p>功能测试：黑盒测试的一方面</p>
+<ul>
+<li>逻辑功能测试</li>
+<li>界面测试</li>
+<li>易用性测试</li>
+<li>安装/卸载测试</li>
+<li>兼容性测试</li>
+</ul>
+</li>
+<li><p>性能测试</p>
+<ul>
+<li>功能的另一个指标，主要关注软件中的某一功能在指定的时间、空间条件下，是否能满足使用正常</li>
+<li>软件的性能包括很多方面，主要有时间性能和空间性能</li>
+</ul>
+</li>
+<li><p>安全测试</p>
+<ul>
+<li>验证安装在系统内的保护机制是否在实际应用中对系统进行保护，使之不被非法入侵，不受各种因素的干扰。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>其他测试</p>
+<ul>
+<li>回归测试<ul>
+<li>是指对软件的新版本测试时，重复执行之前某一个重要版本的所有测试用例</li>
+<li>目的：<ol>
+<li>验证之前版本产生的所有缺陷已全部被修复;</li>
+<li>确认修复这些缺陷没有引发新的缺陷</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>冒烟测试：是指在对一个新版本进行系统大规模的测试之前，先验证一下软件的基本功能是否实现，是否具备可测试性。也叫可测性测试。</li>
+<li>随机测试：是指测试人员基于经验和直觉的测试，发现一些边缘性的错误。</li>
+<li>猴子测试：把自己当成不懂产品的小白，随便乱点，没有任何主观意识和想法参与进来，让一些意想不到的操作造成错误的结果。</li>
+</ul>
+</li>
+<li><h2 id="软件测试的原则"><a href="#软件测试的原则" class="headerlink" title="软件测试的原则"></a>软件测试的原则</h2><ul>
+<li>所有测试的标准都是建立在用户需求之上的</li>
+<li>软件测试必须基于“质量第一”的思想去展开各项工作，当时间和质量冲突时，时间要服从质量</li>
+<li>事先定义好产品的质量标准，只有有了质量标准，才能根据测试结果，对产品的质量进行分析和评估</li>
+<li>软件项目一启动，软件测试也就开始，而不是等程序写完，才开始测试</li>
+<li>穷举测试是不可能的</li>
+<li>第三方进行测试会更客观，更有效</li>
+<li>软件测试计划是做好软件测试工作的前提</li>
+<li>测试用例是设计出来的，不是写出来的，所以要根据测试目的，采用相应的方法去设计测试用例，从而提高测试效率，更多地发现错误，提高程序的可靠性。</li>
+<li>对发现错误较多的程序段，应进行更深入的测试。一般来说，一段程序已发现的错误数较多，其中的错误概率也就越大。</li>
+<li>重视文档，妥善保存一切测试过程文档（测试计划、测试用例、测试报告等）</li>
+<li>应当把“尽早和不断地测试”作为测试人员的座右铭</li>
+<li>回归测试的关联性一定要引起充分的注意，修改一个错误而引起更多错误出现的现象并不少见</li>
+<li>测试应从“小规模”开始，逐步转向“大规模”</li>
+<li>不可将测试用例置之度外，排除随意性</li>
+<li>必须彻底检查每一个测试结果</li>
+<li>一定要注意测试中的错误集中发生现象，这和程序员的编程水平和习惯有很大关系</li>
+<li>对测试错误结果一定有一个确认的过程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="五、什么是测试用例"><a href="#五、什么是测试用例" class="headerlink" title="五、什么是测试用例"></a>五、什么是测试用例</h2><p><img src="%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B.png" alt="测试用例图"></p>
+<ol>
+<li>标识符（用例编号）：一般编号规则：TestCase_项目名称_项目模块_功能名称_0001</li>
+<li>测试项。测试用例的测试目的。一般情况下，用一句话表明目的。例如：使用谷歌浏览器打开百度首页; 在QQ登陆界面输入正确的用户名密码能登陆上。（表明你的测试模块、测试对象、方式、事件）</li>
+<li>依赖用例：一般功能流程上，下游的功能测试依赖与上游的功能测试用例</li>
+<li>测试步骤：用最朴实的语言，写出来软件的操作步骤。要尽量详细。例如：在用户名文本框输入：xxx; 在省份下拉列表选择：北京     城市下拉列表选择：北京</li>
+<li>测试数据：单独整合测试数据。必须和测试步骤中的数据保持一致</li>
+<li>预期结果：要准确、对象准确、内容的准确，内容的准确性。原则上每一个操作，都要有一个结果。在重要步骤之后，设定预期结果。例如：页面跳转到xxx；程序弹出对话框，提示：用户名或密码错误，请重新输入！一般和测试目的密切相关。测试目的决定了测试步骤和预期结果。</li>
+<li>测试结果：要求在测试执行完成后添加。没有执行保持为空。测试结果只有两个：通过/失败；Pass/Failed；和预期结果一直即为通过，不一致即为失败。</li>
+<li>测试人：测试的执行人。可以和设计者相同，也可以不同</li>
+<li>备注：为了测试用例正常执行而做的特殊准备。例如：专门制造网络不畅情况下，软件错误提示</li>
+</ol>
+<ul>
+<li>用例设计和编写的作用<ul>
+<li>有效性：测试用例是测试人员测试过程中的重要参考依据</li>
+<li>可复读性：良好的测试用例具有重复使用的功能，使得测试过程事半功倍，提高测试效率</li>
+<li>易组织性：即使是小的项目，也可能有几千甚至更多的测试用例，测试用例可能在数月甚至技能的测试过程中被创建和使用</li>
+<li>可评估性：从测试的项目管理角度来说，测试用例的通过率是检验代码质量的保证</li>
+<li>可管理性：测试用例也可以作为检验测试人员进度、工作量以及跟踪/管理测试人员的工作效率的标准</li>
+</ul>
+</li>
+<li>测试用例编写注意事项<ul>
+<li>不要设计”穷举测试用例“</li>
+<li>在详细测试用例与有效测试时间中找到平衡点</li>
+<li>好的测试用例应该多关注”反向测试问题“</li>
+<li>测试用例库应该不断更新和维护</li>
+<li>测试用例可以复用，但要注意数据有效性与环境变化</li>
+<li>测试用例是设计出来的，不是写出来的</li>
+<li>多去学习经验丰富的测试工程师所设计的测试用例</li>
+<li>针对不同需求类型和测试对象，灵活采用不同测试用例设计方法</li>
+</ul>
+</li>
+</ul>
+<h2 id="六、缺陷基本概述"><a href="#六、缺陷基本概述" class="headerlink" title="六、缺陷基本概述"></a>六、缺陷基本概述</h2><h3 id="软件缺陷的属性"><a href="#软件缺陷的属性" class="headerlink" title="软件缺陷的属性"></a>软件缺陷的属性</h3><h4 id="1-缺陷类型"><a href="#1-缺陷类型" class="headerlink" title="1. 缺陷类型"></a>1. 缺陷类型</h4><ul>
+<li><p>功能缺陷（Function）</p>
+</li>
+<li><p>界面缺陷（UI）</p>
+</li>
+<li><p>文档缺陷（Documentation）</p>
+</li>
+<li><p>软件包（Package）</p>
+</li>
+<li><p>性能缺陷（Performance）</p>
+</li>
+<li><p>接口缺陷（Interface）</p>
+<blockquote>
+<p>注意： 需求分析、设计阶段，文档类型的缺陷多；集成测试阶段，一般接口类型的缺陷多一些；系统测试阶段，功能、界面类型的缺陷多一些；验收测试阶段，更多的关注性能缺陷；实施过程，可能会遇到一些软件包的缺陷</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-缺陷严重程度"><a href="#2-缺陷严重程度" class="headerlink" title="2. 缺陷严重程度"></a>2. 缺陷严重程度</h4><ul>
+<li><p>致命（Fatal）：任何一个主要功能完全丧失，用户数据受到破坏，系统崩溃、悬挂、死机，或者威胁人身安全</p>
+</li>
+<li><p>严重（Critical）：系统的主要功能部分丧失，数据不能保存，系统的次要功能完全丧失，系统所提供的功能或服务受到明显的影响。</p>
+</li>
+<li><p>一般（Major）：系统的次要功能没有完全实现，但不影响用户正常使用。例如：提示信息不太准确或用户界面差、操作时间长等一些问题。</p>
+</li>
+<li><p>较小（Minor）：是操作者不方便或遇到麻烦，但它不影响功能的操作和执行，如个别不影响产品理解的错别字、文字排列不整齐等一些小问题</p>
+<blockquote>
+<p>注意：结合缺陷的影响，结合软件的具体功能（业务或者流程）</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="3-缺陷的修复优先级"><a href="#3-缺陷的修复优先级" class="headerlink" title="3. 缺陷的修复优先级"></a>3. 缺陷的修复优先级</h4><p>修复优先级很大程度取决于测试工作的影响程度</p>
+<table>
+<thead>
+<tr>
+<th align="left">缺陷优先级</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">立即解决（P1级）</td>
+<td>缺陷导致系统几乎不能使用或测试不能继续，需立即修复</td>
+</tr>
+<tr>
+<td align="left">高优先级（P2级）</td>
+<td>缺陷严重，影响测试，需要优先考虑</td>
+</tr>
+<tr>
+<td align="left">正常排队（P3级）</td>
+<td>缺陷需要正常排队等待修复</td>
+</tr>
+<tr>
+<td align="left">低优先级（P4级）</td>
+<td>缺陷可以在开发人员有时间的时候被纠正</td>
+</tr>
+</tbody></table>
+<p>立即解决：电商系统的用户注册功能无法使用（无法登录、购买、结算、支付、下单、物流跟踪、收货、评论等功能无法进行），就必须立即修复；</p>
+<p>高优先级：自然时常24小时之内</p>
+<p>正常排队：新版本发布之前</p>
+<p>低优先级：电商系统中关于用户购买流程帮助说明的网页链接点击404页面。没有什么影响</p>
+<blockquote>
+<p>注意：优先级的衡量，一般可以根据测试的软件系统的全业务流程划分，软件的基本功能的缺陷，优先级高，甚至需要立即解决。软件的备选流、基本功能测试中的反向测试的内容，优先级较低，甚至有些可改可不改。</p>
+</blockquote>
+<h4 id="4-缺陷的状态"><a href="#4-缺陷的状态" class="headerlink" title="4. 缺陷的状态"></a>4. 缺陷的状态</h4><p>缺陷状态指缺陷通过一个跟踪修复过程的进展情况。</p>
+<table>
+<thead>
+<tr>
+<th align="left">缺陷状态</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">激活或打开</td>
+<td>问题还没有解决，存在源代码中，确认“提交的缺陷”，等待处理，如新报的缺陷</td>
+</tr>
+<tr>
+<td align="left">已修复或修复</td>
+<td>已被开发人员检查、修复过的缺陷，通过单元测试，认为已解决但还没有被测试人员验证</td>
+</tr>
+<tr>
+<td align="left">关闭或非激活</td>
+<td>测试人员验证后，确认缺陷不存在之后的状态</td>
+</tr>
+<tr>
+<td align="left">重新打开</td>
+<td>测试人员验证后，还依然存在缺陷，等待开发人员进一步修复</td>
+</tr>
+<tr>
+<td align="left">推迟</td>
+<td>这个软件缺陷还可以在下一个版本中解决</td>
+</tr>
+<tr>
+<td align="left">保留</td>
+<td>由于技术原因或第三者软件的缺陷，开发人员不能修复缺陷</td>
+</tr>
+<tr>
+<td align="left">不能重现</td>
+<td>开发不能再现这个软件缺陷，需要测试人员检查缺陷复现的步骤</td>
+</tr>
+<tr>
+<td align="left">需要更多信息</td>
+<td>开发能再现这个缺陷，但开发人员需要一些信息。例如缺陷的日志文件、图片等</td>
+</tr>
+<tr>
+<td align="left">重复</td>
+<td>这个软件缺陷已经被其他测试人员发现</td>
+</tr>
+<tr>
+<td align="left">不是缺陷</td>
+<td>这个问题不是软件缺陷</td>
+</tr>
+<tr>
+<td align="left">需要修改软件规格说明书</td>
+<td>由于软件规格说明书对软件设计的要求，必须要修改软件说明书</td>
+</tr>
+</tbody></table>
+<p>缺陷的状态：表示缺陷的处理进度</p>
+<p>发现缺陷是缺陷处理的前提，但是还没有进入缺陷的处理流程</p>
+<ol>
+<li>激活/打开（新建）：由测试人员标注</li>
+<li>确认：确认新提交的缺陷是一个真实有效的缺陷。一般由测试主管、质量保证（QA）或产品经理进行确认。经确认后，有效的缺陷会指派给相关人员进行处理</li>
+<li>已修复/修正：在缺陷被修复后，一般由开发人员进行</li>
+<li>关闭/非激活：缺陷被修复完成后，经过测试人员的验证后，没有问题</li>
+<li>重新打开：经过测试人员的验证后，缺陷没有修复成功，需要重新打开进行再次处理和修复</li>
+<li>推迟：缺陷现在不修复，推迟下一个版本或者阶段，测试要跟开发或者其他相关的管理人员进行确认</li>
+<li>保留：缺陷暂时修复不了，一般也是由开发人员去设定，也需要测试人员进行确认</li>
+<li>不能重现：开发按照缺陷的复现步骤不能再次发现缺陷。一般闪退、崩溃类型的缺陷具有类似的特征。或者由于操作系统的差异、浏览器的缓存等信息，出现问题。<strong>所以作为测试人员，提交bug之前，要再三确认bug.</strong></li>
+<li>需要更多信息：作为测试人员，提交bug的时候，要尽可能的把所有相关文件一起提交。（图片、视频）</li>
+<li>重复：测试中，一定要避免这种情况的出现。尤其在软件的某一个功能频繁被多个模块（由不同的测试人员测试）调用的情况下。</li>
+<li>不是缺陷：<strong>一定不要在测试工程师的工作生涯中被开发标注缺陷状态为不是缺陷</strong></li>
+<li>需要修改需求说明书：缺陷不是技术原因造成的，而是由于需求不明确或者设计不明确造成</li>
+</ol>
+<h4 id="5-缺陷的起源"><a href="#5-缺陷的起源" class="headerlink" title="5. 缺陷的起源"></a>5. 缺陷的起源</h4><table>
+<thead>
+<tr>
+<th align="center">缺陷起源</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">需求</td>
+<td align="center">在需求测试发现的缺陷</td>
+</tr>
+<tr>
+<td align="center">架构</td>
+<td align="center">在系统架构设计阶段发现的缺陷</td>
+</tr>
+<tr>
+<td align="center">设计</td>
+<td align="center">在程序设计阶段发现的缺陷</td>
+</tr>
+<tr>
+<td align="center">编码</td>
+<td align="center">在编码阶段发现的缺陷</td>
+</tr>
+<tr>
+<td align="center">测试</td>
+<td align="center">在测试阶段发现的缺陷</td>
+</tr>
+<tr>
+<td align="center">用户</td>
+<td align="center">在用户使用阶段发现的缺陷</td>
+</tr>
+</tbody></table>
+<h4 id="6-缺陷的来源"><a href="#6-缺陷的来源" class="headerlink" title="6. 缺陷的来源"></a>6. 缺陷的来源</h4><table>
+<thead>
+<tr>
+<th>缺陷来源</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需求说明书</td>
+<td>需求说明书的错误或不清楚引起的</td>
+</tr>
+<tr>
+<td>设计文档</td>
+<td>设计文档描述不准确，和需求说明书不一致的问题</td>
+</tr>
+<tr>
+<td>系统集成接口</td>
+<td>系统各模块参数不匹配、开发组之间缺乏协调所引起的缺陷</td>
+</tr>
+<tr>
+<td>数据流（库）</td>
+<td>由于数据字典、数据库中的错误引起的缺陷</td>
+</tr>
+<tr>
+<td>程序代码</td>
+<td>是编码中的问题所引起的缺陷</td>
+</tr>
+</tbody></table>
+<h4 id="7-缺陷的根源"><a href="#7-缺陷的根源" class="headerlink" title="7. 缺陷的根源"></a>7. 缺陷的根源</h4><table>
+<thead>
+<tr>
+<th>缺陷根源</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>测试策略</td>
+<td>错误的测试范围，误解了测试目标，超越测试能力等</td>
+</tr>
+<tr>
+<td>过程，工具和方法</td>
+<td>无效的需求收集过程，过时的风险管理过程，不适用的项目管理方法，没有估算规程，无效的变更控制过程等</td>
+</tr>
+<tr>
+<td>团队/人</td>
+<td>项目团队职责交叉，缺乏培训。没有经验的项目团队，缺乏士气和动机不纯等</td>
+</tr>
+<tr>
+<td>缺乏组织和通讯</td>
+<td>缺乏用户参与，职责不明确，管理失败等</td>
+</tr>
+<tr>
+<td>硬件</td>
+<td>硬件配置不对、缺乏，或处理器导致算数精度丢失，内存溢出</td>
+</tr>
+<tr>
+<td>软件</td>
+<td>软件设置不对、缺乏，或操作系统错误导致无法释放资源，工具软件的错误，编译器的错误，千年虫的问题等</td>
+</tr>
+<tr>
+<td>工作环境</td>
+<td>组织机构调整，预算改变，工作环境恶劣，如噪音过大</td>
+</tr>
+</tbody></table>
+<p>缺陷的起源、来源、根源。一般关注较多的是缺陷的来源（直接原因）；在测试总结的时候，关注缺陷的根源。</p>
+<h3 id="缺陷的生命周期"><a href="#缺陷的生命周期" class="headerlink" title="缺陷的生命周期"></a><font color="red">缺陷的生命周期</font></h3><p><img src="%E7%BC%BA%E9%99%B7%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg" alt="缺陷的生命周期图"></p>
+<ul>
+<li><p>发现缺陷：由测试人员发现</p>
+</li>
+<li><p>提交缺陷：由测试人员提交</p>
+</li>
+<li><p>确认缺陷：一般由测试主管、或者质量保证（QA）、由产品经理确认</p>
+</li>
+<li><p>分配缺陷：经过确认后，有效的缺陷会指派给相关人员进行处理。一般由谁确认的缺陷，就由谁分配。分配的对象可能是开发、也可能是UI、可以能使产品经理。</p>
+</li>
+<li><p>修复缺陷：主要由开发修复，也有可能是产品经理修复文档问题，也有可能是UI修复界面设计缺陷</p>
+</li>
+<li><p>验证缺陷：测试人员去验证缺陷有没有修复成功。</p>
+</li>
+<li><p>关闭缺陷：只能是测试人员进行。否则出了问题，测试人员一律不背锅。</p>
+</li>
+</ul>
+<h3 id="缺陷的识别（重点）"><a href="#缺陷的识别（重点）" class="headerlink" title="缺陷的识别（重点）"></a>缺陷的识别（重点）</h3><ul>
+<li>通过测试用例中的预期结果进行识别</li>
+<li>通过需求规格说明书进行识别</li>
+<li>通过用户手册及其他文档进行识别</li>
+<li>通过同行业相类似成熟的商业软件来识别</li>
+<li>通过和开发人员的沟通进行识别（最下下策）</li>
+<li>通过和有经验的测试人员沟通进行识别</li>
+<li>参照同行业隐式需求进行识别</li>
+</ul>
+<p>客观依据：需求文档、设计文档、产品原型、测试用例</p>
+<p>主观依据：同行业相类似的成熟软件，和开发人员沟通进行识别，和有经验的测试人员沟通，根据同行业的隐性需求</p>
+<p>测试人员在识别缺陷的时候，要很灵活的对待。</p>
+<h3 id="缺陷报告"><a href="#缺陷报告" class="headerlink" title="缺陷报告"></a>缺陷报告</h3><p><strong>[缺陷报告本身要保证没有任何表述性的错误]</strong></p>
+<ol>
+<li><p>缺陷编号：Bug_项目名称_功能名称_00001</p>
+</li>
+<li><p>所属模块：一级模块/二级模块/三级模块。例如：上课所用的直播软件，如果想要查看签到的历史记录，需要进入直播主界面——互动应用——签到——签到历史记录</p>
+</li>
+<li><p>优先级：缺陷的修复紧急程度。P1&gt;P2&gt;P3&gt;P4</p>
+</li>
+<li><p>严重程度：S1&gt;S2&gt;S3&gt;S4</p>
+</li>
+<li><p>缺陷概述：用一句话描述缺陷的基本情况</p>
+</li>
+<li><p>缺陷描述：将缺陷的复现步骤、预期结果和实际结果列出来。</p>
+</li>
+<li><p>提交人：是谁就写谁的名字</p>
+</li>
+<li><p>备注：一般写出产生该缺陷的特殊情况。将bug截图作为备注信息。</p>
+</li>
+<li><p>缺陷报告编写目的</p>
+<ul>
+<li>易于搜索软件测试报告的缺陷</li>
+<li>报告的软件缺陷进行了必要的隔离，报告的缺陷信息更具体、准确</li>
+<li>软件开发人员希望获得缺陷的本质特征和复现步骤</li>
+<li>市场和技术支持等部门希望获得缺陷类型分布以及对市场和用户的影响程度</li>
+</ul>
+</li>
+<li><p>预期读者：开发人员、质量管理人员、市场人员、运维人员….</p>
+</li>
+<li><p>缺陷报告编写准则</p>
+<ul>
+<li>Correct（准确）：每个组成部分的描述准确，不会引起误解</li>
+<li>Clear（清晰）：每个组成部分描述清晰，易于理解</li>
+<li>Concise（简洁）：之包含必不可少的信息，不包括任何多余内容</li>
+<li>Complete（完整）：包含复现该缺陷的完整步骤和其他本质信息</li>
+<li>Consistent（一致）：按照一致的格式书写全部缺陷报告</li>
+</ul>
+</li>
+<li><p>缺陷描述的准则</p>
+<ul>
+<li>单一准确</li>
+<li>可以再现：针对绝大多数缺陷。但有一小部分缺陷难以做到，如闪退崩溃不可再现，无需做到</li>
+<li>完整统一</li>
+<li>短小简练</li>
+<li>特定条件</li>
+<li>补充完整</li>
+<li>不做评价：不对缺陷的严重程度和缺陷表现出来的效果进行主观臆断-</li>
+</ul>
+</li>
+</ol>
+<br>
+
+<h2 id="参考表"><a href="#参考表" class="headerlink" title="参考表"></a>参考表</h2><h2 id="测试需求分析"><a href="#测试需求分析" class="headerlink" title="测试需求分析"></a>测试需求分析</h2><table>
+<thead>
+<tr>
+<th>测试需求编号</th>
+<th>测试需求名称</th>
+<th>质量特性</th>
+<th>所在模块</th>
+<th>所在页面</th>
+<th>优先级</th>
+<th>负责人</th>
+<th>版本号</th>
+<th>需求详细描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><table>
+<thead>
+<tr>
+<th>用例编号</th>
+<th>用例名称</th>
+<th>用例描述</th>
+<th>需求编号</th>
+<th>步骤名称</th>
+<th>步骤描述</th>
+<th>预期结果</th>
+<th>实际结果</th>
+<th>是否通过</th>
+<th>缺陷编号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="缺陷报告-1"><a href="#缺陷报告-1" class="headerlink" title="缺陷报告"></a>缺陷报告</h2><table>
+<thead>
+<tr>
+<th>缺陷编号</th>
+<th>所属模块</th>
+<th>优先级</th>
+<th>严重程度</th>
+<th>缺陷概述</th>
+<th>缺陷描述</th>
+<th>提交人</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<br>
+
+<h2 id="白盒测试逻辑覆盖图"><a href="#白盒测试逻辑覆盖图" class="headerlink" title="白盒测试逻辑覆盖图"></a>白盒测试逻辑覆盖图</h2><p><img src="%E9%80%BB%E8%BE%91%E8%A6%86%E7%9B%96%E6%B5%8B%E8%AF%95.jpg" alt="白盒测试逻辑覆盖图"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" rel="tag"># 软件测试基本理论</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/12/%E4%B9%9D%E6%AD%8C%C2%B7%E4%BA%91%E4%B8%AD%E5%90%9B/" rel="prev" title="九歌·云中君">
+      <i class="fa fa-chevron-left"></i> 九歌·云中君
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/14/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/" rel="next" title="禅道使用流程">
+      禅道使用流程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%BD%AF%E4%BB%B6%E7%BC%BA%E9%99%B7%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">一、软件缺陷的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%BD%AF%E4%BB%B6%E4%B8%BA%E5%AE%9E%E7%8E%B0%E4%BA%A7%E5%93%81%E8%AF%B4%E6%98%8E%E4%B9%A6%E8%A6%81%E6%B1%82%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 软件为实现产品说明书要求的功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BD%AF%E4%BB%B6%E5%87%BA%E7%8E%B0%E4%BA%86%E4%BA%A7%E5%93%81%E8%AF%B4%EF%BC%8C%E6%98%8E%E4%B9%A6%E6%8C%87%E6%98%8E%E4%B8%8D%E5%BA%94%E8%AF%A5%E5%87%BA%E7%8E%B0%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 软件出现了产品说，明书指明不应该出现的功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%BD%AF%E4%BB%B6%E5%AE%9E%E7%8E%B0%E4%BA%86%E4%BA%A7%E5%93%81%E8%AF%B4%E6%98%8E%E4%B9%A6%E6%9C%AA%E6%8F%90%E5%88%B0%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 软件实现了产品说明书未提到的功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%BD%AF%E4%BB%B6%E6%9C%AA%E5%AE%9E%E7%8E%B0%E4%BA%A7%E5%93%81%E8%AF%B4%E6%98%8E%E4%B9%A6%E8%99%BD%E6%9C%AA%E6%98%8E%E7%A1%AE%E6%8F%90%E5%8F%8A%E4%BD%86%E5%BA%94%E8%AF%A5%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 软件未实现产品说明书虽未明确提及但应该实现的目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E7%94%A8%E6%88%B7%E4%B8%8D%E6%98%93%E7%90%86%E8%A7%A3%E3%80%81%E4%B8%8D%E6%98%93%E4%BD%BF%E7%94%A8%E3%80%81%E8%BF%90%E8%A1%8C%E7%BC%93%E6%85%A2%E6%88%96%E8%80%85%EF%BC%88%E4%BB%8E%E6%B5%8B%E8%AF%95%E8%A7%92%E5%BA%A6%E7%9C%8B%EF%BC%89%E6%9C%80%E7%BB%88%E7%94%A8%E6%88%B7%E4%BC%9A%E8%AE%A4%E4%B8%BA%E4%B8%8D%E5%A5%BD"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 用户不易理解、不易使用、运行缓慢或者（从测试角度看）最终用户会认为不好</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">二、软件测试的定义和目的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AD%A3%E5%90%91%E6%80%9D%E7%BB%B4%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 正向思维的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%80%86%E5%90%91%E6%80%9D%E7%BB%B4%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 逆向思维的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-IEEE%E5%AE%9A%E4%B9%89%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. IEEE定义的软件测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%B9%BF%E4%B9%89%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. 广义的软件测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="nav-number">2.0.5.</span> <span class="nav-text">5. 软件测试的目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%B5%8B%E8%AF%95%E5%92%8C%E8%B0%83%E8%AF%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.0.6.</span> <span class="nav-text">6. 测试和调试的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.0.7.</span> <span class="nav-text">7. 软件测试的对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%BD%AF%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">三、软件生命周期模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B%EF%BC%88%E8%A6%81%E6%B1%82%E4%BC%9A%E7%94%BB%E5%9B%BE%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">瀑布模型（要求会画图）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">原型模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.3.</span> <span class="nav-text">增量模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.</span> <span class="nav-text">迭代模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%9E%BA%E6%97%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.5.</span> <span class="nav-text">螺旋模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%8F%E6%8D%B7%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.6.</span> <span class="nav-text">敏捷模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">四、软件测试流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">软件测试过程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-V-%E6%A8%A1%E5%9E%8B%EF%BC%9A%E6%8F%AD%E7%A4%BA%E4%BA%86%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E4%BA%8E%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%90%84%E9%98%B6%E6%AE%B5%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-number">4.1.1.</span> <span class="nav-text">1. V 模型：揭示了开发过程于测试过程中各阶段的对应关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-W-%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.1.2.</span> <span class="nav-text">2. W 模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#H%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.1.3.</span> <span class="nav-text">H模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#X%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.1.4.</span> <span class="nav-text">X模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B%E7%90%86%E5%BF%B5"><span class="nav-number">4.2.</span> <span class="nav-text">软件测试过程理念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%88%86%E7%B1%BB"><span class="nav-number">4.3.</span> <span class="nav-text">软件测试分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%8C%89%E7%85%A7%E5%BC%80%E5%8F%91%E9%98%B6%E6%AE%B5%E5%88%86%E7%B1%BB"><span class="nav-number">4.3.1.</span> <span class="nav-text">1.按照开发阶段分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%9A%84%E5%8E%9F%E5%88%99"><span class="nav-number">5.</span> <span class="nav-text">软件测试的原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">6.</span> <span class="nav-text">五、什么是测试用例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BC%BA%E9%99%B7%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="nav-number">7.</span> <span class="nav-text">六、缺陷基本概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E7%BC%BA%E9%99%B7%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">7.1.</span> <span class="nav-text">软件缺陷的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BC%BA%E9%99%B7%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.1.1.</span> <span class="nav-text">1. 缺陷类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BC%BA%E9%99%B7%E4%B8%A5%E9%87%8D%E7%A8%8B%E5%BA%A6"><span class="nav-number">7.1.2.</span> <span class="nav-text">2. 缺陷严重程度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BC%BA%E9%99%B7%E7%9A%84%E4%BF%AE%E5%A4%8D%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">7.1.3.</span> <span class="nav-text">3. 缺陷的修复优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%BC%BA%E9%99%B7%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">7.1.4.</span> <span class="nav-text">4. 缺陷的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E7%BC%BA%E9%99%B7%E7%9A%84%E8%B5%B7%E6%BA%90"><span class="nav-number">7.1.5.</span> <span class="nav-text">5. 缺陷的起源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E7%BC%BA%E9%99%B7%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="nav-number">7.1.6.</span> <span class="nav-text">6. 缺陷的来源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E7%BC%BA%E9%99%B7%E7%9A%84%E6%A0%B9%E6%BA%90"><span class="nav-number">7.1.7.</span> <span class="nav-text">7. 缺陷的根源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">7.2.</span> <span class="nav-text">缺陷的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7%E7%9A%84%E8%AF%86%E5%88%AB%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">7.3.</span> <span class="nav-text">缺陷的识别（重点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7%E6%8A%A5%E5%91%8A"><span class="nav-number">7.4.</span> <span class="nav-text">缺陷报告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">参考表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">9.</span> <span class="nav-text">测试需求分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">10.</span> <span class="nav-text">测试用例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7%E6%8A%A5%E5%91%8A-1"><span class="nav-number">11.</span> <span class="nav-text">缺陷报告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95%E9%80%BB%E8%BE%91%E8%A6%86%E7%9B%96%E5%9B%BE"><span class="nav-number">12.</span> <span class="nav-text">白盒测试逻辑覆盖图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

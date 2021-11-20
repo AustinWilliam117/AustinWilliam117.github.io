@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用国内源 sudo pacman-mirrors -i -c China -m rank  然后添加 ArchLinuxCN 的源，编辑&#x2F;etc&#x2F;pacman.conf，在文件末尾添加如下内容：  [archlinuxcn] SigLevel &#x3D; Optional TrustedOnly Server &#x3D; https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;archlinuxcn&#x2F;$arch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="manjaro20.2 2020">
+<meta property="og:url" content="http://example.com/2020/12/24/manjaro20-2-2020/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="使用国内源 sudo pacman-mirrors -i -c China -m rank  然后添加 ArchLinuxCN 的源，编辑&#x2F;etc&#x2F;pacman.conf，在文件末尾添加如下内容：  [archlinuxcn] SigLevel &#x3D; Optional TrustedOnly Server &#x3D; https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;archlinuxcn&#x2F;$arch">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-24T12:13:37.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="Manjaro">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/12/24/manjaro20-2-2020/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>manjaro20.2 2020 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/24/manjaro20-2-2020/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          manjaro20.2 2020
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-24 20:13:37" itemprop="dateCreated datePublished" datetime="2020-12-24T20:13:37+08:00">2020-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="使用国内源"><a href="#使用国内源" class="headerlink" title="使用国内源"></a>使用国内源</h2><blockquote>
+<p>sudo pacman-mirrors -i -c China -m rank</p>
+</blockquote>
+<p>然后添加 ArchLinuxCN 的源，编辑/etc/pacman.conf，在文件末尾添加如下内容：</p>
+<blockquote>
+<p>[archlinuxcn]</p>
+<p>SigLevel = Optional TrustedOnly</p>
+<p>Server = <a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/archlinuxcn/$arch">https://mirrors.ustc.edu.cn/archlinuxcn/$arch</a></p>
+</blockquote>
+<span id="more"></span>
+
+<p>之后刷新缓存，导入 archlinuxcn-keyring ：</p>
+<blockquote>
+<p>sudo pacman -Syy &amp;&amp; sudo pacman -S archlinuxcn-keyring &amp;&amp; sudo pacman -Syy</p>
+</blockquote>
+<h4 id="解决WINDOWS和LINUX双系统时间不一致问题"><a href="#解决WINDOWS和LINUX双系统时间不一致问题" class="headerlink" title="解决WINDOWS和LINUX双系统时间不一致问题"></a>解决WINDOWS和LINUX双系统时间不一致问题</h4><blockquote>
+<p>sudo timedatectl set-local-rtc true</p>
+</blockquote>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="一、zsh-oh-my-zsh"><a href="#一、zsh-oh-my-zsh" class="headerlink" title="一、zsh / oh my zsh"></a>一、zsh / oh my zsh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S zsh</span><br><span class="line"></span><br><span class="line">sh -c &quot;$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、搜狗输入法（更推荐现在使用fcitx5或者rime）"><a href="#二、搜狗输入法（更推荐现在使用fcitx5或者rime）" class="headerlink" title="二、搜狗输入法（更推荐现在使用fcitx5或者rime）"></a>二、搜狗输入法（更推荐现在使用fcitx5或者rime）</h3><p>fcitx5的安装可参考我的文章 <a target="_blank" rel="noopener" href="https://austinwilliam117.github.io/2020/12/28/%E4%BD%A0%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E8%BE%93%E5%85%A5%E6%B3%95%E4%BD%95%E5%BF%85%E6%98%AF%E6%90%9C%E7%8B%97%EF%BC%8C%E6%8B%A5%E6%8A%B1fcitx5/">你的下一个输入法何必是搜狗，拥抱fictx5</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S fcitx-im             # 全部安装</span><br><span class="line">sudo pacman -S fcitx-configtool     # 图形化配置工具</span><br><span class="line">yay fcitx-sogoupinyin</span><br></pre></td></tr></table></figure>
+
+<p> 安装完成后，新建并配置~/.xprofile，添加如下内容：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">LC_ALL</span>=zh_CN.UTF-8</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">GTK_IM_MODULE</span>=fcitx</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">QT_IM_MODULE</span>=fcitx</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">XMODIFIERS</span>=<span class="string">&quot;@im=fcitx&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>重启或注销即可显示，可在终端用fcitx-configtool配置输入法</p>
+<h3 id="三、mysql"><a href="#三、mysql" class="headerlink" title="三、mysql"></a>三、mysql</h3><blockquote>
+<p>//下载Mysql<br>pacman -S mysql<br>//初始化Mysql，记住生成的密码，方便修改<br>sudo mysqld –initialize –user=mysql –basedir=/usr –datadir=/var/lib/mysql<br>//设置开机启动<br>systemctl enable mysqld.service<br>//启动Mysql<br>sudo systemctl start mysqld.service<br>//修改密码<br>mysql -u root -p<br>mysql&gt; ALTER USER ‘root‘@’localhost’ IDENTIFIED BY ‘新密码’;</p>
+</blockquote>
+<h3 id="四、其他软件-字体"><a href="#四、其他软件-字体" class="headerlink" title="四、其他软件/字体"></a>四、其他软件/字体</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S code                 #VScode</span><br><span class="line">sudo pacman -S google-chrome        #Chrome浏览器</span><br><span class="line">sudo pacman -S typora</span><br><span class="line">sudo pacman -S latte-dock</span><br><span class="line">sudo pacman -S yay</span><br><span class="line">yay wps-office</span><br><span class="line">sudo pacman -S flameshot        #火焰截图</span><br></pre></td></tr></table></figure>
+
+<p>中文字体安装：manjaro的中文字体比较丑，还有辨识度低的问题。<strong>极为推荐安装其他字体</strong><br>个人认为思源黑体最为好看</p>
+<p><strong>用法sudo pacman -S packname</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">思源字体包名</span><br><span class="line">adobe-source-han-serif-cn-fonts - 思源宋体简体中文部分</span><br><span class="line">adobe-source-han-serif-tw-fonts - 思源宋体繁体中文部分</span><br><span class="line">adobe-source-han-sans-cn-fonts - 思源黑体简体中文部分</span><br><span class="line">adobe-source-han-sans-tw-fonts - 思源黑体繁体中文部分</span><br><span class="line"></span><br><span class="line">文泉驿字体包名</span><br><span class="line">wqy-zenhei - 文泉驿正黑体，黑体 (无衬线) 的中文轮廓字体，附带文泉驿点阵宋体 (也支持部分日韩字符)。</span><br><span class="line">wqy-bitmapfont - 文泉驿点阵宋体 (衬线) 中文字体。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Fonts_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">可参考wiki.archlinux fonts中文</a></p>
+<p><strong>Hack Nerd Font的安装</strong> <strong><font color="FF5733">mono类字体会导致zsh图标过下，慎用</font></strong></p>
+<p>链接及教程：<a target="_blank" rel="noopener" href="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack">https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack</a></p>
+<p>下载过慢可网盘链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1PjrhtPwWG_XaAyCZ-xZ0OA">https://pan.baidu.com/s/1PjrhtPwWG_XaAyCZ-xZ0OA</a>  密码: mbdp</p>
+<p>可参考<br><a target="_blank" rel="noopener" href="https://github.com/ryanoasis/nerd-fonts">https://github.com/ryanoasis/nerd-fonts</a> 提供多种字体</p>
+<h3 id="五、-QQ、WeChat"><a href="#五、-QQ、WeChat" class="headerlink" title="五、 QQ、WeChat"></a>五、 QQ、WeChat</h3><p>安装deepin-wine5的qq(由于基于deepin-wine 2版的不能使用，直接从aur下载安装</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yay -S com<span class="selector-class">.qq</span><span class="selector-class">.im</span><span class="selector-class">.deepin</span></span><br><span class="line">yay -S deepin-wine-tim</span><br></pre></td></tr></table></figure>
+
+<p>安装deepin-wine的微信</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S com<span class="selector-class">.qq</span><span class="selector-class">.weixin</span>.deepin</span><br></pre></td></tr></table></figure>
+
+<p>KDE、XFCE以及其他不是基于gnome桌面的用户看过来（<strong>重要，重要，重要</strong>）<br>kde运行deepin-wine的话需要安装xsettingsd</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo pacman -S xsettingsd</span></span><br></pre></td></tr></table></figure>
+
+<p>之后就可以愉快的玩耍了</p>
+<p>字体有些虚的话安装lib32-freetype2-infinality-ultimate</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> pacman -S lib<span class="number">32</span>-freetype<span class="number">2</span>-infinality-ultimate</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="修改字体DPI-Tim与qq修改下关键字）"><a href="#修改字体DPI-Tim与qq修改下关键字）" class="headerlink" title="修改字体DPI(Tim与qq修改下关键字）"></a>修改字体DPI(Tim与qq修改下关键字）</h4><p>微信</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env <span class="attribute">WINEPREFIX</span>=<span class="string">&quot;<span class="variable">$HOME</span>/.deepinwine/Deepin-WeChat&quot;</span> deepin-wine5 winecfg</span><br></pre></td></tr></table></figure>
+
+<p>QQ</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env <span class="attribute">WINEPREFIX</span>=<span class="string">&quot;<span class="variable">$HOME</span>/.deepinwine/Deepin-QQ&quot;</span> deepin-wine5 winecfg</span><br></pre></td></tr></table></figure>
+
+<p>调节DPI到125</p>
+<h4 id="修改deepin-wechat中文输入时为方块问题"><a href="#修改deepin-wechat中文输入时为方块问题" class="headerlink" title="修改deepin wechat中文输入时为方块问题"></a>修改deepin wechat中文输入时为方块问题</h4><blockquote>
+<p>sudo gedit /opt/deepinwine/tools/run.sh</p>
+</blockquote>
+<p>找到 <strong>WINE_CMD=”deepin-wine”</strong> 修改为</p>
+<blockquote>
+<p>WINE_CMD=”LC_ALL=zh_CN.UTF-8 deepin-wine”</p>
+</blockquote>
+<h3 id="六、科学上网"><a href="#六、科学上网" class="headerlink" title="六、科学上网"></a>六、科学上网</h3><p>科学上网可以参考如下地址，下载electron-ssr</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/shadowsocksrr/electron-ssr">https://github.com/shadowsocksrr/electron-ssr</a></p>
+<p>Google chrome可使用SwitchyOmega，关于SwitchyOmega的离线下载网址如下：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/FelisCatus/SwitchyOmega/releases">https://github.com/FelisCatus/SwitchyOmega/releases</a></p>
+<p>Manjaro安装SwitchyOmega时，需将google chrome设置为开发者模式，将离线包后缀改为.zip并解压，再将离线包拖入google chrome即可。</p>
+<p>auto switch用到的规则链表<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt%EF%BC%88%E5%9C%A8%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E4%B8%8B%E4%BD%BF%E7%94%A8%EF%BC%89">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt（在代理模式下使用）</a></p>
+<h3 id="七、终端下Trojan代理"><a href="#七、终端下Trojan代理" class="headerlink" title="七、终端下Trojan代理"></a>七、终端下Trojan代理</h3><p>命令行使用Trojan代理</p>
+<p>下载: <code>sudo pacman -S proxychains</code> </p>
+<p>配置: <code>sudo vim /etc/proxychains.conf</code> </p>
+<p>在最后的ProxyList里注释默认的socks代理： socks4 前增加# </p>
+<p>在最后的ProxyList里加入Trojan的代理设置： <code>socks5 127.0.0.1 1080</code> (1080 为代理的端口号，以实际代理为准。) </p>
+<p>测试本地IP: <code>curl -4 ip.sb</code>，将显示自己的IP </p>
+<p>测试代理IP: <code>proxychains curl -4 ip.sb</code>，将显示Trojan代理的IP </p>
+<p>后续使用的命令行需要代理时，只需要在前面加上 <code>proxychains</code> 即可 如 <code>proxychains npm install</code></p>
+<h3 id="八、manjaro下网易云音乐无法输入中文"><a href="#八、manjaro下网易云音乐无法输入中文" class="headerlink" title="八、manjaro下网易云音乐无法输入中文"></a>八、manjaro下网易云音乐无法输入中文</h3><p>在manjaro下安装好网易云音乐后，却无法输入中文。原因是manjaro下没有用它的框架导致，通过以下方法解决。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo vim /opt/netease/netease-cloud-music/netease-cloud-music.bash</span></span><br><span class="line">-------------------------------------------------------------------------</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">HERE=&quot;$(dirname &quot;$(readlink -f &quot;$&#123;0&#125;&quot;)&quot;)&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="string">&quot;<span class="variable">$&#123;HERE&#125;</span>&quot;</span>/libs</span></span><br><span class="line">export QT_PLUGIN_PATH=&quot;$&#123;HERE&#125;&quot;/plugins </span><br><span class="line">export QT_QPA_PLATFORM_PLUGIN_PATH=&quot;$&#123;HERE&#125;&quot;/plugins/platforms</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> XDG_CURRENT_DESKTOP=DDE</span></span><br><span class="line">export LD_LIBRARY_PATH=/usr/lib</span><br><span class="line">exec &quot;$&#123;HERE&#125;&quot;/netease-cloud-music $@</span><br><span class="line">12345678910</span><br></pre></td></tr></table></figure>
+
+<p>将上述文件修改成这个样子。</p>
+<p>然后安装qcef，由于aur已经移除qcef，所以只能自己构建安装包。</p>
+<p>这个包能还在github上找到，需要克隆下来自己构建。我这里上传已经构建好的qcef，直接安装就行了。 链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1z0Q_Qb83OKIztsinKN1TvQ">https://pan.baidu.com/s/1z0Q_Qb83OKIztsinKN1TvQ</a> 提取码: xm2j </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo pacman -U qcef-1.1.6-1-x86_64.pkg.tar.xz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo pacman -S vlc</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="九、安装deb包的方法"><a href="#九、安装deb包的方法" class="headerlink" title="九、安装deb包的方法"></a>九、安装deb包的方法</h3><p>由于百度云盘出了Linux版，我们可以下载.deb的文件包（<strong>也可使用dpkg包管理来安装.deb包，但不推荐</strong>sudo dpkg -i package.deb）</p>
+<p>检查有没有安装debtap</p>
+<blockquote>
+<p>sudo pacman -Q debtap</p>
+</blockquote>
+<p>没有就安装</p>
+<blockquote>
+<p>yaourt -S debtap</p>
+</blockquote>
+<p>升级</p>
+<blockquote>
+<p>debtap sudo debtap -u</p>
+</blockquote>
+<p>使用方法</p>
+<blockquote>
+<p>sudo debtap xxx.deb</p>
+</blockquote>
+<p>安装时会提示输入包名，以及license。包名随意，license就填GPL吧。上述操作完成后会在deb包同级目录生成x.tar.xz文件，直接用pacman安装即可</p>
+<blockquote>
+<p>sudo pacman -U xxx.tar.xz</p>
+</blockquote>
+<h3 id="十、powerlevel10k-vim-plug"><a href="#十、powerlevel10k-vim-plug" class="headerlink" title="十、powerlevel10k / vim-plug"></a>十、powerlevel10k / vim-plug</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> powerlevel10k</span></span><br><span class="line"></span><br><span class="line">git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k</span><br><span class="line">echo &#x27;source ~/powerlevel10k/powerlevel10k.zsh-theme&#x27; &gt;&gt;! ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim-plug</span></span><br><span class="line">mkdir ~/.vim/autoload/</span><br><span class="line">cd ~/.vim/autoload/</span><br><span class="line">wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Manjaro/" rel="tag"># Manjaro</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/08/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%80%9D%E8%80%83/" rel="prev" title="微信公众号思考">
+      <i class="fa fa-chevron-left"></i> 微信公众号思考
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/24/%E6%8D%A2%E7%94%B5%E8%84%91%E4%BA%86%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo/" rel="next" title="换电脑了如何使用hexo">
+      换电脑了如何使用hexo <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">使用国内源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3WINDOWS%E5%92%8CLINUX%E5%8F%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98"><span class="nav-number">1.0.1.</span> <span class="nav-text">解决WINDOWS和LINUX双系统时间不一致问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81zsh-oh-my-zsh"><span class="nav-number">2.1.</span> <span class="nav-text">一、zsh &#x2F; oh my zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%90%9C%E7%8B%97%E8%BE%93%E5%85%A5%E6%B3%95%EF%BC%88%E6%9B%B4%E6%8E%A8%E8%8D%90%E7%8E%B0%E5%9C%A8%E4%BD%BF%E7%94%A8fcitx5%E6%88%96%E8%80%85rime%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">二、搜狗输入法（更推荐现在使用fcitx5或者rime）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81mysql"><span class="nav-number">2.3.</span> <span class="nav-text">三、mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B6%E4%BB%96%E8%BD%AF%E4%BB%B6-%E5%AD%97%E4%BD%93"><span class="nav-number">2.4.</span> <span class="nav-text">四、其他软件&#x2F;字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81-QQ%E3%80%81WeChat"><span class="nav-number">2.5.</span> <span class="nav-text">五、 QQ、WeChat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E4%BD%93DPI-Tim%E4%B8%8Eqq%E4%BF%AE%E6%94%B9%E4%B8%8B%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%89"><span class="nav-number">2.5.1.</span> <span class="nav-text">修改字体DPI(Tim与qq修改下关键字）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9deepin-wechat%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%97%B6%E4%B8%BA%E6%96%B9%E5%9D%97%E9%97%AE%E9%A2%98"><span class="nav-number">2.5.2.</span> <span class="nav-text">修改deepin wechat中文输入时为方块问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91"><span class="nav-number">2.6.</span> <span class="nav-text">六、科学上网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%BB%88%E7%AB%AF%E4%B8%8BTrojan%E4%BB%A3%E7%90%86"><span class="nav-number">2.7.</span> <span class="nav-text">七、终端下Trojan代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81manjaro%E4%B8%8B%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87"><span class="nav-number">2.8.</span> <span class="nav-text">八、manjaro下网易云音乐无法输入中文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%AE%89%E8%A3%85deb%E5%8C%85%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.9.</span> <span class="nav-text">九、安装deb包的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E3%80%81powerlevel10k-vim-plug"><span class="nav-number">2.10.</span> <span class="nav-text">十、powerlevel10k &#x2F; vim-plug</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

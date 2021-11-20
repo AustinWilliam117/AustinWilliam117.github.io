@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是数据库DB（data base），实际上是一个文件合集，是一个存储数据的仓库，本质是一个文件系统，数据库是按照特定格式把数据存储起来，用户可以对存储的数据进行增删改查操作 数据库分类：  关系型数据库：建立在关系模型基础上的数据库 MySQL、Oracle、DB2、SQL Server、PostgreSQL  非关系型数据库：通常指数据之间无关系的数据库（NO SQL） MongoDB、Re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL笔记">
+<meta property="og:url" content="http://example.com/2021/04/23/MySQL%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="什么是数据库DB（data base），实际上是一个文件合集，是一个存储数据的仓库，本质是一个文件系统，数据库是按照特定格式把数据存储起来，用户可以对存储的数据进行增删改查操作 数据库分类：  关系型数据库：建立在关系模型基础上的数据库 MySQL、Oracle、DB2、SQL Server、PostgreSQL  非关系型数据库：通常指数据之间无关系的数据库（NO SQL） MongoDB、Re">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/04/23/MySQL%E7%AC%94%E8%AE%B0/ER%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/2021/04/23/MySQL%E7%AC%94%E8%AE%B0/select.png">
+<meta property="article:published_time" content="2021-04-23T14:30:27.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/04/23/MySQL%E7%AC%94%E8%AE%B0/ER%E5%9B%BE.png">
+
+<link rel="canonical" href="http://example.com/2021/04/23/MySQL%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>MySQL笔记 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/23/MySQL%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-23 22:30:27" itemprop="dateCreated datePublished" datetime="2021-04-23T22:30:27+08:00">2021-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>28k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>25 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="什么是数据库"><a href="#什么是数据库" class="headerlink" title="什么是数据库"></a>什么是数据库</h3><p>DB（data base），实际上是一个文件合集，是一个存储数据的仓库，本质是一个文件系统，数据库是按照特定格式把数据存储起来，用户可以对存储的数据进行增删改查操作</p>
+<p>数据库分类：</p>
+<ul>
+<li><p>关系型数据库：建立在关系模型基础上的数据库</p>
+<p>MySQL、Oracle、DB2、SQL Server、PostgreSQL</p>
+</li>
+<li><p>非关系型数据库：通常指数据之间无关系的数据库（NO SQL）</p>
+<p>MongoDB、Redis、Cassandra</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h3><ol>
+<li><p><strong>ER图的实体（entity）</strong>即数据模型中的数据对象，例如人、学生、音乐都可以作为一个数据对象，用<strong>长方体</strong>来表示，每个实体都有自己的实体成员（entity member）或者说实体对象（entity instance），例如学生实体里包括张三、李四等，实体成员（entity member）不需要出现在ER图中。</p>
+</li>
+<li><p><strong>ER图的属性（attribute）</strong>即数据对象所具有的属性（所具有的列），例如学生具有姓名、学号、年级等属性，用<strong>椭圆形</strong>表示，属性分为唯一属性（unique attribute）和非唯一属性，唯一属性（主键）指的是唯一可用来标识该实体实例或者成员的属性，用下划线表示，一般来讲实体都至少有一个唯一属性。</p>
+</li>
+<li><p><strong>ER图的关系/联系（relationship）</strong>用来表现数据对象与数据对象之间的联系，例如学生的实体和成绩表的实体之间有一定的联系，每个学生都有自己的成绩表，这就是一种关系，关系用<strong>菱形</strong>来表示。</p>
+</li>
+<li><p><strong>ER图</strong>中关联关系有三种：</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>1对1（1:1）</strong> ：1对1关系是指对于实体集A与实体集B，A中的每一个实体至多与B中一个实体有关系；反之，在实体集B中的每个实体至多与实体集A中一个实体有关系</p>
+</li>
+<li><p><strong>1对多（1:N）</strong> ：1对多关系是指实体集A与实体集B中至少有N(N&gt;0)个实体有关系；并且实体集B中每一个实体至多与实体集A中一个实体有关系。</p>
+</li>
+<li><p><strong>多对多（M:N）</strong> ：多对多关系是指实体集A中的每一个实体与实体集B中至少有M(M&gt;0)个实体有关系，并且实体集B中的每一个实体与实体集A中的至少N（N&gt;0）个实体有关系。</p>
+</li>
+</ul>
+<ol start="5">
+<li><p><strong>ER图实例</strong></p>
+<p>某公司有若干个部门；每个部门有若干职工、项目和办公室。每个职工都有工作经历，记录该职工做过的每项工作的起止年月和工资。每个办公室有若干部电话。对于部门，需要记录部门号（惟一）、部门名称、预算费和部门领导的职工号。对于职工，除工作经历外，还需要记录职工号（惟一）、职工姓名、家庭住址、当前参加的项目、所在办公室、电话等信息。对于项目，需要记录项目号（惟一）、项目名称和预算。对于办公室，需要记录办公室名称（惟一）、位置、电话。</p>
+<p><img src="ER%E5%9B%BE.png"></p>
+</li>
+</ol>
+<h3 id="SQL语法特点"><a href="#SQL语法特点" class="headerlink" title="SQL语法特点"></a>SQL语法特点</h3><ol>
+<li>不区分大小写</li>
+<li>关键字、字段名、表名需要用空格或者逗号隔开</li>
+<li>每个SQL语句是用分号结尾</li>
+<li>语句可以写一行或多行分开</li>
+</ol>
+<h3 id="登录MySQL的方式"><a href="#登录MySQL的方式" class="headerlink" title="登录MySQL的方式"></a>登录MySQL的方式</h3><p>尽量不要在-p后面输入密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">访问mariadb</span></span><br><span class="line">mysql -h127.0.0.1 -P3306 -uroot -p</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">如果访问 mysql5.7</span>  </span><br><span class="line">mysql -h175.24.117.226 -P3307 -uroot -p</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">直接登录，可在/etc/my.cnf修改</span></span><br><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+<h3 id="搭建练习环境"><a href="#搭建练习环境" class="headerlink" title="搭建练习环境"></a>搭建练习环境</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> user_info (</span><br><span class="line">	user_id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">	user_name <span class="type">CHAR</span> ( <span class="number">10</span> ),</span><br><span class="line">	password <span class="type">VARCHAR</span> ( <span class="number">10</span> ),</span><br><span class="line">	user_nick <span class="type">VARCHAR</span> ( <span class="number">10</span> ),</span><br><span class="line">	card_num <span class="type">BIGINT</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY ( user_id ) </span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 	user_nick长度不够，修改user_nick的长度再重新插入数据</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> user_info MODIFY user_nick <span class="type">VARCHAR</span> ( <span class="number">20</span> );</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> user_info ( user_id, user_name, PASSWORD, user_nick, card_num )</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">	( <span class="number">1</span>, <span class="string">&#x27;zhangsan&#x27;</span>, <span class="string">&#x27;abc123&#x27;</span>, <span class="string">&#x27;zhangsanfeng&#x27;</span>, <span class="number">124567894651329785</span> ),</span><br><span class="line">	( <span class="number">2</span>, <span class="string">&#x27;lisi&#x27;</span>, <span class="string">&#x27;122bbb&#x27;</span>, <span class="string">&#x27;limochou&#x27;</span>, <span class="number">124567894651324567</span> ),</span><br><span class="line">	( <span class="number">3</span>, <span class="string">&#x27;wangwu&#x27;</span>, <span class="string">&#x27;123aaa&#x27;</span>, <span class="string">&#x27;wangbaiwan&#x27;</span>, <span class="number">214567894651324567</span> ),</span><br><span class="line">	( <span class="number">4</span>, <span class="string">&#x27;liuqi&#x27;</span>, <span class="string">&#x27;12aaa&#x27;</span>, <span class="string">&#x27;liuchuanfeng&#x27;</span>, <span class="number">214563356651324567</span> ),</span><br><span class="line">	( <span class="number">5</span>, <span class="string">&#x27;zhangliu&#x27;</span>, <span class="string">&#x27;12aaa&#x27;</span>, <span class="string">&#x27;zhangwuji&#x27;</span>, <span class="number">214563356658966567</span> );</span><br><span class="line">	</span><br><span class="line"><span class="comment">-- 创建订单表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> order_info (</span><br><span class="line">	order_id <span class="type">INT</span> UNSIGNED ZEROFILL <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	price <span class="type">DECIMAL</span> ( <span class="number">10</span>, <span class="number">2</span> ) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	order_status <span class="type">VARCHAR</span> ( <span class="number">30</span> ) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	product_id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	created datetime <span class="keyword">DEFAULT</span> &quot;2019-01-01 00:00:00&quot;,</span><br><span class="line">	user_id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line"><span class="keyword">PRIMARY</span> KEY ( order_id ) </span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> order_info</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">	( <span class="number">1</span>, <span class="number">4.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1001</span>, <span class="string">&#x27;2019-09-25 10:25:26&#x27;</span>, <span class="number">1</span> ),</span><br><span class="line">	( <span class="number">2</span>, <span class="number">9.99</span>, <span class="string">&#x27;nopay&#x27;</span>, <span class="number">1002</span>, <span class="string">&#x27;2019-09-26 10:25:26&#x27;</span>, <span class="number">1</span> ),</span><br><span class="line">	( <span class="number">3</span>, <span class="number">4.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1001</span>, <span class="string">&#x27;2019-09-25 10:25:26&#x27;</span>, <span class="number">2</span> ),</span><br><span class="line">	( <span class="number">4</span>, <span class="number">9.99</span>, <span class="string">&#x27;nopay&#x27;</span>, <span class="number">1002</span>, <span class="string">&#x27;2019-09-24 10:25:26&#x27;</span>, <span class="number">2</span> ),</span><br><span class="line">	( <span class="number">5</span>, <span class="number">19.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1003</span>, <span class="string">&#x27;2019-09-26 10:25:26&#x27;</span>, <span class="number">2</span> ),</span><br><span class="line">	( <span class="number">6</span>, <span class="number">4.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1001</span>, <span class="string">&#x27;2019-09-25 10:25:26&#x27;</span>, <span class="number">3</span> ),</span><br><span class="line">	( <span class="number">7</span>, <span class="number">4.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1001</span>, <span class="string">&#x27;2019-09-25 10:25:26&#x27;</span>, <span class="number">4</span> ),</span><br><span class="line">	( <span class="number">8</span>, <span class="number">9.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1002</span>, <span class="string">&#x27;2019-09-25 10:25:26&#x27;</span>, <span class="number">4</span> ),</span><br><span class="line">	( <span class="number">9</span>, <span class="number">19.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1003</span>, <span class="string">&#x27;2019-09-26 10:25:26&#x27;</span>, <span class="number">4</span> ),</span><br><span class="line">	( <span class="number">10</span>, <span class="number">29.99</span>, <span class="string">&#x27;pay&#x27;</span>, <span class="number">1002</span>, <span class="string">&#x27;2019-09-26 10:25:26&#x27;</span>, <span class="number">6</span> );</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建、查看、删除、使用数据库"><a href="#创建、查看、删除、使用数据库" class="headerlink" title="创建、查看、删除、使用数据库"></a>创建、查看、删除、使用数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建数据库命令</span></span><br><span class="line"><span class="keyword">create</span> databse databasename;</span><br><span class="line"></span><br><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">CREATE</span> DATABASE DYJ <span class="keyword">DEFAULT</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8;  </span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.041</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 显示数据库</span></span><br><span class="line"><span class="keyword">show</span> databses;</span><br><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">show</span> databases;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------+</span></span><br><span class="line"><span class="operator">|</span> Database             <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------+</span></span><br><span class="line"><span class="operator">|</span> information_schema   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">000</span>_test             <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">001</span>_test             <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">15</span>shuangyu           <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> AX                   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> CSCS                 <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> DYJ                  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------------+</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 数据库删除(慎用)</span></span><br><span class="line"><span class="keyword">drop</span> database databasename;</span><br><span class="line"></span><br><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">drop</span> database DYJ;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.040</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除表（慎用）</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> tablename;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 使用数据库（-A快速启动）</span></span><br><span class="line">use databasename;</span><br><span class="line"></span><br><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> use diancan;</span><br><span class="line">Reading <span class="keyword">table</span> information <span class="keyword">for</span> completion <span class="keyword">of</span> <span class="keyword">table</span> <span class="keyword">and</span> <span class="keyword">column</span> names</span><br><span class="line">You can turn off this feature <span class="keyword">to</span> <span class="keyword">get</span> a quicker startup <span class="keyword">with</span> <span class="operator">-</span>A</span><br><span class="line"></span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 显示数据表</span></span><br><span class="line"><span class="keyword">show</span> tables;</span><br><span class="line"></span><br><span class="line">MySQL [diancan]<span class="operator">&gt;</span> <span class="keyword">show</span> tables;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+</span></span><br><span class="line"><span class="operator">|</span> Tables_in_diancan  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+</span></span><br><span class="line"><span class="operator">|</span> admin_info         <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> comment            <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> food               <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> hibernate_sequence <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> leimu              <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> picture_info       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_info          <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> wx_order_detail    <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> wx_order_root      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+</span></span><br><span class="line"><span class="number">9</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.038</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看表结构</span></span><br><span class="line"><span class="keyword">desc</span> tablename;</span><br><span class="line"></span><br><span class="line">MySQL [diancan]<span class="operator">&gt;</span> <span class="keyword">desc</span> admin_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------------+--------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field       <span class="operator">|</span> Type         <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------+--------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> admin_id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> admin_type  <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> create_time <span class="operator">|</span> datetime(<span class="number">6</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> password    <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">255</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> phone       <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">255</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> update_time <span class="operator">|</span> datetime(<span class="number">6</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> username    <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">255</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------+--------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="number">7</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.044</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看创建数据库SQL语句</span></span><br><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> database DYJ;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------+--------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Database <span class="operator">|</span> <span class="keyword">Create</span> Database                                              <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+--------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> DYJ      <span class="operator">|</span> <span class="keyword">CREATE</span> DATABASE `DYJ` <span class="comment">/*!40100 DEFAULT CHARACTER SET utf8 */</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+--------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.043</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- COLLATE utf8_general_ci 数据库校对规则</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看数据表SQL语句</span></span><br><span class="line">MySQL [diancan]<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> admin_info;</span><br><span class="line"><span class="operator">|</span> <span class="keyword">Table</span>      <span class="operator">|</span> <span class="keyword">Create</span> <span class="keyword">Table</span>      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+----------------------------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> admin_info <span class="operator">|</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `admin_info` (</span><br><span class="line">  `admin_id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `admin_type` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `create_time` datetime(<span class="number">6</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `password` <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `phone` <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `update_time` datetime(<span class="number">6</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `username` <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`admin_id`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+----------------------------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.045</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL数据类型"><a href="#MySQL数据类型" class="headerlink" title="MySQL数据类型"></a>MySQL数据类型</h3><h5 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h5><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">范围（有符号）</th>
+<th align="left">范围（无符号）</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">TINYINT</td>
+<td align="left">1 byte</td>
+<td align="left">(-128，127)</td>
+<td align="left">(0，255)</td>
+<td align="left">小整数值</td>
+</tr>
+<tr>
+<td align="left">SMALLINT</td>
+<td align="left">2 bytes</td>
+<td align="left">(-32 768，32 767)</td>
+<td align="left">(0，65 535)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">MEDIUMINT</td>
+<td align="left">3 bytes</td>
+<td align="left">(-8 388 608，8 388 607)</td>
+<td align="left">(0，16 777 215)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">INT或INTEGER</td>
+<td align="left">4 bytes</td>
+<td align="left">(-2 147 483 648，2 147 483 647)</td>
+<td align="left">(0，4 294 967 295)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">BIGINT</td>
+<td align="left">8 bytes</td>
+<td align="left">(-9,223,372,036,854,775,808，9 223 372 036 854 775 807)</td>
+<td align="left">(0，18 446 744 073 709 551 615)</td>
+<td align="left">极大整数值</td>
+</tr>
+<tr>
+<td align="left">FLOAT</td>
+<td align="left">4 bytes</td>
+<td align="left">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td align="left">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td align="left">单精度 浮点数值</td>
+</tr>
+<tr>
+<td align="left">DOUBLE</td>
+<td align="left">8 bytes</td>
+<td align="left">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td align="left">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td align="left">双精度 浮点数值</td>
+</tr>
+<tr>
+<td align="left">DECIMAL</td>
+<td align="left">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td align="left">依赖于M和D的值</td>
+<td align="left">依赖于M和D的值</td>
+<td align="left">小数值</td>
+</tr>
+</tbody></table>
+<p>有符号和无符号（UNSIGNED）</p>
+<ul>
+<li><p>有符号可以表示负数、0以及正数</p>
+</li>
+<li><p>无符号只能表示0或负数</p>
+</li>
+</ul>
+<p>FLOAT（10，2）</p>
+<ul>
+<li><p>FLOAT类型，总长度为10，小数点后两位为2</p>
+</li>
+<li><p>DOUBLE和DECIMAL类似超出范围四舍五入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `Score`( `s_id` <span class="type">VARCHAR</span>(<span class="number">20</span>), `c_id`  <span class="type">VARCHAR</span>(<span class="number">20</span>), `s_score` <span class="keyword">DOUBLE</span>(<span class="number">5</span>,<span class="number">2</span>), <span class="keyword">PRIMARY</span> KEY(`s_id`,`c_id`) );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.076</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> Score <span class="keyword">Values</span>(<span class="string">&#x27;01&#x27;</span>,<span class="string">&#x27;01&#x27;</span>,<span class="string">&#x27;12.123&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.045</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> Score;</span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+---------+</span></span><br><span class="line"><span class="operator">|</span> s_id <span class="operator">|</span> c_id <span class="operator">|</span> s_score <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">01</span>   <span class="operator">|</span> <span class="number">01</span>   <span class="operator">|</span>   <span class="number">12.12</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+---------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.038</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Float和Double会丢精度，相对DECIMAL较好</strong></p>
+</li>
+</ul>
+<h5 id="时间与日期类型"><a href="#时间与日期类型" class="headerlink" title="时间与日期类型"></a>时间与日期类型</h5><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小 ( bytes)</th>
+<th align="left">范围</th>
+<th align="left">格式</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DATE</td>
+<td align="left">3</td>
+<td align="left">1000-01-01/9999-12-31</td>
+<td align="left">YYYY-MM-DD</td>
+<td align="left">日期值</td>
+</tr>
+<tr>
+<td align="left">TIME</td>
+<td align="left">3</td>
+<td align="left">‘-838:59:59’/‘838:59:59’</td>
+<td align="left">HH:MM:SS</td>
+<td align="left">时间值或持续时间</td>
+</tr>
+<tr>
+<td align="left">YEAR</td>
+<td align="left">1</td>
+<td align="left">1901/2155</td>
+<td align="left">YYYY</td>
+<td align="left">年份值</td>
+</tr>
+<tr>
+<td align="left">DATETIME</td>
+<td align="left">8</td>
+<td align="left">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td align="left">YYYY-MM-DD HH:MM:SS</td>
+<td align="left">混合日期和时间值</td>
+</tr>
+<tr>
+<td align="left">TIMESTAMP</td>
+<td align="left">4</td>
+<td align="left">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td align="left">YYYYMMDD HHMMSS</td>
+<td align="left">混合日期和时间值，时间戳</td>
+</tr>
+</tbody></table>
+<p>TIMESTAMP和DATETIME区别</p>
+<table>
+<thead>
+<tr>
+<th>TIMESTAMP</th>
+<th>DATETIME</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储空间：TIMESTAMP占用4个字节</td>
+<td>存储空间：DATETIME占用8个字节</td>
+</tr>
+<tr>
+<td>TIMESTAMP实际记录的是1970-01-01 00:00:01.000000到2038-01-19 03：14：07.999999，受时区影响</td>
+<td>时区：DATETIME不受时区影响</td>
+</tr>
+<tr>
+<td>时间范围：‘1970-01-01 00:00:01’ UTC ~ ‘2038-01-19 03:14:07’ UTC</td>
+<td>时间范围:‘1000-01-01 00:00:00.000000’ ~ ‘9999-12-31 23:59:59.999999’</td>
+</tr>
+<tr>
+<td>存储方式：对于TIMESTAMP，它把客户端插入的时间从当前时区转化为UTC（世界标准时间）进行存储。查询时，将其又转化为客户端当前时区进行返回(中国属于东八区，所以应该是UTC+8）。</td>
+<td>存储方式：而对于DATETIME，不做任何改变，基本上是原样输入和输出。</td>
+</tr>
+</tbody></table>
+<h5 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h5><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CHAR</td>
+<td align="left">0-255 bytes</td>
+<td align="left">定长字符串</td>
+</tr>
+<tr>
+<td align="left">VARCHAR</td>
+<td align="left">0-65535 bytes</td>
+<td align="left">变长字符串</td>
+</tr>
+<tr>
+<td align="left">TINYBLOB</td>
+<td align="left">0-255 bytes</td>
+<td align="left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td align="left">TINYTEXT</td>
+<td align="left">0-255 bytes</td>
+<td align="left">短文本字符串</td>
+</tr>
+<tr>
+<td align="left">BLOB</td>
+<td align="left">0-65 535 bytes</td>
+<td align="left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td align="left">TEXT</td>
+<td align="left">0-65 535 bytes</td>
+<td align="left">长文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMBLOB</td>
+<td align="left">0-16 777 215 bytes</td>
+<td align="left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMTEXT</td>
+<td align="left">0-16 777 215 bytes</td>
+<td align="left">中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGBLOB</td>
+<td align="left">0-4 294 967 295 bytes</td>
+<td align="left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGTEXT</td>
+<td align="left">0-4 294 967 295 bytes</td>
+<td align="left">极大文本数据</td>
+</tr>
+</tbody></table>
+<p>CHAR与VARCHAR</p>
+<ol>
+<li><p><strong>CHAR</strong>的长度是不可变的，而<strong>VARCHAR</strong>的长度是可变的，也就是说，定义一个CHAR[10]和VARCHAR[10],如果存进去的是‘ABCD’, 那么CHAR所占的长度依然为10，除了字符‘ABCD’外，后面跟六个空格，而VARCHAR的长度变为4了，取数据的时候，CHAR类型的要用trim()去掉多余的空格，而VARCHAR类型是不需要的。</p>
+</li>
+<li><p><strong>CHAR</strong>的存取速度要比<strong>VARCHAR</strong>快得多，因为其长度固定，方便程序的存储与查找；但是CHAR为此付出的是空间的代价，因为其长度固定，所以难免会有多余的空格占位符占据空间，可以说是以空间换取时间效率，而VARCHAR则是以空间效率为首位的。</p>
+</li>
+<li><p><strong>CHAR</strong>的存储方式是，一个英文字符（ASCII）占用1个字节，一个汉字占用两个字节；而<strong>VARCHAR</strong>的存储方式是，一个英文字符占用2个字节，一个汉字也占用2个字节</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `Student`(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> `s_id` <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> `s_name` <span class="type">CHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> `s_birth` <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> `s_sex` <span class="type">VARCHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">PRIMARY</span> KEY(`s_id`)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.064</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">Values</span> (<span class="string">&#x27;001&#x27;</span>,<span class="string">&#x27;mengxun&#x27;</span>,<span class="string">&#x27;1990-01-01&#x27;</span>,<span class="string">&#x27;male&#x27;</span>); </span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.046</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">Values</span> (<span class="string">&#x27;002&#x27;</span>,<span class="string">&#x27;dyj&#x27;</span>,<span class="string">&#x27;1990-01-01&#x27;</span>,<span class="string">&#x27;male&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.045</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> Student;</span><br><span class="line"><span class="operator">+</span><span class="comment">------+---------+------------+-------+</span></span><br><span class="line"><span class="operator">|</span> s_id <span class="operator">|</span> s_name  <span class="operator">|</span> s_birth    <span class="operator">|</span> s_sex <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+---------+------------+-------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">001</span>  <span class="operator">|</span> mengxun <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="operator">|</span> male  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">002</span>  <span class="operator">|</span> dyj     <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="operator">|</span> male  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+---------+------------+-------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.039</span> sec)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tablename</span><br><span class="line">(</span><br><span class="line">    fieldnamae1 datatype[(宽度) 约束条件];</span><br><span class="line">    fieldnamae2 datatype[(宽度) 约束条件];</span><br><span class="line">    fieldnamae3 datatype[(宽度) 约束条件];</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>约束条件就是在给列加一些约束，使该字段存储的值更加符合我们的预期</p>
+<p>常用约束条件有以下这些：</p>
+<ul>
+<li><p>UNSIGNED：无符号，值从0开始，无负数</p>
+</li>
+<li><p>ZEROFILL：零填充，会自动使用无符号位。零填充指的是位数固定，如果数值长度不足字段类型的长度，则使用0来填充</p>
+</li>
+<li><p>NOT NULL：非空约束，表示该字段的值不能为空<strong>（多个约束同时出现，非空约束放在最后面）</strong></p>
+</li>
+<li><p>DEFAULT：表示如果插入数据时没有给该字段赋值，那么就是用该默认值</p>
+</li>
+<li><p>UNIQUE：限制字段的值唯一</p>
+</li>
+<li><p>PRIMARY KEY：主键约束，表示唯一标识，不能为空，且一个标只有一个主键。</p>
+<p>AUTO_INCREMENT：自增长，只能用于数值列，默认起始值从1开始，每次增长1</p>
+</li>
+</ul>
+<h3 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h3><p><code>ALTER TABLE tablename ADD column 列的数据格式 约束</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 默认自动添加到数据表字段的末尾</span></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> order_info <span class="keyword">add</span> id1 <span class="type">int</span>;      </span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.081</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">desc</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field        <span class="operator">|</span> Type                      <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>             <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> order_id     <span class="operator">|</span> <span class="type">int</span>(<span class="number">10</span>) unsigned zerofill <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> price        <span class="operator">|</span> <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)             <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)               <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> product_id   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> datetime     <span class="operator">|</span> datetime                  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_id      <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span>  </span><br><span class="line"><span class="operator">|</span> id1          <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.040</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果要在第一列添加，最后面加 FIRST。</span></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> order_info <span class="keyword">add</span> id <span class="type">int</span> <span class="keyword">first</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.087</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">desc</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field        <span class="operator">|</span> Type                      <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>             <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> order_id     <span class="operator">|</span> <span class="type">int</span>(<span class="number">10</span>) unsigned zerofill <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> price        <span class="operator">|</span> <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)             <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)               <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> product_id   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> datetime     <span class="operator">|</span> datetime                  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_id      <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id           <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="number">7</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.038</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果要加在某一列的后面，在最后面加个 AFTER column 约束</span></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> order_info <span class="keyword">add</span> id2 <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span> after price;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.078</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">desc</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field        <span class="operator">|</span> Type                      <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>             <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> order_id     <span class="operator">|</span> <span class="type">int</span>(<span class="number">10</span>) unsigned zerofill <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> price        <span class="operator">|</span> <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)             <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id2          <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)               <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> product_id   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> datetime     <span class="operator">|</span> datetime                  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_id      <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.045</span> sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>删除数据表的某一列</p>
+<p><code>ALTER TABLE tablename drop column</code></p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> order_info <span class="keyword">drop</span> id;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.087</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line"> MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">desc</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field        <span class="operator">|</span> Type                      <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>             <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> order_id     <span class="operator">|</span> <span class="type">int</span>(<span class="number">10</span>) unsigned zerofill <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> price        <span class="operator">|</span> <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)             <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)               <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> product_id   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> datetime     <span class="operator">|</span> datetime                  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_id      <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id1          <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="number">7</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.043</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改列的类型和名称</li>
+</ol>
+<p><code>ALTER TABLE tablename MODIFY column 数据格式 [约束]</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> order_info modify id2 <span class="type">float</span>(<span class="number">10</span>,<span class="number">2</span>) ZEROFILL <span class="keyword">null</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.101</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">desc</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+-------------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field        <span class="operator">|</span> Type                          <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>             <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+-------------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> order_id     <span class="operator">|</span> <span class="type">int</span>(<span class="number">10</span>) unsigned zerofill     <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> price        <span class="operator">|</span> <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)                 <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id2          <span class="operator">|</span> <span class="type">float</span>(<span class="number">10</span>,<span class="number">2</span>) unsigned zerofill <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> product_id   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                       <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> datetime     <span class="operator">|</span> datetime                      <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_id      <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                       <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id1          <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                       <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+-------------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.042</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p><code>ALTER TABLE tablename CHANGE 旧列名 新列名 数据格式</code> (覆盖式操作)</p>
+   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> order_info change id2 id3 <span class="type">int</span>(<span class="number">3</span>); </span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.099</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line">   </span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">desc</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field        <span class="operator">|</span> Type                      <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>             <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> order_id     <span class="operator">|</span> <span class="type">int</span>(<span class="number">10</span>) unsigned zerofill <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> price        <span class="operator">|</span> <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)             <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id3          <span class="operator">|</span> <span class="type">int</span>(<span class="number">3</span>)                    <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)               <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> product_id   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> datetime     <span class="operator">|</span> datetime                  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_id      <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id1          <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.040</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h3><ol>
+<li>增</li>
+</ol>
+<p><code>Inster into tablename (column1, column2, column3, ...) values (value1, value2, value3, ...)</code></p>
+<ul>
+<li>插入的数据应与字段的数据类型相同</li>
+<li>数据的大小应在列的规定范围内，例如：不能将一个长度为80的字符串加入到长度为40列中</li>
+<li>在values中列出的数据位置必须与被加入的列的排列位置相对应</li>
+<li>字符应包含在引号中</li>
+<li>列名不加单双引号</li>
+<li>插入的数据与列名数量相同，可以不写列名</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">desc</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field        <span class="operator">|</span> Type                      <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>             <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> order_id     <span class="operator">|</span> <span class="type">int</span>(<span class="number">10</span>) unsigned zerofill <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> price        <span class="operator">|</span> <span class="type">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)             <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)               <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> product_id   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> datetime     <span class="operator">|</span> datetime                  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user_id      <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)                   <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>                <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+---------------------------+------+-----+---------------------+-------+</span></span><br><span class="line"><span class="number">6</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.051</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> order_info (order_id, price, order_status, product_id, datetime, user_id) <span class="keyword">values</span> (<span class="string">&#x27;01&#x27;</span>,<span class="number">4.2</span>,<span class="string">&#x27;nopay&#x27;</span>,<span class="number">3306</span>,<span class="string">&#x27;2009-01-01 00:00:00&#x27;</span>,<span class="number">75651</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.041</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.039</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> order_info <span class="keyword">values</span> (<span class="string">&#x27;03&#x27;</span>,<span class="number">4.2</span>,<span class="string">&#x27;nopay&#x27;</span>,<span class="number">3306</span>,<span class="string">&#x27;2009-01-01 00:00:00&#x27;</span>,<span class="number">75651</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.041</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> order_info <span class="keyword">values</span> (<span class="string">&#x27;02&#x27;</span>,<span class="number">4.2</span>,<span class="string">&#x27;nopay&#x27;</span>,<span class="number">3306</span>,<span class="string">&#x27;2009-01-01 00:00:00&#x27;</span>,<span class="number">75651</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.043</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000002</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000003</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.040</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查</li>
+</ol>
+<p><code>SELECT * FROM tablename</code></p>
+<p><code>SELECT field1, field2, ... from tablename</code></p>
+<ul>
+<li>Select 后面跟查询哪些列的数据</li>
+<li>*号代表查询所有列，field指定列名</li>
+<li>From指定查询哪张表</li>
+<li>别名 <code>SELECT field as 别名 from 表名</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.039</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> product_id, price <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+</span></span><br><span class="line"><span class="operator">|</span> product_id <span class="operator">|</span> price <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.038</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>改</li>
+</ol>
+<p><code>update 表名 set 列名称=新值 where 列名称=某值</code></p>
+<ul>
+<li>UPDATE 语法可以用新值更新原有表行中的各列</li>
+<li>SET子句指示要修改哪些列和要给予哪些值</li>
+<li>WHERE子句指定应更新哪些行。如果没有WHERE子句，更新所有行</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000002</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000003</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.044</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> update order_info <span class="keyword">set</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span> <span class="keyword">where</span> order_id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.041</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">1</span>  Changed: <span class="number">1</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000002</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000003</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.039</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> update order_info <span class="keyword">set</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span>;</span><br><span class="line">Query OK, <span class="number">2</span> <span class="keyword">rows</span> affected (<span class="number">0.042</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">3</span>  Changed: <span class="number">2</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000002</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000003</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.042</span> sec)</span><br><span class="line"></span><br><span class="line"><span class="comment">--更改多个值</span></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> update order_info <span class="keyword">set</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span>, datetime <span class="operator">=</span> <span class="string">&#x27;1990-01-01&#x27;</span> <span class="keyword">where</span> order_id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.050</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">1</span>  Changed: <span class="number">1</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000002</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000003</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.036</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>删 <strong>(慎用)</strong></li>
+</ol>
+<p><code>delete from tablename where 条件</code></p>
+<ul>
+<li>如果不适用where子句，将删除表中所有数据</li>
+<li>Delete语句不能删除某一列的值（可使用update）</li>
+<li>使用delete语句仅删除符合where条件的行的数据，不删除表中其他行和表本身</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">delete</span> <span class="keyword">from</span> order_info <span class="keyword">where</span> order_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.051</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.50</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3894</span> <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">23245</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000003</span> <span class="operator">|</span>  <span class="number">4.20</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3306</span> <span class="operator">|</span> <span class="number">2009</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>   <span class="number">75651</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+---------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.038</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">delete</span> <span class="keyword">from</span> order_info;</span><br><span class="line">Query OK, <span class="number">2</span> <span class="keyword">rows</span> affected (<span class="number">0.041</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="keyword">Empty</span> <span class="keyword">set</span> (<span class="number">0.040</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SELECT语句——WHERE子句"><a href="#SELECT语句——WHERE子句" class="headerlink" title="SELECT语句——WHERE子句"></a>SELECT语句——WHERE子句</h3><p><img src="select.png"></p>
+<p><strong>null不参与模糊匹配</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 练习</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1. 满足价格大于等于9的所有信息</span></span><br><span class="line"><span class="comment">2. 查找满足product_id在1002和1003之间的</span></span><br><span class="line"><span class="comment">3. 查找user_id在1、3、5这三个数内的信息</span></span><br><span class="line"><span class="comment">4. 查找订单状态是已支付的信息</span></span><br><span class="line"><span class="comment">5. 查找用户名类似于已li开头的信息</span></span><br><span class="line"><span class="comment">6. 查找用户名中第二个字母是h的信息</span></span><br><span class="line"><span class="comment">7. 查找用户名中第二个字母不是h的信息</span></span><br><span class="line"><span class="comment">8. 查找用户名中最后一个字母以i结尾的信息</span></span><br><span class="line"><span class="comment">9. 查找价格大于8，并且订单状态是已支付的所有信息</span></span><br><span class="line"><span class="comment">10.查找用户表中user_nick为null的信息</span></span><br><span class="line"><span class="comment">11.查找用户表中user_nick为 not null的信息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info_table <span class="keyword">where</span> price <span class="operator">&gt;=</span> <span class="number">9</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info_table <span class="keyword">where</span> product_id <span class="keyword">between</span> <span class="number">1002</span> <span class="keyword">and</span> <span class="number">1003</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info_table <span class="keyword">where</span> user_id <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info_table <span class="keyword">where</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_name <span class="keyword">like</span> <span class="string">&#x27;li%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_name <span class="keyword">like</span> <span class="string">&#x27;_h%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_name <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;_h%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_name <span class="keyword">like</span> <span class="string">&#x27;%i&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info_table <span class="keyword">where</span> price <span class="operator">&gt;</span> <span class="number">8</span> <span class="keyword">and</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_nick <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_nick <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据表排序、聚合、分组"><a href="#数据表排序、聚合、分组" class="headerlink" title="数据表排序、聚合、分组"></a>数据表排序、聚合、分组</h3><h4 id="1-排序子句"><a href="#1-排序子句" class="headerlink" title="1. 排序子句"></a>1. 排序子句</h4><p>使用order by 子句对查询结果进行排序</p>
+<p><code>order by 指定排序的列 [Asc 升序 默认] Desc(descent降序)</code></p>
+<p>ORDER BY 子句一般位于SELECT语句结尾，LIMIT语句之前</p>
+<h4 id="2-常用聚合函数"><a href="#2-常用聚合函数" class="headerlink" title="2. 常用聚合函数"></a>2. 常用聚合函数</h4><ul>
+<li><p>DISTINCT 对某一列数据去重</p>
+<p><code>SELECT DISTINCT 列名 FROM 表名</code> 显示此列不重复的数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+-------------+</span></span><br><span class="line"><span class="operator">|</span> order_id   <span class="operator">|</span> price <span class="operator">|</span> order_status <span class="operator">|</span> product_id <span class="operator">|</span> datetime            <span class="operator">|</span> user_id     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+-------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000001</span> <span class="operator">|</span>  <span class="number">4.50</span> <span class="operator">|</span> nopay        <span class="operator">|</span>       <span class="number">3894</span> <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="number">23245</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000002</span> <span class="operator">|</span>  <span class="number">8.67</span> <span class="operator">|</span> nopay        <span class="operator">|</span>      <span class="number">32894</span> <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span> <span class="number">-1234567890</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000003</span> <span class="operator">|</span>  <span class="number">3.67</span> <span class="operator">|</span> pay          <span class="operator">|</span>       <span class="number">3894</span> <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="number">23245</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0000000005</span> <span class="operator">|</span>  <span class="number">8.67</span> <span class="operator">|</span> nopay        <span class="operator">|</span>      <span class="number">32894</span> <span class="operator">|</span> <span class="number">1990</span><span class="number">-01</span><span class="number">-01</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> <span class="operator">|</span>       <span class="number">22245</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+-------+--------------+------------+---------------------+-------------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.038</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="keyword">distinct</span> order_status <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+</span></span><br><span class="line"><span class="operator">|</span> order_status <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+</span></span><br><span class="line"><span class="operator">|</span> nopay        <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> pay          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.040</span> sec)</span><br></pre></td></tr></table></figure></li>
+<li><p>COUNT 统计总行数</p>
+<ul>
+<li>count(*) ：包括所有列，返回表中的总行数，在统计结果的时候，不会忽略列值为NULL的行数</li>
+<li>count(1)：包括所有列，1表示一个固定值，没有实际含义，在统计结果的时候，不会忽略列值为NULL的行数。和count(*)区别是执行效率不同</li>
+<li>count(列名)：只包括列名指定列，返回指定列的行数，在统计结果的时候，不统计列值为NULL的行数</li>
+<li>count (DISTINCT 列名) 返回指定列的不重复的行数，在统计结果的时候，会忽略值为NULL的行数(不包括空字符串和0)，即列值为NULL的行数不统计在内</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------+</span></span><br><span class="line"><span class="operator">|</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+</span></span><br><span class="line"><span class="operator">|</span>        <span class="number">4</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.041</span> sec)</span><br><span class="line"></span><br><span class="line">MySQL [DYJ]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> order_status) <span class="keyword">from</span> order_info;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> order_status) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------------+</span></span><br><span class="line"><span class="operator">|</span>                            <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.042</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>count(*) &amp; count(1) &amp; count (column) 执行效率比较：</p>
+<ul>
+<li>如果列为主键，count (column) 效率优于count(1)</li>
+<li>如果列不为主键，count(1)效率优于count(column)</li>
+<li>如果表中存在主键，count(主键列名)效率最优</li>
+<li>如果表中只有一列，则count(*)效率最忧</li>
+<li>如果表有多列，且不存在主键，则count(1)效率优于count(*)</li>
+</ul>
+</li>
+</ul>
+<p>常用聚合函数</p>
+<ul>
+<li>最大值、最小值——MAX/MIN</li>
+<li>MAX/MIN函数返回满足where条件的一列的最大值/最小值</li>
+<li>AVG函数返回满足where条件俺的列平均值</li>
+<li>SUM函数返回满足where条件的一列求和</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(<span class="keyword">column</span>) <span class="keyword">from</span> tablename</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MIN</span>(<span class="keyword">column</span>) <span class="keyword">from</span> tablename</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(<span class="keyword">column</span>) <span class="keyword">from</span> tablename</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(<span class="keyword">column</span>) <span class="keyword">from</span> tablename</span><br><span class="line"><span class="comment">-- 也可跟where子句</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MySQL [mb21030502]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="built_in">avg</span>(price),<span class="built_in">sum</span>(price),<span class="built_in">min</span>(price),<span class="built_in">max</span>(price) <span class="keyword">from</span> order_info_table;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+------------+------------+------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="built_in">avg</span>(price) <span class="operator">|</span> <span class="built_in">sum</span>(price) <span class="operator">|</span> <span class="built_in">min</span>(price) <span class="operator">|</span> <span class="built_in">max</span>(price) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+------------+------------+------------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">11.990000</span> <span class="operator">|</span>     <span class="number">119.90</span> <span class="operator">|</span>       <span class="number">4.99</span> <span class="operator">|</span>      <span class="number">29.99</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+------------+------------+------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.042</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 练习</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1. 查找订单表中最大的价格，查找订单表中最小的价格</span></span><br><span class="line"><span class="comment">2. 查找订单表中user_id=2的最小价格</span></span><br><span class="line"><span class="comment">3. 分别列出订单表中user_id=2的最小价格和最大价格</span></span><br><span class="line"><span class="comment">4. 分别列出订单表中user_id=2的最小价格和最大价格，并把最小价格的展示结果的列名改为&quot;min_price&quot;</span></span><br><span class="line"><span class="comment">5. 求订单表的价格的平均值，求订单表中user_id=2的价格的平均值</span></span><br><span class="line"><span class="comment">6. 分别列出订单表中user_id=2的价格的平均值、最小值、最大值</span></span><br><span class="line"><span class="comment">7. 求订单表中user_id=1的价格的总和</span></span><br><span class="line"><span class="comment">8. 求订单表中user_id=1或者user_id=3的价格总和</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">max</span>(price) <span class="built_in">min</span>(price) <span class="keyword">from</span> order_info_table;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(price) <span class="keyword">from</span> order_info_table <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">min</span>(price),<span class="built_in">max</span>(price) <span class="keyword">from</span> order_info_table <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">max</span>(price),<span class="built_in">min</span>(price) <span class="keyword">as</span> min_price <span class="keyword">from</span> order_info_table <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(price), <span class="built_in">min</span>(price), <span class="built_in">max</span>(price) <span class="keyword">from</span> order_info_table <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(price) <span class="keyword">from</span> order_info_table <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(price) <span class="keyword">from</span> order_info_table <span class="keyword">where</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>LIMIT用法</p>
+<p><code>select * from tablename limit m,n</code></p>
+<p>m指从哪一行开始，0为第一行。n指第m+1行开始，取n条</p>
+<p><code>select * from tablename limit 0,2</code>从第1行开始，显示2行数据</p>
+<p>  如果只给定一个参数，它表示返回最大值的行数目 <code>select * from tablename limit 5</code> 返回前5行。即LIMIT n等价于 LIMIT 0,n</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- \G 将一行数据转化成列的方式展示</span></span><br><span class="line">MySQL [mb21030502]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> order_info_table limit <span class="number">1</span>,<span class="number">4</span> \G;</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">1.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">    order_id: <span class="number">0000000002</span></span><br><span class="line">       price: <span class="number">9.99</span></span><br><span class="line">order_status: nopay</span><br><span class="line">  product_id: <span class="number">1002</span></span><br><span class="line">     created: <span class="number">2019</span><span class="number">-09</span><span class="number">-26</span> <span class="number">10</span>:<span class="number">25</span>:<span class="number">26</span></span><br><span class="line">     user_id: <span class="number">1</span></span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">2.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">    order_id: <span class="number">0000000003</span></span><br><span class="line">       price: <span class="number">4.99</span></span><br><span class="line">order_status: nopay</span><br><span class="line">  product_id: <span class="number">1001</span></span><br><span class="line">     created: <span class="number">2019</span><span class="number">-09</span><span class="number">-25</span> <span class="number">10</span>:<span class="number">25</span>:<span class="number">26</span></span><br><span class="line">     user_id: <span class="number">2</span></span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">3.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">    order_id: <span class="number">0000000004</span></span><br><span class="line">       price: <span class="number">9.99</span></span><br><span class="line">order_status: nopay</span><br><span class="line">  product_id: <span class="number">1002</span></span><br><span class="line">     created: <span class="number">2019</span><span class="number">-09</span><span class="number">-24</span> <span class="number">10</span>:<span class="number">25</span>:<span class="number">26</span></span><br><span class="line">     user_id: <span class="number">2</span></span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">4.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">    order_id: <span class="number">0000000005</span></span><br><span class="line">       price: <span class="number">19.99</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>GROUP BY</li>
+</ol>
+<p>使用group by子句对列进行分组，having通常跟在group by后，用于分组</p>
+<ul>
+<li>不加having过滤  <code>select field 聚合函数 from tablename where 子句 group by field</code></li>
+<li>加having过滤  <code>select field 聚合函数 from tablename where 子句 group by having 聚合函数 过滤条件</code></li>
+<li>group by 只能展示分组的列名和聚合函数的结果，因为其余列已经基于分组这一列合并</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 联合分组</span></span><br><span class="line">MySQL [mb21030502]<span class="operator">&gt;</span> <span class="keyword">select</span> product_id,order_status,<span class="built_in">count</span>(<span class="number">1</span>) <span class="keyword">from</span> order_info_table  <span class="keyword">group</span> <span class="keyword">by</span> product_id,order_status;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+--------------+----------+</span></span><br><span class="line"><span class="operator">|</span> product_id <span class="operator">|</span> order_status <span class="operator">|</span> <span class="built_in">count</span>(<span class="number">1</span>) <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+--------------+----------+</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">1001</span> <span class="operator">|</span> nopay        <span class="operator">|</span>        <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">1001</span> <span class="operator">|</span> pay          <span class="operator">|</span>        <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">1002</span> <span class="operator">|</span> nopay        <span class="operator">|</span>        <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">1002</span> <span class="operator">|</span> pay          <span class="operator">|</span>        <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">1003</span> <span class="operator">|</span> pay          <span class="operator">|</span>        <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+--------------+----------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.039</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--练习</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">1. 首先筛选状态为已支付的订单，然后按照user_id分组，分组后每一组对支付金额进行求 和，最终展示user_id和对应组求和金额</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">2. 首先筛选状态为支付的订单，然后按照user_id分组，分组后每一组对支付金额进行求和，再过滤求和金额大于10的，最终展示user_id和对应组的求和金额</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> user_id,<span class="built_in">sum</span>(price) <span class="keyword">from</span> order_info_table <span class="keyword">where</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span> <span class="keyword">group</span> <span class="keyword">by</span> user_id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> user_id,<span class="built_in">sum</span>(price) <span class="keyword">from</span> order_info_table <span class="keyword">where</span> order_status <span class="operator">=</span> <span class="string">&#x27;pay&#x27;</span> <span class="keyword">group</span> <span class="keyword">by</span> user_id <span class="keyword">having</span> <span class="built_in">sum</span>(price) <span class="operator">&gt;</span> <span class="number">10</span> [<span class="keyword">order</span> <span class="keyword">by</span> <span class="built_in">sum</span>(price) <span class="keyword">desc</span>];</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>数据表连接查询和子查询</li>
+</ol>
+<ul>
+<li><p>两张表连接查询</p>
+<ul>
+<li><p>INNER JOIN</p>
+<ul>
+<li>获取两个表字段匹配关系的行的所有信息</li>
+<li><code>SELECT * FROM tablename [a] INNER JOIN tablename [b] ON [a].column = [b].column</code></li>
+</ul>
+</li>
+<li><p>LEFT JOIN</p>
+<ul>
+<li>获取左表所有行信息，即使右表没有对应匹配的行信息，右表没有的部分用NULL代替</li>
+<li><code>SELECT * FROM tablename [a] LEFT JOIN tablename [b] ON [a].column = [b].column</code></li>
+</ul>
+</li>
+<li><p>RIGHT JOIN</p>
+<ul>
+<li>获取右表所有行信息，即使左表没有对应匹配的行信息，左表没有的部分用NULL代替</li>
+<li><code>SELECT * FROM tablename [a] RIGHT JOIN tablename [b] ON [a].column = [b].column</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>子查询</p>
+<p>且套在其他查询中的查询</p>
+<p><code>SELECT column1 from table1 where column column2 in(select column2 from table2 where column3 = 某某)</code></p>
+<p><strong>一般在子查询中，程序优先运行在嵌套最内层的语句，再运行外层。因此在写子查询语句的时候，可以先测试内层的子查询语句是否输出了想要的内容，再一层层往外测试，增加子查询正确率</strong></p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 练习</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 1. 查询订单表中的价格大于10元的用户的昵称（小提示：用户昵称在用户表中，订单价格在订单表中）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> b.user_nick <span class="keyword">from</span> user_info_table b <span class="keyword">INNER</span> <span class="keyword">JOIN</span> order_info_table a <span class="keyword">ON</span> b.user_id <span class="operator">=</span> a.user_id <span class="keyword">where</span> a.price <span class="operator">&gt;</span> <span class="number">10</span>;</span><br><span class="line"><span class="keyword">select</span> user_nick <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_id <span class="keyword">in</span> (<span class="keyword">select</span> user_id <span class="keyword">from</span> order_info_table <span class="keyword">where</span> price <span class="operator">&gt;</span> <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 2.查询用户名以l开头的用户买过的所有订单id和对应价格（小提示：订单id和对应价格在订单表中，用户名在用户表中）</span></span><br><span class="line"><span class="keyword">select</span> a.order_id, a.price <span class="keyword">from</span> order_info_table a <span class="keyword">where</span> a.user_id <span class="keyword">in</span> (<span class="keyword">select</span> user_id  <span class="keyword">from</span> user_info_table <span class="keyword">where</span> user_name <span class="keyword">like</span> &quot;l%&quot;);</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/21/%E9%93%BE%E8%A1%A8/" rel="prev" title="链表">
+      <i class="fa fa-chevron-left"></i> 链表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/24/%E9%98%9F%E5%88%97/" rel="next" title="队列">
+      队列 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">什么是数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ER%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">ER图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E8%AF%AD%E6%B3%95%E7%89%B9%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">SQL语法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95MySQL%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">登录MySQL的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E7%BB%83%E4%B9%A0%E7%8E%AF%E5%A2%83"><span class="nav-number">5.</span> <span class="nav-text">搭建练习环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E3%80%81%E6%9F%A5%E7%9C%8B%E3%80%81%E5%88%A0%E9%99%A4%E3%80%81%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">创建、查看、删除、使用数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">MySQL数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.0.1.</span> <span class="nav-text">数值类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E4%B8%8E%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.0.2.</span> <span class="nav-text">时间与日期类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.0.3.</span> <span class="nav-text">字符串类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">9.</span> <span class="nav-text">约束条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8"><span class="nav-number">10.</span> <span class="nav-text">修改表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="nav-number">11.</span> <span class="nav-text">增删改查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SELECT%E8%AF%AD%E5%8F%A5%E2%80%94%E2%80%94WHERE%E5%AD%90%E5%8F%A5"><span class="nav-number">12.</span> <span class="nav-text">SELECT语句——WHERE子句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E6%8E%92%E5%BA%8F%E3%80%81%E8%81%9A%E5%90%88%E3%80%81%E5%88%86%E7%BB%84"><span class="nav-number">13.</span> <span class="nav-text">数据表排序、聚合、分组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%8E%92%E5%BA%8F%E5%AD%90%E5%8F%A5"><span class="nav-number">13.1.</span> <span class="nav-text">1. 排序子句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.</span> <span class="nav-text">2. 常用聚合函数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

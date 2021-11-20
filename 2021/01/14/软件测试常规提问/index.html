@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="问题 什么是测试用例  设计一个情况，软件程序在这种情况下，必须能够正常运行并且达到程序所设计的预期结果   如果软件按照测试用例达不到预期结果这么办？  如果程序在这种情况下不能正常运行，而且这种问题会重复发生，那就表明软件人员已经c测出软件有缺陷，这有时候就必须将这个问题标示出来，并通知软件开发人员。软件开发人员接获通知后，将这个问题修改完成于下一个测试版本内 软件测试工程师取得新的测试版本后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件测试常规提问">
+<meta property="og:url" content="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%8F%90%E9%97%AE/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="问题 什么是测试用例  设计一个情况，软件程序在这种情况下，必须能够正常运行并且达到程序所设计的预期结果   如果软件按照测试用例达不到预期结果这么办？  如果程序在这种情况下不能正常运行，而且这种问题会重复发生，那就表明软件人员已经c测出软件有缺陷，这有时候就必须将这个问题标示出来，并通知软件开发人员。软件开发人员接获通知后，将这个问题修改完成于下一个测试版本内 软件测试工程师取得新的测试版本后">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-14T14:24:00.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="软件测试基本理论">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%8F%90%E9%97%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>软件测试常规提问 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/14/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%84%E6%8F%90%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          软件测试常规提问
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-14 22:24:00" itemprop="dateCreated datePublished" datetime="2021-01-14T22:24:00+08:00">2021-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><p>什么是测试用例</p>
+<ul>
+<li>设计一个情况，软件程序在这种情况下，必须能够正常运行并且达到程序所设计的预期结果</li>
+</ul>
+</li>
+<li><p>如果软件按照测试用例达不到预期结果这么办？</p>
+<ul>
+<li>如果程序在这种情况下不能正常运行，而且这种问题会重复发生，那就表明软件人员已经c测出软件有缺陷，这有时候就必须将这个问题标示出来，并通知软件开发人员。软件开发人员接获通知后，将这个问题修改完成于下一个测试版本内</li>
+<li>软件测试工程师取得新的测试版本后，必须利用同一个测试用例来测试这个问题，确保该问题已修改完成。</li>
+</ul>
+</li>
+<li><p>开发人员说缺陷修复了，你认可吗？(回归测试)</p>
+<ul>
+<li>软件测试工程师取得新的测试版本后，必须利用同一个测试用例来测试这个问题，确保该问题已修改完成。</li>
+</ul>
+</li>
+<li><p>测试用例真的有必要耗费时间进行设计和编写吗？</p>
+</li>
+<li><p>时间不够用的情况下，还要进行详细的测试用例吗</p>
+</li>
+</ol>
+<span id="more"></span>
+
+<ol start="6">
+<li><p>测试用例需要经常更新吗？</p>
+<ul>
+<li>必须更新，尤其是发现过缺陷的测试用例。“杀虫剂效应”，一个发现过缺陷的测试用例，就相当于杀虫剂。必须使用“更强的杀虫剂”——新的测试用例（与之前的用例中数据类型保持一致）进行重新测试。</li>
+</ul>
+</li>
+<li><p>现在有一个文本框，有一个规则：xxxxx；请对这个规则，进行输入内容的等价类划分（尽可能详细划分）</p>
+</li>
+<li><p>缺陷的严重程度和缺陷的优先级有什么关系？</p>
+<ul>
+<li>二者之间没有任何直接的关系。</li>
+<li>不要认为严重的缺陷，修复优先级就高。</li>
+<li>如果碰到优先级和严重程度都高的缺陷，也只是偶然。例如QQ的帮助按钮，会有经常闪退的现象。严重程度很高，但是优先级就很低。</li>
+</ul>
+</li>
+<li><p>提交缺陷时能不能夸大或降低缺陷的严重程度或优先级？</p>
+<ul>
+<li>不能搞“狼来了”</li>
+<li>也不能私人关系“帮”好朋友减少不良影响</li>
+</ul>
+</li>
+<li><p>针对你工作中发现的一个bug,说说这个bug的处理过程。（缺陷的生命周期中，每一个环节由谁做什么）</p>
+<ul>
+<li>发现缺陷后，先再做一遍，发现真的是缺陷后在做提交缺陷。由主管领导确认是缺陷后，分配给相关人员去修复缺陷。在他们修复后，将状态改为已修复，我在去执行之前所发现的测试用例，去验证缺陷是否被真的修复。除此之外还应该，还去设计一条新的测试用例进行验证（对测试用例具有免疫性）。如果没有问题由我去关闭测试用例。</li>
+</ul>
+</li>
+<li><p>测试需求和测试用例、缺陷报告的关系？</p>
+<ol>
+<li><p>测试的基本流程：<strong>获取测试需求</strong>——编写测试用例——制定测试方案——<strong>设计和开发测试用例</strong>——<strong>执行测试</strong>——<strong>提交缺陷</strong>——测试分析和评审——测试总结——准备下一版本的测试</p>
+<ul>
+<li><p>获取测试需求是测试的工作重点，也是第一步。通过需求的分析，了解和掌握测试的方向和内容。设定测试中需求的正反向和优先级。例如：</p>
+<ol>
+<li>分析出系统的模块和组织结构</li>
+<li>分析出软件的基本功能和运行流程（业务分析）。包括分析出有那些人和那些角色要用</li>
+<li>识别出软件的重要功能和次要功能获取测试需求的过程中，测试人员要有相应的分析成果。一般用思维导图进行分析，或者使用需求跟踪矩阵来完成测试需求的获取和分析。</li>
+</ol>
+</li>
+<li><p>当有了测试需求之后，就开始针对每一个需求点进行测试用例的设计，也就是每一个需求点，都要被测。因此测试的过程中，衡量需求的覆盖程度，就非常重要了。使用：<strong>需求的覆盖程度 = 被测试用例覆盖的需求数 / 需求点总数</strong></p>
+<p>如果需求覆盖度&lt;100%，那一定说明测试覆盖度不够</p>
+</li>
+<li><p>测试中，最能体现测试人员工作量的指标就是缺陷的数量和用例的数量</p>
+<ol>
+<li>设计的测试用例总量    TC</li>
+<li>执行的测试用例数量     EC</li>
+<li>未执行的测试用例总量    WC</li>
+<li>执行通过的测试用例总量    SC</li>
+<li>执行失败的测试用例总量    FC</li>
+<li>提交的缺陷总量    BC（Bug Counts）</li>
+</ol>
+<ul>
+<li>以上几个数据，他们要符合如下的数量关系<ol>
+<li>TC 大于等于 EC</li>
+<li>TC = EC + WC</li>
+<li>EC = SC + FC</li>
+<li>BC 大于等于 FC。提交的Bug数量，多于未通过的用例数。一条测试用例的预期结果数量是固定的（甚至是唯一的）。测试过程中发现的缺陷，除一部分是测试用例执行失败带来的，还有一部分应该是测试人员自身的经验和直觉（其他知识）带来的</li>
+<li>通过 SC/EC 可以表现出系统的质量是否合格</li>
+<li>通过 EC/TC 可以表现出系统的需求是否被满足</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>测试时间不够的情况下，（还有大量的内容没有测试），软件能不能发布/上线/发版？</p>
+</li>
+<li><p>有的严重bug没修复，但是赶着上线，能不能通融/放任？</p>
+</li>
+<li><p>需求重要吗？错误的需求对测试有什么样的影响</p>
+</li>
+<li><p>你觉得软件测试在什么阶段介入比较好？为什么</p>
+</li>
+<li><p>软件发布了，但是有缺陷，是测试人员的错吗</p>
+</li>
+<li><p>你写过测试计划吗？包含什么内容？测试计划可以被修改吗？</p>
+</li>
+<li><p>设计与编写测试用例有什么区别？设计是一项脑力活动，编写从本质上是一种体力活动</p>
+</li>
+<li><p>针对已经发现了缺陷的模块，如何进行深入测试？对发现却显得模块使劲测，另外关联的模块也要进行测试（缺陷有一种集群效应）</p>
+</li>
+<li><p>软件项目不着急的时候，测试任务完成了，你会干什么？反复测试</p>
+</li>
+<li><p>软件项目上线了/发布了，还要进行测试吗？</p>
+</li>
+<li><p>你觉得你有什么样的缺点？（不能说的：粗心、耐心不够、不善沟通、语言表达能力不行）（对于工作比较爱计较，和追求完美。穷就不舍。认死理）</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" rel="tag"># 软件测试基本理论</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/14/%E7%A6%85%E9%81%93%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/" rel="prev" title="禅道使用流程">
+      <i class="fa fa-chevron-left"></i> 禅道使用流程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/%E5%B0%91%E5%8F%B8%E5%91%BD/" rel="next" title="九歌·少司命">
+      九歌·少司命 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

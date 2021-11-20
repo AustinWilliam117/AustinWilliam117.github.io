@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是敏捷开发敏捷开发（Agile Development）是一种以人为核心、迭代、循序渐进的开发方法。 它采用迭代时开发，开发方式的主要驱动核心是人。指导我们用规定的环节一步一步完成项目的开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="敏捷开发">
+<meta property="og:url" content="http://example.com/2021/05/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="什么是敏捷开发敏捷开发（Agile Development）是一种以人为核心、迭代、循序渐进的开发方法。 它采用迭代时开发，开发方式的主要驱动核心是人。指导我们用规定的环节一步一步完成项目的开发">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/05/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E5%85%A8%E5%B1%80%E6%B5%81%E7%A8%8B.png">
+<meta property="article:published_time" content="2021-05-19T14:32:29.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="软件测试理论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/05/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E5%85%A8%E5%B1%80%E6%B5%81%E7%A8%8B.png">
+
+<link rel="canonical" href="http://example.com/2021/05/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>敏捷开发 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/19/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          敏捷开发
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-19 22:32:29" itemprop="dateCreated datePublished" datetime="2021-05-19T22:32:29+08:00">2021-05-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="什么是敏捷开发"><a href="#什么是敏捷开发" class="headerlink" title="什么是敏捷开发"></a>什么是敏捷开发</h3><p>敏捷开发（Agile Development）是一种以人为核心、迭代、循序渐进的开发方法。</p>
+<p>它采用迭代时开发，开发方式的主要驱动核心是人。指导我们用规定的环节一步一步完成项目的开发</p>
+<span id="more"></span>
+
+<h3 id="敏捷测试常见术语"><a href="#敏捷测试常见术语" class="headerlink" title="敏捷测试常见术语"></a>敏捷测试常见术语</h3><ul>
+<li><p>Scrum：敏捷研发的框架</p>
+</li>
+<li><p>Sprint：原意为冲刺，Scrum中的Sprint无对应中文翻译，指一个迭代</p>
+</li>
+<li><p>Scrum Master：敏捷专家，敏捷研发总负责人</p>
+<p>敏捷专家以各种方式服务于产品负责人<strong>（让大家按照敏捷的方式去研发，引导项目成为敏捷开发模式）</strong></p>
+<p>以各种方式服务于Scrum团队</p>
+<p><strong>保证项目按照敏捷的方式去开展，中间环节落实不到位，要各种方式调动大家积极</strong></p>
+</li>
+<li><p>Product Owner：产品负责人简称PO</p>
+<p>产品负责人负责最大化产品以及开发团队工作的价值。实现这一点的方式会随着组织、Scrum团队以及单个团队成员的不同而不同（如果需求烂，没有好的想法。即便高质量完成任务，没有新思想和新功能，也会被淘汰。产品很重要）</p>
+</li>
+<li><p>Scrum Team：敏捷研发团队</p>
+<p>开发团队包含了专业人员，负责在每个Sprint的结尾交付潜在可发布的“完成”产品增量。只有开发团队的成员才能创造增量。</p>
+<p>开发团体由组织构建并授权，来组织和管理他们的工作。所产生的协同工作能最大化，开发团队的整体效率和效力。</p>
+<p><strong>要求：每一个迭代都能交付，可以量化的、可以给客户去展示的交付件。短平快的方式去交付</strong></p>
+</li>
+<li><p>Product Backlog：产品待办列表，指需求清单</p>
+</li>
+<li><p>Sprint Backlog：Sprint待办列表，指Sprint任务清单</p>
+</li>
+<li><p>Daily Scrum Meeting：每日站会</p>
+</li>
+<li><p>Sprint Review Meeting：Sprint评审会议</p>
+</li>
+<li><p>User Story：用户故事，指一条需求</p>
+</li>
+</ul>
+<h3 id="Scrum详细解释"><a href="#Scrum详细解释" class="headerlink" title="Scrum详细解释"></a>Scrum详细解释</h3><p>Scrum是一个用于开发和维持复杂产品的框架（6个月及以上的项目），是一个增量、迭代的开发过程。在这个框架中，整个开发过程由若干个短的迭代周期组成，一个短的迭代周期称为一个Sprint，每个Sprint的建议长度为2到4周。在Scrum中，使用产品Backlog来管理产品的需求，产品Backlog是一个按照商业价值排序的需求列表，列表条目的体现形式通常为用户story。Scrum团队总是先开发对客户具有较高价值的需求。在Sprint中，Scrum团队从产品Backlog中挑选最高优先级的需求进行开发。挑选的需求在Sprint计划会议上经过讨论、分析和估算（最长的迭代6周，不能再拆分）得到相应的任务列表，我们称它为Sprint Backlog。在每个迭代结束时，Scrum团队将递交潜在可交付的产品增量。Scrum起源于软件开发项目，但它适用于任何复杂的或是创新性的项目。</p>
+<h3 id="敏捷软件开发宣言"><a href="#敏捷软件开发宣言" class="headerlink" title="敏捷软件开发宣言"></a><a target="_blank" rel="noopener" href="http://agilemanifesto.org/">敏捷软件开发宣言</a></h3><ul>
+<li>个体和互动高于流程和工具（Individuals and interactions over processes and tools）</li>
+<li>工作的软件高于详尽的文档（Working software over comprehensive documentation）</li>
+<li>客户合作高于合同谈判（Customer collaboration over contract negotiation）</li>
+<li>响应变化高于遵循计划（Responding to change over following a plan）</li>
+</ul>
+<h3 id="敏捷开发全局流程"><a href="#敏捷开发全局流程" class="headerlink" title="敏捷开发全局流程"></a>敏捷开发全局流程</h3><p><img src="%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E5%85%A8%E5%B1%80%E6%B5%81%E7%A8%8B.png" alt="敏捷开发全局流程"></p>
+<ol>
+<li><p>客户、市场、高层为软件开发提供创意（前瞻性想法）、缺陷（用户反馈不好用、有缺陷的地方）、新功能（直播带货）</p>
+</li>
+<li><p>产品负责人（Product Owner）汇总成产品功能列表，然后召开迭代拆分会（参会人员至少测试组长起步），讨论出迭代任务</p>
+</li>
+<li><p>开始正常迭代。</p>
+<p>迭代1：测试做迭代任务的需求评审、测试计划、编写测试用例、执行用例、提交bug、回归测试、发布上线。</p>
+<p>迭代2：</p>
+<p>迭代3：</p>
+<p>…</p>
+<p>每一天都会开站立会议，最终交付用户可使用的软件</p>
+</li>
+<li><p>贯穿迭代的评审会、反思会（每次迭代后，都会开）</p>
+</li>
+<li><p>敏捷专家：辐射全局、观察每一个环节是否按照正常的方式去运作、开展。（框架的监督者）</p>
+</li>
+</ol>
+<h3 id="Scrum的常见活动"><a href="#Scrum的常见活动" class="headerlink" title="Scrum的常见活动"></a>Scrum的常见活动</h3><ul>
+<li><p>产品待办事项列表梳理</p>
+<p>产品待办事项通常会很大，也很宽泛，而且想法会变来变去、优先级也会变化，所以产品待办事项梳理是一个贯穿整个Scrum项目始终的活动。该活动包含但不限于以下内容：</p>
+<ol>
+<li>保持产品待办事项列表有序（列出待办优先级）</li>
+<li>把看起来不再重要的事项移除或者降级（及时更新维护，不重要的移除或降级）</li>
+<li>增加或提升涌现出来的或变得更重要的事项（重要的事项提高优先级）</li>
+<li>将事项分解成更小的事项（大的事项分解成若干个小的事项）</li>
+<li>将事项并归为更大的事项（小事项合并成大的事项）</li>
+<li>对事项进行估算（对事项时间进行估算）</li>
+</ol>
+</li>
+<li><p>产品待办事项列表梳理的一个最大的好处，是为即将到来的几个Sprint做准备。为此，梳理时会特别关注那些即将被实现的事项。</p>
+</li>
+</ul>
+<h3 id="迭代计划（拆分）会议"><a href="#迭代计划（拆分）会议" class="headerlink" title="迭代计划（拆分）会议"></a>迭代计划（拆分）会议</h3><p>基于列好的产品需求，进行迭代的拆分</p>
+<p>[参考文章末尾图]</p>
+<ol>
+<li>会给出2-3个迭代的相对明确的任务，3个迭代后的项目变动会大很多。</li>
+<li>依赖于需求清单（优先级、客户需求大、估时），拼凑到一个项目里。</li>
+<li>征求开发经理、测试组长的意见</li>
+</ol>
+<h3 id="Scrum-看板"><a href="#Scrum-看板" class="headerlink" title="Scrum 看板"></a>Scrum 看板</h3><table>
+<thead>
+<tr>
+<th>待办</th>
+<th>处理中</th>
+<th>完成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>开发、测试人员都可以写</p>
+<p>​    <strong>通过看板清晰看到个人、团队工作的进度。</strong></p>
+<h3 id="每日站会"><a href="#每日站会" class="headerlink" title="每日站会"></a>每日站会</h3><ul>
+<li>每日站立会议是敏捷流程Scrum中的很重要的一个制度之一。</li>
+<li>功能<ul>
+<li>快速同步，让项目组内部的员工互相了解彼此的进展，从而了解项目的整体进展</li>
+<li>给每个人一种精神压力，信守承诺。这是一种面对面的精神压力，直面项目进展。</li>
+<li>培养团队的文化，让每个人意识到，我不是一个人在战斗，我们是一个团队</li>
+</ul>
+</li>
+<li>站立会议的目的<ul>
+<li>让所有人了解其他人在做什么，当前项目计划进展如何</li>
+<li>帮助大家解决哪些阻碍、做事情的问题，以及共享承诺。这些都非常有利于提高团队合作精神。</li>
+</ul>
+</li>
+</ul>
+<p>开会人员：负责相同模块的产品经理、开发、测试</p>
+<p>开会人数：10人以内</p>
+<p>开会时间：10分钟左右</p>
+<p>会议内容：1.昨天做了什么。2.今天打算做什么。3.昨天工作遇到的没解决的问题。或者遇到什么问题解决了，可以给大家参考。</p>
+<h3 id="Scrum迭代回顾会议"><a href="#Scrum迭代回顾会议" class="headerlink" title="Scrum迭代回顾会议"></a>Scrum迭代回顾会议</h3><p>在每个Sprint结束后，Scrum团队会聚在一起开Sprint回顾会议</p>
+<ul>
+<li><p>目的：回顾以下团队在流程、人际关系以及工具方面做的如何</p>
+</li>
+<li><p>团队识别出哪些做的好的，哪些做的不好的。并找出潜在的改进事项，为将来的改进制定计划。</p>
+</li>
+<li><p>所有的Scrum会议都是限定时长的，Sprint回顾会议的推荐时长是Sprint中的每一周对应一个小时</p>
+<p>（一个Sprint包含2个星期，则Sprint回顾会议时长为2小时）</p>
+</li>
+<li><p>Scrum团队总是在Scrum的框架内，改进他们自己的流程。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A(Scrum) --&gt;B(产品需求1.0版本 Product Backlog)</span><br><span class="line">    B --&gt;C[基于需求的优先级召开,会议指定迭代计划]</span><br><span class="line">    C --&gt;P[迭代1 Sprint1]</span><br><span class="line">    P --&gt;D[迭代的生命周期]</span><br><span class="line">    P --&gt;Q[迭代的整体规划]</span><br><span class="line">    Q --&gt;R(需求1)</span><br><span class="line">    Q --&gt;S(需求2)</span><br><span class="line">    Q --&gt;T(需求3)</span><br><span class="line">    Q --&gt;U(迭代回归测试)</span><br><span class="line">    D --&gt;H(需求分析)</span><br><span class="line">    D --&gt;I(迭代内计划)</span><br><span class="line">    D --&gt;J(测试计划和开发)</span><br><span class="line">    D --&gt;K(环境搭建)</span><br><span class="line">    D --&gt;L(测试执行)</span><br><span class="line">    D --&gt;M(提交缺陷)</span><br><span class="line">    D --&gt;N(回归测试)</span><br><span class="line">    D --&gt;O(发布上线验证)</span><br><span class="line">    C --&gt;E[迭代2]</span><br><span class="line">    C --&gt;F[迭代3]</span><br><span class="line">    C --&gt;G[迭代4]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>回归</p>
+<ol>
+<li><p>迭代内bug和需求的回归</p>
+</li>
+<li><p>上线前整体的回归</p>
+</li>
+<li><p>迭代与迭代版本是否有影响</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA/" rel="tag"># 软件测试理论</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/18/%E6%B1%89%E6%B1%9F/" rel="prev" title="汉江">
+      <i class="fa fa-chevron-left"></i> 汉江
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/20/%E7%90%83%E7%8A%B6%E9%97%AA%E7%94%B5/" rel="next" title="球状闪电">
+      球状闪电 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">什么是敏捷开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%8F%E6%8D%B7%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%81%E6%9C%AF%E8%AF%AD"><span class="nav-number">2.</span> <span class="nav-text">敏捷测试常见术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrum%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="nav-number">3.</span> <span class="nav-text">Scrum详细解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%8F%E6%8D%B7%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E5%AE%A3%E8%A8%80"><span class="nav-number">4.</span> <span class="nav-text">敏捷软件开发宣言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E5%85%A8%E5%B1%80%E6%B5%81%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">敏捷开发全局流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrum%E7%9A%84%E5%B8%B8%E8%A7%81%E6%B4%BB%E5%8A%A8"><span class="nav-number">6.</span> <span class="nav-text">Scrum的常见活动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E8%AE%A1%E5%88%92%EF%BC%88%E6%8B%86%E5%88%86%EF%BC%89%E4%BC%9A%E8%AE%AE"><span class="nav-number">7.</span> <span class="nav-text">迭代计划（拆分）会议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrum-%E7%9C%8B%E6%9D%BF"><span class="nav-number">8.</span> <span class="nav-text">Scrum 看板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%8F%E6%97%A5%E7%AB%99%E4%BC%9A"><span class="nav-number">9.</span> <span class="nav-text">每日站会</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrum%E8%BF%AD%E4%BB%A3%E5%9B%9E%E9%A1%BE%E4%BC%9A%E8%AE%AE"><span class="nav-number">10.</span> <span class="nav-text">Scrum迭代回顾会议</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

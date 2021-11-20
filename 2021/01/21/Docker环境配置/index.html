@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="目录  before for-Centos for Ubuntu 安装Ubuntu维护的版本 安装Docker维护的版本   for-Mac for-Windows 可能遇到的问题 下载镜像超时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker环境配置">
+<meta property="og:url" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="目录  before for-Centos for Ubuntu 安装Ubuntu维护的版本 安装Docker维护的版本   for-Mac for-Windows 可能遇到的问题 下载镜像超时">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/1.bmp">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/2.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/3.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/4.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/5.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/6.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/7.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/8.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/9.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/10.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/11.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/12.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/13.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/14.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/17.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/15.png">
+<meta property="og:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/16.png">
+<meta property="article:published_time" content="2021-01-21T14:31:04.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/1.bmp">
+
+<link rel="canonical" href="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Docker环境配置 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker环境配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-21 22:31:04" itemprop="dateCreated datePublished" datetime="2021-01-21T22:31:04+08:00">2021-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>目录</p>
+<ul>
+<li><a href="#before">before</a></li>
+<li><a href="#for-Centos">for-Centos</a></li>
+<li>for Ubuntu<ul>
+<li><a href="#%E5%AE%89%E8%A3%85Ubuntu%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC">安装Ubuntu维护的版本</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85Docker%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC">安装Docker维护的版本</a></li>
+</ul>
+</li>
+<li><a href="#for-Mac">for-Mac</a></li>
+<li><a href="#for-Windows">for-Windows</a></li>
+<li>可能遇到的问题<ul>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F%E8%B6%85%E6%97%B6">下载镜像超时</a></li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+
+<h1 id="before"><a href="#before" class="headerlink" title="before"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#before">before</a></h1><p>下面这张图展示了在不同平台docker是如何运行的，OS X和Windows都是借助于虚拟机来运行，而Linux直接运行在宿主机上。</p>
+<p><img src="1.bmp" alt="img"></p>
+<p>Linux无需多言，这里需要简单的介绍一下win和mac中所需的虚拟机。</p>
+<p>在Windows和Mac中，Boot2Docker虚拟机提供一整套的docker运行环境，那它都是提供了那些组件呢？</p>
+<ul>
+<li>Boot2Docker Linux ISO，为docker定制的虚拟机镜像，其中包含了docker的运行环境。</li>
+<li>Virtualbox，提供虚拟机服务。</li>
+<li>MSYS-git，提供shell运行环境。</li>
+<li>管理工具，提供Boot2Docker的管理工具。</li>
+</ul>
+<p>这里附上百度云链接，当然你的网络好的话，也可以自己去<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop">官网</a>下载最新版。</p>
+<blockquote>
+<p>mac and win:链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/11IxpxTnIjq7_xF8bnYM4Wg">https://pan.baidu.com/s/11IxpxTnIjq7_xF8bnYM4Wg</a> 提取码：2xly</p>
+</blockquote>
+<p>接下来我们来看看各平台是如何安装和运行docker的。</p>
+<h1 id="for-Centos"><a href="#for-Centos" class="headerlink" title="for-Centos"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-Centos">for-Centos</a></h1><p><strong>可选的操作：查看内核版本</strong></p>
+<p>目前，CentOS 仅发行版本中的内核支持 Docker。</p>
+<p>Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">uname -a </span><br><span class="line"></span><br><span class="line"># 示例</span><br><span class="line">[root<span class="title">@localhost</span> ~]# uname -a</span><br><span class="line">Linux localhost <span class="number">3.10</span>.<span class="number">0</span><span class="number">-514</span>.el<span class="number">7</span>.<span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> <span class="variable">#1</span> SMP Tue Nov <span class="number">22</span> <span class="number">16</span>:<span class="number">42</span>:<span class="number">41</span> UTC <span class="number">2016</span> <span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> <span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> <span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> GNU/Linux</span><br></pre></td></tr></table></figure>
+
+<p><strong>更新yum源</strong></p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line"></span><br><span class="line"><span class="meta"># 示例</span></span><br><span class="line">[root<span class="symbol">@localhost</span> ~]<span class="meta"># yum update -y</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>可选的操作：卸载旧版的docker</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="builtin-name">remove</span> docker  docker-common docker-selinux docker-engine</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装依赖包</strong></p>
+<p><code>yum-util</code> 提供<code>yum-config-manager</code>功能，另外两个是<code>devicemapper</code>驱动依赖的。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">yum</span> install -y yum-utils device-mapper-persistent-<span class="class"><span class="keyword">data</span> lvm2</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 示例</span></span><br><span class="line">[root@localhost ~]# yum install -y yum-utils device-mapper-persistent-<span class="class"><span class="keyword">data</span> lvm2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>设置docker的yum源</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo https:<span class="regexp">//</span>download.docker.com<span class="regexp">/linux/</span>centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">[root@bogon ~]<span class="comment"># yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span></span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">adding repo from: https:<span class="regexp">//</span>download.docker.com<span class="regexp">/linux/</span>centos/docker-ce.repo</span><br><span class="line">grabbing file https:<span class="regexp">//</span>download.docker.com<span class="regexp">/linux/</span>centos<span class="regexp">/docker-ce.repo to /</span>etc<span class="regexp">/yum.repos.d/</span>docker-ce.repo</span><br><span class="line">repo saved to <span class="regexp">/etc/yum</span>.repos.d/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p><strong>查询及安装docker</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">list</span> docker-<span class="keyword">ce</span> --showduplicates | <span class="keyword">sort</span> -r</span><br><span class="line"></span><br><span class="line"># 示例</span><br><span class="line">[root@bogon ~]# yum <span class="keyword">list</span> docker-<span class="keyword">ce</span> --showduplicates | <span class="keyword">sort</span> -r</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line">Loaded plugin<span class="variable">s:</span> fastestmirror</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64            <span class="number">3</span>:<span class="number">19.03</span>.<span class="number">5</span>-<span class="number">3</span>.el7                     docker-<span class="keyword">ce</span>-stable</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64            <span class="number">3</span>:<span class="number">19.03</span>.<span class="number">4</span>-<span class="number">3</span>.el7                     docker-<span class="keyword">ce</span>-stable</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64            <span class="number">3</span>:<span class="number">19.03</span>.<span class="number">3</span>-<span class="number">3</span>.el7                     docker-<span class="keyword">ce</span>-stable</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64            <span class="number">3</span>:<span class="number">19.03</span>.<span class="number">2</span>-<span class="number">3</span>.el7                     docker-<span class="keyword">ce</span>-stable</span><br><span class="line">docker-<span class="keyword">ce</span>.x86_64            <span class="number">3</span>:<span class="number">19.03</span>.<span class="number">1</span>-<span class="number">3</span>.el7                     docker-<span class="keyword">ce</span>-stable</span><br></pre></td></tr></table></figure>
+
+<p>在版本列表中，选择合适的版本下载即可。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install </span>docker-ce<span class="number">-17</span>.<span class="number">12</span>.<span class="number">1</span>.ce -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">[root@<span class="keyword">bogon </span>~]<span class="comment"># yum install docker-ce-17.12.1.ce -y</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>检查是否安装成功</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">version</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">[<span class="string">root@bogon</span> <span class="string">~</span>]<span class="comment"># docker version</span></span><br><span class="line"><span class="attr">Client:</span></span><br><span class="line"> <span class="attr">Version:</span>	<span class="number">17.12</span><span class="number">.1</span><span class="string">-ce</span></span><br><span class="line"> <span class="attr">API version:</span>	<span class="number">1.35</span></span><br><span class="line"> <span class="attr">Go version:</span>	<span class="string">go1.9.4</span></span><br><span class="line"> <span class="attr">Git commit:</span>	<span class="string">7390fc6</span></span><br><span class="line"> <span class="attr">Built:</span>	<span class="string">Tue</span> <span class="string">Feb</span> <span class="number">27</span> <span class="number">22</span><span class="string">:15:20</span> <span class="number">2018</span></span><br><span class="line"> <span class="attr">OS/Arch:</span>	<span class="string">linux/amd64</span></span><br><span class="line"><span class="string">Cannot</span> <span class="string">connect</span> <span class="string">to</span> <span class="string">the</span> <span class="string">Docker</span> <span class="string">daemon</span> <span class="string">at</span> <span class="string">unix:///var/run/docker.sock.</span> <span class="string">Is</span> <span class="string">the</span> <span class="string">docker</span> <span class="string">daemon</span> <span class="string">running?</span></span><br></pre></td></tr></table></figure>
+
+<p>上面示例的最后一行的意思是无法连接到docker的守护进程，你的docker守护进程启动了吗？来看如何启动。</p>
+<p><strong>启动docker并加入开机启动</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">start</span> docker    <span class="comment"># 启动</span></span><br><span class="line">systemctl enable docker	  <span class="comment"># 加入开机启动</span></span><br><span class="line"><span class="built_in">ps</span> <span class="literal">-ef</span> | grep docker</span><br></pre></td></tr></table></figure>
+
+<h1 id="for-Ubuntu"><a href="#for-Ubuntu" class="headerlink" title="for Ubuntu"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-ubuntu">for Ubuntu</a></h1><p><strong>安装前检查</strong></p>
+<ul>
+<li>内核版本</li>
+</ul>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>uname -a</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>检查Device Mapper</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l <span class="regexp">/sys/</span><span class="keyword">class</span><span class="regexp">/misc/</span>device-mapper</span><br></pre></td></tr></table></figure>
+
+<p>一般，高版本的Ubuntu这两项都没问题。</p>
+<p><strong>Ubuntu中安装Docker</strong></p>
+<ul>
+<li>安装Ubuntu维护的版本，不推荐</li>
+<li>安装Docker维护的版本，推荐</li>
+</ul>
+<h2 id="安装Ubuntu维护的版本"><a href="#安装Ubuntu维护的版本" class="headerlink" title="安装Ubuntu维护的版本"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E5%AE%89%E8%A3%85Ubuntu%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC">安装Ubuntu维护的版本</a></h2><p>使用<code>apt-get</code>命令安装，使用<code>source</code>命令来更新配置：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker.io -y </span><br><span class="line">$ <span class="keyword">source</span> <span class="regexp">/etc/</span>bash_completion.d/docker.io</span><br></pre></td></tr></table></figure>
+
+<p>查看docker安装情况：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker.io <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，这种安装方式安装的docker名字叫做<code>docker.io</code>；另外，这种方式安装的docker的版本较低，所以，我们推荐安装docker维护的版本。</p>
+<h2 id="安装Docker维护的版本"><a href="#安装Docker维护的版本" class="headerlink" title="安装Docker维护的版本"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E5%AE%89%E8%A3%85Docker%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC">安装Docker维护的版本</a></h2><p>由于apt官方库里的docker版本可能比较旧，所以先卸载可能存在的旧版本：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> <span class="builtin-name">remove</span> docker docker-engine docker-ce docker.io</span><br></pre></td></tr></table></figure>
+
+<p>由于这种方式安装需要4步：</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 1. 检查APT的HTTPS支持，查看/usr/lib/apt/methods/https文件是否存在，不存在就要下载</span></span><br><span class="line">$ sudo apt-<span class="keyword">get</span> update</span><br><span class="line">$ sudo apt-<span class="keyword">get</span> install apt-transport-https -y</span><br><span class="line"></span><br><span class="line"><span class="meta"># 2. 添加docker的APT仓库</span></span><br><span class="line">$ echo deb https:<span class="comment">//get.docker.com/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 3. 添加仓库的key</span></span><br><span class="line">$ sudo apt-key adv --keyserver hkp:<span class="comment">//p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 4. 安装</span></span><br><span class="line">$ sudo apt-<span class="keyword">get</span> update</span><br><span class="line">$ sudo apt-<span class="keyword">get</span> install lxc-docker -y</span><br></pre></td></tr></table></figure>
+
+<p>上面4步是不是很麻烦？所以docker将这些命令写了个脚本，我们只需要下载这个脚本， 然后一条命令就OK了。</p>
+<p>这里使用<code>curl</code>命令来安装docker：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果curl不存在，使用下面命令安装</span></span><br><span class="line">$ sudo apt-get install curl -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装docker</span></span><br><span class="line">$ curl -sSL https:<span class="regexp">//g</span>et.docker.com<span class="regexp">/ubuntu/</span> | sudo sh</span><br></pre></td></tr></table></figure>
+
+<p>查看docker安装情况：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，这种方式安装的docker，就叫docker</p>
+<h1 id="for-Mac"><a href="#for-Mac" class="headerlink" title="for-Mac"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-Mac">for-Mac</a></h1><p>由开头的图我们知道，Mac中运行docker也是要借助虚拟机的，所以，来看如何安装吧。</p>
+<p><strong>下载</strong></p>
+<p>去<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop%E4%B8%8B%E8%BD%BD%E6%88%96%E8%80%85%E4%BD%BF%E7%94%A8%E5%BC%80%E5%A4%B4%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85%E3%80%82">https://www.docker.com/products/docker-desktop下载或者使用开头的安装包。</a></p>
+<p><img src="2.png" alt="img"></p>
+<p><img src="3.png" alt="img"></p>
+<p><strong>安装</strong></p>
+<ul>
+<li>直接拖拽安装。</li>
+</ul>
+<p><img src="4.png" alt="img"></p>
+<ul>
+<li>然后启动它。</li>
+</ul>
+<p><img src="5.png" alt="img"></p>
+<p>启动中：</p>
+<p><img src="6.png" alt="img"></p>
+<p>启动后：</p>
+<p><img src="7.png" alt="img"></p>
+<p><img src="8.png" alt="img">]</p>
+<p><strong>测试</strong></p>
+<p>可以输入下面命令进行测试。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">version</span></span><br><span class="line">docker <span class="built_in">run</span> ubuntu echo <span class="string">&quot;Hello World&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="9.png" alt="img"></p>
+<p>OK，完事了。</p>
+<h1 id="for-Windows"><a href="#for-Windows" class="headerlink" title="for-Windows"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-Windows">for-Windows</a></h1><p>由开头的图我们知道，Windows中运行docker也是要借助虚拟机的，所以，来看如何安装吧。</p>
+<p><strong>系统要求</strong></p>
+<p>windows7及以上系统</p>
+<p>来看安装。</p>
+<p><strong>下载boot2docker</strong></p>
+<ul>
+<li>去<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop%E4%B8%8B%E8%BD%BD%E3%80%82">https://www.docker.com/products/docker-desktop下载。</a></li>
+</ul>
+<p><img src="10.png" alt="img"><br><img src="11.png" alt="img"></p>
+<p><strong>安装</strong></p>
+<ul>
+<li>下载到本地是exe文件，双击exe文件进行安装和配置。</li>
+</ul>
+<p><img src="12.png" alt="img"></p>
+<ul>
+<li>重启。</li>
+</ul>
+<p><img src="13.png" alt="img"></p>
+<p>当你重启后，打开桌面快捷方式，会发现任务栏多了一个docker图标。</p>
+<p><img src="14.png" alt="img"></p>
+<p><strong>运行</strong></p>
+<p>当你打开桌面快捷方式后，docker将启动在任务栏；然后你可以<code>win + R</code>打开终端，输入命令来进行测试。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">docker <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">可能遇到的问题</a></h1><h2 id="下载镜像超时"><a href="#下载镜像超时" class="headerlink" title="下载镜像超时"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F%E8%B6%85%E6%97%B6">下载镜像超时</a></h2><blockquote>
+<p>windows环境</p>
+</blockquote>
+<p>由于docker默认的镜像源是国外的，很可能遇到下载失败的问题，比如这样的：</p>
+<p><img src="17.png" alt="img"></p>
+<p>解决办法，点击任务栏docker，然后点击settings。</p>
+<p><img src="15.png" alt="img"></p>
+<p>然后在<code>Docker Engine</code>选项将<code>https://docker.mirrors.ustc.edu.cn/</code>添加到<code>registry-mirrors</code>中去。</p>
+<p><img src="16.png" alt="img"></p>
+<p>下面列出国内的常用源：</p>
+<table>
+<thead>
+<tr>
+<th align="left">来自</th>
+<th align="left">源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">网易</td>
+<td align="left"><a target="_blank" rel="noopener" href="http://hub-mirror.c.163.com/">http://hub-mirror.c.163.com</a></td>
+</tr>
+<tr>
+<td align="left">Docker 官方中国区</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://registry.docker-cn.com/">https://registry.docker-cn.com</a></td>
+</tr>
+<tr>
+<td align="left">中国科技大学</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://docker.mirrors.ustc.edu.cn/">https://docker.mirrors.ustc.edu.cn</a></td>
+</tr>
+<tr>
+<td align="left">阿里云</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://pee6w651.mirror.aliyuncs.com/">https://pee6w651.mirror.aliyuncs.com</a></td>
+</tr>
+</tbody></table>
+<hr>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置国内镜像</span></span><br><span class="line">mkdir -p /etc/docker</span><br><span class="line">sudo vim /etc/docker/daemon.json</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">写入以下内容</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;&lt;your accelerate address&gt;&quot;]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">以上操作后重启一下 Docker</span></span><br><span class="line"></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<p>see also：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38750084/article/details/90317730">docker：CentOS安装 docker和默认安装目录</a></br><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/dongdong9223/article/details/52998375">如何进入、退出docker的container</a></br><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yufeng218/p/8370670.html">Centos7上安装docker</a></br><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lighten/p/6034984.html">Ubuntu16.04安装docker</a></br><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/BigData_Mining/article/details/87869147">https://blog.csdn.net/BigData_Mining/article/details/87869147</a></p>
+<p>作者： 听雨危楼</p>
+<p>出处：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Neeo/articles/11945963.html">https://www.cnblogs.com/Neeo/articles/11945963.html</a></p>
+<p>版权：本作品采用「<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a>」许可协议进行许可。</p>
+<p>仰望星空,脚踏实地</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/20/%E6%84%BF%E9%82%A3%E4%BA%9B%E5%96%84%E8%89%AF%E7%9A%84%E4%BA%BA%E8%83%BD%E8%A2%AB%E6%B8%A9%E6%9F%94%E4%BB%A5%E5%BE%85/" rel="prev" title="愿那些善良的人能被温柔以待">
+      <i class="fa fa-chevron-left"></i> 愿那些善良的人能被温柔以待
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/" rel="next" title="测试-搭建iWebShop项目">
+      测试-搭建iWebShop项目 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#before"><span class="nav-number">1.</span> <span class="nav-text">before</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Centos"><span class="nav-number">2.</span> <span class="nav-text">for-Centos</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Ubuntu"><span class="nav-number">3.</span> <span class="nav-text">for Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Ubuntu%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">安装Ubuntu维护的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.</span> <span class="nav-text">安装Docker维护的版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Mac"><span class="nav-number">4.</span> <span class="nav-text">for-Mac</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Windows"><span class="nav-number">5.</span> <span class="nav-text">for-Windows</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">可能遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F%E8%B6%85%E6%97%B6"><span class="nav-number">6.1.</span> <span class="nav-text">下载镜像超时</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

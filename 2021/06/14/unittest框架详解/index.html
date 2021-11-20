@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="UNITTEST内容  unittest介绍（各个组件的介绍） 测试固件 setUp&amp;tearDown setUpClass&amp;tearDownClass 程序执行的顺序 测试用例的编写   测试执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unittest框架详解">
+<meta property="og:url" content="http://example.com/2021/06/14/unittest%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="UNITTEST内容  unittest介绍（各个组件的介绍） 测试固件 setUp&amp;tearDown setUpClass&amp;tearDownClass 程序执行的顺序 测试用例的编写   测试执行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/06/14/unittest%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/u1.png">
+<meta property="article:published_time" content="2021-06-14T03:18:08.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="自动化测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/06/14/unittest%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/u1.png">
+
+<link rel="canonical" href="http://example.com/2021/06/14/unittest%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>unittest框架详解 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/14/unittest%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          unittest框架详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-14 11:18:08" itemprop="dateCreated datePublished" datetime="2021-06-14T11:18:08+08:00">2021-06-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>18 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>UNITTEST内容</p>
+<ol>
+<li>unittest介绍（各个组件的介绍）</li>
+<li>测试固件<ul>
+<li>setUp&amp;tearDown</li>
+<li>setUpClass&amp;tearDownClass</li>
+<li>程序执行的顺序</li>
+<li>测试用例的编写</li>
+</ul>
+</li>
+<li>测试执行</li>
+</ol>
+<span id="more"></span>
+
+<ol start="4">
+<li>构建测试套件<ul>
+<li>用例按顺序执行（addTest）</li>
+<li>测试用例执行顺序的详解</li>
+<li>按测试类执行（makeSuite）</li>
+<li>加载测试类（TestLoader）</li>
+<li>按测试模块来执行</li>
+<li>优化测试套件</li>
+</ul>
+</li>
+<li>分离测试固件（模块化的应用）</li>
+<li>测试断言<ul>
+<li>assertEqual(a,b)</li>
+<li>assertTrue(x)</li>
+<li>assertIn(a,b)</li>
+<li>测试断言的注意事项<ul>
+<li>不正确的使用if</li>
+<li>不正确的使用异常</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>批量执行测试用例（discover）<ul>
+<li>获取所有测试用例</li>
+<li>discover方法的解读</li>
+</ul>
+</li>
+<li>生成测试报告<ul>
+<li>Python2生成测试报告</li>
+<li>Python3生成测试报告</li>
+<li>测试报告的注意事项</li>
+<li>新增当前时间</li>
+</ul>
+</li>
+<li> unittest的缺陷</li>
+<li>Cocerage的应用</li>
+</ol>
+<h2 id="Unittest组成"><a href="#Unittest组成" class="headerlink" title="Unittest组成"></a>Unittest组成</h2><p><img src="u1.png"></p>
+<h3 id="TestSuite-测试套件"><a href="#TestSuite-测试套件" class="headerlink" title="TestSuite 测试套件"></a>TestSuite 测试套件</h3><p><strong>加载测试用例</strong></p>
+<p>先通过 unittest.TestSuite() 创建测试套件实例对象，如：suite = unittest.TestSuite()</p>
+<p>再通过 addTest() 往测试套件里添加当个测试用例，或通过addTests([…]) 添加多个测试用例（列表中伪测试用例方法名）执行测试套件里的测试用例</p>
+<p>如果有多个测试用例，类里有100个用例？怎么办，要添加100次吗？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestHC</span>(<span class="params">unittest.TestCaase</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_01</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例1&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_02</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例2&quot;</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;方式1添加单条测试用例&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 创建suite实例</span></span><br><span class="line">    suite = unittest.TestSuite()</span><br><span class="line">    <span class="comment"># 添加单条测试用例</span></span><br><span class="line">    <span class="comment"># addTest()里参数格式为：测试类(&quot;测试方法&quot;)</span></span><br><span class="line">    suite.addTest(TestHC(<span class="string">&#x27;test_02&#x27;</span>))</span><br><span class="line">    suite.addTest(TestHC(<span class="string">&#x27;test_01&#x27;</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="string">&quot;&quot;&quot;方式2添加多条测试用例&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># suite.addTests([TestHC(&#x27;test_02&#x27;),TestHC(&#x27;test_01&#x27;)]) </span></span><br></pre></td></tr></table></figure>
+
+<p><strong>加载测试用例类</strong></p>
+<p>先通过 unittest.TestSuite() 创建测试套件实例对象</p>
+<p>再通过 unittest.TestLoader() 创建加载对象，加载测试用例类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestHC</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_001</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例1&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_002</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例2&quot;</span>)</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test_Action</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_003</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例3&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_004</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例4&quot;</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="string">&quot;&quot;&quot;方式1添加单条用例&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 创建suite实例</span></span><br><span class="line">    suite = unittest.TestSuite()</span><br><span class="line">    loader = unittest.TestLoader()</span><br><span class="line">    suite.addTest(loader.loaderTestFromTestCase(TestHC))</span><br><span class="line">    suite.addTest(loader.loaderTestFromTestCase(TestAction))</span><br><span class="line">    </span><br><span class="line">    <span class="string">&quot;&quot;&quot;添加多个类的方法&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 创建suite实例</span></span><br><span class="line">    suite1 = unittest.TestLoader().loadTestFromCase(TestHC)</span><br><span class="line">    suite2 = unittest.TestLoader().loadTestFromCase(Test_Action)</span><br><span class="line">    suite = unittest.TestSuite(suite1,suite2)</span><br></pre></td></tr></table></figure>
+
+<p><strong>加载指定路径里的测试用例</strong></p>
+<p>通过 unittest.defaultTestLoader.discover()将指定路径的测试用例加载至测试用例集。注意：这里不需要创建 unittest.TestSuite 对象。如下代码所示，test_dir 为指定路径。pattern = test_*.py 表示加载以 test_ 开头的模块中的测试用例，指定运行某模块时 pattern 参数指定全名即可，如：pattern=’test_sum.py’。路径跟 pattern 参数都可以自定义。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="comment"># discover 可以一次调用多个脚本</span></span><br><span class="line"><span class="comment"># test_dir 被测脚本的路径</span></span><br><span class="line"><span class="comment"># pattern 脚本名称匹配规则</span></span><br><span class="line"></span><br><span class="line">test_dir = <span class="string">&#x27;./test_case&#x27;</span></span><br><span class="line"></span><br><span class="line">discover = unittest.defaultTestLoader.discover(test_dir,pattern=<span class="string">&#x27;test*.py&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配 test_case 目录下所有以 test 开头的 py 文件，执行这些 py 文件下所有测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    runner = unittest.TextTestRunner()</span><br><span class="line">    runner.run(discover)</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 TextTestRunner 执行测试用例</strong></p>
+<p>unittest 框架执行测试用例之前，需先创建 TextTestRunner 实例 ，再调用该实例的 run() 方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 TextTestRunner 实例</span></span><br><span class="line">runner = unittest.TextTestRunner()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 run() 方法运行测试套件（即运行测试套件中的所有用例）</span></span><br><span class="line">runner.run(suite)</span><br></pre></td></tr></table></figure>
+
+<p><strong>整合的最终结果</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;方式3批量添加&quot;&quot;&quot;</span></span><br><span class="line">   <span class="keyword">import</span> os,sys</span><br><span class="line">   <span class="keyword">import</span> unittest</span><br><span class="line">   <span class="keyword">import</span> time</span><br><span class="line">   <span class="keyword">from</span> report <span class="keyword">import</span> HTMLTestRunner</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 获取当前py文件路径地址，并进行路径分割(分割成目录路径和文件名)</span></span><br><span class="line">   <span class="comment"># os.path.abspath(file) 返回文件的绝对路径</span></span><br><span class="line">   <span class="comment"># sys.argv[0] 返回文件名称，其sys.argv[]是一个列表，具体可参考本博客《python内置函数》</span></span><br><span class="line">   dirname,filename = os.path.split(os.path.abspath(sys.argv[<span class="number">0</span>]))</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">print</span>(dirname,filename)</span><br><span class="line">   case_path = <span class="string">&quot;.\\case\\&quot;</span></span><br><span class="line">   result = dirname + <span class="string">&quot;\\report\\&quot;</span></span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">creatsuite</span>():</span></span><br><span class="line">       <span class="comment"># 定义单元测试容器</span></span><br><span class="line">       testunit = unittest.TestSuite()</span><br><span class="line">       </span><br><span class="line">       <span class="comment"># 定义搜索用例文件的方法</span></span><br><span class="line">       discover = unittest.defaultTestLoader.discover(case_path,pattern=<span class="string">&#x27;*.py&#x27;</span>,top_level_dir=<span class="literal">None</span>)</span><br><span class="line">       </span><br><span class="line">       <span class="comment"># 将测试用例加入测试容器中,外循环为每个case中的py文件，内循环test_sutite为为测试用例</span></span><br><span class="line">       <span class="keyword">for</span> test_suite <span class="keyword">in</span> discover:</span><br><span class="line">           <span class="keyword">for</span> casename <span class="keyword">in</span> test_suite:</span><br><span class="line">               testunit.addTest(casename)</span><br><span class="line">           <span class="comment"># print(testunit)</span></span><br><span class="line">       <span class="keyword">return</span> testunit</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 调用函数createsuite(),将函数返回的testunit赋值给test_case</span></span><br><span class="line">   test_case = createsuite()</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 获取当前系统时间</span></span><br><span class="line">   now = time.strftime(<span class="string">&#x27;%Y-m-%d-%H_%M_%S&#x27;</span>,time.localtime(time.time()))</span><br><span class="line">   day = time.strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>,time.localtime((time.time())))</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 定义报告存储路径，支持相对路径</span></span><br><span class="line">   report_dir = result + day</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 检验路径下文件夹是否存在，不存在创建文件夹</span></span><br><span class="line">   <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(report_dir):</span><br><span class="line">       os.mkdir(report_dir)</span><br><span class="line">       </span><br><span class="line">   <span class="comment"># 命名文件</span></span><br><span class="line">   filename = report_dir + <span class="string">&quot;\\&quot;</span> + now + <span class="string">&quot;_result.html&quot;</span></span><br><span class="line">   fp = <span class="built_in">open</span>(filename,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 定义测试报告</span></span><br><span class="line">   runner = HTMLTestRunner.HTMLTestRunner(</span><br><span class="line">       stream = fp,</span><br><span class="line">       title = <span class="string">&quot;xxx测试报告&quot;</span></span><br><span class="line">       description = <span class="string">&quot;执行情况：&quot;</span></span><br><span class="line">   )</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 运行测试用例</span></span><br><span class="line">   <span class="comment"># runner = unittest.TextTestRunner(verbosity=2)</span></span><br><span class="line">   runner = unittest.TextTestRunner()</span><br><span class="line">   runner.run(test_case)</span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 关闭文件</span></span><br><span class="line">   fp.close()</span><br></pre></td></tr></table></figure>
+
+<p><strong>verbosity=[0/1/2]</strong></p>
+<ul>
+<li>0代表得到执行的测试总数和全局结构</li>
+<li>1代表得到成功的现实，失败显示F，错误显示E，成功显示.</li>
+<li>2可以得到详细的信息</li>
+</ul>
+<h3 id="TestCase-测试用例"><a href="#TestCase-测试用例" class="headerlink" title="TestCase 测试用例"></a>TestCase 测试用例</h3><p>测试用例类，我们做单元测试时编写的测试用例就是继承TestCase类来实现具体的测试用例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserCase</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_001</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;测试用例1&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_002</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;测试用例2&quot;</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<p>可以这样理解：每一个继承TestCase类的子类里面实现的具体的方法（以test开头的方法）都是一条用例</p>
+<p>既然我们写了用例，那用例又是如何被执行的呢？这就是下面要讲的TestCase类里面run方法，先贴一下代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self, result=<span class="literal">None</span></span>):</span></span><br><span class="line">    orig_result = result</span><br><span class="line">    <span class="comment">#初始化result类，此类就是TestResult类或者其子类，用来记录用例的执行结果信息等</span></span><br><span class="line">    <span class="keyword">if</span> result <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        result = self.defaultTestResult()   </span><br><span class="line">        startTestRun = <span class="built_in">getattr</span>(result, <span class="string">&#x27;startTestRun&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> startTestRun <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            startTestRun()</span><br><span class="line"></span><br><span class="line">    self._resultForDoCleanups = result</span><br><span class="line">    result.startTest(self)</span><br><span class="line"></span><br><span class="line">    testMethod = <span class="built_in">getattr</span>(self, self._testMethodName)    <span class="comment">#获取当前TestCase类里面实现的某一个具体的方法（以test开头的方法）</span></span><br><span class="line">    <span class="comment">#判断TestCase类是否有被skip装饰，或类的testMethod方法有没有被skip装饰，如果有skip装饰，则直接跳过这个类或者这个方法不执行（包括后面tearDown也不会被执行），</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">getattr</span>(self.__class__, <span class="string">&quot;__unittest_skip__&quot;</span>, <span class="literal">False</span>) <span class="keyword">or</span></span><br><span class="line">        <span class="built_in">getattr</span>(testMethod, <span class="string">&quot;__unittest_skip__&quot;</span>, <span class="literal">False</span>)):</span><br><span class="line">        <span class="comment"># If the class or method was skipped.</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            skip_why = (<span class="built_in">getattr</span>(self.__class__, <span class="string">&#x27;__unittest_skip_why__&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                        <span class="keyword">or</span> <span class="built_in">getattr</span>(testMethod, <span class="string">&#x27;__unittest_skip_why__&#x27;</span>, <span class="string">&#x27;&#x27;</span>))</span><br><span class="line">            self._addSkip(result, skip_why)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            result.stopTest(self)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment">#下面部分的代码逻辑是：执行setup部分，如果没有异常执行testMethod（即我们写的以test开头的TestCase类的方法），然后执行tearDown部分代码（不管testMethod是否通过）</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        success = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.setUp()</span><br><span class="line">        <span class="keyword">except</span> SkipTest <span class="keyword">as</span> e:</span><br><span class="line">            self._addSkip(result, <span class="built_in">str</span>(e))</span><br><span class="line">        <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">            <span class="keyword">raise</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            result.addError(self, sys.exc_info())</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                testMethod()</span><br><span class="line">            <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">                <span class="keyword">raise</span></span><br><span class="line">            <span class="keyword">except</span> self.failureException:</span><br><span class="line">                result.addFailure(self, sys.exc_info())</span><br><span class="line">            <span class="keyword">except</span> _ExpectedFailure <span class="keyword">as</span> e:</span><br><span class="line">                addExpectedFailure = <span class="built_in">getattr</span>(result, <span class="string">&#x27;addExpectedFailure&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">                <span class="keyword">if</span> addExpectedFailure <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    addExpectedFailure(self, e.exc_info)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    warnings.warn(<span class="string">&quot;TestResult has no addExpectedFailure method, reporting as passes&quot;</span>,</span><br><span class="line">                                  RuntimeWarning)</span><br><span class="line">                    result.addSuccess(self)</span><br><span class="line">            <span class="keyword">except</span> _UnexpectedSuccess:</span><br><span class="line">                addUnexpectedSuccess = <span class="built_in">getattr</span>(result, <span class="string">&#x27;addUnexpectedSuccess&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">                <span class="keyword">if</span> addUnexpectedSuccess <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    addUnexpectedSuccess(self)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    warnings.warn(<span class="string">&quot;TestResult has no addUnexpectedSuccess method, reporting as failures&quot;</span>,</span><br><span class="line">                                  RuntimeWarning)</span><br><span class="line">                    result.addFailure(self, sys.exc_info())</span><br><span class="line">            <span class="keyword">except</span> SkipTest <span class="keyword">as</span> e:</span><br><span class="line">                self._addSkip(result, <span class="built_in">str</span>(e))</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                result.addError(self, sys.exc_info())</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                success = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                self.tearDown()</span><br><span class="line">            <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">                <span class="keyword">raise</span></span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                result.addError(self, sys.exc_info())</span><br><span class="line">                success = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        cleanUpSuccess = self.doCleanups()</span><br><span class="line">        success = success <span class="keyword">and</span> cleanUpSuccess</span><br><span class="line">        <span class="keyword">if</span> success:</span><br><span class="line">            result.addSuccess(self)</span><br><span class="line">    <span class="comment">#此部分是用例执行完成之后的收尾工作</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        result.stopTest(self)</span><br><span class="line">        <span class="keyword">if</span> orig_result <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            stopTestRun = <span class="built_in">getattr</span>(result, <span class="string">&#x27;stopTestRun&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">if</span> stopTestRun <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                stopTestRun()</span><br></pre></td></tr></table></figure>
+
+<p><strong>run方法的第一个参数是result</strong></p>
+<p>下面详细说明一下run方法里面得逻辑：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">orig_result = result</span><br><span class="line"><span class="keyword">if</span> result <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            result = self.defaultTestResult()   </span><br><span class="line">            startTestRun = <span class="built_in">getattr</span>(result, <span class="string">&#x27;startTestRun&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">if</span> startTestRun <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                startTestRun()</span><br><span class="line"></span><br><span class="line">self._resultForDoCleanups = result</span><br><span class="line">result.startTest(self)</span><br></pre></td></tr></table></figure>
+
+<p>这一部分代码是用来实例化一个TestResult类，如果run方法没有传入result参数，则用self.defaultTestResult方法返回一个TestResult类的实例，并且如果TestResult如果有startTestRun方法就执行startTestRun方法。后面两句中的第一句是将result赋值TestCase实例_resultForDoCleanups属性，这个会在后面再说，第二句是执行result的startTest方法（可以看一下TestResult的startTest方法）。</p>
+<p>继续往下看代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">testMethod = <span class="built_in">getattr</span>(self, self._testMethodName)</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">getattr</span>(self.__class__, <span class="string">&quot;__unittest_skip__&quot;</span>, <span class="literal">False</span>) <span class="keyword">or</span></span><br><span class="line">    <span class="built_in">getattr</span>(testMethod, <span class="string">&quot;__unittest_skip__&quot;</span>, <span class="literal">False</span>)):</span><br><span class="line">    <span class="comment"># If the class or method was skipped.</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        skip_why = (<span class="built_in">getattr</span>(self.__class__, <span class="string">&#x27;__unittest_skip_why__&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                    <span class="keyword">or</span> <span class="built_in">getattr</span>(testMethod, <span class="string">&#x27;__unittest_skip_why__&#x27;</span>, <span class="string">&#x27;&#x27;</span>))</span><br><span class="line">        self._addSkip(result, skip_why)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        result.stopTest(self)</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<p>第一句代码：testMethod = getattr(self, self._testMethodName)，这句主要获取TestCase类里面的方法，而self._testMethodName就是我们编写测试类里面的的方法（以test开头的方法）。比如上面例子中的testAddUser方法<br>后面部分代码是判断当前我们写的TestCase类是否有unittest_skip，或者我们写的TestCase类的方法（以test开头）是否有unittest_skip方法，如果有则获取类的unittest_skip_why属性或者方法的unittest_skip_why属性。并在result中添加skip的原因。之后执行result的stopTest方法，并直接返回不继续执行下去（==包括setUp和teardown都不会执行==）。那么我们如何去实现这skip的逻辑呢，举例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、TestCase带有__unittest_skip__属性：</span><br><span class="line"><span class="meta">@unittest.skip(<span class="params"><span class="string">&#x27;class skip&#x27;</span></span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnitTestCase</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test01</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;test01&#x27;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test02</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;test02&#x27;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDown</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;teardown&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    unittest.main()</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>、方法带有__unittest_skip__属性</span><br><span class="line"><span class="meta">@unittest.skip(<span class="params"><span class="string">&#x27;class skip&#x27;</span></span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnitTestCase</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line"><span class="meta">    @unittest.skip(<span class="params"><span class="string">&#x27;skip&#x27;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test01</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;test01&#x27;</span>)</span><br><span class="line"><span class="meta">    @unittest.skip(<span class="params"><span class="string">&#x27;skip&#x27;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test02</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;test02&#x27;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDown</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;teardown&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<p>而<strong>unittest_skip</strong>、<strong>unittest_skip_why</strong>这两个属性是如何给类或方法带上的呢，那让我们来看一下skip方法。先贴代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">skip</span>(<span class="params">reason</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Unconditionally skip a test.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span>(<span class="params">test_item</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(test_item, (<span class="built_in">type</span>, types.ClassType)):</span><br><span class="line"><span class="meta">            @functools.wraps(<span class="params">test_item</span>)</span></span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">skip_wrapper</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">                <span class="keyword">raise</span> SkipTest(reason)</span><br><span class="line">            test_item = skip_wrapper</span><br><span class="line"></span><br><span class="line">        test_item.__unittest_skip__ = <span class="literal">True</span></span><br><span class="line">        test_item.__unittest_skip_why__ = reason</span><br><span class="line">        <span class="keyword">return</span> test_item</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure>
+
+<p>从代码中可以看出skip方法会给test_item（也就是类名或者方法名）增加两个属性<strong>unittest_skip</strong>，<strong>unittest_skip_why</strong>并分别赋值为True和reason。</p>
+<p>我们继续上面的run方法剩下部分的代码分析：如果没有skip装饰类或方法，则执行下面的逻辑：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    success = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.setUp()</span><br><span class="line">    <span class="keyword">except</span> SkipTest <span class="keyword">as</span> e:</span><br><span class="line">        self._addSkip(result, <span class="built_in">str</span>(e))</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        result.addError(self, sys.exc_info())</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            testMethod()</span><br><span class="line">        <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">            <span class="keyword">raise</span></span><br><span class="line">        <span class="keyword">except</span> self.failureException:</span><br><span class="line">            result.addFailure(self, sys.exc_info())</span><br><span class="line">        <span class="keyword">except</span> _ExpectedFailure <span class="keyword">as</span> e:</span><br><span class="line">            addExpectedFailure = <span class="built_in">getattr</span>(result, <span class="string">&#x27;addExpectedFailure&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">if</span> addExpectedFailure <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                addExpectedFailure(self, e.exc_info)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                warnings.warn(<span class="string">&quot;TestResult has no addExpectedFailure method, reporting as passes&quot;</span>,</span><br><span class="line">                              RuntimeWarning)</span><br><span class="line">                result.addSuccess(self)</span><br><span class="line">        <span class="keyword">except</span> _UnexpectedSuccess:</span><br><span class="line">            addUnexpectedSuccess = <span class="built_in">getattr</span>(result, <span class="string">&#x27;addUnexpectedSuccess&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">if</span> addUnexpectedSuccess <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                addUnexpectedSuccess(self)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                warnings.warn(<span class="string">&quot;TestResult has no addUnexpectedSuccess method, reporting as failures&quot;</span>,</span><br><span class="line">                              RuntimeWarning)</span><br><span class="line">                result.addFailure(self, sys.exc_info())</span><br><span class="line">        <span class="keyword">except</span> SkipTest <span class="keyword">as</span> e:</span><br><span class="line">            self._addSkip(result, <span class="built_in">str</span>(e))</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            result.addError(self, sys.exc_info())</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            success = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            self.tearDown()</span><br><span class="line">        <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">            <span class="keyword">raise</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            result.addError(self, sys.exc_info())</span><br><span class="line">            success = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    cleanUpSuccess = self.doCleanups()</span><br><span class="line">    success = success <span class="keyword">and</span> cleanUpSuccess</span><br><span class="line">    <span class="keyword">if</span> success:</span><br><span class="line">        result.addSuccess(self)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    result.stopTest(self)</span><br><span class="line">    <span class="keyword">if</span> orig_result <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        stopTestRun = <span class="built_in">getattr</span>(result, <span class="string">&#x27;stopTestRun&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> stopTestRun <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            stopTestRun()</span><br></pre></td></tr></table></figure>
+
+<p>我们分解开来分析，<strong>第一部分</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    success = <span class="literal">False</span></span><br><span class="line">    self.setUp()</span><br><span class="line">    <span class="keyword">except</span> SkipTest <span class="keyword">as</span> e:</span><br><span class="line">        self._addSkip(result, <span class="built_in">str</span>(e))</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        result.addError(self, sys.exc_info())</span><br></pre></td></tr></table></figure>
+
+<p>在用例执行之前给是否成功的标识赋值为false，success=False <br>接着执行setUp方法，如果是在setUp中skipTest异常抛出，则在result中添加异常信息。如何实现这个SkipTest异常呢，我们可以在setUp方法中增加一句代码：raise unittest.SkipTest(‘setup skip test’)，如果是在setUp中遇到KeyboardInterrupt异常(Ctrl+c),则会直接抛出异常，如果是除了这两个异常之外的其他异常，则在result中添加error信息。</p>
+<p><strong>第二部分：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        testMethod()</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line">    <span class="keyword">except</span> self.failureException:</span><br><span class="line">        result.addFailure(self, sys.exc_info())</span><br><span class="line">    <span class="keyword">except</span> _ExpectedFailure <span class="keyword">as</span> e:</span><br><span class="line">        addExpectedFailure = <span class="built_in">getattr</span>(result, <span class="string">&#x27;addExpectedFailure&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> addExpectedFailure <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            addExpectedFailure(self, e.exc_info)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            warnings.warn(<span class="string">&quot;TestResult has no addExpectedFailure method, reporting as passes&quot;</span>,</span><br><span class="line">                          RuntimeWarning)</span><br><span class="line">            result.addSuccess(self)</span><br><span class="line">    <span class="keyword">except</span> _UnexpectedSuccess:</span><br><span class="line">        addUnexpectedSuccess = <span class="built_in">getattr</span>(result, <span class="string">&#x27;addUnexpectedSuccess&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> addUnexpectedSuccess <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            addUnexpectedSuccess(self)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            warnings.warn(<span class="string">&quot;TestResult has no addUnexpectedSuccess method, reporting as failures&quot;</span>,</span><br><span class="line">                          RuntimeWarning)</span><br><span class="line">            result.addFailure(self, sys.exc_info())</span><br><span class="line">    <span class="keyword">except</span> SkipTest <span class="keyword">as</span> e:</span><br><span class="line">        self._addSkip(result, <span class="built_in">str</span>(e))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        result.addError(self, sys.exc_info())</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        success = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        self.tearDown()</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        result.addError(self, sys.exc_info())</span><br><span class="line">        success = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">cleanUpSuccess = self.doCleanups()</span><br><span class="line">success = success <span class="keyword">and</span> cleanUpSuccess</span><br><span class="line"><span class="keyword">if</span> success:</span><br><span class="line">    result.addSuccess(self)</span><br></pre></td></tr></table></figure>
+
+<p>如果是setup部分没有报错或异常，则执行我们的testMethod方法（即我们写的具体的用例方法，以test开头），接下来的代码都是处理异常，else部分是如果没有异常则把success标识置为true，表示用例执行通过，然后执行tearDown部分的代码，如果tearDown部分遇到异常了，success标识又置为false。</p>
+<p><strong>第三部分：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    result.stopTest(self)</span><br><span class="line">    <span class="keyword">if</span> orig_result <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        stopTestRun = <span class="built_in">getattr</span>(result, <span class="string">&#x27;stopTestRun&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> stopTestRun <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            stopTestRun()</span><br></pre></td></tr></table></figure>
+
+<p>执行result的stopTest和stopTestRun方法（如果有）<br>至此，run方法分析完成了。</p>
+<p>上面我们介绍了run方法，那又是什么时候会调用run方法呢，再看TestCase的类里面方法，发现有一个<strong>call</strong>魔术方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self, *args, **kwds</span>):</span></span><br><span class="line">    <span class="keyword">return</span> self.run(*args, **kwds)</span><br></pre></td></tr></table></figure>
+
+<p>会去调我们的run方法（如果不太明白call方法是如何使用的，请百度一下）,这就让我们知道肯定有一个地方调用了类似这样一个方法(以上面的例子为例)：TestCase(‘testAddUser’)(result)，这就是我的下一篇分析unittest之TestSuite类说明要讲的内容了</p>
+<p>我们根据上面的分析可以来举一个列子来试验一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserCase</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">testAddUser</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;add a user&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">testDelUser</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;delete a user&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    result = unittest.TextTestResult(sys.stdout,<span class="string">&#x27;test result&#x27;</span>,<span class="number">1</span>) <span class="comment">#初始化TextTestResult类实例</span></span><br><span class="line">    testcase = UserCase(<span class="string">&#x27;testAddUser&#x27;</span>)  <span class="comment">#初始化UserCase类实例</span></span><br><span class="line">    testcase(result) <span class="comment">#跟testcase.run(result)的结果是一样的,我们只需要传入一个result对象即可</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">E:\PythonWorkSpace&gt;python test.py</span><br><span class="line">add a user</span><br><span class="line">.</span><br><span class="line"></span><br><span class="line">E:\PythonWorkSpace&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以运行成功，说明跟我们的分析一直，我们可以直接通过TestCase的run方法运行我们的用例，或者用过它的<strong>call</strong>魔术方法也是可以的，即上面例子中的testcase(result)就是通过此魔术方法去调用的run方法。</p>
+<h3 id="TestFixure"><a href="#TestFixure" class="headerlink" title="TestFixure"></a>TestFixure</h3><p>我们可以把TestFixture看作夹心饼干外层的两片饼干，这两片饼干就是setUp/tearDown，中间的奶油就是测试用例。除此之外，unittest还提供了更大范围的Fixture，如测试类、测试模块的Fixture。</p>
+<p><strong>用例级别 setUp/tearDown</strong></p>
+<ul>
+<li>setUp：测试用例开始前执行（以一条测试用例为单位）</li>
+<li>tearDown：测试用例结束时执行（以一条测试用例为单位）</li>
+</ul>
+<p>使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试用例开始前执行(以一条测试用例为单位)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setUp</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test case start&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试用例结束时执行(以一条测试用例为单位)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tearDown</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test case end&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>类级别 setUpClass/tearDownClass</strong></p>
+<ul>
+<li>setUpClass：测试用例类开始前执行</li>
+<li>tearDownClass：测试用例类结束时执行</li>
+</ul>
+<p>使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试用例类开始前执行</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setUpClass</span>(<span class="params">cls</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test class start&quot;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 测试用例类结束时执行</span></span><br><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tearDownClass</span>(<span class="params">cls</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test class end&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>@classmethod 是一个函数修饰符，它表示接下来的是一个类方法，而对于平常我们见到的则叫做实例方法。类方法的第一个参数cls，而实例方法的第一个参数为self，表示该类的一个实例。</p>
+<p>@classmethod 不需要self参数，但第一个参数需要表示自身类的cls参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> date</span><br><span class="line"></span><br><span class="line"><span class="comment"># random Person</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, age</span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fromBirthYear</span>(<span class="params">cls, name, birthYear</span>):</span></span><br><span class="line">        <span class="keyword">return</span> cls(name, date.today().year - birthYear)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">display</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(self.name + <span class="string">&quot;&#x27;s age is: &quot;</span> + <span class="built_in">str</span>(self.age))</span><br><span class="line"></span><br><span class="line">person = Person(<span class="string">&#x27;Adam&#x27;</span>, <span class="number">19</span>)</span><br><span class="line">person.display()</span><br><span class="line"></span><br><span class="line">person1 = Person.fromBirthYear(<span class="string">&#x27;John&#x27;</span>,  <span class="number">1985</span>)</span><br><span class="line">person1.display()</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Adam<span class="string">&#x27;s age is: 19</span></span><br><span class="line"><span class="string">John&#x27;</span>s age <span class="keyword">is</span>: <span class="number">31</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们有两个类实例创建者，一个构造函数和一个<code>fromBirthYear</code>方法。</p>
+<p>构造函数接受普通参数 名称 和 年龄. 同时，<code>fromBirthYear</code>需要班级, 名称 和 出生年, 通过用当前年份减去当前年龄来计算当前年龄并返回类实例。</p>
+<p>fromBirthYear 方法将 Person 类（不是 Person 对象）作为第一个参数 类并通过调用返回构造函数<code>cls(name, date.today().year - birthYear)</code>，相当于<code>Person(name, date.today().year - birthYear)</code></p>
+<p>在方法之前，我们看到<code>@classmethod</code>. 这称为用于转换为类方法的<a target="_blank" rel="noopener" href="https://www.programiz.com/python-programming/decorator">装饰器</a>。<code>fromBirthYear``classmethod()</code></p>
+<p><strong>模块级别 setUpModule/tearDownModule</strong></p>
+<ul>
+<li>setUpModule：整个模块开始前执行</li>
+<li>tearDownModule：整个模块结束时执行</li>
+</ul>
+<p>使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 整个模块开始前执行</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setUpModule</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test module start&quot;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 整个模块结束时执行</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tearDownModule</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test module end&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 整个模块开始前执行</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setUpModule</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;模块级别开始 test module start&quot;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 整个模块结束时执行</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tearDownModule</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;模块级别结束 test module end&quot;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTest</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 测试用例类开始前执行</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUpClass</span>(<span class="params">cls</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;类级别开始 test class start&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 测试用例类结束时执行</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDownClass</span>(<span class="params">cls</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;类级别结束 test claass end&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 测试用例开始前执行（以一条测试用例为单位）</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUp</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例级别开始 test case start&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 测试用例结束时执行（以一条测试用例为单位）</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDown</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;用例级别结束 test case end&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_case_001</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;测试用例1&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_case_002</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;测试用例2&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模块级别开始 test module start类级别开始 test class start用例级别开始 test case start测试用例1用例级别结束 test case end.用例级别开始 test case start测试用例2用例级别结束 test case end.类级别结束 test claass end模块级别结束 test module end----------------------------------------------------------------------Ran 2 tests in 0.000sOK</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<ul>
+<li>1、setUpModule/tearDownModule：在整个模块的开始与结束时被执行。</li>
+<li>2、setUpClass/tearDownClass ：在测试类的开始与结束时被执行。</li>
+<li>3、setUp/tearDown ： 在测试用例的开始与结束被执行。</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>4、setUpClass/tearDownClass 为类方法，需要通过@classmethod 进行装饰，另外方法的参数为cls，cls和self没有本质上的区别，都只表示方法的第一个参数。</li>
+<li>5、使用场景，比如WEB自动化，浏览器初始化工作，可以使用。接口自动化需要登录的接口，然后拿到token等等令牌可以使用。</li>
+<li>6、六个条件都是非必要条件，如果没有可以使用pass 占位符即可。</li>
+</ul>
+<h3 id="TestRunner执行测试"><a href="#TestRunner执行测试" class="headerlink" title="TestRunner执行测试"></a>TestRunner执行测试</h3><p>不知道如何翻译这个单词才好，我就叫它文本类测试用例运行器吧，大概就这个意思。</p>
+<p>通过前两篇对TestCase和TestSuite类的详解，我们都知道他们都有一个自己的run方法，其实我们可以直接调用他们各自的run方法就可以执行我们的测试用例或测试集了，我们只需要初始化一个TestResult类或者其子类的实例传入到第一个参数即可，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sysimport unittestclass UserCase(unittest.TestCase):    <span class="function"><span class="keyword">def</span> <span class="title">testAddUser</span>(<span class="params">self</span>):</span>        <span class="built_in">print</span>(<span class="string">&quot;add a user&quot;</span>)    <span class="function"><span class="keyword">def</span> <span class="title">testDelUser</span>(<span class="params">self</span>):</span>        <span class="built_in">print</span>(<span class="string">&quot;delete a user&quot;</span>)<span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:    result = unittest.TextTestResult(sys.stdout,<span class="string">&#x27;test result&#x27;</span>,<span class="number">1</span>)    testcase = UserCase(<span class="string">&#x27;testAddUser&#x27;</span>)    testcase.run(result)    <span class="comment">#我们只需要传入一个result对象即可</span></span><br></pre></td></tr></table></figure>
+
+<p>那何必还需要一个TextTestRunner类呢，个人觉得主要是为了控制测试结果的输出，为什么这么说呢，大家可以自己动手实践一下，对比一下直接使用TestCase的run方法运行后的结果和通过TextTestRunner的run方法运行的结果输出有什么不同。扩展HTMLTestRunner大神，其扩展的主要也就是TestRunner部分（当然还有扩展TestResult）使其结果输出为HTML的报告，所以想要自定义的控制测试结果（即result）的输出，可以从扩展TestRunner这里入手。</p>
+<p>我们先来看一下我们自己写代码时用TextTestRunner是怎么去执行用例的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittestclass UserCase(unittest.TestCase):    <span class="function"><span class="keyword">def</span> <span class="title">testAddUser</span>(<span class="params">self</span>):</span>        <span class="built_in">print</span>(<span class="string">&quot;add a user&quot;</span>)    <span class="function"><span class="keyword">def</span> <span class="title">testDelUser</span>(<span class="params">self</span>):</span>        <span class="built_in">print</span>(<span class="string">&quot;delete a user&quot;</span>)<span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:    runner = unittest.TextTestRunner()    suite = unittest.TestSuite(<span class="built_in">map</span>(UserCase,[<span class="string">&#x27;testAddUser&#x27;</span>,<span class="string">&#x27;testDelUser&#x27;</span>]))    case = UserCase(<span class="string">&#x27;testAddUser&#x27;</span>)    runner.run(suite)    runner.run(case)</span><br></pre></td></tr></table></figure>
+
+<p>从代码里面可以看到我们是通过TextTestRunner类实例的run方法去执行的用例或用例集。下面我们来分析一下run方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self, test</span>):</span>    <span class="string">&quot;Run the given test case or test suite.&quot;</span>    result = self._makeResult()    registerResult(result)    result.failfast = self.failfast    result.buffer = self.buffer    startTime = time.time()    startTestRun = <span class="built_in">getattr</span>(result, <span class="string">&#x27;startTestRun&#x27;</span>, <span class="literal">None</span>)    <span class="keyword">if</span> startTestRun <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:        startTestRun()    <span class="keyword">try</span>:        test(result)    <span class="keyword">finally</span>:        stopTestRun = <span class="built_in">getattr</span>(result, <span class="string">&#x27;stopTestRun&#x27;</span>, <span class="literal">None</span>)        <span class="keyword">if</span> stopTestRun <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:            stopTestRun()    stopTime = time.time()    timeTaken = stopTime - startTime    result.printErrors()    <span class="keyword">if</span> <span class="built_in">hasattr</span>(result, <span class="string">&#x27;separator2&#x27;</span>):        self.stream.writeln(result.separator2)    run = result.testsRun    self.stream.writeln(<span class="string">&quot;Ran %d test%s in %.3fs&quot;</span> %                        (run, run != <span class="number">1</span> <span class="keyword">and</span> <span class="string">&quot;s&quot;</span> <span class="keyword">or</span> <span class="string">&quot;&quot;</span>, timeTaken))    self.stream.writeln()    expectedFails = unexpectedSuccesses = skipped = <span class="number">0</span>    <span class="keyword">try</span>:        results = <span class="built_in">map</span>(<span class="built_in">len</span>, (result.expectedFailures,                            result.unexpectedSuccesses,                            result.skipped))    <span class="keyword">except</span> AttributeError:        <span class="keyword">pass</span>    <span class="keyword">else</span>:        expectedFails, unexpectedSuccesses, skipped = results    infos = []    <span class="keyword">if</span> <span class="keyword">not</span> result.wasSuccessful():        self.stream.write(<span class="string">&quot;FAILED&quot;</span>)        failed, errored = <span class="built_in">map</span>(<span class="built_in">len</span>, (result.failures, result.errors))        <span class="keyword">if</span> failed:            infos.append(<span class="string">&quot;failures=%d&quot;</span> % failed)        <span class="keyword">if</span> errored:            infos.append(<span class="string">&quot;errors=%d&quot;</span> % errored)    <span class="keyword">else</span>:        self.stream.write(<span class="string">&quot;OK&quot;</span>)    <span class="keyword">if</span> skipped:        infos.append(<span class="string">&quot;skipped=%d&quot;</span> % skipped)    <span class="keyword">if</span> expectedFails:        infos.append(<span class="string">&quot;expected failures=%d&quot;</span> % expectedFails)    <span class="keyword">if</span> unexpectedSuccesses:        infos.append(<span class="string">&quot;unexpected successes=%d&quot;</span> % unexpectedSuccesses)    <span class="keyword">if</span> infos:        self.stream.writeln(<span class="string">&quot; (%s)&quot;</span> % (<span class="string">&quot;, &quot;</span>.join(infos),))    <span class="keyword">else</span>:        self.stream.write(<span class="string">&quot;\n&quot;</span>)    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<p>其实这么长一段的代码，最重要的一行代码是：test(result)，其中test是我们传入的TestCase类的实例或TestSuite类的实例，所以这句代码最终调用的就是TestCase类的run方法或TestSuite类的run方法，而这两个run方法就在我前两篇文章分析的内容里面，忘记的朋友可以回到前面再去阅读一番。</p>
+<p>对于其他部分的代码，分析起来就太多了，基本都是处理result的内容（即测试结果数据的处理），这里也暂时不做详细的分析了</p>
+<h3 id="TestReport测试报告"><a href="#TestReport测试报告" class="headerlink" title="TestReport测试报告"></a>TestReport测试报告</h3><p>可点击下载<a href="../download/pdf/HTMLTestRunner.py">HTMLTestRunner.py</a></p>
+<blockquote>
+<p>参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/chenmozhe22/article/details/96902079?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control">Python测试框架Pytest—–Fixture函数详解</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" rel="tag"># 自动化测试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/13/%E7%88%B1%E4%B9%90%E4%B9%8B%E5%9F%8E/" rel="prev" title="爱乐之城">
+      <i class="fa fa-chevron-left"></i> 爱乐之城
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/15/shell%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/" rel="next" title="shell格式化输出">
+      shell格式化输出 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unittest%E7%BB%84%E6%88%90"><span class="nav-number">1.</span> <span class="nav-text">Unittest组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TestSuite-%E6%B5%8B%E8%AF%95%E5%A5%97%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">TestSuite 测试套件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TestCase-%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">TestCase 测试用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TestFixure"><span class="nav-number">1.3.</span> <span class="nav-text">TestFixure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TestRunner%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">1.4.</span> <span class="nav-text">TestRunner执行测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TestReport%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="nav-number">1.5.</span> <span class="nav-text">TestReport测试报告</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

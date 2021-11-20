@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="各位做爬虫的对selenium应该都很熟悉了，我们经常会拿selenium进行自动登录来搭建cookie池，对于不想自己网站被爬的站主&#x2F;开发人员来说，防止自动化脚本操作网站自然是反爬必须要做的工作。那么，他们究竟有哪些手段来检测用户是否是selenium呢？今天就来总结一下常见的识别selenium的方法以及各种解决之道。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器如何识别selenium及爬虫如何绕过反爬">
+<meta property="og:url" content="http://example.com/2021/01/29/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%ABselenium%E5%8F%8A%E7%88%AC%E8%99%AB%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87%E5%8F%8D%E7%88%AC/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="各位做爬虫的对selenium应该都很熟悉了，我们经常会拿selenium进行自动登录来搭建cookie池，对于不想自己网站被爬的站主&#x2F;开发人员来说，防止自动化脚本操作网站自然是反爬必须要做的工作。那么，他们究竟有哪些手段来检测用户是否是selenium呢？今天就来总结一下常见的识别selenium的方法以及各种解决之道。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-25a344a9bd1d04dec2f602ef741292ee_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-997a5e933f19e4af17848afa9714034b_720w.png">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c17c45d289ce9e3a42bd2cc546f84c43_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-12afcfa70a958a371d24bfbb49d39b7c_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-02e2106ce10bdab43fcf4ce1fdafb7e5_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-9769537726985ead0ed24f3a77d64aaa_180x120.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-736d57a8dd324d73dd46a03a064f8fdb_180x120.jpg">
+<meta property="article:published_time" content="2021-01-29T12:53:56.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-25a344a9bd1d04dec2f602ef741292ee_720w.jpg">
+
+<link rel="canonical" href="http://example.com/2021/01/29/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%ABselenium%E5%8F%8A%E7%88%AC%E8%99%AB%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87%E5%8F%8D%E7%88%AC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>浏览器如何识别selenium及爬虫如何绕过反爬 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/29/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%ABselenium%E5%8F%8A%E7%88%AC%E8%99%AB%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87%E5%8F%8D%E7%88%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浏览器如何识别selenium及爬虫如何绕过反爬
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-29 20:53:56" itemprop="dateCreated datePublished" datetime="2021-01-29T20:53:56+08:00">2021-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>各位做爬虫的对selenium应该都很熟悉了，我们经常会拿selenium进行自动登录来搭建cookie池，对于不想自己网站被爬的站主/开发人员来说，防止自动化脚本操作网站自然是反爬必须要做的工作。那么，他们究竟有哪些手段来检测用户是否是selenium呢？今天就来总结一下常见的识别selenium的方法以及各种解决之道。</p>
+<span id="more"></span>
+
+<p>最广为人知的识别是否是selenium的方法就是window.navigator.webdriver，当浏览器被打开后，js就会给当前窗口一个window属性，里面存放着用户的各种”信息”。话不多说直接上图</p>
+<p><img src="https://pic3.zhimg.com/80/v2-25a344a9bd1d04dec2f602ef741292ee_720w.jpg" alt="img">正常用户访问时的webdriver为undefined</p>
+<p><img src="https://pic4.zhimg.com/80/v2-997a5e933f19e4af17848afa9714034b_720w.png" alt="img">selenium访问时为true</p>
+<p>明白了这个属性，我们来一段简单的js来反爬</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">window</span>.navigator.webdriver == <span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="built_in">document</span>.write(<span class="string">&quot;&lt;span&gt;看到这段就代表你是爬虫&lt;/span&gt;&quot;</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.write(<span class="string">&quot;&lt;span&gt;真正的信息在这儿呢&lt;/span&gt;&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在把这段代码保存到HTML中分别正常打开和selenium打开</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c17c45d289ce9e3a42bd2cc546f84c43_720w.jpg" alt="img">selenium打开</p>
+<p><img src="https://pic1.zhimg.com/80/v2-12afcfa70a958a371d24bfbb49d39b7c_720w.jpg" alt="img">正常打开</p>
+<p>其实，不只是webdriver，selenium打开浏览器后，还会有这些特征码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">webdriver  </span><br><span class="line">__driver_evaluate  </span><br><span class="line">__webdriver_evaluate  </span><br><span class="line">__selenium_evaluate  </span><br><span class="line">__fxdriver_evaluate  </span><br><span class="line">__driver_unwrapped  </span><br><span class="line">__webdriver_unwrapped  </span><br><span class="line">__selenium_unwrapped  </span><br><span class="line">__fxdriver_unwrapped  </span><br><span class="line">_Selenium_IDE_Recorder  </span><br><span class="line">_selenium  </span><br><span class="line">calledSelenium  </span><br><span class="line">_WEBDRIVER_ELEM_CACHE  </span><br><span class="line">ChromeDriverw  </span><br><span class="line">driver-evaluate  </span><br><span class="line">webdriver-evaluate  </span><br><span class="line">selenium-evaluate  </span><br><span class="line">webdriverCommand  </span><br><span class="line">webdriver-evaluate-response  </span><br><span class="line">__webdriverFunc  </span><br><span class="line">__webdriver_script_fn  </span><br><span class="line">__$webdriverAsyncExecutor  </span><br><span class="line">__lastWatirAlert  </span><br><span class="line">__lastWatirConfirm  </span><br><span class="line">__lastWatirPrompt  </span><br></pre></td></tr></table></figure>
+
+<p>只要识别到这些，那么该用户就是selenium无误了，目前针对selenium的反爬，都是从这些特征码下手的，那么该怎么反反爬呢？</p>
+<ol>
+<li>使用火狐浏览器</li>
+</ol>
+<p>大家先别急着笑，很多时候selenium+谷歌打不开目标网站，都可以用火狐试试。因为selenium只是一个控制浏览器的工具，而chromedriver和geckodriver都不是selenium官方发布的（鬼知道谁发布的），因此在控制浏览器方面会有不同的差异，具体原理不再赘述，总之很多网站不能用selenium+chrome就可以试试firefox。</p>
+<p>（理论上IE也可能会达到相应效果，但IE内核实在太烂了，selenium+IE=龟速爬虫）</p>
+<p>\2. 给webdriver的options增加参数</p>
+<p>谷歌浏览器的设置中有一个参数名为excludeSwitches，它的值是一个数组，向里面添加chrome的命令就可以在selenium打开chrome后自动执行数组内的指令，我们向里面添加一个enable-automation</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver import ChromeOptions</span><br><span class="line"></span><br><span class="line">option = ChromeOptions()</span><br><span class="line">option.add_experimental_option(&#x27;excludeSwitches&#x27;, [&#x27;enable-automation&#x27;])</span><br><span class="line">brower = webdriver.Chrome(options=option)</span><br><span class="line">brower.get(&#x27;file:///C:/Users/Administrator/Desktop/js.html&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>此时运行这段代码，发现可以拿到正确的信息</p>
+<p><img src="https://pic2.zhimg.com/80/v2-02e2106ce10bdab43fcf4ce1fdafb7e5_720w.jpg" alt="img">右上角会跳出提示，不要管它，更不要点停用</p>
+<p>如果你觉得右上角的提示太碍眼，可以参考这篇教程禁用此提示</p>
+<p><a href="https://link.zhihu.com/?target=https://www.jianshu.com/p/b5deac715115">彻底禁用Chrome的“请停用以开发者模式运行的扩展程序”提示www.jianshu.com<img src="https://pic3.zhimg.com/v2-9769537726985ead0ed24f3a77d64aaa_180x120.jpg" alt="图标"></a></p>
+<p>\3. 中间人代理mitmproxy</p>
+<p>爬过app的朋友应该对这玩意儿不陌生，简单介绍一下吧。mitmproxy其实和fiddler/charles等抓包工具的原理有些类似，作为一个第三方，它会把自己伪装成你的浏览器向服务器发起请求，服务器返回的response会经由它传递给你的浏览器，你可以通过编写脚本来更改这些数据的传递，从而实现对服务器的“欺骗”和对客户端的“欺骗”。具体原理和使用见此</p>
+<p><a href="https://link.zhihu.com/?target=https://blog.wolfogre.com/posts/usage-of-mitmproxy/">使用 mitmproxy + python 做拦截代理blog.wolfogre.com<img src="https://pic4.zhimg.com/v2-736d57a8dd324d73dd46a03a064f8fdb_180x120.jpg" alt="图标"></a></p>
+<p>下面提供一个防屏蔽selenium的简单demo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># my_demo.py</span><br><span class="line">from mitmproxy import ctx  </span><br><span class="line">    </span><br><span class="line">def response(flow):  </span><br><span class="line">    # &#x27;js&#x27;字符串为目标网站的相应js名 </span><br><span class="line">    if &#x27;js&#x27; in flow.request.url:  </span><br><span class="line">        for i in [&#x27;webdriver&#x27;, &#x27;__driver_evaluate&#x27;, &#x27;__webdriver_evaluate&#x27;, &#x27;__selenium_evaluate&#x27;, &#x27;__fxdriver_evaluate&#x27;, &#x27;__driver_unwrapped&#x27;, &#x27;__webdriver_unwrapped&#x27;, &#x27;__selenium_unwrapped&#x27;, &#x27;__fxdriver_unwrapped&#x27;, &#x27;_Selenium_IDE_Recorder&#x27;, &#x27;_selenium&#x27;, &#x27;calledSelenium&#x27;, &#x27;_WEBDRIVER_ELEM_CACHE&#x27;, &#x27;ChromeDriverw&#x27;, &#x27;driver-evaluate&#x27;, &#x27;webdriver-evaluate&#x27;, &#x27;selenium-evaluate&#x27;, &#x27;webdriverCommand&#x27;, &#x27;webdriver-evaluate-response&#x27;, &#x27;__webdriverFunc&#x27;, &#x27;__webdriver_script_fn&#x27;, &#x27;__$webdriverAsyncExecutor&#x27;, &#x27;__lastWatirAlert&#x27;, &#x27;__lastWatirConfirm&#x27;, &#x27;__lastWatirPrompt&#x27;, &#x27;$chrome_asyncScriptInfo&#x27;, &#x27;$cdc_asdjflasutopfhvcZLmcfl_&#x27;]:  </span><br><span class="line">            ctx.log.info(&#x27;Remove %s from %s.&#x27; % (i, flow.request.url))  </span><br><span class="line">            flow.response.text = flow.response.text.replace(&#x27;&quot;%s&quot;&#x27; % (i), &#x27;&quot;NO-SUCH-ATTR&quot;&#x27;)  </span><br><span class="line">        flow.response.text = flow.response.text.replace(&#x27;t.webdriver&#x27;, &#x27;false&#x27;)  </span><br><span class="line">        flow.response.text = flow.response.text.replace(&#x27;ChromeDriver&#x27;, &#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>然后我们使用如下命令行启动脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mitmdump.exe -S my_demo.py</span><br></pre></td></tr></table></figure>
+
+<p>然后通过selenium就可以正常访问一些屏蔽selenium的网站了</p>
+<p>\4. pyppeteer</p>
+<p>先简单介绍一下puppeteer，这玩意儿是一个基于node.js的chrome官方框架，主要用于操作谷歌无头模式进行各种操作，pyppeteer则是puppeteer的python版本。</p>
+<p>它的作用和selenium是类似的，通过脚本操作无头谷歌，但是它并不会有selenium那么多的特征字符串，可以做到完全把“自己”当作真人操作。当然，它还是有缺点的.虽然puppeteer一直在更新，但是pyppeteer已经停止更新将近一年了，所以无法保证它以后是否可用。同样因为它是基于谷歌无头的，因此它只能用于谷歌无头，不想selenium一样，编写完脚本只需改变少量代码，便可以在多种浏览器中运行。下面是pyppeteer的官方文档：</p>
+<p><a href="https://link.zhihu.com/?target=https://miyakogi.github.io/pyppeteer/">Pyppeteer’s documentationmiyakogi.github.io</a></p>
+<p>下面是一个简单的demo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import asyncio</span><br><span class="line">from pyppeteer import launch</span><br><span class="line"></span><br><span class="line">async def main():</span><br><span class="line">    browser = await launch()</span><br><span class="line">    page = await browser.newPage()</span><br><span class="line">    await page.goto(&#x27;file:///C:/Users/Administrator/Desktop/js.html&#x27;)</span><br><span class="line">    print(await page.content())</span><br><span class="line"></span><br><span class="line">asyncio.get_event_loop().run_until_complete(main())</span><br></pre></td></tr></table></figure>
+
+<p>如果你电脑中没有chromium，执行这段代码后会自动帮你安装，然后再运行这段代码，但是非常慢，所以建议自己网上下载chromium后再执行脚本</p>
+<p>\5. 编译后的chromedriver</p>
+<p>鬼知道为什么又是chrome……最近发现的一个比较有趣的chromedriver，与一般chromedriver不同的是它经过了一些底层的修改，可以直接使用它来登录一些对selenium有检测的网站（比如某宝），有兴趣的可以私聊我获取</p>
+<p>目前个人已知的就这几种解决方法，欢迎补充更新~</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/85663187">https://zhuanlan.zhihu.com/p/85663187</a></p>
+<p>这里提供了防淘宝检测的简单demo视频版及源码（已失效），编译后的chromedriver，大家可以参考一下，编译后的chromedriver的网盘链接也在文末，大家自行获取~</p>
+<p>转载：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/z-ri-tian">看起来是不是很凶</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/78368287">https://zhuanlan.zhihu.com/p/78368287</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"># 爬虫</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/27/%E4%B9%9D%E6%AD%8C%E5%B1%B1%E9%AC%BC/" rel="prev" title="九歌·山鬼">
+      <i class="fa fa-chevron-left"></i> 九歌·山鬼
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/31/Pyenv-python%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" rel="next" title="Pyenv python版本管理">
+      Pyenv python版本管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

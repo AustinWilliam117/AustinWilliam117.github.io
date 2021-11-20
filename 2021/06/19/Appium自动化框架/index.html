@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="对测试人来说，Appium 是非常重要的一个开源跨平台自动化测试工具，它允许测试人员在不同的平台（iOS、Android 等）使用同一套 API 来写自动化测试脚本，这样可大幅提升代码复用率和工作效率。 本文汇总了从 Appium 基础到自动化测试高级实战中，所涉及到的方方面面的知识点精华内容（如下所示），希望对大家快速总结和复习有所帮助。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Appium自动化框架">
+<meta property="og:url" content="http://example.com/2021/06/19/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="对测试人来说，Appium 是非常重要的一个开源跨平台自动化测试工具，它允许测试人员在不同的平台（iOS、Android 等）使用同一套 API 来写自动化测试脚本，这样可大幅提升代码复用率和工作效率。 本文汇总了从 Appium 基础到自动化测试高级实战中，所涉及到的方方面面的知识点精华内容（如下所示），希望对大家快速总结和复习有所帮助。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-19T13:54:47.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="自动化测试">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/06/19/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%A1%86%E6%9E%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Appium自动化框架 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/19/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Appium自动化框架
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-19 21:54:47" itemprop="dateCreated datePublished" datetime="2021-06-19T21:54:47+08:00">2021-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>对测试人来说，Appium 是非常重要的一个开源跨平台自动化测试工具，它允许测试人员在不同的平台（iOS、Android 等）使用同一套 API 来写自动化测试脚本，这样可大幅提升代码复用率和工作效率。</p>
+<p>本文汇总了从 Appium 基础到自动化测试高级实战中，所涉及到的方方面面的知识点精华内容（如下所示），希望对大家快速总结和复习有所帮助。</p>
+<span id="more"></span>
+
+<h3 id="Appium-从基础到自动化测试框架实战"><a href="#Appium-从基础到自动化测试框架实战" class="headerlink" title="Appium 从基础到自动化测试框架实战"></a><strong>Appium 从基础到自动化测试框架实战</strong></h3><ol>
+<li>Appium 基础 1(环境搭建和简介)</li>
+<li>Appium 基础 2(元素定位和元素常用方法)</li>
+<li>Appium 基础 3(手势操作和 uiautomator 查找元素)</li>
+<li>Appium 基础 4(显式等待)</li>
+<li>Appium 基础 5(toast 和参数化)</li>
+<li>Appium 基础 6(webview)</li>
+<li>Appium_ 企业微信练习 (非 PO，增加和删除联系人)</li>
+<li>Appium_ 企业微信练习 (PO–增加联系人)</li>
+</ol>
+<h3 id="Appium-环境搭建"><a href="#Appium-环境搭建" class="headerlink" title="Appium 环境搭建"></a><strong>Appium 环境搭建</strong></h3><h3 id="JDK-的搭建"><a href="#JDK-的搭建" class="headerlink" title="JDK 的搭建"></a><strong>JDK 的搭建</strong></h3><ul>
+<li>下载 1.8 的 jdk</li>
+<li>新建环境变量：JAVA_HOME 值为：D:\Program Files\Java\jdk1.7.0</li>
+<li>新建环境变量：CLASSPATH 值为：.;%JAVA_HOME%\lib;（注意：点号表示当前目录，不能省略）</li>
+<li>在系统变量 Path 的值的前面加入以下内容：%JAVA_HOME%\bin</li>
+</ul>
+<h3 id="SDK-的配置"><a href="#SDK-的配置" class="headerlink" title="SDK 的配置"></a><strong>SDK 的配置</strong></h3><ul>
+<li>下载 sdk</li>
+<li>打开 sdk 的 sdk manager，安装 tools 前 3 个东西和 google 的 usb 驱动</li>
+<li>配置 Android home 里面的 platform-tools 和 tools</li>
+</ul>
+<h3 id="Appium-的搭建"><a href="#Appium-的搭建" class="headerlink" title="Appium 的搭建"></a><strong>Appium 的搭建</strong></h3><ul>
+<li>安装 node.js，配置 node.js 的环境变量</li>
+<li>npm install -g cnpm –registry=<a href="https://link.zhihu.com/?target=https://registry.npm.taobao.org">https://registry.npm.taobao.org</a></li>
+<li>cnpm install -g appium</li>
+<li>cnpm install -g appium-doctor</li>
+<li>pip install appium-python-client</li>
+</ul>
+<h3 id="appium-运行的-python-代码"><a href="#appium-运行的-python-代码" class="headerlink" title="appium 运行的 python 代码"></a><strong>appium 运行的 python 代码</strong></h3><ul>
+<li>mumu 连接 adb 是：adb connect 127.0.0.1:7555</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置 caps 的值</span></span><br><span class="line">desire_cap= &#123;</span><br><span class="line">    <span class="comment">#默认是 Android</span></span><br><span class="line">    <span class="string">&quot;platformName&quot;</span>:<span class="string">&quot;android&quot;</span>,</span><br><span class="line">    <span class="comment">#adb devices 的 sn 名称</span></span><br><span class="line">    <span class="string">&quot;deviceName&quot;</span>:<span class="string">&quot;127.0.0.1:7555&quot;</span>,</span><br><span class="line">    <span class="comment">#包名</span></span><br><span class="line">    <span class="string">&quot;appPackage&quot;</span>:<span class="string">&quot;com.xueqiu.android&quot;</span>,</span><br><span class="line">    <span class="comment">#activity 名字</span></span><br><span class="line">    <span class="string">&quot;appActivity&quot;</span>:<span class="string">&quot;.view.WelcomeActivityAlias&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行 appium，前提是要打开 appium server</span></span><br><span class="line">driver=webdriver.Remote(<span class="string">&quot;http://127.0.0.1:4723/wd/hub&quot;</span>,desire_cap)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Appium-的简介"><a href="#Appium-的简介" class="headerlink" title="Appium 的简介"></a><strong>Appium 的简介</strong></h3><h3 id="Appium-的引擎"><a href="#Appium-的引擎" class="headerlink" title="Appium 的引擎"></a><strong>Appium 的引擎</strong></h3><ul>
+<li>Android 是 uiautomator2</li>
+<li>ios 是 xcuitest</li>
+</ul>
+<h3 id="Appium-的设计理念"><a href="#Appium-的设计理念" class="headerlink" title="Appium 的设计理念"></a><strong>Appium 的设计理念</strong></h3><ul>
+<li>webdriver 是基于 http 协议的，第一连接会建立一个 session 会话，并通过 post 发送一个 json 告知服务端相关测试信息</li>
+<li>client/server 设计模式</li>
+<li>客户端通过 webdriver json wire 协议与服务器通讯</li>
+<li>多语言支持</li>
+<li>server 可以放在任何地方</li>
+<li>服务器 nodejs 开发的 http 服务</li>
+<li>appium 使用 appium-xcuitest-driver 来测试 iphone 设备，其中需要安装 Facebook 出的 WDA(webdriver agent) 来驱动 ios 测试</li>
+</ul>
+<h3 id="Appium-的生态工具"><a href="#Appium-的生态工具" class="headerlink" title="Appium 的生态工具"></a><strong>Appium 的生态工具</strong></h3><ul>
+<li>adb：Android 控制工具</li>
+<li>appium Destkop：内嵌 appium server 和 inspector 的综合工具</li>
+<li>appium server：appium 的核心工具，命令行工具</li>
+<li>appium client：各种语言的客户端封装库，用户连接 appium server，包含 python、java、ruby 等</li>
+<li>appcrawler 自动遍历工具</li>
+</ul>
+<h3 id="获取-App-的信息"><a href="#获取-App-的信息" class="headerlink" title="获取 App 的信息"></a><strong>获取 App 的信息</strong></h3><ul>
+<li>获取当前元素界面：adb shell dumpsys activity top</li>
+<li>获取任务列表：adb shell dumpsys activity activities</li>
+<li>获取 app 的 package 和 activity：adb shell；然后 logcat | grep -i displayed</li>
+<li>启动应用:adb shell am start -W -n “com.xueqiu.android/.view.WelcomeActivityAlias -S</li>
+</ul>
+<h3 id="Capability-设置"><a href="#Capability-设置" class="headerlink" title="Capability 设置"></a><strong>Capability 设置</strong></h3><ul>
+<li>文档地址：<a href="https://link.zhihu.com/?target=http://appium.io/docs/en/writing-running-appium/caps/index.html">http://appium.io/docs/en/writing-running-appium/caps/index.html</a></li>
+<li>platformName:android 通常都是写 android</li>
+<li>deviceName:127.0.0.1:7555 这个通常是 adb devices 的名称</li>
+<li>appPackage:com.xueqiu.android 这个是 app 的 package 包名</li>
+<li>appActivity:.view.WelcomeActivityAlias 这个是 app 的 activity 名</li>
+<li>noReset：true, false 是否重置测试的环境（例如首次打开弹框，或者登陆信息）</li>
+<li>unicodeKeyboard：true, false 是否需要输入非英文之外的语言并在测试完成后重置输入法，比如输入中文</li>
+<li>dontStopAppOnReset：true, false 首次启动的时候，不停止 app</li>
+<li>skipDeviceInitialization：true, false 跳过安装，权限设置等操作</li>
+</ul>
+<h3 id="测试用的-apk"><a href="#测试用的-apk" class="headerlink" title="测试用的 apk"></a><strong>测试用的 apk</strong></h3><ul>
+<li><a href="https://link.zhihu.com/?target=https://github.com/appium/appium/tree/master/sample-code/apps">https://github.com/appium/appium/tree/master/sample-code/apps</a></li>
+</ul>
+<h3 id="Android-的基础知识"><a href="#Android-的基础知识" class="headerlink" title="Android 的基础知识"></a><strong>Android 的基础知识</strong></h3><h3 id="Android-的布局"><a href="#Android-的布局" class="headerlink" title="Android 的布局"></a><strong>Android 的布局</strong></h3><ul>
+<li>Android 是通过容器的布局属性来管理子控件的位置关系，布局过程就是把界面上的所有的控件，根据他们的间距的大小，摆放在正确的位置</li>
+<li>线性布局：LinearLayout</li>
+<li>相对布局：RelativeLayout</li>
+<li>帧布局：FrameLayout</li>
+<li>绝对布局：AbsoluteLayout</li>
+<li>表格布局：TableLayout</li>
+<li>网格布局：GirdLayout</li>
+<li>约束布局：ConstraintLayout</li>
+</ul>
+<h3 id="Android-四大组件"><a href="#Android-四大组件" class="headerlink" title="Android 四大组件"></a><strong>Android 四大组件</strong></h3><ul>
+<li>activity：与用户交互的可视化界面</li>
+<li>service：实现程序后台运行的解决方案，比如 qq 音乐的音乐在后台运行，没有界面</li>
+<li>content provide：内容提供者，提供程序所需要的数据，比如？提供数据库？</li>
+<li>broadcast receiver：广播接收器，监听外部事件的到来（比如来电）</li>
+</ul>
+<h3 id="Android-常用的控件"><a href="#Android-常用的控件" class="headerlink" title="Android 常用的控件"></a><strong>Android 常用的控件</strong></h3><ul>
+<li>TextView：文本控件</li>
+<li>EditText：可编辑文本控件</li>
+<li>Button：按钮</li>
+<li>ImageButton：图标按钮</li>
+<li>ToggleButton:开关按钮</li>
+<li>ImageView：图片控件</li>
+<li>CheckBox：复选框控件</li>
+<li>RadioButton：单选框控件</li>
+</ul>
+<h3 id="控件知识"><a href="#控件知识" class="headerlink" title="控件知识"></a><strong>控件知识</strong></h3><ul>
+<li>dom：Document Object Model 文档对象模型</li>
+<li>dom 应用：最早应用于 html 和 js 的交互，用户表示界的控件层级，界面的结构化描述，常见的格式为 html、xml。核心元素为节点和属性</li>
+<li>xpath：xml 路径语言，用于 xml 中的节点定位</li>
+<li>Android 的应用层级结构是定制的 xml</li>
+<li>app source 类似于 dom，表示 app 的层级，表示界面里面所有的控件数的结构</li>
+<li>每个控件都有它的属性（resourceid、xpath、aid），没有 css 属性</li>
+</ul>
+<h3 id="Appium-的元素定位"><a href="#Appium-的元素定位" class="headerlink" title="Appium 的元素定位"></a><strong>Appium 的元素定位</strong></h3><h3 id="普通方式的定位"><a href="#普通方式的定位" class="headerlink" title="普通方式的定位"></a><strong>普通方式的定位</strong></h3><ul>
+<li>driver.find_element_by_accessibility_id() 对应 content-desc</li>
+<li>driver.find_element_by_id() 对应 resource-id</li>
+<li>driver.find_element_by_name() 对应 text</li>
+<li>driver.find_element_by_xpath() 对应 xpath</li>
+</ul>
+<h3 id="By-的定位方式"><a href="#By-的定位方式" class="headerlink" title="By 的定位方式"></a><strong>By 的定位方式</strong></h3><ul>
+<li>首先要 from appium.webdriver.common.mobileby import MobileBy as By</li>
+<li>self.driver.find_element(By.ID,””) 对应 resource-id</li>
+<li>self.driver.find_element(By.XPATH,””) 对应 xpath</li>
+<li>self.driver.find_element(By.ACCESSIBILITY_ID,””) 对应 content-desc</li>
+<li>self.driver.find_element(By.NAME,””) 对应 text</li>
+</ul>
+<h3 id="Xpath-的定位方式"><a href="#Xpath-的定位方式" class="headerlink" title="Xpath 的定位方式"></a><strong>Xpath 的定位方式</strong></h3><ul>
+<li>driver.find_element_by_xpath(“//*[@text=’ 扫一扫 ‘]”)</li>
+<li>driver.find_element_by_xpath(“//*[@resource-id=’com.taobao.taobao:id/tv_scan_text’]”)</li>
+<li>driver.find_element_by_xpath(“//*[@content-desc=’ 帮助 ‘]”)</li>
+<li>driver.find_element(By.XPATH,”//*[@resource-id=’com.xueqiu.android:id/name’ and @text=’ 阿里巴巴 ‘]”) and 的使用</li>
+<li>父类和兄弟类的方法：//<em>[@text=’ 性别 ‘]/..//</em>[@text=’ 男 ‘]。其中 /.. 表示父类，//* 就是兄弟，孙子等类</li>
+<li>//*[Contains(@text,”tong”)] 这是 xpath 的 text 模糊搜索的方法</li>
+</ul>
+<h3 id="元素的方法"><a href="#元素的方法" class="headerlink" title="元素的方法"></a><strong>元素的方法</strong></h3><h3 id="元素的常用方法"><a href="#元素的常用方法" class="headerlink" title="元素的常用方法"></a><strong>元素的常用方法</strong></h3><ul>
+<li>点击方法：element.click()</li>
+<li>输入操作：element.send_keys(“tong”)</li>
+<li>设置元素的值：element.set_value(“tongtong”)</li>
+<li>清除操作：element.clear()</li>
+<li>是否可见：element.is_displayed 返回 true or false</li>
+<li>是否可用：element.enabled() 返回 true or false</li>
+<li>是否被选中：element.is_selected() 返回 true or false</li>
+<li>获取属性值：element.get_attribute(name)</li>
+</ul>
+<h3 id="属性值介绍"><a href="#属性值介绍" class="headerlink" title="属性值介绍"></a><strong>属性值介绍</strong></h3><ul>
+<li>get_attribute(name) 获取的属性名称和 uiautomatorviewer 的一致，但是 index 的值获取不了</li>
+<li>真假获取的值是 true 和 false 的字符串，并不是 python 的 boolean 值</li>
+</ul>
+<h3 id="元素常用的属性"><a href="#元素常用的属性" class="headerlink" title="元素常用的属性"></a><strong>元素常用的属性</strong></h3><ul>
+<li>获取元素文本：element.text</li>
+<li>获取元素坐标：element.location</li>
+<li>结果：{‘y’:19,’x’:498}</li>
+<li>获取元素尺寸（高和宽）：element.size</li>
+<li>结果：{‘width’:500,’height’:22}</li>
+</ul>
+<h3 id="实战小案例-1"><a href="#实战小案例-1" class="headerlink" title="实战小案例 1"></a><strong>实战小案例 1</strong></h3><ol>
+<li>打开雪球 app</li>
+<li>点击搜索输入框</li>
+<li>向搜索输入框输入 “阿里巴巴”</li>
+<li>在搜索的结果里选择阿里巴巴，然后点击</li>
+<li>获取这只上香港 阿里巴巴的股价，并判断这只股价的价格&gt;200</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy <span class="keyword">as</span> By</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestFind</span>():</span></span><br><span class="line">    <span class="comment">#设置 caps 的值</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setup</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.desire_cap= &#123;</span><br><span class="line">            <span class="comment">#默认是 Android</span></span><br><span class="line">            <span class="string">&quot;platformName&quot;</span>:<span class="string">&quot;android&quot;</span>,</span><br><span class="line">            <span class="comment">#adb devices 的 sn 名称</span></span><br><span class="line">            <span class="string">&quot;deviceName&quot;</span>:<span class="string">&quot;127.0.0.1:7555&quot;</span>,</span><br><span class="line">            <span class="comment">#包名</span></span><br><span class="line">            <span class="string">&quot;appPackage&quot;</span>:<span class="string">&quot;com.xueqiu.android&quot;</span>,</span><br><span class="line">            <span class="comment">#activity 名字</span></span><br><span class="line">            <span class="string">&quot;appActivity&quot;</span>:<span class="string">&quot;.view.WelcomeActivityAlias&quot;</span>,</span><br><span class="line">            <span class="string">&quot;noReset&quot;</span>:<span class="string">&quot;true&quot;</span>,</span><br><span class="line">            <span class="string">&quot;unicodeKeyboard&quot;</span>:<span class="literal">True</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">#运行 appium，前提是要打开 appium server</span></span><br><span class="line">        self.driver=webdriver.Remote(<span class="string">&quot;http://127.0.0.1:4723/wd/hub&quot;</span>,self.desire_cap)</span><br><span class="line">        self.driver.implicitly_wait(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_search</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        1. 打开雪球 app</span></span><br><span class="line"><span class="string">        2. 点击搜索输入框</span></span><br><span class="line"><span class="string">        3. 向搜索输入框输入 “阿里巴巴”</span></span><br><span class="line"><span class="string">        4. 在搜索的结果里选择阿里巴巴，然后点击</span></span><br><span class="line"><span class="string">        5. 获取这只上香港 阿里巴巴的股价，并判断这只股价的价格&gt;200</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        sleep(<span class="number">3</span>)</span><br><span class="line">        <span class="comment">#点击搜索框</span></span><br><span class="line">        self.driver.find_element(By.ID,<span class="string">&quot;com.xueqiu.android:id/tv_search&quot;</span>).click()</span><br><span class="line">        <span class="comment">#向搜索框输入阿里巴巴</span></span><br><span class="line">        self.driver.find_element(By.ID,<span class="string">&quot;com.xueqiu.android:id/search_input_text&quot;</span>).send_keys(<span class="string">&quot; 阿里巴巴 &quot;</span>)</span><br><span class="line">        <span class="comment">#找到搜索框预览结果的阿里巴巴，并点击</span></span><br><span class="line">        self.driver.find_element(By.XPATH,<span class="string">&quot;//*[@resource-id=&#x27;com.xueqiu.android:id/name&#x27; and @text=&#x27; 阿里巴巴 &#x27;]&quot;</span>).click()</span><br><span class="line">        <span class="comment">#选择 HK 股价的元素</span></span><br><span class="line">        prices=self.driver.find_elements(By.ID,<span class="string">&quot;com.xueqiu.android:id/current_price&quot;</span>)[<span class="number">1</span>]</span><br><span class="line">        <span class="comment">#提取股价的 text 属性</span></span><br><span class="line">        price=<span class="built_in">float</span>(prices.text)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#判断股价是否大于 200</span></span><br><span class="line">        <span class="keyword">assert</span> price &gt; <span class="number">200</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实战小案例-2"><a href="#实战小案例-2" class="headerlink" title="实战小案例 2"></a><strong>实战小案例 2</strong></h3><ol>
+<li>打开雪球首页</li>
+<li>定位首页的搜索框</li>
+<li>判断搜索框是否可用，并查看搜索框 name 属性值</li>
+<li>打印搜索框这个元素的左上角坐标和它的宽高</li>
+<li>向搜索框输入：alibaba</li>
+<li>判断阿里巴巴是否可见</li>
+<li>如果可见，打印搜索成功点击，如果不可见，打印搜索失败</li>
+</ol>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a><strong>代码</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy <span class="keyword">as</span> By</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestFind</span>():</span></span><br><span class="line">    <span class="comment">#设置 caps 的值</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setup</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.desire_cap= &#123;</span><br><span class="line">            <span class="comment">#默认是 Android</span></span><br><span class="line">            <span class="string">&quot;platformName&quot;</span>:<span class="string">&quot;android&quot;</span>,</span><br><span class="line">            <span class="comment">#adb devices 的 sn 名称</span></span><br><span class="line">            <span class="string">&quot;deviceName&quot;</span>:<span class="string">&quot;127.0.0.1:7555&quot;</span>,</span><br><span class="line">            <span class="comment">#包名</span></span><br><span class="line">            <span class="string">&quot;appPackage&quot;</span>:<span class="string">&quot;com.xueqiu.android&quot;</span>,</span><br><span class="line">            <span class="comment">#activity 名字</span></span><br><span class="line">            <span class="string">&quot;appActivity&quot;</span>:<span class="string">&quot;.view.WelcomeActivityAlias&quot;</span>,</span><br><span class="line">            <span class="string">&quot;noReset&quot;</span>:<span class="string">&quot;true&quot;</span>,</span><br><span class="line">            <span class="string">&quot;unicodeKeyboard&quot;</span>:<span class="literal">True</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">#运行 appium，前提是要打开 appium server</span></span><br><span class="line">        self.driver=webdriver.Remote(<span class="string">&quot;http://127.0.0.1:4723/wd/hub&quot;</span>,self.desire_cap)</span><br><span class="line">        self.driver.implicitly_wait(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_element_function</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        1. 打开雪球首页</span></span><br><span class="line"><span class="string">        2. 定位首页的搜索框</span></span><br><span class="line"><span class="string">        3. 判断搜索框是否可用，并查看搜索框 name 属性值</span></span><br><span class="line"><span class="string">        4. 打印搜索框这个元素的左上角坐标和它的宽高</span></span><br><span class="line"><span class="string">        5. 向搜索框输入：alibaba</span></span><br><span class="line"><span class="string">        6. 判断阿里巴巴是否可见</span></span><br><span class="line"><span class="string">        7. 如果可见，打印搜索成功点击，如果不可见，打印搜索失败</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        sleep(<span class="number">8</span>)</span><br><span class="line">        <span class="comment">#找到搜索框的元素</span></span><br><span class="line">        search=self.driver.find_element(By.ID, <span class="string">&quot;com.xueqiu.android:id/tv_search&quot;</span>)</span><br><span class="line">        <span class="comment">#当搜索框是可用（类似可点击）后才进行下面的操作，is_enabled() 返回 Ture or False</span></span><br><span class="line">        <span class="keyword">if</span> search.is_enabled():</span><br><span class="line">            <span class="comment">#打印搜索框的 text 值</span></span><br><span class="line">            <span class="built_in">print</span>(search.text)</span><br><span class="line">            <span class="comment">#打印搜索框左上角的坐标</span></span><br><span class="line">            <span class="built_in">print</span>(search.location)</span><br><span class="line">            <span class="comment">#打印搜索框的高和宽</span></span><br><span class="line">            <span class="built_in">print</span>(search.size)</span><br><span class="line">            <span class="comment">#点击搜索框，才可以进行下面的操作</span></span><br><span class="line">            search.click()</span><br><span class="line">            <span class="comment">#在搜索框中输入阿里巴巴</span></span><br><span class="line">            self.driver.find_element(By.ID, <span class="string">&quot;com.xueqiu.android:id/search_input_text&quot;</span>).send_keys(<span class="string">&quot; 阿里巴巴 &quot;</span>)</span><br><span class="line">            <span class="comment">#定义找到预览结果的阿里巴巴的元素</span></span><br><span class="line">            alibaba=self.driver.find_element(By.XPATH, <span class="string">&quot;//*[@resource-id=&#x27;com.xueqiu.android:id/name&#x27; and @text=&#x27; 阿里巴巴 &#x27;]&quot;</span>)</span><br><span class="line">            <span class="comment">#当 alibaba 元素可见，打开搜索成功，否则打印搜索失败</span></span><br><span class="line">            <span class="keyword">if</span> alibaba.is_displayed():</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot; 搜索成功 &quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot; 搜索失败 &quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="TestCase-脚本"><a href="#TestCase-脚本" class="headerlink" title="TestCase 脚本"></a>TestCase 脚本</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AndroidTests</span>(<span class="params">unittest.TestCase</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUp</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 定义一个空字典</span></span><br><span class="line">        desired_caps = &#123;&#125;</span><br><span class="line">        <span class="comment"># 平台名称</span></span><br><span class="line">        desired_caps[<span class="string">&#x27;platformName&#x27;</span>] = <span class="string">&#x27;Android&#x27;</span></span><br><span class="line">        <span class="comment"># 平台版本（手机版本号）</span></span><br><span class="line">        desired_caps[<span class="string">&#x27;platformVersion&#x27;</span>] = <span class="string">&#x27;5.1&#x27;</span></span><br><span class="line">        <span class="comment"># 设备名称固定写Android Emulator不会强行校验值</span></span><br><span class="line">        desired_caps[<span class="string">&#x27;deviceName&#x27;</span>] = <span class="string">&#x27;Android Emulator&#x27;</span></span><br><span class="line">        <span class="comment"># 不清除app数据，清除后犹如新设备安装的新软件</span></span><br><span class="line">        desired_caps[<span class="string">&#x27;noReset&#x27;</span>] = <span class="string">&#x27;True&#x27;</span></span><br><span class="line">        <span class="comment"># app包名，app之间用唯一的包名区分</span></span><br><span class="line">        desired_caps[<span class="string">&#x27;appPackage&#x27;</span>] = <span class="string">&#x27;cn.xiaochuankeji.tieba&#x27;</span></span><br><span class="line">        <span class="comment"># 一个界面就是一个activity，app中每个界面通过activity区分</span></span><br><span class="line">        desired_caps[<span class="string">&#x27;appActivity&#x27;</span>] = <span class="string">&#x27;.ui.base.SplashActivity&#x27;</span></span><br><span class="line">        <span class="comment"># 初始化driver，远程连接，请求参数到appium server上</span></span><br><span class="line">        self.driver = webdriver.Remote(<span class="string">&#x27;http://localhost:4723/wd/hub&#x27;</span>, desired_caps)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDown</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment">#self.driver.quit()</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_element_by_id</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.driver.implicitly_wait(<span class="number">60</span>)</span><br><span class="line">        el = self.driver.find_elements_by_id(<span class="string">&quot;cn.xiaochuankeji.tieba:id/title&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(el[<span class="number">2</span>].text)</span><br><span class="line">        el[<span class="number">2</span>].click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    suite = unittest.TestLoader().loadTestsFromTestCase(AndroidTests)</span><br><span class="line">    unittest.TextTestRunner(verbosity=<span class="number">2</span>).run(suite)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" rel="tag"># 自动化测试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/17/shell%E6%95%B0%E7%BB%84/" rel="prev" title="shell数组">
+      <i class="fa fa-chevron-left"></i> shell数组
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/20/%E5%AE%9E%E9%AA%8C7-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" rel="next" title="实验7 寻址方式在结构化数据访问中的应用">
+      实验7 寻址方式在结构化数据访问中的应用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E4%BB%8E%E5%9F%BA%E7%A1%80%E5%88%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E5%AE%9E%E6%88%98"><span class="nav-number">1.</span> <span class="nav-text">Appium 从基础到自动化测试框架实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">Appium 环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">JDK 的搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">SDK 的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">Appium 的搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#appium-%E8%BF%90%E8%A1%8C%E7%9A%84-python-%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">appium 运行的 python 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E7%9A%84%E7%AE%80%E4%BB%8B"><span class="nav-number">7.</span> <span class="nav-text">Appium 的简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E7%9A%84%E5%BC%95%E6%93%8E"><span class="nav-number">8.</span> <span class="nav-text">Appium 的引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E7%9A%84%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5"><span class="nav-number">9.</span> <span class="nav-text">Appium 的设计理念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E7%9A%84%E7%94%9F%E6%80%81%E5%B7%A5%E5%85%B7"><span class="nav-number">10.</span> <span class="nav-text">Appium 的生态工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-App-%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="nav-number">11.</span> <span class="nav-text">获取 App 的信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Capability-%E8%AE%BE%E7%BD%AE"><span class="nav-number">12.</span> <span class="nav-text">Capability 设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E7%9A%84-apk"><span class="nav-number">13.</span> <span class="nav-text">测试用的 apk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">14.</span> <span class="nav-text">Android 的基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-%E7%9A%84%E5%B8%83%E5%B1%80"><span class="nav-number">15.</span> <span class="nav-text">Android 的布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="nav-number">16.</span> <span class="nav-text">Android 四大组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8E%A7%E4%BB%B6"><span class="nav-number">17.</span> <span class="nav-text">Android 常用的控件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E4%BB%B6%E7%9F%A5%E8%AF%86"><span class="nav-number">18.</span> <span class="nav-text">控件知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D"><span class="nav-number">19.</span> <span class="nav-text">Appium 的元素定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E6%96%B9%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%BD%8D"><span class="nav-number">20.</span> <span class="nav-text">普通方式的定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#By-%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">21.</span> <span class="nav-text">By 的定位方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xpath-%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">22.</span> <span class="nav-text">Xpath 的定位方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">23.</span> <span class="nav-text">元素的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">24.</span> <span class="nav-text">元素的常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%80%BC%E4%BB%8B%E7%BB%8D"><span class="nav-number">25.</span> <span class="nav-text">属性值介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">26.</span> <span class="nav-text">元素常用的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E5%B0%8F%E6%A1%88%E4%BE%8B-1"><span class="nav-number">27.</span> <span class="nav-text">实战小案例 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">28.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E5%B0%8F%E6%A1%88%E4%BE%8B-2"><span class="nav-number">29.</span> <span class="nav-text">实战小案例 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="nav-number">30.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TestCase-%E8%84%9A%E6%9C%AC"><span class="nav-number">31.</span> <span class="nav-text">TestCase 脚本</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="App自动化测试背景随着移动终端的普及，手机应用越来越多，也越来越重要。App的回归测试用例数量也越来越多，全量回归也越来越消耗时间。另外移动端碎片化严重，尤其是Android端碎片化（不同的机型、不同的处理器架构、不同的系统版本、不同的厂商）严重性更为突出，市面上Android机型甚至有几万，几十万款，所以我们也需要通过这种自动化测试帮助我们减少兼容性的测试工作。总之为了减少这种重复的、大量回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Appium UI自动化测试">
+<meta property="og:url" content="http://example.com/2021/06/10/Appium-UI%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="App自动化测试背景随着移动终端的普及，手机应用越来越多，也越来越重要。App的回归测试用例数量也越来越多，全量回归也越来越消耗时间。另外移动端碎片化严重，尤其是Android端碎片化（不同的机型、不同的处理器架构、不同的系统版本、不同的厂商）严重性更为突出，市面上Android机型甚至有几万，几十万款，所以我们也需要通过这种自动化测试帮助我们减少兼容性的测试工作。总之为了减少这种重复的、大量回归">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/06/10/Appium-UI%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.jpg">
+<meta property="article:published_time" content="2021-06-10T15:31:23.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="自动化测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/06/10/Appium-UI%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/Appium%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.jpg">
+
+<link rel="canonical" href="http://example.com/2021/06/10/Appium-UI%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Appium UI自动化测试 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/10/Appium-UI%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Appium UI自动化测试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-06-10 23:31:23" itemprop="dateCreated datePublished" datetime="2021-06-10T23:31:23+08:00">2021-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>7 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="App自动化测试背景"><a href="#App自动化测试背景" class="headerlink" title="App自动化测试背景"></a>App自动化测试背景</h3><p>随着移动终端的普及，手机应用越来越多，也越来越重要。App的回归测试用例数量也越来越多，全量回归也越来越消耗时间。另外移动端碎片化严重，尤其是Android端碎片化（不同的机型、不同的处理器架构、不同的系统版本、不同的厂商）严重性更为突出，市面上Android机型甚至有几万，几十万款，所以我们也需要通过这种自动化测试帮助我们减少兼容性的测试工作。总之为了减少这种重复的、大量回归到测试任务，我们迫切需要引进一些自动化测试来协助。</p>
+<span id="more"></span>
+
+<h3 id="Appium自动化测试简介"><a href="#Appium自动化测试简介" class="headerlink" title="Appium自动化测试简介"></a>Appium自动化测试简介</h3><p>Appium是一个开源（大量社区人员维护源码）的，适用于原生（native）（纯粹使用安卓自带的开发组件和应用，开发的产品）或混合（原生应用中嵌入html5页面）移动应用( hybrid mobile apps )的自动化测试框架。Appium应用 WebDriver （继承了WebDriver协议，在协议中封装和拓展）: JSON wire protocol 驱动安卓和iOS移动应用。</p>
+<p>纯原生应用时效性差，例如：开发好的应用上传到应用商店，需要商店的审核。审核可能1-3天左右，IOS需要2周左右。618前一天开发好，急着上线。</p>
+<p>混合移动应用：在应用中嵌入一些html5页面，在自己的应用中启用web端，嵌入html5。不需要对已有应用再次审核。但是体验性差，自适应差，响应时间久。</p>
+<p>混合移动应用运用场景：商城中活动页面（快的更新频率）</p>
+<h4 id="App自动化测试工具对比"><a href="#App自动化测试工具对比" class="headerlink" title="App自动化测试工具对比"></a>App自动化测试工具对比</h4><p><strong>iOS</strong></p>
+<p>官方:</p>
+<ul>
+<li>Uiautomation/XCUITest: 白盒, UI测试, JS<br>其他:</li>
+<li>FastMonkey: 性能(仿Monkey), 张钊</li>
+</ul>
+<p><strong>Andorid</strong></p>
+<p>官方:</p>
+<ul>
+<li>Uiautomator/Uiautomtor2: UI测试, Java</li>
+<li>Monkey: app性能/稳定性测试, 随机操作</li>
+<li>MonkeyRunner: UI测试, Jpython, 只能通过坐标定位</li>
+<li>Robotium: 白盒, UI测试, Java, 支持Webview/Toast/menu/Dialog等, 无法跨进程</li>
+<li>Espresso: 官方推荐扩展测试包, 白盒,ui, 一般开发自测使用</li>
+<li>CTS: 兼容性测试, Java</li>
+</ul>
+<p>其他:</p>
+<ul>
+<li>Python-Uiautomotor2: UI测试, 使用简单, 支持无线连接设备及使用weditor查看元素定位</li>
+<li>Adb-For-Test/adb-For-Robotium: 个人, 基于adb命令的封装</li>
+</ul>
+<p><strong>多平台支持</strong></p>
+<ul>
+<li>Calabash: iOS/Andriod/混合app, Ruby, BDD模式, Api丰富</li>
+<li>Appium: iOS/Andriod/混合app/H5, Java/Python/Ruby/JS..</li>
+<li>Macaco: 阿里基于Appium进行的精简封装的一套框架, 支持Electron应用, 包含app-inspector和ui-recorder, 统一了iOS/Android操作的Api, 目前坑比较多, 环境搭建较麻烦</li>
+<li><strong>Airtest(ATS)</strong>: 网易推出的一款基于截图对比的App自动化测试工具, 可用于App游戏UI测试, 支持iOS/Android</li>
+</ul>
+<p><strong>云平台</strong></p>
+<ul>
+<li><strong>Sauce Labs</strong>: Appium官方推荐, 应用最广的云测平台, 收费</li>
+<li>Testin/腾讯云测等: 国内云平台, 收费</li>
+<li>OpenSTF: 开源手机集群管理平台, 免费</li>
+</ul>
+<h4 id="Appium的特点"><a href="#Appium的特点" class="headerlink" title="Appium的特点"></a>Appium的特点</h4><ul>
+<li>支持多平台(Android、 iOS等)</li>
+<li>支持多语言(python、 java、 ruby、 javascript、 c#等)</li>
+<li>Appium是跨平台的，可以用在OSX, Windows以及Linux 桌面系统上运行。（IOS应用只能在MAC上测试）</li>
+<li>Appium选择了Client/Server的设计模式。只要client能够发送http请求给server，那么的话client用什么语言来实现都是可以的，这就是如何做到支持多语言的原因:</li>
+<li>Appium扩 展了WebDriver的协议，没有自己重新去实现一套。这样的好处是以前的WebDriver API能够直接被继承过来，以前的Selenium (WebDriver) 各种语言的binding都可以拿来就用，省去了为每种语言开发一个client的工作量。</li>
+</ul>
+<h4 id="Appium底层处理流程"><a href="#Appium底层处理流程" class="headerlink" title="Appium底层处理流程"></a>Appium底层处理流程</h4><p><strong>Andorid(uiautomator)</strong></p>
+<p>appium为C/S架构(C是指Client，S是指Server，C/S模式就是指客户端/服务器模式)，appium会暴露给我们一些API，我们调用API（Client）就会发起请求到Server端。Server会push一个bootstrap.jar包到手机里面。bootstrap.jar会分析、监听和转发，我们请求的命令，到底层调用我们Android底层的Uiautomator框架操作APP控件。</p>
+<p><img src="Appium%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.jpg"></p>
+<ol>
+<li>调用Android adb完成基本的系统操作</li>
+<li>向Android上部署bootstrap.jar</li>
+<li>bootstrap.jar Forward Android的端口到PC机器上</li>
+<li>PC上监听端口接收请求，使用webdriver协议</li>
+<li>分析命令并通过forward 端口发给bootstrap.jar</li>
+<li>bootstrap.jar接收请求并把命令发给uiautomator</li>
+<li>ui automator执行命令</li>
+</ol>
+<p><strong>iOS</strong></p>
+<ol>
+<li>client端 依然是 test script是我们的webdriver测试脚本。</li>
+<li>中间是起的Appium的服务，Appium在服务端起了一个Server（4723端口），跟selenium Webdriver测试框架类似， Appium⽀持标准的WebDriver JSONWireProtocol。在这里提供它提供了一套REST的接口,Appium Server接收web driver client标准rest请求，解析请求内容，调⽤用对应的框架响应操作。</li>
+<li>appium server调用instruments.js 启动⼀一个socket server，同时分出一个⼦子进程运⾏instruments.app，将bootstrap.js（一个UIAutomation脚本）注⼊入到device⽤于和外界进行交互</li>
+<li>最后Bootstrap.js将执行的结果返回给appium server</li>
+<li>appium server再将结果返回给 appium client</li>
+</ol>
+<h4 id="Appium的哲学"><a href="#Appium的哲学" class="headerlink" title="Appium的哲学"></a>Appium的哲学</h4><ul>
+<li><p>开源免费（大量社区人员维护源码）</p>
+</li>
+<li><p>不需要重新编译或者修改应用：不需要修改app代码就可以做自动化测试</p>
+<ol>
+<li>monkeyruner较早之前的app测试框架，只能用python写。不能通用于所有手机</li>
+</ol>
+<ul>
+<li>基于坐标去点击的，不同手机分辨率，坐标不相同，就会导致用例失败。点击空间的位置，一直在加载，然后又点下一个页面的控件，实际上还是点击本页面的控件，导致后面测试都挂了。因为他不能识别控件是否加载完毕</li>
+</ul>
+<ol start="2">
+<li>monkeytalk基于控件定位测试，解决了monkeyrunner的弊端。但只能用JavaScript去写</li>
+</ol>
+<ul>
+<li>需要拿到源码，在其中插入agent代理，才能进行操作应用，可能出现问题，导致崩溃。对app有负面影响</li>
+</ul>
+<ol start="3">
+<li><p>robotium基于控件定位，也能应用原生和混合。需要用java去实现自动化脚本，而且需要签名。对于app来说，最后打成包后缀是apk，要删掉重新签名，对文件有改变，有多余工作量。</p>
+</li>
+<li><p>macaca阿里开发的测试框架，底层还是appium，只是写法更简单</p>
+</li>
+</ol>
+</li>
+<li><p>不被一种语言或者框架约束</p>
+</li>
+<li><p>不重复造轮子</p>
+</li>
+</ul>
+<h3 id="Appium自动化测试环境搭建-Appium-App自动化测试环境搭建http-www-bcbxhome-com-bcbxxy-forum-php-mod-viewthread-amp-tid-9"><a href="#Appium自动化测试环境搭建-Appium-App自动化测试环境搭建http-www-bcbxhome-com-bcbxxy-forum-php-mod-viewthread-amp-tid-9" class="headerlink" title="[Appium自动化测试环境搭建](Appium App自动化测试环境搭建http://www.bcbxhome.com/bcbxxy/forum.php?mod=viewthread&amp;tid=9)"></a>[Appium自动化测试环境搭建](Appium App自动化测试环境搭建<a target="_blank" rel="noopener" href="http://www.bcbxhome.com/bcbxxy/forum.php?mod=viewthread&amp;tid=9">http://www.bcbxhome.com/bcbxxy/forum.php?mod=viewthread&amp;tid=9</a>)</h3><ul>
+<li>Python环境搭建</li>
+<li>安装JDK, 配置环境变量<ul>
+<li>新建系统变量<ul>
+<li>变量名：JAVA_HOME</li>
+<li>变量值：java的安装路径</li>
+</ul>
+</li>
+<li>新建path<ul>
+<li>%JAVA_HOME%\bin（bin里面包含java.exe，为路径下可执行程序）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装Android SDK, 配置环境变量<ul>
+<li>新建系统变量<ul>
+<li>变量名：ADNDRIOD_HOME</li>
+<li>变量值：SDK的安装路径</li>
+</ul>
+</li>
+<li>新建path：<ul>
+<li>%ANDROID_HOME%\platform-tools</li>
+<li>%ANDROID_HOME%\tools</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装Appium-Windows-Desktop</li>
+<li>安装Appium-Python-Client<ul>
+<li><code>pip install selenium</code></li>
+<li><code>pip install Appium-Python-Clinet</code></li>
+</ul>
+</li>
+<li>安装模拟器</li>
+</ul>
+<h3 id="连接设备"><a href="#连接设备" class="headerlink" title="连接设备"></a>连接设备</h3><p><strong>怎么校验手机连接上了</strong></p>
+<p>命令行输入 <code>adb devices</code> 显示127.0.0.1:21503 device即可</p>
+<p><strong>设备没连接上的几种情况</strong></p>
+<ul>
+<li>USB调试没打开，设置——开发者选项——USB调试</li>
+<li>关掉模拟器，重新以管理员权限打开</li>
+<li>版本不匹配：只要将sdk路径下的platform-tools路径中的如下三个文件：adb、AdbWinApi.dll、AdbWinUsbApi.dll 复制到逍遥模拟器安装目录下</li>
+<li>以上都调式了，还是连接不上：可能手机没安装驱动，下载91助手，自动下载手机的驱动</li>
+<li>offline：数据线重新连接一下</li>
+<li>unauthorized：未经授权，授权即可</li>
+</ul>
+<h3 id="Andorid-sdk介绍"><a href="#Andorid-sdk介绍" class="headerlink" title="Andorid sdk介绍"></a>Andorid sdk介绍</h3><ul>
+<li>add-ons: 附加库</li>
+<li>build-tools: 编译工具</li>
+<li>platform: 各版本sdk</li>
+<li>platforms-tools: 平台通用工具, 如adb</li>
+<li>tools: 常用工具</li>
+</ul>
+<h3 id="Adb介绍"><a href="#Adb介绍" class="headerlink" title="Adb介绍"></a>Adb介绍</h3><p>Adb(Android Debug Bridge): Andoid设备调试桥梁, 可以再PC端通过命令调试Android设备, 如获取设备状态, 安装/卸载app, 上传/下载文件等操作</p>
+<h3 id="Adb常用命令"><a href="#Adb常用命令" class="headerlink" title="Adb常用命令"></a>Adb常用命令</h3><p><strong>开启/关闭服务</strong></p>
+<ul>
+<li>adb start-server: 开启服务</li>
+<li>adb kill-server: 关闭服务</li>
+</ul>
+<p><strong>连接设备/获取连接状态(自动开启服务)</strong></p>
+<ul>
+<li>adb connect/disconnect 设备名或uuid: 连接/断开连接设备</li>
+<li>adb devices: 查看连接的设备</li>
+</ul>
+<p><strong>安装/卸载app</strong></p>
+<ul>
+<li>adb install 安装包路径.apk</li>
+<li>adb uninstall apk包名</li>
+</ul>
+<blockquote>
+<p>通过uiautomatorviewer可以获取获取apk包名</p>
+</blockquote>
+<p><strong>上传/下载文件</strong></p>
+<ul>
+<li>上传: adb push 本地文件 设备目录</li>
+<li>下载: adb pull 设备文件 本地目录</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Copyadb <span class="keyword">push</span> <span class="number">1</span>.txt <span class="regexp">/sdcard/</span></span><br><span class="line">adb pull sdcard/<span class="number">1</span>.txt .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>adb shell: 可用于查看设备中的文件, exit退出</p>
+</blockquote>
+<p><strong>强大的adb shell</strong></p>
+<ul>
+<li><p>pm: 应用及权限管理 <code>adb shell pm list packages</code></p>
+</li>
+<li><p>am: Activity操作 <code>adb shell am start -n 包名/包名.主Activity名</code></p>
+</li>
+<li><p>input: 模拟按键/输入</p>
+<ul>
+<li>点击(触控)指定坐标: <code>adb shell input tap 50 250</code></li>
+<li>输入文字: <code>adb shell input text hello</code></li>
+<li>按键: <code>adb shell input keyevent 3</code></li>
+<li>滑动: <code>adb shell input swipe 300 1000 300 500</code></li>
+</ul>
+</li>
+<li><p>logcat: 日志查看及过滤(问题定位)</p>
+</li>
+<li><p>monkey: 性能/稳定性测试</p>
+</li>
+<li><p>dumpsys: 性能分析</p>
+</li>
+<li><p>screencap: 截图 <code>adb shell screencap -p /sdcard/01.png</code></p>
+</li>
+<li><p>screenrecord: 录屏 <code>adb shell screenrecord --time-limit 10 /sdcard/demo.mp4</code></p>
+</li>
+<li><p><strong>获取包名</strong> <code>adb shell dumpsys activity top |findstr &quot;ACTIVITY&quot;</code></p>
+<p>ACTIVITY cn.xiaochuankeji.tieba（包名）/.ui.home.page.PageMainActivity（ACTIVITY名） 30649d5e pid=2339</p>
+<p>如果没有登录就可以拉取activity会很不安全，所以安卓默认拉取首个activity</p>
+<p>想要拉取启动的activity，需要在软件启动的一瞬间获取包名</p>
+</li>
+</ul>
+<p><strong>示例</strong>:</p>
+<blockquote>
+<p>配合uiautomatorviewer查看元素坐标, 使用bounds中x,y的平均值, 屏幕分辨率1280*760, 滑动时可取平均值</p>
+</blockquote>
+<ul>
+<li>安装高仿微信app</li>
+<li>启动app</li>
+<li>点击登录按钮</li>
+<li>输入18010181267</li>
+<li>按TAB键</li>
+<li>输入123456</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Copyadb install app-<span class="keyword">debug</span>.apk</span><br><span class="line">adb <span class="keyword">am</span> start -n <span class="keyword">com</span>.lqr.wechat/<span class="keyword">com</span>.lqr.wechat.<span class="keyword">com</span>.lqr.wechat.ui.activity.SplashActivity</span><br><span class="line">adb <span class="keyword">shell</span> <span class="built_in">input</span> tap <span class="number">170</span> <span class="number">1197</span></span><br><span class="line">adb <span class="keyword">shell</span> <span class="built_in">input</span> text <span class="number">18010181267</span></span><br><span class="line">adb <span class="keyword">shell</span> <span class="built_in">input</span> keyevent KEYCODE_TAB</span><br><span class="line">adb adb <span class="keyword">shell</span> <span class="built_in">input</span> tap <span class="number">360</span> <span class="number">498</span></span><br><span class="line">adb <span class="keyword">shell</span> <span class="built_in">input</span> swipe <span class="number">700</span> <span class="number">540</span> <span class="number">10</span> <span class="number">540</span>  # 滑动时离开一定边界</span><br><span class="line">adb <span class="keyword">shell</span> screencap -<span class="keyword">p</span> /sdcard/<span class="number">01</span>.png</span><br><span class="line">adb <span class="keyword">shell</span> <span class="built_in">input</span> keyevent <span class="number">3</span> # 按HOME键</span><br><span class="line">adb pull /sdcard/<span class="number">01</span>.png .  # 下载图片</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>支持的KEYCODE</p>
+</blockquote>
+<ul>
+<li>0 –&gt; “KEYCODE_UNKNOWN”</li>
+<li>1 –&gt; “KEYCODE_MENU”</li>
+<li>2 –&gt; “KEYCODE_SOFT_RIGHT”</li>
+<li>3 –&gt; “KEYCODE_HOME”</li>
+<li>4 –&gt; “KEYCODE_BACK”</li>
+<li>5 –&gt; “KEYCODE_CALL”</li>
+<li>6 –&gt; “KEYCODE_ENDCALL”</li>
+<li>7 –&gt; “KEYCODE_0”</li>
+<li>8 –&gt; “KEYCODE_1”</li>
+<li>9 –&gt; “KEYCODE_2”</li>
+<li>10 –&gt; “KEYCODE_3”</li>
+<li>11 –&gt; “KEYCODE_4”</li>
+<li>12 –&gt; “KEYCODE_5”</li>
+<li>13 –&gt; “KEYCODE_6”</li>
+<li>14 –&gt; “KEYCODE_7”</li>
+<li>15 –&gt; “KEYCODE_8”</li>
+<li>16 –&gt; “KEYCODE_9”</li>
+<li>17 –&gt; “KEYCODE_STAR”</li>
+<li>18 –&gt; “KEYCODE_POUND”</li>
+<li>19 –&gt; “KEYCODE_DPAD_UP”</li>
+<li>20 –&gt; “KEYCODE_DPAD_DOWN”</li>
+<li>21 –&gt; “KEYCODE_DPAD_LEFT”</li>
+<li>22 –&gt; “KEYCODE_DPAD_RIGHT”</li>
+<li>23 –&gt; “KEYCODE_DPAD_CENTER”</li>
+<li>24 –&gt; “KEYCODE_VOLUME_UP”</li>
+<li>25 –&gt; “KEYCODE_VOLUME_DOWN”</li>
+<li>26 –&gt; “KEYCODE_POWER”</li>
+<li>27 –&gt; “KEYCODE_CAMERA”</li>
+<li>28 –&gt; “KEYCODE_CLEAR”</li>
+<li>29 –&gt; “KEYCODE_A”</li>
+<li>30 –&gt; “KEYCODE_B”</li>
+<li>31 –&gt; “KEYCODE_C”</li>
+<li>32 –&gt; “KEYCODE_D”</li>
+<li>33 –&gt; “KEYCODE_E”</li>
+<li>34 –&gt; “KEYCODE_F”</li>
+<li>35 –&gt; “KEYCODE_G”</li>
+<li>36 –&gt; “KEYCODE_H”</li>
+<li>37 –&gt; “KEYCODE_I”</li>
+<li>38 –&gt; “KEYCODE_J”</li>
+<li>39 –&gt; “KEYCODE_K”</li>
+<li>40 –&gt; “KEYCODE_L”</li>
+<li>41 –&gt; “KEYCODE_M”</li>
+<li>42 –&gt; “KEYCODE_N”</li>
+<li>43 –&gt; “KEYCODE_O”</li>
+<li>44 –&gt; “KEYCODE_P”</li>
+<li>45 –&gt; “KEYCODE_Q”</li>
+<li>46 –&gt; “KEYCODE_R”</li>
+<li>47 –&gt; “KEYCODE_S”</li>
+<li>48 –&gt; “KEYCODE_T”</li>
+<li>49 –&gt; “KEYCODE_U”</li>
+<li>50 –&gt; “KEYCODE_V”</li>
+<li>51 –&gt; “KEYCODE_W”</li>
+<li>52 –&gt; “KEYCODE_X”</li>
+<li>53 –&gt; “KEYCODE_Y”</li>
+<li>54 –&gt; “KEYCODE_Z”</li>
+<li>55 –&gt; “KEYCODE_COMMA”</li>
+<li>56 –&gt; “KEYCODE_PERIOD”</li>
+<li>57 –&gt; “KEYCODE_ALT_LEFT”</li>
+<li>58 –&gt; “KEYCODE_ALT_RIGHT”</li>
+<li>59 –&gt; “KEYCODE_SHIFT_LEFT”</li>
+<li>60 –&gt; “KEYCODE_SHIFT_RIGHT”</li>
+<li>61 –&gt; “KEYCODE_TAB”</li>
+<li>62 –&gt; “KEYCODE_SPACE”</li>
+<li>63 –&gt; “KEYCODE_SYM”</li>
+<li>64 –&gt; “KEYCODE_EXPLORER”</li>
+<li>65 –&gt; “KEYCODE_ENVELOPE”</li>
+<li>66 –&gt; “KEYCODE_ENTER”</li>
+<li>67 –&gt; “KEYCODE_DEL”</li>
+<li>68 –&gt; “KEYCODE_GRAVE”</li>
+<li>69 –&gt; “KEYCODE_MINUS”</li>
+<li>70 –&gt; “KEYCODE_EQUALS”</li>
+<li>71 –&gt; “KEYCODE_LEFT_BRACKET”</li>
+<li>72 –&gt; “KEYCODE_RIGHT_BRACKET”</li>
+<li>73 –&gt; “KEYCODE_BACKSLASH”</li>
+<li>74 –&gt; “KEYCODE_SEMICOLON”</li>
+<li>75 –&gt; “KEYCODE_APOSTROPHE”</li>
+<li>76 –&gt; “KEYCODE_SLASH”</li>
+<li>77 –&gt; “KEYCODE_AT”</li>
+<li>78 –&gt; “KEYCODE_NUM”</li>
+<li>79 –&gt; “KEYCODE_HEADSETHOOK”</li>
+<li>80 –&gt; “KEYCODE_FOCUS”</li>
+<li>81 –&gt; “KEYCODE_PLUS”</li>
+<li>82 –&gt; “KEYCODE_MENU”</li>
+<li>83 –&gt; “KEYCODE_NOTIFICATION”</li>
+<li>84 –&gt; “KEYCODE_SEARCH”</li>
+<li>85 –&gt; “TAG_LAST_KEYCODE”</li>
+</ul>
+<h3 id="Appium-API详细介绍"><a href="#Appium-API详细介绍" class="headerlink" title="Appium API详细介绍"></a>Appium API详细介绍</h3><p>如何去定位元素，sdk/tools下uiautomatorviewer.bat双击打开</p>
+<ul>
+<li><p><code>driver.find_element_by_id</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找到最右app推荐列表下第一个人昵称</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_element_by_id</span>():</span></span><br><span class="line">    driver.implicitly_wait(<span class="number">60</span>)</span><br><span class="line">    element = driver.find_element_by_id(<span class="string">&quot;cn.xiaochuankeji.tieba:id/simple_member_tv_name&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(element.text)    </span><br></pre></td></tr></table></figure></li>
+<li><p><code>driver.find_elements_by_id</code>（app中id基本不唯一，平行结构id可能一样）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找到最右app上方菜单栏，打印并点击</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_element_by_id</span>():</span></span><br><span class="line">    driver.implicitly_wait(<span class="number">60</span>)</span><br><span class="line">    element = driver.find_elements_by_id(<span class="string">&quot;cn.xiaochuankeji.tieba:id/title&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(element[<span class="number">2</span>].text) </span><br><span class="line">    element[<span class="number">2</span>].click()</span><br></pre></td></tr></table></figure></li>
+<li><p><code>driver.find_element_by_class_name</code></p>
+</li>
+<li><p><code>driver.find_elements_by_class_name</code></p>
+</li>
+<li><p><code>driver.find_element_by_xpath</code></p>
+</li>
+<li><p><code>driver.find_elements_by_xpath</code>（一般不用）</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" rel="tag"># 自动化测试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/09/%E5%AE%9E%E9%AA%8C6-%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%9C%A8%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" rel="prev" title="实验6 寻址方式在结构化数据访问中的应用">
+      <i class="fa fa-chevron-left"></i> 实验6 寻址方式在结构化数据访问中的应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/13/%E7%88%B1%E4%B9%90%E4%B9%8B%E5%9F%8E/" rel="next" title="爱乐之城">
+      爱乐之城 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">App自动化测试背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">Appium自动化测试简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.</span> <span class="nav-text">App自动化测试工具对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Appium%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">Appium的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Appium%E5%BA%95%E5%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">Appium底层处理流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Appium%E7%9A%84%E5%93%B2%E5%AD%A6"><span class="nav-number">2.4.</span> <span class="nav-text">Appium的哲学</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BAhttp-www-bcbxhome-com-bcbxxy-forum-php-mod-viewthread-amp-tid-9"><span class="nav-number">3.</span> <span class="nav-text">[Appium自动化测试环境搭建](Appium App自动化测试环境搭建http:&#x2F;&#x2F;www.bcbxhome.com&#x2F;bcbxxy&#x2F;forum.php?mod&#x3D;viewthread&amp;tid&#x3D;9)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%AE%BE%E5%A4%87"><span class="nav-number">4.</span> <span class="nav-text">连接设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Andorid-sdk%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">Andorid sdk介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adb%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.</span> <span class="nav-text">Adb介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adb%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">7.</span> <span class="nav-text">Adb常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-API%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">8.</span> <span class="nav-text">Appium API详细介绍</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

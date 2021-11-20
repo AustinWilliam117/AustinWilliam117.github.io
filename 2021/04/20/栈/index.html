@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="栈（stack）又名堆栈，它是一种运算受限的线性表。其限制是仅允许在表的一端进行插入和删除运算。先进后出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈">
+<meta property="og:url" content="http://example.com/2021/04/20/%E6%A0%88/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="栈（stack）又名堆栈，它是一种运算受限的线性表。其限制是仅允许在表的一端进行插入和删除运算。先进后出">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/04/20/%E6%A0%88/1.png">
+<meta property="article:published_time" content="2021-04-20T15:11:21.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="python数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/04/20/%E6%A0%88/1.png">
+
+<link rel="canonical" href="http://example.com/2021/04/20/%E6%A0%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>栈 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/%E6%A0%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          栈
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-20 23:11:21" itemprop="dateCreated datePublished" datetime="2021-04-20T23:11:21+08:00">2021-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>栈（stack）又名堆栈，它是一种运算受限的线性表。其限制是仅允许在表的一端进行插入和删除运算。<strong>先进后出</strong></p>
+<span id="more"></span>
+
+<p><img src="1.png"></p>
+<p>栈允许进行插入和删除操作的一端称为栈顶(top)，另一端为栈底(bottom)；栈底固定，而栈顶浮动；栈中元素个数为零时称为空栈。插入一般称为进栈（PUSH），删除则称为退栈（POP）。</p>
+<h4 id="栈的演示"><a href="#栈的演示" class="headerlink" title="栈的演示"></a>栈的演示</h4><p><a target="_blank" rel="noopener" href="https://visualgo.net/zh/list">Visualgo</a>这个网站，我们可以看到整个数据结构的变化过程。可以通过左下角的按钮调慢演示过程。可能也自己动手 code 实现了过程，那么再在网站上演示一下元素的各种操作过程，会带来一些更直观的印象。</p>
+<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>栈属于常见的一种线性结构，对于进栈和退栈而言，时间复杂度都为 O(1)</p>
+<h4 id="基本功能介绍"><a href="#基本功能介绍" class="headerlink" title="基本功能介绍"></a>基本功能介绍</h4><p>在接下来的内容里，我们将逐步介绍栈的具体功能是如何实现的。</p>
+<p><strong>1. 创建一个 Stack 的类</strong></p>
+<p>对栈进行初始化参数设计</p>
+<p>具体实现代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, limit=<span class="number">10</span></span>):</span></span><br><span class="line">        self.stack = []  <span class="comment"># 存放元素</span></span><br><span class="line">        self.limit = limit  <span class="comment"># 栈容量极限</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. push 进栈</strong></p>
+<p>压入 push ：将新元素放在栈顶</p>
+<p>当新元素入栈时，栈顶上移，新元素放在栈顶。</p>
+<p>具体实现代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, data</span>):</span></span><br><span class="line">    <span class="comment"># 判断栈是否溢出</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(self.stack) &gt;= self.limit:</span><br><span class="line">        <span class="keyword">raise</span> IndexError(<span class="string">&#x27;超出栈容量极限&#x27;</span>)</span><br><span class="line">    self.stack.append(data)</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. pop 退栈</strong></p>
+<p>弹出 pop ：从栈顶移出一个数据</p>
+<ul>
+<li>栈顶元素拷贝出来</li>
+<li>栈顶下移</li>
+<li>拷贝出来的栈顶作为函数返回值</li>
+</ul>
+<p>具体实现代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.stack:</span><br><span class="line">        <span class="keyword">return</span> self.stack.pop()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> IndexError(<span class="string">&#x27;pop from an empty stack&#x27;</span>)  <span class="comment"># 空栈不能被弹出</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>4. 添加其他函数</strong></p>
+<p>peek : 查看堆栈的最上面的元素</p>
+<p>is_empty : 判断栈是否为空</p>
+<p>size : 返回栈的大小</p>
+<p>具体实现代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">if</span> self.stack:</span><br><span class="line">        <span class="keyword">return</span> self.stack[-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_empty</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">not</span> <span class="built_in">bool</span>(self.stack)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(self.stack)</span><br></pre></td></tr></table></figure>
+
+<p>完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, limit=<span class="number">10</span></span>):</span></span><br><span class="line">        self.stack = []  <span class="comment"># 存放元素</span></span><br><span class="line">        self.limit = limit  <span class="comment"># 栈容量极限</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, data</span>):</span></span><br><span class="line">        <span class="comment"># 判断栈是否溢出</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.stack) &gt;= self.limit:</span><br><span class="line">            <span class="keyword">raise</span> IndexError(<span class="string">&#x27;超出栈容量极限&#x27;</span>)</span><br><span class="line">        self.stack.append(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.stack:</span><br><span class="line">            <span class="keyword">return</span> self.stack.pop()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 空栈不能被弹出元素</span></span><br><span class="line">            <span class="keyword">raise</span> IndexError(<span class="string">&#x27;pop from an empty stack&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 查看栈的栈顶元素（最上面的元素）</span></span><br><span class="line">        <span class="keyword">if</span> self.stack:</span><br><span class="line">            <span class="keyword">return</span> self.stack[-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_empty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 查看堆栈的最上面的元素</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> <span class="built_in">bool</span>(self.stack判断栈是否溢)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 返回栈的大小</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.stack)</span><br></pre></td></tr></table></figure>
+
+<h4 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h4><p>Stack（栈）在教科书中有一些非常经典的应用，例如：</p>
+<ul>
+<li>一些其他有趣的应用程序但没有用于教学目的</li>
+<li>括号匹配</li>
+<li>后缀计算器</li>
+</ul>
+<h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4><p>检查括号是否完全匹配</p>
+<p>在这个实验中，我们要求使用一个堆栈检查括号字符串是否平衡</p>
+<p>根据栈的结构特点，结合 stack 代码，完成以下功能的实现。</p>
+<p><strong>有效括号字符串</strong>需满足：</p>
+<ul>
+<li>左括号必须用相同类型的右括号闭合。</li>
+<li>左括号必须以正确的顺序闭合。</li>
+<li>注意空字符串可被认为是有效字符串。</li>
+</ul>
+<p><strong>举例：</strong></p>
+<p>((())): True</p>
+<p>((()): False</p>
+<p>(())): False</p>
+<p><strong>目标：</strong></p>
+<ol>
+<li>使用一个堆栈作为数据结构</li>
+<li>来检查括号字符串是否完全匹配</li>
+</ol>
+<p><strong>参考代码</strong></p>
+<p>注意：请务必自己独立思考解决问题之后再对照参考答案，一开始直接看参考答案收获不大。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, limit=<span class="number">10</span></span>):</span></span><br><span class="line">        self.stack = []  <span class="comment"># 存放元素</span></span><br><span class="line">        self.limit = limit  <span class="comment"># 栈容量极限</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, data</span>):</span></span><br><span class="line">        <span class="comment"># 判断栈容量是否超出范围</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.stack) &gt;= self.limit:</span><br><span class="line">            <span class="keyword">raise</span> IndexError(<span class="string">&#x27;超出栈容量极限&#x27;</span>)</span><br><span class="line">        self.stack.append(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.stack:</span><br><span class="line">            <span class="keyword">return</span> self.stack.pop()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 空栈不能弹出元素</span></span><br><span class="line">            <span class="keyword">raise</span> IndexError(<span class="string">&#x27;pop from an empty stack&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span>  <span class="comment"># 查看栈顶元素</span></span><br><span class="line">        <span class="keyword">if</span> self.stack:</span><br><span class="line">            <span class="keyword">return</span> self.stack[-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_empty</span>(<span class="params">self</span>):</span>  <span class="comment">#　判断栈是否为空</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> <span class="built_in">bool</span>(self.stack)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span>  <span class="comment"># 返回栈的大小</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.stack)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show</span>(<span class="params">self</span>):</span>  <span class="comment"># 展示堆栈</span></span><br><span class="line">        <span class="keyword">return</span> self.stack</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">balanced_parentheses</span>(<span class="params">parentheses</span>):</span></span><br><span class="line">    stack = Stack(<span class="built_in">len</span>(parentheses))</span><br><span class="line">    <span class="keyword">for</span> parenthesis <span class="keyword">in</span> parentheses:</span><br><span class="line">        <span class="keyword">if</span> parenthesis == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">            stack.push(parenthesis)</span><br><span class="line">            <span class="comment"># print(stack.show()) 帮助理解</span></span><br><span class="line">        <span class="keyword">elif</span> parenthesis == <span class="string">&#x27;)&#x27;</span>:   </span><br><span class="line">            <span class="keyword">if</span> stack.is_empty():   </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            stack.pop()</span><br><span class="line">            <span class="comment"># print(stack.show()) 帮助理解</span></span><br><span class="line">    <span class="keyword">return</span> stack.is_empty()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    examples = [<span class="string">&#x27;((()))&#x27;</span>, <span class="string">&#x27;((())&#x27;</span>, <span class="string">&#x27;(()))&#x27;</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Balanced parentheses demonstration:\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> example <span class="keyword">in</span> examples:</span><br><span class="line">        <span class="built_in">print</span>(example + <span class="string">&#x27;: &#x27;</span> + <span class="built_in">str</span>(balanced_parentheses(example)))</span><br></pre></td></tr></table></figure>
+
+<p>打开 terminal 终端 运行以下命令即可验证结果。后续课程不再提醒如何运行程序，请大家根据个人需求自行安排。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 balanced_parentheses.py</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析</strong></p>
+<p>去除上面<code>print(stack.show())</code>代码的注释，将打印下面的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[]</span><br><span class="line">((())): <span class="literal">True</span></span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]       </span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]  </span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">((()): <span class="literal">False</span></span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[]</span><br><span class="line">(())): <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> parenthesis == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">            stack.push(parenthesis)</span><br></pre></td></tr></table></figure>
+
+<p>在循环中，如果遇到 ‘(‘ 就会被放入堆栈中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> parenthesis == <span class="string">&#x27;)&#x27;</span>:   </span><br><span class="line">            <span class="keyword">if</span> stack.is_empty():   </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            stack.pop()</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到 ‘)’ 就会从堆栈中去除一个符号 ‘(‘ 。</p>
+<p>所以，”((()))” 符号，入栈三个 ‘(‘ 符号，因’)’循环判断三次，即 ‘(‘ 入栈三次，出栈三次，结果为空</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+
+<p>“((())” 符号，入栈三个 ‘(‘ 符号，因’)’循环判断两次，即出栈两次，剩余一个’(‘ 。结束循环后判断栈是否为空 return stack.is_empty() ，该栈不为空，返回False</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;(&#x27;</span>]       </span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]  </span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>“(())” 符号，入栈两个 ‘(‘ 符号，因’)’循环判断三次，即出栈三次，程序中加入了if语句判断，是否为空，防止程序以外终止。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;(&#x27;</span>]</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+
+<p>在第二次出栈的时候，该栈已为空栈，第三次出栈则会触发.pop()方法的提示，’pop from an empty stack’</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> parenthesis == <span class="string">&#x27;)&#x27;</span>:   </span><br><span class="line">	<span class="keyword">if</span> stack.is_empty():   </span><br><span class="line">		<span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>所以if stack.is_empty() 提前判断了该栈，直接返回False</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># python数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%89%8D%E8%A8%80/" rel="prev" title="数据结构前言">
+      <i class="fa fa-chevron-left"></i> 数据结构前言
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/21/%E9%93%BE%E8%A1%A8/" rel="next" title="链表">
+      链表 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E6%BC%94%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">栈的演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">复杂度分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">基本功能介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">栈的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9A"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

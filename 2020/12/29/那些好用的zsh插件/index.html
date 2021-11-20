@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="autojump可自动跳转目录，避免每次输入很长代码 安装autojump手动安装12345git clone git:&#x2F;&#x2F;github.com&#x2F;wting&#x2F;autojump.gitcd autojump.&#x2F;install.py or .&#x2F;uninstall.py">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些好用的zsh插件">
+<meta property="og:url" content="http://example.com/2020/12/29/%E9%82%A3%E4%BA%9B%E5%A5%BD%E7%94%A8%E7%9A%84zsh%E6%8F%92%E4%BB%B6/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="autojump可自动跳转目录，避免每次输入很长代码 安装autojump手动安装12345git clone git:&#x2F;&#x2F;github.com&#x2F;wting&#x2F;autojump.gitcd autojump.&#x2F;install.py or .&#x2F;uninstall.py">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-29T11:05:50.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="terminal">
+<meta property="article:tag" content="zsh">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/12/29/%E9%82%A3%E4%BA%9B%E5%A5%BD%E7%94%A8%E7%9A%84zsh%E6%8F%92%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>那些好用的zsh插件 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/29/%E9%82%A3%E4%BA%9B%E5%A5%BD%E7%94%A8%E7%9A%84zsh%E6%8F%92%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          那些好用的zsh插件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-29 19:05:50" itemprop="dateCreated datePublished" datetime="2020-12-29T19:05:50+08:00">2020-12-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/shell/" itemprop="url" rel="index"><span itemprop="name">shell</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>11 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="autojump"><a href="#autojump" class="headerlink" title="autojump"></a>autojump</h2><p>可自动跳转目录，避免每次输入很长代码</p>
+<h3 id="安装autojump"><a href="#安装autojump" class="headerlink" title="安装autojump"></a>安装autojump</h3><h4 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/wting/autojump.git</span><br><span class="line"></span><br><span class="line">cd autojump</span><br><span class="line"></span><br><span class="line">./install.py or ./uninstall.py</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p><strong>安装后会提示你将代码写入.zshrc或者.bashrc</strong>，写入后在你第二次再打开文件时，就可以在任意路径下直接<code>j folder</code>就行了</p>
+<h4 id="arch用户安装autojump（有些小问题不推荐新手）"><a href="#arch用户安装autojump（有些小问题不推荐新手）" class="headerlink" title="arch用户安装autojump（有些小问题不推荐新手）"></a>arch用户安装autojump（有些小问题不推荐新手）</h4><blockquote>
+<p>sudo pacman -S autojump</p>
+</blockquote>
+<p>安装后同样会提示将代码写入.zshrc或者.bashrc，按提示为标准</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">autojump 参考代码</span></span><br><span class="line">[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] &amp;&amp; . ~/.autojump/etc/profile.d/autojump.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="bash-insulter"><a href="#bash-insulter" class="headerlink" title="bash-insulter"></a>bash-insulter</h2><p>输入错误代码就会挨骂的插件，在谩骂声中鞭策自己吧</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Method 1 - know what you are doing</span></span><br><span class="line">git clone https://github.com/hkbakke/bash-insulter.git bash-insulter</span><br><span class="line">sudo cp bash-insulter/src/bash.command-not-found /etc/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Method 2 - I don<span class="string">&#x27;t care, insult me!</span></span></span><br><span class="line">sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">bash-insulter</span></span><br><span class="line">if [ -f /etc/bash.command-not-found ]; then</span><br><span class="line">    . /etc/bash.command-not-found</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h2 id="oh-my-zsh自带的一些插件"><a href="#oh-my-zsh自带的一些插件" class="headerlink" title="oh-my-zsh自带的一些插件"></a>oh-my-zsh自带的一些插件</h2><ol>
+<li><p>plugins/vi-mode</p>
+<p> 使zsh可以像vi那样输入</p>
+</li>
+<li><p>zsh-autosuggestions</p>
+<p> 根据历史输入指令的记录即时的提示，能够很大的提高效率</p>
+</li>
+<li><p>zsh-completions</p>
+<p> 收集/开发Zsh中尚不可用的新完成脚本。如果足够稳定，这些脚本可能会贡献给Zsh项目</p>
+</li>
+<li><p>zsh-history-substring-search</p>
+<p> 你输入的每条命令他会给你记录下时间，并且在你的home目录创建.zsh_history/相对应的目录，并记录你在当前目录下用过的命令。</p>
+</li>
+</ol>
+<ol start="5">
+<li><p>zsh-syntax-highlighting</p>
+<p> 语法高亮谁能拒绝呢</p>
+</li>
+</ol>
+<p>可参考配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> If you come from bash you might have to change your <span class="variable">$PATH</span>.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">export</span> PATH=<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/bin:<span class="variable">$PATH</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Path to your oh-my-zsh installation.</span></span><br><span class="line">export ZSH=&quot;/home/william/.oh-my-zsh&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set name of the theme to load --- <span class="keyword">if</span> <span class="built_in">set</span> to <span class="string">&quot;random&quot;</span>, it will</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> load a random theme each time oh-my-zsh is loaded, <span class="keyword">in</span> <span class="built_in">which</span> <span class="keyword">case</span>,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> to know <span class="built_in">which</span> specific one was loaded, run: <span class="built_in">echo</span> <span class="variable">$RANDOM_THEME</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ZSH_THEME=<span class="string">&quot;robbyrussell&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -------------------------------- POWERLEVEL ---------------------------------</span></span><br><span class="line"></span><br><span class="line">ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</span><br><span class="line">COLOR=(</span><br><span class="line">        004 </span><br><span class="line"><span class="meta">#</span><span class="bash">       005</span> </span><br><span class="line">        006 </span><br><span class="line"><span class="meta">#</span><span class="bash">       010</span></span><br><span class="line">        007</span><br><span class="line">        )</span><br><span class="line">COLOR_ARRAY=(</span><br><span class="line">        004 067 059 </span><br><span class="line"><span class="meta">#</span><span class="bash">       005 062 059</span> </span><br><span class="line">        006 073 109 </span><br><span class="line"><span class="meta">#</span><span class="bash">       010 070 115</span></span><br><span class="line">        007 249 240</span><br><span class="line">        )</span><br><span class="line"><span class="meta">#</span><span class="bash"> THEME_COLOR=$(( <span class="variable">$RANDOM</span> % <span class="number">3</span> ))</span></span><br><span class="line">THEME_COLOR=1</span><br><span class="line">DEFAULT_BACKGROUND=235</span><br><span class="line">DEFAULT_FOREGROUND=&quot;$&#123;COLOR[$(( $THEME_COLOR + 1 ))]&#125;&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_MODE=&quot;nerdfont-complete&quot;</span><br><span class="line">POWERLEVEL9K_PROMPT_ADD_NEWLINE=true</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">####################################[ prompt ]######################################</span></span></span><br><span class="line">POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=&quot;%F&#123;$DEFAULT_FOREGROUND&#125;╭─&quot;</span><br><span class="line">POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=&#x27;\ue0b4&#x27;</span><br><span class="line">POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=&#x27;\ue0b4&#x27;</span><br><span class="line">POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=&#x27;\ue0b0&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=&quot;%F&#123;$DEFAULT_FOREGROUND&#125;╰─%F&#123;$&#123;COLOR_ARRAY[$(( $THEME_COLOR * 3 + 2 ))]&#125;&#125;\uf054%F&#123;$DEFAULT_FOREGROUND&#125;\uf054&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">typeset -g POWERLEVEL9K_PROMPT_CHAR_&#123;OK,ERROR&#125;_VIINS_CONTENT_EXPANSION=$&#x27;\uf054&#x27;</span><br><span class="line">typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_&#123;VIINS,VICMD,VIVIS,VIOWR&#125;_FOREGROUND=124</span><br><span class="line">typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_&#123;VIINS,VICMD,VIVIS,VIOWR&#125;_FOREGROUND=70</span><br><span class="line">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user device virtualenv dir vcs newline prompt_char)</span><br><span class="line"><span class="meta">#</span><span class="bash">POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time background_jobs status <span class="built_in">history</span> time ssh)</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">####################################[ vcs: git status ]######################################</span></span></span><br><span class="line">POWERLEVEL9K_VCS_CLEAN_BACKGROUND=&quot;green&quot;</span><br><span class="line">POWERLEVEL9K_VCS_CLEAN_FOREGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_VCS_GIT_ICON=$&#x27;\uF113 &#x27;</span><br><span class="line">POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=&quot;yellow&quot;</span><br><span class="line">POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=166</span><br><span class="line">POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#################################[ dir: current directory ]##################################</span></span></span><br><span class="line">POWERLEVEL9K_DIR_HOME_BACKGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_DIR_HOME_FOREGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_SHORTEN_DIR_LENGTH=16</span><br><span class="line">POWERLEVEL9K_SHORTEN_STRATEGY=&quot;truncate_absolute&quot;</span><br><span class="line">POWERLEVEL9K_SHORTEN_DELIMITER=&#x27;...&#x27;</span><br><span class="line">POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=240</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#################################[ status ]##################################</span></span></span><br><span class="line">POWERLEVEL9K_STATUS_OK_FOREGROUND=&quot;green&quot;</span><br><span class="line">POWERLEVEL9K_STATUS_OK_BACKGROUND=&quot;$(( $DEFAULT_BACKGROUND + 4 ))&quot;</span><br><span class="line">POWERLEVEL9K_STATUS_ERROR_FOREGROUND=&quot;red&quot;</span><br><span class="line">POWERLEVEL9K_STATUS_ERROR_BACKGROUND=&quot;$(( $DEFAULT_BACKGROUND + 4 ))&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_HISTORY_FOREGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_HISTORY_BACKGROUND=&quot;$(( $DEFAULT_BACKGROUND + 2 ))&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_VIRTUALENV_BACKGROUND=&quot;$((  $DEFAULT_BACKGROUND - 2 ))&quot;</span><br><span class="line">POWERLEVEL9K_VIRTUALENV_FOREGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_OS_ICON_FOREGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_OS_ICON_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_TIME_FORMAT=&quot;%D&#123;%T&#125;&quot; #  15:29:33</span><br><span class="line">POWERLEVEL9K_TIME_FOREGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_TIME_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3</span><br><span class="line"><span class="meta">#</span><span class="bash">POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=0</span></span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_ROOT_ICON=$&#x27;\uF198&#x27;  # </span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_SSH_FOREGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_SSH_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_SSH_ICON=&quot;\uF489&quot;  # </span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_HOST_LOCAL_FOREGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_HOST_LOCAL_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_HOST_REMOTE_FOREGROUND=&quot;$DEFAULT_FOREGROUND&quot;</span><br><span class="line">POWERLEVEL9K_HOST_REMOTE_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_LOAD_CRITICAL_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_WARNING_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_NORMAL_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_CRITICAL_FOREGROUND=&quot;red&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_WARNING_FOREGROUND=&quot;yellow&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_NORMAL_FOREGROUND=&quot;green&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_CRITICAL_VISUAL_IDENTIFIER_COLOR=&quot;red&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_WARNING_VISUAL_IDENTIFIER_COLOR=&quot;yellow&quot;</span><br><span class="line">POWERLEVEL9K_LOAD_NORMAL_VISUAL_IDENTIFIER_COLOR=&quot;green&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_BATTERY_LEVEL_BACKGROUND_COLOR=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_BATTERY_CHARGING_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_BATTERY_CHARGED_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line">POWERLEVEL9K_BATTERY_DISCONNECTED_BACKGROUND=&quot;$DEFAULT_BACKGROUND&quot;</span><br><span class="line"></span><br><span class="line">function prompt_user() &#123;</span><br><span class="line">    p10k segment -b  $DEFAULT_BACKGROUND -f $DEFAULT_FOREGROUND -i $&#x27;\uf2be&#x27; +r -t &#x27;%n&#x27;</span><br><span class="line">&#125;</span><br><span class="line">function prompt_device() &#123;</span><br><span class="line">    p10k segment -b &quot;$(( $DEFAULT_BACKGROUND + 2 ))&quot; -f $DEFAULT_FOREGROUND -i $&#x27;\uf108&#x27; +r -t &#x27;%m&#x27;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> -------------------------------- POWERLEVEL ---------------------------------</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set list of themes to pick from when loading at random</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Setting this variable when ZSH_THEME=random will cause zsh to load</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> a theme from this variable instead of looking <span class="keyword">in</span> <span class="variable">$ZSH</span>/themes/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> If <span class="built_in">set</span> to an empty array, this variable will have no effect.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ZSH_THEME_RANDOM_CANDIDATES=( <span class="string">&quot;robbyrussell&quot;</span> <span class="string">&quot;agnoster&quot;</span> )</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to use case-sensitive completion.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> CASE_SENSITIVE=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to use hyphen-insensitive completion.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Case-sensitive completion must be off. _ and - will be interchangeable.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HYPHEN_INSENSITIVE=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to <span class="built_in">disable</span> bi-weekly auto-update checks.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> DISABLE_AUTO_UPDATE=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to automatically update without prompting.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> DISABLE_UPDATE_PROMPT=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to change how often to auto-update (<span class="keyword">in</span> days).</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">export</span> UPDATE_ZSH_DAYS=13</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line <span class="keyword">if</span> pasting URLs and other text is messed up.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> DISABLE_MAGIC_FUNCTIONS=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to <span class="built_in">disable</span> colors <span class="keyword">in</span> ls.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> DISABLE_LS_COLORS=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to <span class="built_in">disable</span> auto-setting terminal title.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> DISABLE_AUTO_TITLE=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to <span class="built_in">enable</span> <span class="built_in">command</span> auto-correction.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ENABLE_CORRECTION=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line to display red dots whilst waiting <span class="keyword">for</span> completion.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> COMPLETION_WAITING_DOTS=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line <span class="keyword">if</span> you want to <span class="built_in">disable</span> marking untracked files</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> under VCS as dirty. This makes repository status check <span class="keyword">for</span> large repositories</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> much, much faster.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> DISABLE_UNTRACKED_FILES_DIRTY=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Uncomment the following line <span class="keyword">if</span> you want to change the <span class="built_in">command</span> execution time</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> stamp shown <span class="keyword">in</span> the <span class="built_in">history</span> <span class="built_in">command</span> output.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You can <span class="built_in">set</span> one of the optional three formats:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">&quot;mm/dd/yyyy&quot;</span>|<span class="string">&quot;dd.mm.yyyy&quot;</span>|<span class="string">&quot;yyyy-mm-dd&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> or <span class="built_in">set</span> a custom format using the strftime <span class="keyword">function</span> format specifications,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> see <span class="string">&#x27;man strftime&#x27;</span> <span class="keyword">for</span> details.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> HIST_STAMPS=<span class="string">&quot;mm/dd/yyyy&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Would you like to use another custom folder than <span class="variable">$ZSH</span>/custom?</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ZSH_CUSTOM=/path/to/new-custom-folder</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Which plugins would you like to load?</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Standard plugins can be found <span class="keyword">in</span> <span class="variable">$ZSH</span>/plugins/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Custom plugins may be added to <span class="variable">$ZSH_CUSTOM</span>/plugins/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Example format: plugins=(rails git textmate ruby lighthouse)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add wisely, as too many plugins slow down shell startup.</span></span><br><span class="line">plugins=(git)</span><br><span class="line"></span><br><span class="line">source $ZSH/oh-my-zsh.sh</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> zplug configruation</span></span><br><span class="line">if [[ ! -d &quot;$&#123;ZPLUG_HOME&#125;&quot; ]]; then</span><br><span class="line">  if [[ ! -d ~/.zplug ]]; then</span><br><span class="line">    git clone https://github.com/zplug/zplug ~/.zplug</span><br><span class="line">    # If we can&#x27;t get zplug, it&#x27;ll be a very sobering shell experience. To at</span><br><span class="line">    # least complete the sourcing of this file, we&#x27;ll define an always-false</span><br><span class="line">    # returning zplug function.</span><br><span class="line">    if [[ $? != 0 ]]; then</span><br><span class="line">      function zplug() &#123;</span><br><span class="line">        return 1</span><br><span class="line">      &#125;</span><br><span class="line">    fi</span><br><span class="line">  fi</span><br><span class="line">  export ZPLUG_HOME=~/.zplug</span><br><span class="line">fi</span><br><span class="line">if [[ -d &quot;$&#123;ZPLUG_HOME&#125;&quot; ]]; then</span><br><span class="line">  source &quot;$&#123;ZPLUG_HOME&#125;/init.zsh&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">zplug &#x27;plugins/git&#x27;, from:oh-my-zsh, if:&#x27;which git&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash">zplug <span class="string">&#x27;romkatv/powerlevel10k&#x27;</span>, use:powerlevel10k.zsh-theme</span></span><br><span class="line">zplug &quot;plugins/vi-mode&quot;, from:oh-my-zsh</span><br><span class="line">zplug &#x27;zsh-users/zsh-autosuggestions&#x27;</span><br><span class="line">zplug &#x27;zsh-users/zsh-completions&#x27;, defer:2</span><br><span class="line">zplug &#x27;zsh-users/zsh-history-substring-search&#x27;</span><br><span class="line">zplug &#x27;zsh-users/zsh-syntax-highlighting&#x27;, defer:2</span><br><span class="line"></span><br><span class="line">if ! zplug check; then</span><br><span class="line">  zplug install</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">zplug load</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> zsh-autosuggestions 自动补全快捷键修改</span></span><br><span class="line">bindkey &#x27;,&#x27; autosuggest-accept</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> User configuration</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">export</span> MANPATH=<span class="string">&quot;/usr/local/man:<span class="variable">$MANPATH</span>&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You may need to manually <span class="built_in">set</span> your language environment</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">export</span> LANG=en_US.UTF-8</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Preferred editor <span class="keyword">for</span> <span class="built_in">local</span> and remote sessions</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">if</span> [[ -n <span class="variable">$SSH_CONNECTION</span> ]]; <span class="keyword">then</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">   <span class="built_in">export</span> EDITOR=<span class="string">&#x27;vim&#x27;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">   <span class="built_in">export</span> EDITOR=<span class="string">&#x27;mvim&#x27;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">fi</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Compilation flags</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">export</span> ARCHFLAGS=<span class="string">&quot;-arch x86_64&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Set personal aliases, overriding those provided by oh-my-zsh libs,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> plugins, and themes. Aliases can be placed here, though oh-my-zsh</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> users are encouraged to define aliases within the ZSH_CUSTOM folder.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> For a full list of active aliases, run `<span class="built_in">alias</span>`.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Example aliases</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">alias</span> zshconfig=<span class="string">&quot;mate ~/.zshrc&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">alias</span> ohmyzsh=<span class="string">&quot;mate ~/.oh-my-zsh&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">-------------------aliases-------------------</span></span><br><span class="line">if [ -f ~/.aliases ]; then</span><br><span class="line">        . ~/.aliases</span><br><span class="line">fi</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">autojump</span></span><br><span class="line">[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] &amp;&amp; . ~/.autojump/etc/profile.d/autojump.sh</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">bash-insulter</span></span><br><span class="line">if [ -f /etc/bash.command-not-found ]; then</span><br><span class="line">    . /etc/bash.command-not-found</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/terminal/" rel="tag"># terminal</a>
+              <a href="/tags/zsh/" rel="tag"># zsh</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/28/%E4%BD%A0%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E8%BE%93%E5%85%A5%E6%B3%95%E4%BD%95%E5%BF%85%E6%98%AF%E6%90%9C%E7%8B%97%EF%BC%8C%E6%8B%A5%E6%8A%B1fcitx5/" rel="prev" title="你的下一个输入法何必是搜狗，拥抱fcitx5">
+      <i class="fa fa-chevron-left"></i> 你的下一个输入法何必是搜狗，拥抱fcitx5
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/29/DBeaver%E7%AD%89%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AF%E4%BB%B6%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD%E8%BA%AB%E4%BB%BD%E6%8F%92%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="DBeaver等数据库软件无法加载身份插件的问题">
+      DBeaver等数据库软件无法加载身份插件的问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#autojump"><span class="nav-number">1.</span> <span class="nav-text">autojump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85autojump"><span class="nav-number">1.1.</span> <span class="nav-text">安装autojump</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.1.</span> <span class="nav-text">手动安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arch%E7%94%A8%E6%88%B7%E5%AE%89%E8%A3%85autojump%EF%BC%88%E6%9C%89%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E4%B8%8D%E6%8E%A8%E8%8D%90%E6%96%B0%E6%89%8B%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">arch用户安装autojump（有些小问题不推荐新手）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash-insulter"><span class="nav-number">2.</span> <span class="nav-text">bash-insulter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#oh-my-zsh%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">oh-my-zsh自带的一些插件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>

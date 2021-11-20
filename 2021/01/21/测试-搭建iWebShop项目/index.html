@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="目录  about 配置数据库 Centos配置LNMP环境并配置iwebshop项目 使用LNMP  about摘自iWebShop官网：  iWebShop是一款基于PHP语言及MYSQL数据库开发的B2B2C单用户和多用户开源商城系统，系统支持平台自营和多商家入驻、集成微信商城、手机商城、移动端APP商城、三级分销、微信小程序等于一体，它可以承载大数据量且性能优良，还可以跨平台，界面美观功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试-搭建iWebShop项目">
+<meta property="og:url" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="目录  about 配置数据库 Centos配置LNMP环境并配置iwebshop项目 使用LNMP  about摘自iWebShop官网：  iWebShop是一款基于PHP语言及MYSQL数据库开发的B2B2C单用户和多用户开源商城系统，系统支持平台自营和多商家入驻、集成微信商城、手机商城、移动端APP商城、三级分销、微信小程序等于一体，它可以承载大数据量且性能优良，还可以跨平台，界面美观功能">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/2021-01-21_23-44.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/2021-01-21_23-45.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/2021-01-21_23-45_1.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/2021-01-21_23-46.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/2021-01-21_23-46_1.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/47.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/48.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/49.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/50.png">
+<meta property="og:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/51.png">
+<meta property="article:published_time" content="2021-01-21T14:47:43.000Z">
+<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="iWebShop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/pic/2021-01-21_23-44.png">
+
+<link rel="canonical" href="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>测试-搭建iWebShop项目 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">我的肺吸入空气般的时间，呼出飘落沙粒般的过去</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/icon.gif">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          测试-搭建iWebShop项目
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-21 22:47:43" itemprop="dateCreated datePublished" datetime="2021-01-21T22:47:43+08:00">2021-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>目录</p>
+<ul>
+<li><a href="#about">about</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93">配置数据库</a></li>
+<li><a href="#centos%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83%E5%B9%B6%E9%85%8D%E7%BD%AEiwebshop%E9%A1%B9%E7%9B%AE">Centos配置LNMP环境并配置iwebshop项目</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8LNMP">使用LNMP</a></li>
+</ul>
+<h1 id="about"><a href="#about" class="headerlink" title="about"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/#about">about</a></h1><p>摘自<a target="_blank" rel="noopener" href="http://www.aircheng.com/">iWebShop官网</a>：</p>
+<blockquote>
+<p>iWebShop是一款基于PHP语言及MYSQL数据库开发的B2B2C单用户和多用户开源商城系统，系统支持平台自营和多商家入驻、集成微信商城、手机商城、移动端APP商城、三级分销、微信小程序等于一体，它可以承载大数据量且性能优良，还可以跨平台，界面美观功能丰富是电商建站首选源码。<br>最低环境版本：PHP5.5以上 + MYSQL(MariaDB)5.4以上 + Apache2.2以上 或 Nginx1.4以上。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>由上面的环境说明就知道，这个鬼东西安装不简单(其实挺简单的)！</p>
+<p>但是为了省事儿，我们这里使用LNMP一键安装包来一键安装iWebShop项目。</p>
+<p>LNMP是什么？LNMP一键安装包是一个用Linux Shell编写的可以为CentOS/RHEL/Fedora/Aliyun/Amazon、Debian/Ubuntu/Raspbian/Deepin/Mint Linux VPS或独立主机安装LNMP(Nginx/MySQL/PHP)、LNMPA(Nginx/MySQL/PHP/Apache)、LAMP(Apache/MySQL/PHP)生产环境的Shell程序。</p>
+<p>接下来演示在centos环境如何搭建iwebshop项目。</p>
+<blockquote>
+<p>iwebshop5.6百度云盘：链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1_linjSP_tqKlb7n8hWkFYA">https://pan.baidu.com/s/1_linjSP_tqKlb7n8hWkFYA</a> 提取码：<code>4dug</code><br>you can also go to <a target="_blank" rel="noopener" href="http://www.aircheng.com/down">http://www.aircheng.com/down</a> download source code</p>
+</blockquote>
+<h1 id="配置数据库"><a href="#配置数据库" class="headerlink" title="配置数据库"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/#%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93">配置数据库</a></h1><blockquote>
+<p>centos安装docker：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Neeo/articles/11945963.html">https://www.cnblogs.com/Neeo/articles/11945963.html</a></p>
+</blockquote>
+<p>提前配置好MySQL数据库，这里以MySQL5.7.26版本为例。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@C <span class="regexp">/]# mkdir -p /</span>docker_data<span class="regexp">/mysql_data/</span>data <span class="regexp">/docker_data/my</span>sql_data<span class="regexp">/logs /</span>docker_data<span class="regexp">/mysql_data/</span>conf</span><br><span class="line">[root@C <span class="regexp">/]# touch /</span>docker_data<span class="regexp">/mysql_data/</span>conf/my.cnf</span><br><span class="line">[root@C /]<span class="comment"># docker pull mysql:5.7.26</span></span><br><span class="line">[root@C /]<span class="comment"># docker run \</span></span><br><span class="line">  -p <span class="number">3307</span>:<span class="number">3306</span> \</span><br><span class="line">  -d \</span><br><span class="line">  -u root \</span><br><span class="line">  --name mysql \</span><br><span class="line">  --restart=always \</span><br><span class="line">  -v <span class="regexp">/docker_data/my</span>sql_data<span class="regexp">/conf:/</span>etc<span class="regexp">/mysql/</span>conf.d \</span><br><span class="line">  -v <span class="regexp">/docker_data/my</span>sql_data<span class="regexp">/logs:/</span>logs \</span><br><span class="line">  -v <span class="regexp">/docker_data/my</span>sql_data<span class="regexp">/data:/</span>var<span class="regexp">/lib/my</span>sql \</span><br><span class="line">  -e MYSQL_ROOT_PASSWORD=root1234 \</span><br><span class="line">  mysql:<span class="number">5.7</span>.<span class="number">26</span></span><br><span class="line">[root@C /]<span class="comment"># docker exec -it -u root mysql bash</span></span><br><span class="line">root@<span class="number">2</span>da4755a41f0:/<span class="comment"># mysql -uroot -proot1234</span></span><br><span class="line">mysql&gt; create database iwebshop default character set utf8;</span><br><span class="line">Query OK, <span class="number">1</span> row affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>上述配置，是创建一个MySQL容器，容器中的mysql账号密码:</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 账号</span></span><br><span class="line">root</span><br><span class="line"><span class="meta"># 密码</span></span><br><span class="line">root1234</span><br></pre></td></tr></table></figure>
+
+<p>在容器环境要提前创建一个iwebshop数据库。后续会用到。</p>
+<h1 id="Centos配置LNMP环境并配置iwebshop项目"><a href="#Centos配置LNMP环境并配置iwebshop项目" class="headerlink" title="Centos配置LNMP环境并配置iwebshop项目"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/#centos%E9%85%8D%E7%BD%AElnmp%E7%8E%AF%E5%A2%83%E5%B9%B6%E9%85%8D%E7%BD%AEiwebshop%E9%A1%B9%E7%9B%AE">Centos配置LNMP环境并配置iwebshop项目</a></h1><p>这里以<code>/home</code>目录展开…..</p>
+<ol>
+<li>下载lnmp集成安装包，并选择数据库版本，这里以mysql5.7为例，输入对应版本之前的序号即可:</li>
+</ol>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@CS2</span> /]<span class="meta"># cd /home/</span></span><br><span class="line">[root<span class="symbol">@CS2</span> home]<span class="meta"># ls</span></span><br><span class="line">[root<span class="symbol">@CS2</span> home]<span class="meta">#</span></span><br><span class="line">[root<span class="symbol">@CS2</span> home]<span class="meta"># wget http://soft.vpser.net/lnmp/lnmp1.6.tar.gz -cO lnmp1.6.tar.gz &amp;&amp; tar zxf lnmp1.6.tar.gz &amp;&amp; cd lnmp1.6 &amp;&amp; ./install.sh lnmp</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="pic/2021-01-21_23-44.png" alt="img"></p>
+<ol>
+<li>输入数据库root账户的密码<code>1234</code>:</li>
+</ol>
+<p><img src="pic/2021-01-21_23-45.png" alt="img"></p>
+<ol>
+<li>询问是否需要启⽤MySQL InnoDB，InnoDB引擎默认为开启，⼀般建议开启，直接回⻋或输⼊ y ，如果确定确实不需要该引擎可以输⼊ n，(MySQL 5.7+版本⽆法关闭InnoDB),输⼊完成，回⻋进⼊下⼀步：</li>
+</ol>
+<p><img src="pic/2021-01-21_23-45_1.png" alt="img"></p>
+<ol>
+<li>选择PHP版本，这里我选择默认。</li>
+</ol>
+<p><img src="pic/2021-01-21_23-46.png" alt="img"></p>
+<ol>
+<li>内存分配器选项，默认不安装内存分配器。</li>
+</ol>
+<p><img src="pic/2021-01-21_23-46_1.png" alt="img"></p>
+<ol>
+<li>按任意键进行安装。</br></li>
+</ol>
+<p>然后就是漫长的等待了…..请保持你的网络连接！</br></p>
+<ol>
+<li><p>完事之后，LNMP环境算是搭建完毕，默认监听80端口，你可以访问你的服务器<code>ip:80</code>来访问：</br></p>
+</li>
+<li><p>现在，你可以将iwebshop解压后的目录拷贝到<code>/home/wwwroot/default</code>，如下所示：</p>
+</li>
+</ol>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@CS2</span> <span class="literal">default</span>]<span class="meta"># pwd</span></span><br><span class="line">/home/wwwroot/<span class="literal">default</span></span><br><span class="line">[root<span class="symbol">@CS2</span> <span class="literal">default</span>]<span class="meta"># ls</span></span><br><span class="line">index.html  iwebshop  lnmp.gif  ocp.php  phpinfo.php  phpmyadmin  p.php</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>再给iwebshop目录一个777权限：</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@CS2 <span class="keyword">default</span>]# chmod <span class="number">777</span> -R <span class="regexp">/home/</span>wwwroot<span class="regexp">/default/i</span>webshop/</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>现在可以访问<code>ip:80/iwebshop</code>地址，然后会自动的跳转到安装目录了，勾选许可点击下一步：<br><img src="pic/47.png" alt="img"></li>
+<li>可以看到各个配置都是没有问题的，直接点击下一步：<br><img src="pic/48.png" alt="img"></li>
+<li>参照下图配置相关数据参数和管理员密码，并牢记密码</li>
+</ol>
+<p><img src="pic/49.png" alt="img"></p>
+<p>可能会遇到安装失败的情况，在这个页面就多尝试几次，只要你的数据库配置的没有问题。</p>
+<ol>
+<li>安装完成，可以选择到前台和到后台进入网站了。</li>
+</ol>
+<p><img src="pic/50.png" alt="img"></p>
+<ol>
+<li>可以使用admin账号(密码是：root1234)登录到后台：</li>
+</ol>
+<p><img src="pic/51.png" alt="img"></p>
+<p>后续的配置可以根据你的情况来配置了。</p>
+<h1 id="使用LNMP"><a href="#使用LNMP" class="headerlink" title="使用LNMP"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/%E6%B5%8B%E8%AF%95-%E6%90%AD%E5%BB%BAiWebShop%E9%A1%B9%E7%9B%AE/#%E4%BD%BF%E7%94%A8LNMP]">使用LNMP</a></h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Usage: lnmp &#123;start|stop|reload|restart|kill|status&#125;</span><br><span class="line">Usage: lnmp &#123;nginx|mysql|mariadb|php-fpm|pureftpd&#125; &#123;start|stop|reload|restart|kill|status&#125;</span><br><span class="line">Usage: lnmp vhost &#123;add|list|del&#125;</span><br><span class="line">Usage: lnmp database &#123;add|list|edit|del&#125;</span><br><span class="line">Usage: lnmp ftp &#123;add|list|edit|del|show&#125;</span><br><span class="line">Usage: lnmp ssl add</span><br><span class="line">Usage: lnmp &#123;dnsssl|dns&#125; &#123;cx|ali|cf|dp|he|gd|aws&#125;</span><br><span class="line">Usage: lnmp onlyssl &#123;cx|ali|cf|dp|he|gd|aws&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>欢迎斧正,that’s all, see also:</p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/4350098/blog/4073513">Docker部署LAMP项目</a></p>
+<p>作者： 听雨危楼</p>
+<p>出处：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Neeo/articles/12728236.html">https://www.cnblogs.com/Neeo/articles/12728236.html</a></p>
+<p>版权：本作品采用「<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a>」许可协议进行许可。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iWebShop/" rel="tag"># iWebShop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="Docker环境配置">
+      <i class="fa fa-chevron-left"></i> Docker环境配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/23/%E8%8E%AB%E4%BD%BF%E9%87%91%E6%A8%BD%E7%A9%BA%E5%AF%B9%E6%9C%88%EF%BC%8C%E4%B8%BE%E6%9D%AF%E5%BA%86%E4%BC%9A%E6%9C%89%E7%BC%98%E4%BA%BA/" rel="next" title="莫使金樽空对月，举杯幸会有缘人">
+      莫使金樽空对月，举杯幸会有缘人 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#about"><span class="nav-number">1.</span> <span class="nav-text">about</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">配置数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Centos%E9%85%8D%E7%BD%AELNMP%E7%8E%AF%E5%A2%83%E5%B9%B6%E9%85%8D%E7%BD%AEiwebshop%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">Centos配置LNMP环境并配置iwebshop项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8LNMP"><span class="nav-number">4.</span> <span class="nav-text">使用LNMP</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/icon.gif">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">373k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">5:39</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>
