@@ -11064,6 +11064,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p>也许，<strong>我们并没有“失去朋友”，我们只是换了一种方式去维系友情，更成熟地面对人生。</strong></p>
 <p><strong>“大丈夫各乘风波，未始有极，哀乐且不足累上士之心，况小别乎？”</strong></p>
 <p>别离是人生常态，身边的人也确实来来往往更迭不断，但<strong>总有一些人，已经陪伴了我们很久，还将陪伴我们更久。</strong></p>
+<p><img src="1.jpeg"></p>
 ]]></content>
       <categories>
         <category>随笔</category>
@@ -11071,5 +11072,80 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
       <tags>
         <tag>2021</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Happy Birthday</title>
+    <url>/2021/11/22/Happy-Birthday/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今天是我的生日，其实我不喜欢过生日。因为除了我妈没有人记得，也没有人在乎过。</p>
+<p>记得小时候，我12岁的生日我记得很清楚，因为那天我奶奶祭祖，我感觉很隆重，我爸还请了亲戚们吃饭。但我似乎并不是这次的主角，除了大姐没有人跟我说生日快乐。</p>
+<p>最让我感动的一次生日是大一的时候，因为那次我和一个好友的生日是同一天。他下午给我送了礼物，但是我并不在寝室，于是让细心的室友发现了我的“秘密”。</p>
+<span id="more"></span>
+
+<p>那天天气很冷，我上完晚课加上去实验室自习已是晚上十点。其实那天我猜到了室友可能知道我的生日了，当我回到寝室时，还是被感动的落了泪。第一次有人给我真正的过生日，还给我买了蛋糕。</p>
+<p>简单却温馨</p>
+<p>好像很多人都不爱过生日，因为没人记得，没人会记得，因为很麻烦，会尴尬，因为没有钱，送不起。</p>
+<p>但其实我们要的不是礼物，仅仅是一句生日快乐。</p>
+<p>今天又是我的生日了，没有告诉别人，下班的时候偷偷给自己买了个蛋糕。其实，你不说别人怎么会记得呢，不过一个人有时候也挺好的。</p>
+<p>一个普通平常的一天，如果自己都忘了，谁又能重视呢。</p>
+<p>生日快乐！！！</p>
+<p><img src="1.jpeg"></p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>2021</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode 亲密字符串</title>
+    <url>/2021/11/23/leetcode-%E4%BA%B2%E5%AF%86%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="859-亲密字符串"><a href="#859-亲密字符串" class="headerlink" title="859. 亲密字符串"></a><a href="https://leetcode-cn.com/problems/buddy-strings/">859. 亲密字符串</a></h4><p>给你两个字符串 s 和 goal ，只要我们可以通过交换 s 中的两个字母得到与 goal 相等的结果，就返回 true ；否则返回 false 。</p>
+<p>交换字母的定义是：取两个下标 i 和 j （下标从 0 开始）且满足 i != j ，接着交换 s[i] 和 s[j] 处的字符。</p>
+<ul>
+<li>例如，在 “abcd” 中交换下标 0 和下标 2 的元素可以生成 “cbad” 。</li>
+</ul>
+<span id="more"></span>
+
+
+<p><strong>示例 1：</strong></p>
+<figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;ab&quot;</span>, <span class="keyword">goal</span> = <span class="string">&quot;ba&quot;</span></span><br><span class="line">输出：true</span><br><span class="line">解释：你可以交换 s[<span class="number">0</span>] = <span class="string">&#x27;a&#x27;</span> 和 s[<span class="number">1</span>] = <span class="string">&#x27;b&#x27;</span> 生成 <span class="string">&quot;ba&quot;</span>，此时 s 和 <span class="keyword">goal</span> 相等。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;ab&quot;</span>, <span class="keyword">goal</span> = <span class="string">&quot;ab&quot;</span></span><br><span class="line">输出：false</span><br><span class="line">解释：你只能交换 s[<span class="number">0</span>] = <span class="string">&#x27;a&#x27;</span> 和 s[<span class="number">1</span>] = <span class="string">&#x27;b&#x27;</span> 生成 <span class="string">&quot;ba&quot;</span>，此时 s 和 <span class="keyword">goal</span> 不相等。</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">输入：s = <span class="string">&quot;aa&quot;</span>, <span class="keyword">goal</span> = <span class="string">&quot;aa&quot;</span></span><br><span class="line">输出：true</span><br><span class="line">解释：你可以交换 s[<span class="number">0</span>] = <span class="string">&#x27;a&#x27;</span> 和 s[<span class="number">1</span>] = <span class="string">&#x27;a&#x27;</span> 生成 <span class="string">&quot;aa&quot;</span>，此时 s 和 <span class="keyword">goal</span> 相等。</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>示例 4：</strong></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">输入：<span class="attr">s</span> = <span class="string">&quot;aaaaaaabc&quot;</span>, <span class="attr">goal</span> = <span class="string">&quot;aaaaaaacb&quot;</span></span><br><span class="line">输出：<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;= s.length, goal.length &lt;= 2 * 104</li>
+<li>s 和 goal 由小写英文字母组成</li>
+</ul>
+<p><strong>思路</strong></p>
+<ol>
+<li>字符串长度不相等, 直接返回false</li>
+<li>字符串相等的时候, 只要有重复的元素就返回true</li>
+<li>A, B字符串有不相等的两个地方, 需要查看它们交换后是否相等即可.</li>
+</ol>
+<p><strong>参考答案</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">buddyStrings</span>(<span class="params">self, s, goal</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type goal: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 长度不同直接false</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) != <span class="built_in">len</span>(goal): <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 由于必须交换一次，在相同的情况下，交换相同的字符</span></span><br><span class="line">        <span class="keyword">if</span> s == goal <span class="keyword">and</span> <span class="built_in">len</span>(<span class="built_in">set</span>(goal)) &lt; <span class="built_in">len</span>(goal): <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 使用 zip 进行匹配对比，挑出不同的字符对</span></span><br><span class="line">        dif = [(a, b) <span class="keyword">for</span> a, b <span class="keyword">in</span> <span class="built_in">zip</span>(s, goal) <span class="keyword">if</span> a != b]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 对数只能为2，并且对称，如 (a,b)与(b,a)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(dif) == <span class="number">2</span> <span class="keyword">and</span> dif[<span class="number">0</span>] == dif[<span class="number">1</span>][::-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/buddy-strings">https://leetcode-cn.com/problems/buddy-strings</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
   </entry>
 </search>
