@@ -11148,4 +11148,44 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <category>算法</category>
       </categories>
   </entry>
+  <entry>
+    <title>leetcode 最长公共前缀</title>
+    <url>/2021/11/24/leetcode-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>编写一个函数来查找字符串数组中的最长公共前缀。</p>
+<p>如果不存在公共前缀，返回空字符串 <code>&quot;&quot;</code>。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line">输入：<span class="keyword">strs</span> = [<span class="string">&quot;flower&quot;</span>,<span class="string">&quot;flow&quot;</span>,<span class="string">&quot;flight&quot;</span>]</span><br><span class="line">输出：<span class="string">&quot;fl&quot;</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line">输入：<span class="keyword">strs</span> = [<span class="string">&quot;dog&quot;</span>,<span class="string">&quot;racecar&quot;</span>,<span class="string">&quot;car&quot;</span>]</span><br><span class="line">输出：<span class="string">&quot;&quot;</span></span><br><span class="line">解释：输入不存在公共前缀。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= strs.length &lt;= 200</code></li>
+<li><code>0 &lt;= strs[i].length &lt;= 200</code></li>
+<li><code>strs[i]</code> 仅由小写英文字母组成</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span>(<span class="params">self, strs</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type strs: List[str]</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+
+
+<p>大概有这五种思路, 一般都会采用第四种, 但是耗时太多</p>
+<p>1、所求的最长公共前缀子串一定是每个字符串的前缀子串。所以随便选择一个字符串作为标准，把它的前缀串，与其他所有字符串进行判断，看是否是它们所有人的前缀子串。这里的时间性能是O(m*n*m)。</p>
+<p>2、列出所有的字符串的前缀子串，将它们合并后排序，找出其中个数为n且最长的子串。时间性能为O(n*m+m*n*log(m*n))</p>
+<p>3、纵向扫描：从下标0开始，判断每一个字符串的下标0，判断是否全部相同。直到遇到不全部相同的下标。时间性能为O(n*m)。</p>
+<p>4、横向扫描：前两个字符串找公共子串，将其结果和第三个字符串找公共子串……直到最后一个串。时间性能为O(n*m)。</p>
+<p>5、借助trie字典树。将这些字符串存储到trie树中。那么trie树的第一个分叉口之前的单分支树的就是所求。</p>
+<p>python两种让你拍大腿的解法，时间复杂度你想象不到，短小精悍。 1、利用python的max()和min()，在Python里字符串是可以比较的，按照ascII值排，举例abb， aba，abac，最大为abb，最小为aba。所以只需要比较最大最小的公共前缀就是整个数组的公共前缀</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span>(<span class="params">self, strs</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> strs: <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    s1 = <span class="built_in">min</span>(strs)</span><br><span class="line">    s2 = <span class="built_in">max</span>(strs)</span><br><span class="line">    <span class="keyword">for</span> i,x <span class="keyword">in</span> <span class="built_in">enumerate</span>(s1):</span><br><span class="line">        <span class="keyword">if</span> x != s2[i]:</span><br><span class="line">            <span class="keyword">return</span> s2[:i]</span><br><span class="line">    <span class="keyword">return</span> s1</span><br></pre></td></tr></table></figure>
+
+<p>2、利用python的zip函数，把str看成list然后把输入看成二维数组，左对齐纵向压缩，然后把每项利用集合去重，之后遍历list中找到元素长度大于1之前的就是公共前缀</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span>(<span class="params">self, strs</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> strs: <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    ss = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">set</span>, <span class="built_in">zip</span>(*strs)))</span><br><span class="line">    res = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(ss):</span><br><span class="line">        x = <span class="built_in">list</span>(x)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(x) &gt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        res = res + x[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+  </entry>
 </search>
