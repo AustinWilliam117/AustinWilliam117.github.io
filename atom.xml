@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>蒙珣的博客</title>
   
-  <subtitle>我的肺吸入空气般的时间，呼出飘落沙粒般的过去</subtitle>
+  <subtitle>其实 “醉生梦死” 只不过是她跟我开的一个玩笑，你越想知道自己是不是忘记的时候，你反而记得更清楚。我曾经听人说过，当你不能够再拥有，你唯一可以做的，就是令自己不要忘记。</subtitle>
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-25T14:07:18.988Z</updated>
+  <updated>2021-11-25T15:19:03.502Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>江南逢李龟年</title>
+    <link href="http://example.com/2021/11/25/%E6%B1%9F%E5%8D%97%E9%80%A2%E6%9D%8E%E9%BE%9F%E5%B9%B4/"/>
+    <id>http://example.com/2021/11/25/%E6%B1%9F%E5%8D%97%E9%80%A2%E6%9D%8E%E9%BE%9F%E5%B9%B4/</id>
+    <published>2021-11-25T14:29:44.000Z</published>
+    <updated>2021-11-25T15:19:03.502Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-mqNCrqLU" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="816965" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><center>岐王宅里寻常见，</br></br>崔九堂前几度闻。</br></br>正是江南好风景，</br></br>落花时节又逢君。</br></center><span id="more"></span><div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="https://www.bilibili.com/video/BV1Mh41147ty?spm_id_from=333.999.0.0"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe></div>]]></content>
+    
+    
+    <summary type="html">&lt;div id=&quot;aplayer-mqNCrqLU&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+         data-id=&quot;816965&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
+    &gt;&lt;/div&gt;
+
+&lt;/br&gt;
+
+
+
+&lt;center&gt;
+岐王宅里寻常见，&lt;/br&gt;&lt;/br&gt;
+崔九堂前几度闻。&lt;/br&gt;&lt;/br&gt;
+正是江南好风景，&lt;/br&gt;&lt;/br&gt;
+落花时节又逢君。&lt;/br&gt;
+&lt;/center&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="诗词歌赋" scheme="http://example.com/tags/%E8%AF%97%E8%AF%8D%E6%AD%8C%E8%B5%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>python enumerate()说明</title>
@@ -269,10 +303,10 @@
     <published>2021-11-01T01:30:00.000Z</published>
     <updated>2021-11-11T14:08:04.000Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-rtyXdziZ" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="16964043" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>回想过去一年，时间的齿轮永不停歇的转动，一圈又一圈 。</p><p>当我听着2020年的歌单的时候，我感觉不出那是什么时候听到的。</p><p>感觉很遥远，但仔细想想也不过一年。</p><p>一年！活着好像没有什么感觉，一切瞬息万变，一切好像有没有变。</p><p>时间的尺度上，我太渺小了。</p><p>我感到很孤独，很无助，很害怕。</p><span id="more"></span></br><p>感觉我有很多事情没有做，但每一个都没能抓住。</p><p>人他在时间的缝隙中悄然流逝。</p><p>我无能为力，我孤立无援。</p><p>我甚至没有一个可以诉说，可以倾听的对象。</p></br><p>每天上下班只有看书，或者书为我打造的世界中，勉强喘息。</p><p>已经是十一月的深秋了，说明这一年已经快要结束。</p><p>可是这一年的伊始，我还是历历在目啊，仿佛就在昨天。</p><p>时间在我不经意间流逝了，我无能为力</p></br><p>每一天都是上一天的叠加，然后把他们压扁成一天，甚至只有一道微弱的痕迹。</p></br><p>关于未来的打算</p><p>我想考研，圆自己一个梦，铺平以后的路。</p><p>我想去考公务员，然后可有混吃等死。</p><p>这样我有更多的时间做自己喜欢的事情，或者虚度光阴。</p><p>不再用怕35岁的中年危机。</p></br><p>或许我能在这几年拥有一段爱情，但我不敢开始，也太想开始。</p><p>我害怕拥有，害怕失去。</p><p>害怕拥有他阻碍了我的发展，害怕失去他丢失了好不容易好转的我。</p></br><p>2021.11.1 9:30</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-hbSuybBP" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="16964043" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>回想过去一年，时间的齿轮永不停歇的转动，一圈又一圈 。</p><p>当我听着2020年的歌单的时候，我感觉不出那是什么时候听到的。</p><p>感觉很遥远，但仔细想想也不过一年。</p><p>一年！活着好像没有什么感觉，一切瞬息万变，一切好像有没有变。</p><p>时间的尺度上，我太渺小了。</p><p>我感到很孤独，很无助，很害怕。</p><span id="more"></span></br><p>感觉我有很多事情没有做，但每一个都没能抓住。</p><p>人他在时间的缝隙中悄然流逝。</p><p>我无能为力，我孤立无援。</p><p>我甚至没有一个可以诉说，可以倾听的对象。</p></br><p>每天上下班只有看书，或者书为我打造的世界中，勉强喘息。</p><p>已经是十一月的深秋了，说明这一年已经快要结束。</p><p>可是这一年的伊始，我还是历历在目啊，仿佛就在昨天。</p><p>时间在我不经意间流逝了，我无能为力</p></br><p>每一天都是上一天的叠加，然后把他们压扁成一天，甚至只有一道微弱的痕迹。</p></br><p>关于未来的打算</p><p>我想考研，圆自己一个梦，铺平以后的路。</p><p>我想去考公务员，然后可有混吃等死。</p><p>这样我有更多的时间做自己喜欢的事情，或者虚度光阴。</p><p>不再用怕35岁的中年危机。</p></br><p>或许我能在这几年拥有一段爱情，但我不敢开始，也太想开始。</p><p>我害怕拥有，害怕失去。</p><p>害怕拥有他阻碍了我的发展，害怕失去他丢失了好不容易好转的我。</p></br><p>2021.11.1 9:30</p>]]></content>
     
     
-    <summary type="html">&lt;div id=&quot;aplayer-rtyXdziZ&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    <summary type="html">&lt;div id=&quot;aplayer-hbSuybBP&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;16964043&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
@@ -330,10 +364,10 @@
     <published>2021-10-25T14:08:15.000Z</published>
     <updated>2021-11-11T14:08:04.000Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-PvQvlIiT" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="442315772" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>今天和苗帅聊天，发现已经快11月了。这一年过的好快，快到我没有留下什么影响。</p><p>还记得年初，北京漫天的黄沙，好像就在不久前。也许3月的时候，和现在一样冷而产生的错觉吧。</p><span id="more"></span><p><img src="1.jpg" alt="3.15号的黄沙"></p><center>3.15号的黄沙</center></br><p>只记得北京的7月，下班还能迎着夕阳，每天都会带雨伞，以防突如其来的大雨。</p><p>似乎这一切，都在不久前，但仔细想想却也是3个月前的事情了。</p><p>时间过的好快，快到你稍有不备，它就会偷偷从你身边溜走，当你回想起来的时候，感叹时间是那么遥远。</p><p><img src="2.jpg" alt="7.8号的雷雨天"></p><center>7.8号的雷雨天</center></br><p>每天重复的日子，似乎都堆叠成了一天，只有那些特别的天气，才能让我觉得那是另外一天。也许因为这样，我才会觉得那些日子似乎才在昨天吧。</p><p>10年前的自己，和10年后的自己有什么区别呢？还是那个天真、单纯的傻孩子罢了。但年龄、长相、婚姻、周围的人，又时刻提醒着我，已经不再是那个小孩子了。</p><p>哎！</p><p>怎么说呢，以前挺想回到小时候的，但现在又不太想了，不知道是为什么。</p><p>不过希望，我能好好爱自己。那个小时候的自己已经长大了，可能他的心还没有，那也请现在的你多多照顾他吧。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-xATenVbF" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="442315772" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p>今天和苗帅聊天，发现已经快11月了。这一年过的好快，快到我没有留下什么影响。</p><p>还记得年初，北京漫天的黄沙，好像就在不久前。也许3月的时候，和现在一样冷而产生的错觉吧。</p><span id="more"></span><p><img src="1.jpg" alt="3.15号的黄沙"></p><center>3.15号的黄沙</center></br><p>只记得北京的7月，下班还能迎着夕阳，每天都会带雨伞，以防突如其来的大雨。</p><p>似乎这一切，都在不久前，但仔细想想却也是3个月前的事情了。</p><p>时间过的好快，快到你稍有不备，它就会偷偷从你身边溜走，当你回想起来的时候，感叹时间是那么遥远。</p><p><img src="2.jpg" alt="7.8号的雷雨天"></p><center>7.8号的雷雨天</center></br><p>每天重复的日子，似乎都堆叠成了一天，只有那些特别的天气，才能让我觉得那是另外一天。也许因为这样，我才会觉得那些日子似乎才在昨天吧。</p><p>10年前的自己，和10年后的自己有什么区别呢？还是那个天真、单纯的傻孩子罢了。但年龄、长相、婚姻、周围的人，又时刻提醒着我，已经不再是那个小孩子了。</p><p>哎！</p><p>怎么说呢，以前挺想回到小时候的，但现在又不太想了，不知道是为什么。</p><p>不过希望，我能好好爱自己。那个小时候的自己已经长大了，可能他的心还没有，那也请现在的你多多照顾他吧。</p>]]></content>
     
     
-    <summary type="html">&lt;div id=&quot;aplayer-PvQvlIiT&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
+    <summary type="html">&lt;div id=&quot;aplayer-xATenVbF&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
          data-id=&quot;442315772&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
     &gt;&lt;/div&gt;
 
@@ -499,37 +533,6 @@
 &lt;/br&gt;
 
 &lt;p&gt;第一百篇文章了，给自己留个纪念，分享一些生活中的风景，希望在以后的生活中砥砺前行，做更好的自己。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="2021" scheme="http://example.com/tags/2021/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>杂谈</title>
-    <link href="http://example.com/2021/10/05/%E6%9D%82%E8%B0%88/"/>
-    <id>http://example.com/2021/10/05/%E6%9D%82%E8%B0%88/</id>
-    <published>2021-10-05T11:12:12.000Z</published>
-    <updated>2021-11-11T14:08:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-OLrEfqoL" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1879348415" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div></br><p><strong>幸福是不可以通过直接追求而获得的。</strong></p><p>如果以赚钱为目的去做生意的话，永远也赚不来钱，或者永远也赚不到大钱。你只有以你做的这个产品为目的，你才能有可能在这个过程当中，赚到所谓的钱。</p><p>追求钱也好，幸福也好，爱情也好。这些都是不能直接去追求的，他们本身就很缥缈，很概念化，没有一个标准。</p><p>但是我们可以追求自己的理想，或者自己想做的事情。通过追求这些来间接达到追求金钱、幸福和爱情等等。</p><p>所以才有了“爱自己才能爱别人”，一味的对别人好，也只是在追求这个幸福的过程，爱情的过程而已。追求的太纯粹了，反而失去了自我。</p><span id="more"></span><p><strong>幸福也不是永恒的幸福,而是那一刻的幸福</strong></p><p>当我挑灯夜战准备考试最后成功的时候，成功的那一刻是幸福的，或者是那一段时间是幸福的。但之后还有更多的挑战在等待着我们。</p><p>我们希望这种幸福可以延续，我们希望可以获得更多的这样的幸福，但幸福从来不是一个永恒的状态，他就是那一刻的状态，他就是那一念的状态。</p><p>在现当代，看不清这个事情最惨烈的一个群体就是，痴情的女子。</p><p>我很喜欢西方的婚礼，他们大部分都会在教堂里去举行。他要以上帝之名，来见证我们这段婚姻。</p><p>所以这个时候一般神父就会问这个新郎：你是不是愿意娶你眼前的这位女子为妻，并与她缔结婚姻。不管贫穷还是富有，不管健康还是疾病，你要永远的爱她、守护她、接受她，永远的矢志不渝直到生命的尽头。</p><p>新郎肯定会说我愿意，这时候的新娘一定会感动的痛哭流涕。可是呢，这样的事情过去了一年两年三年之后，两人的争吵变得越来越多，这个妻子就会拿当初的事情来说事：你当初说过你会永远爱我的，你现在怎么这样了。</p><p>有的更严重的想法会说：你就是一个渣男，你就是骗我的。</p><p>其实即便人家是一个渣男。我们也应该做一个清醒的女王，<strong>你怎么会把誓言这种事情当真呢？</strong>，他跟你说永远的时候就是永远啊，只不过那个永远只是代表那一刻的永远，在那一刻你就是他的世界。</p><p>所以，不要为爱情冲昏了头脑，我们都知道这些事情是很难办到的。自己都不行，何况去要求他人。所以我从来或者很少承诺自己办不到的事情，或者是誓言。因为我知道，这很难，说的不过都是空话而已。</p><p><strong>所以说，痴情的人没必要，为守护一个当初本就不切实际的誓言，把一刻当成了永远，去留恋一辈子。</strong>如果你们分手了，离婚了，那下一个更好。</p><p>世界没有真正的永恒，何况是善变的人。我们就是在这种状态中频繁转变的，又为什么要奢求这种幸福的状态让它持久呢？没有可能的吧！</p><p><strong>我们追求幸福的体验其实就是当你全神贯注去做一件事情的时候，只有通过这件事情，你才能过滤掉那些干扰你的信息。</strong></p><blockquote><p>以上内容来自“杨一哟”，只有一点点自己的见解。</p></blockquote>]]></content>
-    
-    
-    <summary type="html">&lt;div id=&quot;aplayer-OLrEfqoL&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
-         data-id=&quot;1879348415&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
-    &gt;&lt;/div&gt;
-
-&lt;/br&gt;
-
-&lt;p&gt;&lt;strong&gt;幸福是不可以通过直接追求而获得的。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;如果以赚钱为目的去做生意的话，永远也赚不来钱，或者永远也赚不到大钱。你只有以你做的这个产品为目的，你才能有可能在这个过程当中，赚到所谓的钱。&lt;/p&gt;
-&lt;p&gt;追求钱也好，幸福也好，爱情也好。这些都是不能直接去追求的，他们本身就很缥缈，很概念化，没有一个标准。&lt;/p&gt;
-&lt;p&gt;但是我们可以追求自己的理想，或者自己想做的事情。通过追求这些来间接达到追求金钱、幸福和爱情等等。&lt;/p&gt;
-&lt;p&gt;所以才有了“爱自己才能爱别人”，一味的对别人好，也只是在追求这个幸福的过程，爱情的过程而已。追求的太纯粹了，反而失去了自我。&lt;/p&gt;</summary>
     
     
     
