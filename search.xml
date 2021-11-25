@@ -11188,4 +11188,50 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <category>算法</category>
       </categories>
   </entry>
+  <entry>
+    <title>python enumerate()说明</title>
+    <url>/2021/11/25/python-enumerate-%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="enumerate-说明"><a href="#enumerate-说明" class="headerlink" title="enumerate()说明"></a>enumerate()说明</h2><ul>
+<li><p>enumerate()是python的内置函数</p>
+</li>
+<li><p>enumerate在字典上是枚举、列举的意思</p>
+</li>
+<li><p>对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li><p>enumerate多用于在for循环中得到计数</p>
+</li>
+<li><p>例如对于一个seq，得到：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(<span class="number">0</span>,seq[<span class="number">0</span>]),(<span class="number">1</span>,seq[<span class="number">1</span>]),(<span class="number">2</span>,seq[<span class="number">2</span>])</span><br></pre></td></tr></table></figure></li>
+<li><p>enumerate()返回一个enumerate对象，例如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>seq = <span class="built_in">range</span>(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">enumerate</span>(seq)</span><br><span class="line">&lt;<span class="built_in">enumerate</span> <span class="built_in">object</span> at <span class="number">0x7f74995b8140</span>&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="enumerate-使用"><a href="#enumerate-使用" class="headerlink" title="enumerate()使用"></a>enumerate()使用</h2><ul>
+<li><p>如果对一个列表，既要遍历索引又要遍历元素时，首先可以这样写：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list1)):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(i,list1[i])</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span> 这</span><br><span class="line"><span class="number">1</span> 是</span><br><span class="line"><span class="number">2</span> 一个</span><br><span class="line"><span class="number">3</span> 测试</span><br></pre></td></tr></table></figure></li>
+<li><p>上述方法有些累赘，利用enumerate()会更加直接和优美：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> index,item <span class="keyword">in</span> <span class="built_in">enumerate</span>(list1):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(index,item)</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span> 这</span><br><span class="line"><span class="number">1</span> 是</span><br><span class="line"><span class="number">2</span> 一个</span><br><span class="line"><span class="number">3</span> 测试</span><br></pre></td></tr></table></figure></li>
+<li><p>enumerate还可以接收第二个参数，用于指定索引起始值，如：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> index,item <span class="keyword">in</span> <span class="built_in">enumerate</span>(list1,<span class="number">1</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(index,item)</span><br><span class="line">...</span><br><span class="line"><span class="number">1</span> 这</span><br><span class="line"><span class="number">2</span> 是</span><br><span class="line"><span class="number">3</span> 一个</span><br><span class="line"><span class="number">4</span> 测试</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>如果要统计文件的行数，可以这样写：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">count = <span class="built_in">len</span>(<span class="built_in">open</span>(filepath,<span class="string">&#x27;r&#x27;</span>).readlines())</span><br></pre></td></tr></table></figure>
+
+<p>这种方法简单，但是可能比较慢，当文件比较大时甚至不能工作。</p>
+<p>可以利用enumerate()：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> index,line <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">open</span>(filepath,<span class="string">&#x27;r&#x27;</span>)):</span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>转载自：<a href="https://www.cnblogs.com/oddcat/articles/9630404.html">https://www.cnblogs.com/oddcat/articles/9630404.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+  </entry>
 </search>

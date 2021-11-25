@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-24T15:08:47.751Z</updated>
+  <updated>2021-11-25T14:07:18.988Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python enumerate()说明</title>
+    <link href="http://example.com/2021/11/25/python-enumerate-%E8%AF%B4%E6%98%8E/"/>
+    <id>http://example.com/2021/11/25/python-enumerate-%E8%AF%B4%E6%98%8E/</id>
+    <published>2021-11-25T13:55:15.000Z</published>
+    <updated>2021-11-25T14:07:18.988Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="enumerate-说明"><a href="#enumerate-说明" class="headerlink" title="enumerate()说明"></a>enumerate()说明</h2><ul><li><p>enumerate()是python的内置函数</p></li><li><p>enumerate在字典上是枚举、列举的意思</p></li><li><p>对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值</p></li></ul><span id="more"></span><ul><li><p>enumerate多用于在for循环中得到计数</p></li><li><p>例如对于一个seq，得到：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>,seq[<span class="number">0</span>]),(<span class="number">1</span>,seq[<span class="number">1</span>]),(<span class="number">2</span>,seq[<span class="number">2</span>])</span><br></pre></td></tr></table></figure></li><li><p>enumerate()返回一个enumerate对象，例如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>seq = <span class="built_in">range</span>(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">enumerate</span>(seq)</span><br><span class="line">&lt;<span class="built_in">enumerate</span> <span class="built_in">object</span> at <span class="number">0x7f74995b8140</span>&gt;</span><br></pre></td></tr></table></figure></li></ul><h2 id="enumerate-使用"><a href="#enumerate-使用" class="headerlink" title="enumerate()使用"></a>enumerate()使用</h2><ul><li><p>如果对一个列表，既要遍历索引又要遍历元素时，首先可以这样写：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list1)):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(i,list1[i])</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span> 这</span><br><span class="line"><span class="number">1</span> 是</span><br><span class="line"><span class="number">2</span> 一个</span><br><span class="line"><span class="number">3</span> 测试</span><br></pre></td></tr></table></figure></li><li><p>上述方法有些累赘，利用enumerate()会更加直接和优美：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> index,item <span class="keyword">in</span> <span class="built_in">enumerate</span>(list1):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(index,item)</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span> 这</span><br><span class="line"><span class="number">1</span> 是</span><br><span class="line"><span class="number">2</span> 一个</span><br><span class="line"><span class="number">3</span> 测试</span><br></pre></td></tr></table></figure></li><li><p>enumerate还可以接收第二个参数，用于指定索引起始值，如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> index,item <span class="keyword">in</span> <span class="built_in">enumerate</span>(list1,<span class="number">1</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(index,item)</span><br><span class="line">...</span><br><span class="line"><span class="number">1</span> 这</span><br><span class="line"><span class="number">2</span> 是</span><br><span class="line"><span class="number">3</span> 一个</span><br><span class="line"><span class="number">4</span> 测试</span><br></pre></td></tr></table></figure></li></ul><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>如果要统计文件的行数，可以这样写：</p><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="built_in">len</span>(<span class="built_in">open</span>(filepath,<span class="string">&#x27;r&#x27;</span>).readlines())</span><br></pre></td></tr></table></figure><p>这种方法简单，但是可能比较慢，当文件比较大时甚至不能工作。</p><p>可以利用enumerate()：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> index,line <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">open</span>(filepath,<span class="string">&#x27;r&#x27;</span>)):</span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure><blockquote><p>转载自：<a href="https://www.cnblogs.com/oddcat/articles/9630404.html">https://www.cnblogs.com/oddcat/articles/9630404.html</a></p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;enumerate-说明&quot;&gt;&lt;a href=&quot;#enumerate-说明&quot; class=&quot;headerlink&quot; title=&quot;enumerate()说明&quot;&gt;&lt;/a&gt;enumerate()说明&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;enumerate()是python的内置函数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;enumerate在字典上是枚举、列举的意思&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Python" scheme="http://example.com/categories/Python/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>leetcode 最长公共前缀</title>
@@ -504,27 +530,6 @@
 &lt;p&gt;追求钱也好，幸福也好，爱情也好。这些都是不能直接去追求的，他们本身就很缥缈，很概念化，没有一个标准。&lt;/p&gt;
 &lt;p&gt;但是我们可以追求自己的理想，或者自己想做的事情。通过追求这些来间接达到追求金钱、幸福和爱情等等。&lt;/p&gt;
 &lt;p&gt;所以才有了“爱自己才能爱别人”，一味的对别人好，也只是在追求这个幸福的过程，爱情的过程而已。追求的太纯粹了，反而失去了自我。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="2021" scheme="http://example.com/tags/2021/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>读书的四种境界</title>
-    <link href="http://example.com/2021/09/20/%E8%AF%BB%E4%B9%A6%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%A2%83%E7%95%8C/"/>
-    <id>http://example.com/2021/09/20/%E8%AF%BB%E4%B9%A6%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%A2%83%E7%95%8C/</id>
-    <published>2021-09-20T13:05:46.000Z</published>
-    <updated>2021-11-11T14:08:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。"><a href="#1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。" class="headerlink" title="1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。"></a>1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。</h4><p>当我们沉浸在书籍中的时候，现实就已经不存在了。但当走出书房时，我还是那个无能为力的懦弱之辈<br>这难道不是一种自我欺骗吗，如果读书只是一种逃避，那么读书和吸毒、读书和放纵又有什么区别呢？<br>不都是为了逃避庸碌空虚的生活吗？一个在双十一剁了一晚上手的人和一个读了一晚上书的人，<br>真的有本质上的区别吗？难道不都是带着暂时的兴奋和事后的疲倦吗？乘兴而来，败兴而归。</p><span id="more"></span><h4 id="2-我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。"><a href="#2-我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。" class="headerlink" title="2.我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。"></a>2.我们在书籍中营造世界。我们在书籍中创造世界，这个世界不完美，让我们可以暂时忽略世界的苦。</h4><p>有时这种营造的美，并不真实，而且带有强烈的虚伪和自我欺骗。<br>这些虚构的故事是他真实的想法，却也是他无法实现的愿望。<br>所以很多文人都喜欢通过文字来获得救赎。更有可能走向自欺欺人的道路。<br>我们在书籍中所营造的完美世界，在现实生活中依然不完美。</p><p>这种境界就好像是在阅读言情小说，将自己营造成男女主人公。沉浸在自己幻想的世界中，当你合上书本的那一刻，一个真实且残酷的世界便又在你眼前了。</p><p>【人偏向追求完美，通过读书营造完美世界，虚构的完美世界是我们真实想法，但可能是我们未实现的愿望，也是自我欺骗】</p><h4 id="3-我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。"><a href="#3-我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。" class="headerlink" title="3.我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。"></a>3.我们在书籍中理解世界。读书我们可以暂时忘记真实的世界，我们终究是要有进入世界的力量与勇气。</h4><p>读书既是一种出世，也是一种入世。<br>书籍可以拓展我们接轨人类经验的总和。我们个体是独特的，但在我们人类总经验中我们并不独特。<br>当特殊时刻来临的时候，你到底是被拯救的还是被淹没的。</p><pre><code>读书让我们理解世界，书籍拓展我们个体经验，让我们接轨于人类经验总和每个他者与自己休戚相关，无论过去、现在、未来无论虚构非虚构作品，探讨的都是人类在各种情境中的选择可以通过每一部伟大的作品，认识自己，理解自己，当我们越理解世界，我们越理解自己</code></pre><h4 id="4-我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心"><a href="#4-我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心" class="headerlink" title="4.我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心"></a>4.我们在书籍中超越世界。人类总体的经验时常拷问着我们的内心</h4><p>这些书籍能不能帮助我们，成为人类历史长河中的高光一刻。</p><p>虽然这种高光一刻，在有些人看来是一种愚蠢。</p><p>书籍能否帮助我们成就高光一刻？即使会发生各种不好的事情，我们还是要努力。</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">莱维（意大利）《坚不可摧》———— 二战励志题材</span><br><span class="line"></span><br><span class="line">威廉·戈尔丁 《蝇王》———— 反映自己内心的幽暗</span><br><span class="line"></span><br><span class="line">赫胥黎 《美丽新世界》 ———— 反思科技与幸福</span><br><span class="line"></span><br><span class="line">陀思妥耶夫斯基 ————《白痴》</span><br><span class="line"></span><br><span class="line">海明威 ————《丧钟为谁而鸣》</span><br><span class="line"></span><br><span class="line">苏格拉底 ————《申辩篇》</span><br></pre></td></tr></table></figure><p>人类的智慧从根本上来说是否定的智慧</p><p>我们今生活着的唯一意义就是超越今生</p><p>思考：这个世界有好的标准吗？如果每个人都有好的标准，凭什么你口中的好，对我而言就是好的呢？</p><p>当然要警惕全盘否定的观念。</p><br><div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="https://www.bilibili.com/video/BV1do4y1k74t?spm_id_from=333.999.0.0"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe></div]]></content>
-    
-    
-    <summary type="html">&lt;h4 id=&quot;1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&quot;&gt;&lt;a href=&quot;#1-我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&quot; class=&quot;headerlink&quot; title=&quot;1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&quot;&gt;&lt;/a&gt;1.我们在书籍中逃避世界。这个世界并不美好，有很多伤心的事，工作和生活也不是很好。&lt;/h4&gt;&lt;p&gt;当我们沉浸在书籍中的时候，现实就已经不存在了。但当走出书房时，我还是那个无能为力的懦弱之辈&lt;br&gt;这难道不是一种自我欺骗吗，如果读书只是一种逃避，那么读书和吸毒、读书和放纵又有什么区别呢？&lt;br&gt;不都是为了逃避庸碌空虚的生活吗？一个在双十一剁了一晚上手的人和一个读了一晚上书的人，&lt;br&gt;真的有本质上的区别吗？难道不都是带着暂时的兴奋和事后的疲倦吗？乘兴而来，败兴而归。&lt;/p&gt;</summary>
     
     
     
