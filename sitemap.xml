@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2021/11/28/python-zip-%E5%87%BD%E6%95%B0/</loc>
+    
+    <lastmod>2021-11-28</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/2021/11/28/python%E4%B8%ADsys-argv-%E7%9A%84%E7%94%A8%E6%B3%95%E7%AE%80%E6%98%8E%E8%A7%A3%E9%87%8A/</loc>
     
     <lastmod>2021-11-28</lastmod>
