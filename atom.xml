@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-11-27T09:53:34.587Z</updated>
+  <updated>2021-11-28T08:50:42.089Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,46 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python中sys.argv[]的用法简明解释</title>
+    <link href="http://example.com/2021/11/28/python%E4%B8%ADsys-argv-%E7%9A%84%E7%94%A8%E6%B3%95%E7%AE%80%E6%98%8E%E8%A7%A3%E9%87%8A/"/>
+    <id>http://example.com/2021/11/28/python%E4%B8%ADsys-argv-%E7%9A%84%E7%94%A8%E6%B3%95%E7%AE%80%E6%98%8E%E8%A7%A3%E9%87%8A/</id>
+    <published>2021-11-28T08:49:14.000Z</published>
+    <updated>2021-11-28T08:50:42.089Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>Python中 sys.argv[]的用法简明解释</p><p>   因为是看书自学的python，开始后不久就遇到了这个引入的模块函数，且一直在IDLE上编辑了后运行，试图从结果发现它的用途，然而结果一直都是没结果，也在网上查了许多，但发现这个问题的比较详细的解释只有一个版本，大部分都是转载和复制的。给的都是简明python教程上那个一长串代码的例子，说看了就明白了，可我看得晕头转向的还是没真正明白，只知道“sys.argv[0]表示代码本身文件路径”这点，其实还是不明其意。后来经过大量努力，多方求教才真正明悟了，谨以记录和分享，希望能从另一个角度给同在求索过程中的同学一点启发。</p><span id="more"></span><p>　　sys.argv[]说白了就是一个从程序外部获取参数的桥梁，这个“外部”很关键，所以那些试图从代码来说明它作用的解释一直没看明白。因为我们从外部取得的参数可以是多个，所以获得的是一个列表（list)，也就是说sys.argv其实可以看作是一个列表，所以才能用[]提取其中的元素。其第一个元素是程序本身，随后才依次是外部给予的参数。</p><p>下面我们通过一个极简单的test.py程序的运行结果来说明它的用法。</p><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">1 </span>#test.py</span><br><span class="line"><span class="symbol">2 </span></span><br><span class="line"><span class="symbol">3 </span>import sys</span><br><span class="line"><span class="symbol">4 </span>a=sys.argv[<span class="number">0</span>]</span><br><span class="line"><span class="symbol">5 </span><span class="keyword">print</span>(a)</span><br></pre></td></tr></table></figure><p>将test.py保存在c盘的根目录下。</p><p>在程序中找到 ‘运行’-&gt;点击-&gt;输入”cmd”-&gt;回车键  进入控制台命令窗口（如下图），先输入cd c:\  (作用是将命令路径改到c盘根目录)，然后输入test.py运行我们刚刚写的程序：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">william@DESKTOP:~/DYJ/Python$ python3 test.py</span><br><span class="line">test.py</span><br></pre></td></tr></table></figure><p>得到的结果是C:\test.py，这就是0指代码（即此.py程序）本身的意思。</p><p>然后我们将代码中0改为1 :</p><p>a=sys.argv[1]</p><p>保存后，再从控制台窗口运行，这次我们加上一个参数，输入：test.py what</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">william@DESKTOP-MDEKEAT:~/DYJ/Python$ python3 test.py what</span><br><span class="line">what</span><br></pre></td></tr></table></figure><p> 得到的结果就是我们输入的参数what，看到这里你是不是开始明白了呢。</p><p>那我们再把代码修改一下：</p><p>a=sys.argv[2：]</p><p>保存后，再从控制台窗台运行程序，这次多加几个参数，以空格隔开:</p><p>test.py a b c d e f</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">william@DESKTOP-MDEKEAT:~/DYJ/Python$ python3 test.py a b c d e f</span><br><span class="line">[<span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>]</span><br></pre></td></tr></table></figure><p>得到的结果为[‘b’, ’c’, ’d’, ’e’, ’f’]</p><p>应该大彻大悟了吧。Sys.argv[ ]其实就是一个列表，里边的项为用户输入的参数，关键就是要明白这参数是从程序外部输入的，而非代码本身的什么地方，要想看到它的效果就应该将程序保存了，从外部来运行程序并给出参数。</p><p><a href="http://www.cnblogs.com/aland-1415/p/7128121.html">Python3 从入门到开车</a></p><blockquote><p><a href="https://www.cnblogs.com/aland-1415/p/6613449.html">https://www.cnblogs.com/aland-1415/p/6613449.html</a></p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Python中 sys.argv[]的用法简明解释&lt;/p&gt;
+&lt;p&gt;   因为是看书自学的python，开始后不久就遇到了这个引入的模块函数，且一直在IDLE上编辑了后运行，试图从结果发现它的用途，然而结果一直都是没结果，也在网上查了许多，但发现这个问题的比较详细的解释只有一个版本，大部分都是转载和复制的。给的都是简明python教程上那个一长串代码的例子，说看了就明白了，可我看得晕头转向的还是没真正明白，只知道“sys.argv[0]表示代码本身文件路径”这点，其实还是不明其意。后来经过大量努力，多方求教才真正明悟了，谨以记录和分享，希望能从另一个角度给同在求索过程中的同学一点启发。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Python" scheme="http://example.com/categories/Python/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>爱的艺术</title>
+    <link href="http://example.com/2021/11/27/%E7%88%B1%E7%9A%84%E8%89%BA%E6%9C%AF/"/>
+    <id>http://example.com/2021/11/27/%E7%88%B1%E7%9A%84%E8%89%BA%E6%9C%AF/</id>
+    <published>2021-11-27T12:41:10.000Z</published>
+    <updated>2021-11-27T12:41:10.442Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>python __name__==&#39;__main__&#39;作用详解</title>
@@ -485,56 +525,6 @@
     
     
     <category term="git" scheme="http://example.com/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>部署hexo后github pages页面未更新或无法打开问题</title>
-    <link href="http://example.com/2021/10/07/%E9%83%A8%E7%BD%B2hexo%E5%90%8Egithub-pages%E9%A1%B5%E9%9D%A2%E6%9C%AA%E6%9B%B4%E6%96%B0%E6%88%96%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98/"/>
-    <id>http://example.com/2021/10/07/%E9%83%A8%E7%BD%B2hexo%E5%90%8Egithub-pages%E9%A1%B5%E9%9D%A2%E6%9C%AA%E6%9B%B4%E6%96%B0%E6%88%96%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98/</id>
-    <published>2021-10-07T13:55:28.000Z</published>
-    <updated>2021-11-11T14:08:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
-    
-    
-    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>氓</title>
-    <link href="http://example.com/2021/10/07/%E6%B0%93/"/>
-    <id>http://example.com/2021/10/07/%E6%B0%93/</id>
-    <published>2021-10-07T11:18:23.000Z</published>
-    <updated>2021-11-11T14:08:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><center>氓之蚩蚩，抱布贸丝。<br>匪来贸丝，来即我谋。<br>送子涉淇，至于顿丘。<br>匪我愆期，子无良媒。<br>将子无怒，秋以为期。<br><span id="more"></span><br><p>乘彼垝垣，以望复关。<br>不见复关，泣涕涟涟。<br>既见复关，载笑载言。<br>尔卜尔筮，体无咎言。<br>以尔车来，以我贿迁。</p><p>桑之未落，其叶沃若。<br>于嗟鸠兮，无食桑葚！<br>于嗟女兮，无与士耽！<br>士之耽兮，犹可说也。<br>女之耽兮，不可说也。</p><p>桑之落矣，其黄而陨。<br>自我徂尔，三岁食贫。<br>淇水汤汤，渐车帷裳。<br>女也不爽，士贰其行。<br>士也罔极，二三其德。</p><p>三岁为妇，靡室劳矣。<br>夙兴夜寐，靡有朝矣。<br>言既遂矣，至于暴矣。<br>兄弟不知，咥其笑矣。<br>静言思之，躬自悼矣。</p><p>及尔偕老，老使我怨。<br>淇则有岸，隰则有泮。<br>总角之宴，言笑晏晏。<br>信誓旦旦，不思其反。<br>反是不思，亦已焉哉！</p></center>]]></content>
-    
-    
-    <summary type="html">&lt;center&gt;
-氓之蚩蚩，抱布贸丝。&lt;br&gt;
-匪来贸丝，来即我谋。&lt;br&gt;
-送子涉淇，至于顿丘。&lt;br&gt;
-匪我愆期，子无良媒。&lt;br&gt;
-将子无怒，秋以为期。&lt;br&gt;</summary>
-    
-    
-    
-    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="诗词歌赋" scheme="http://example.com/tags/%E8%AF%97%E8%AF%8D%E6%AD%8C%E8%B5%8B/"/>
     
   </entry>
   
