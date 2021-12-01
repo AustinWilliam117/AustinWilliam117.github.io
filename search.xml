@@ -11544,7 +11544,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
   <entry>
     <title>Linux tcpdump命令</title>
     <url>/2021/12/01/Linux-tcpdump%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="Linux-tcpdump命令"><a href="#Linux-tcpdump命令" class="headerlink" title="Linux tcpdump命令"></a>Linux tcpdump命令</h1><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。</p>
 <p>tcdpump命令最初设计用于观察TCP/IP性能问题，它是一个用于截取网络分组，并输出分组内容的工具。tcpdump可以将网络中传送的数据包的报文头完全截获下来提供分析，它支持针对网络层、协议、主机、网络或端口的过滤，并提供and，or，not等逻辑语句来帮助用户去掉无用的信息。</p>
 <span id="more"></span>
 

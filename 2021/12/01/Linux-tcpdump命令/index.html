@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Linux tcpdump命令简介tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。 tcdpump命令最初设计用于观察TCP&#x2F;IP性能问题，它是一个用于截取网络分组，并输出分组内容的工具。tcpdump可以将网络中传送的数据包的报文头完全截获下来提供分析，它支持针对网络层、协议、主机、网络">
+  <meta name="description" content="简介tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。 tcdpump命令最初设计用于观察TCP&#x2F;IP性能问题，它是一个用于截取网络分组，并输出分组内容的工具。tcpdump可以将网络中传送的数据包的报文头完全截获下来提供分析，它支持针对网络层、协议、主机、网络或端口的过滤，并提供and，o">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux tcpdump命令">
 <meta property="og:url" content="http://example.com/2021/12/01/Linux-tcpdump%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="蒙珣的博客">
-<meta property="og:description" content="Linux tcpdump命令简介tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。 tcdpump命令最初设计用于观察TCP&#x2F;IP性能问题，它是一个用于截取网络分组，并输出分组内容的工具。tcpdump可以将网络中传送的数据包的报文头完全截获下来提供分析，它支持针对网络层、协议、主机、网络">
+<meta property="og:description" content="简介tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。 tcdpump命令最初设计用于观察TCP&#x2F;IP性能问题，它是一个用于截取网络分组，并输出分组内容的工具。tcpdump可以将网络中传送的数据包的报文头完全截获下来提供分析，它支持针对网络层、协议、主机、网络或端口的过滤，并提供and，o">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-01T14:47:48.000Z">
-<meta property="article:modified_time" content="2021-12-01T15:05:41.153Z">
+<meta property="article:modified_time" content="2021-12-01T15:24:13.628Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-01 22:47:48 / Modified: 23:05:41" itemprop="dateCreated datePublished" datetime="2021-12-01T22:47:48+08:00">2021-12-01</time>
+              <time title="Created: 2021-12-01 22:47:48 / Modified: 23:24:13" itemprop="dateCreated datePublished" datetime="2021-12-01T22:47:48+08:00">2021-12-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,7 +265,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Linux-tcpdump命令"><a href="#Linux-tcpdump命令" class="headerlink" title="Linux tcpdump命令"></a>Linux tcpdump命令</h1><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。</p>
+        <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>tcpdump是一个强大的网络抓包Sniffer类工具，通常用在Linux系统中，Windows操作系统中也会使用，可以看作是WireShark的命令行版本。</p>
 <p>tcdpump命令最初设计用于观察TCP/IP性能问题，它是一个用于截取网络分组，并输出分组内容的工具。tcpdump可以将网络中传送的数据包的报文头完全截获下来提供分析，它支持针对网络层、协议、主机、网络或端口的过滤，并提供and，or，not等逻辑语句来帮助用户去掉无用的信息。</p>
 <span id="more"></span>
 
@@ -400,7 +400,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-tcpdump%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">Linux tcpdump命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">操作命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">常用命令</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">操作命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
