@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-05T14:42:15.509Z</updated>
+  <updated>2021-12-07T15:22:40.852Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python 递归</title>
+    <link href="http://example.com/2021/12/07/python-%E9%80%92%E5%BD%92/"/>
+    <id>http://example.com/2021/12/07/python-%E9%80%92%E5%BD%92/</id>
+    <published>2021-12-07T14:58:11.000Z</published>
+    <updated>2021-12-07T15:22:40.852Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>递归的两个特点：</p><ul><li>调用自身</li><li>结束条件</li></ul><span id="more"></span><h4 id="两个递归实例："><a href="#两个递归实例：" class="headerlink" title="两个递归实例："></a>两个递归实例：</h4><p><strong>先打印结果再调用自身</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func1</span>(<span class="params">x</span>):</span></span><br><span class="line">  <span class="keyword">if</span> x&gt;<span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line">    func1(x-<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">func1(<span class="number">5</span>)</span><br></pre></td></tr></table></figure><p>结果：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure><p><strong>先调用自身再打印结果</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span>(<span class="params">x</span>):</span></span><br><span class="line">  <span class="keyword">if</span> x&gt;<span class="number">0</span>:</span><br><span class="line">  func2(x-<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line">    </span><br><span class="line">func2(<span class="number">5</span>)</span><br></pre></td></tr></table></figure><p>结果</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure><h4 id="汉诺塔（hanoi）"><a href="#汉诺塔（hanoi）" class="headerlink" title="汉诺塔（hanoi）"></a>汉诺塔（hanoi）</h4><p><img src="hanoi.png"></p><p><strong>思考</strong></p><p>n个盘子时：</p><ol><li>把n-1个盘子从A经过C移动到B</li><li>把第n个盘子从A移动到C</li><li>把n-1个小盘子从B经过A移动到C</li></ol><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># n个盘子，a、b、c三个柱子</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hanoi</span>(<span class="params">n,a,b,c</span>):</span></span><br><span class="line">  <span class="comment"># 盘子的数量大于0，不然就减成负数了</span></span><br><span class="line">  <span class="keyword">if</span> n&gt;<span class="number">0</span>:</span><br><span class="line">    <span class="comment"># 我们会通过很多步骤讲n-1个盘子经过c柱子移动到b柱子上</span></span><br><span class="line">    hanoi(n-<span class="number">1</span>,a,c,b)</span><br><span class="line">    <span class="comment"># 再将最底下的盘子n移动到c上</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;moving form %s to %s&quot;</span> % (a,c))</span><br><span class="line">    <span class="comment"># 再将b柱子上的盘子经过a移动到c上</span></span><br><span class="line">    hanoi(n-<span class="number">1</span>,b,a,c)</span><br><span class="line"> </span><br><span class="line">hanoi(<span class="number">3</span>,<span class="string">&quot;A&quot;</span>,<span class="string">&quot;B&quot;</span>,<span class="string">&quot;C&quot;</span>)</span><br></pre></td></tr></table></figure><p>输出结果：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">moving <span class="keyword">from</span> A to C</span><br><span class="line">moving <span class="keyword">from</span> A to B</span><br><span class="line">moving <span class="keyword">from</span> C to B</span><br><span class="line">moving <span class="keyword">from</span> A to C</span><br><span class="line">moving <span class="keyword">from</span> B to A</span><br><span class="line">moving <span class="keyword">from</span> B to C</span><br><span class="line">moving <span class="keyword">from</span> A to C</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;递归&quot;&gt;&lt;a href=&quot;#递归&quot; class=&quot;headerlink&quot; title=&quot;递归&quot;&gt;&lt;/a&gt;递归&lt;/h3&gt;&lt;p&gt;递归的两个特点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;调用自身&lt;/li&gt;
+&lt;li&gt;结束条件&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="数据结构" scheme="http://example.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+    <category term="python数据结构" scheme="http://example.com/tags/python%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>说走就走的滑雪</title>
@@ -471,38 +496,6 @@
     
     <category term="Linux" scheme="http://example.com/categories/Linux/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>存在的艺术</title>
-    <link href="http://example.com/2021/11/03/%E5%AD%98%E5%9C%A8%E7%9A%84%E8%89%BA%E6%9C%AF/"/>
-    <id>http://example.com/2021/11/03/%E5%AD%98%E5%9C%A8%E7%9A%84%E8%89%BA%E6%9C%AF/</id>
-    <published>2021-11-03T12:27:34.000Z</published>
-    <updated>2021-11-11T14:08:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote><p>请读原著，作者的思想仅能通过原著获得。还没有读这本书，先占个坑，目前正在读他的另一本《爱的艺术》</p></blockquote><p>传统精神分析的另一危险，</p><p>在于这样一个事实。</p><p>即病人往往只是生成想做出改变。</p><p>如果他患有恼人的症状，</p><p>如失眠、阳痿、恐惧当权者、</p><p>与异性关系不愉快</p><p>或只是感觉萎靡不振，</p><p>他当然希望能摆脱这些。</p><p>谁不想呢？</p><span id="more"></span></br><p>但他不愿意经历</p><p>在成长和孤独中必须要经历的痛苦。</p><p>他是如何面对该困境呢？</p><p>他期望着只需遵循“基本规则”</p><p>不费考虑，</p><p>想到什么就说什么</p><p>以为这样就可以被治愈，</p><p>无疼痛，也无需努力 </p></br><p>总之，他认为通过谈话就可以被“救赎”。</p><p>但世上没有这样的事情。</p><p>如果不曾经历痛苦或不愿意经历，</p><p>没有人能够成长，</p><p>也没有人能追求到</p><p>任何值得追求到的东西。</p></br><hr><p>如果他仍是一个人，</p><p>而非一件物品时，</p><p>这个人就会有孤独感、无力感，</p><p>与现今社会有隔离感。</p></br><p>正因为清醒，</p><p>他才不禁感到痛苦，</p><p>尽管他可以体验喜悦和明晰的瞬间，</p><p>而这些是他“正常”的同代人体会不到的。</p></br><p>得神经症也不令人意外，</p><p>因为这个健全的人</p><p>生活在一个疯狂的社会，</p><p>而不是以前那种一个病态的人</p><p>试图让自己适应一个病态的社会</p><p>所引发的神经症。</p></br><p>在对他对自己做进一步分析的过程中，</p><p>也就是说，在更加独立更加自主的过程中，</p><p>他的神经质症状会自愈。</p><p>说到底，各种神经症的发生都意味着</p><p>一个人没能解开存在之谜。</p><hr><p>每天早晨应该进行至少三十分钟的自我分析，</p><p>如果可能的话，</p><p>尽量在相同的时间和地点，</p><p>并应尽量避免外界的干扰。</p></br><p>在不得不等待，</p><p>或“无事可做”，</p><p>或在地铁里、飞机上时，</p><p>都可以进行，</p><p>而不是马上去阅读一本杂志，</p><p>和别人聊天或者做白日梦。</p><p>BGM</p><p>Olafur Arnalds - Agust</p><p>Robert Haigh - Clear Water</p><p>Martin Ermen - Gymnpedie Nr.1</p>]]></content>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;请读原著，作者的思想仅能通过原著获得。还没有读这本书，先占个坑，目前正在读他的另一本《爱的艺术》&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;传统精神分析的另一危险，&lt;/p&gt;
-&lt;p&gt;在于这样一个事实。&lt;/p&gt;
-&lt;p&gt;即病人往往只是生成想做出改变。&lt;/p&gt;
-&lt;p&gt;如果他患有恼人的症状，&lt;/p&gt;
-&lt;p&gt;如失眠、阳痿、恐惧当权者、&lt;/p&gt;
-&lt;p&gt;与异性关系不愉快&lt;/p&gt;
-&lt;p&gt;或只是感觉萎靡不振，&lt;/p&gt;
-&lt;p&gt;他当然希望能摆脱这些。&lt;/p&gt;
-&lt;p&gt;谁不想呢？&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="2021" scheme="http://example.com/tags/2021/"/>
     
   </entry>
   

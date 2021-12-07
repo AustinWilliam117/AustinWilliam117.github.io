@@ -11649,4 +11649,49 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <tag>2021</tag>
       </tags>
   </entry>
+  <entry>
+    <title>python 递归</title>
+    <url>/2021/12/07/python-%E9%80%92%E5%BD%92/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>递归的两个特点：</p>
+<ul>
+<li>调用自身</li>
+<li>结束条件</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="两个递归实例："><a href="#两个递归实例：" class="headerlink" title="两个递归实例："></a>两个递归实例：</h4><p><strong>先打印结果再调用自身</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func1</span>(<span class="params">x</span>):</span></span><br><span class="line">  <span class="keyword">if</span> x&gt;<span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line">    func1(x-<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">func1(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>先调用自身再打印结果</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func2</span>(<span class="params">x</span>):</span></span><br><span class="line">  <span class="keyword">if</span> x&gt;<span class="number">0</span>:</span><br><span class="line">  	func2(x-<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line">    </span><br><span class="line">func2(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="汉诺塔（hanoi）"><a href="#汉诺塔（hanoi）" class="headerlink" title="汉诺塔（hanoi）"></a>汉诺塔（hanoi）</h4><p><img src="hanoi.png"></p>
+<p><strong>思考</strong></p>
+<p>n个盘子时：</p>
+<ol>
+<li>把n-1个盘子从A经过C移动到B</li>
+<li>把第n个盘子从A移动到C</li>
+<li>把n-1个小盘子从B经过A移动到C</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># n个盘子，a、b、c三个柱子</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hanoi</span>(<span class="params">n,a,b,c</span>):</span></span><br><span class="line">  <span class="comment"># 盘子的数量大于0，不然就减成负数了</span></span><br><span class="line">  <span class="keyword">if</span> n&gt;<span class="number">0</span>:</span><br><span class="line">    <span class="comment"># 我们会通过很多步骤讲n-1个盘子经过c柱子移动到b柱子上</span></span><br><span class="line">    hanoi(n-<span class="number">1</span>,a,c,b)</span><br><span class="line">    <span class="comment"># 再将最底下的盘子n移动到c上</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;moving form %s to %s&quot;</span> % (a,c))</span><br><span class="line">    <span class="comment"># 再将b柱子上的盘子经过a移动到c上</span></span><br><span class="line">    hanoi(n-<span class="number">1</span>,b,a,c)</span><br><span class="line"> </span><br><span class="line">hanoi(<span class="number">3</span>,<span class="string">&quot;A&quot;</span>,<span class="string">&quot;B&quot;</span>,<span class="string">&quot;C&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">moving <span class="keyword">from</span> A to C</span><br><span class="line">moving <span class="keyword">from</span> A to B</span><br><span class="line">moving <span class="keyword">from</span> C to B</span><br><span class="line">moving <span class="keyword">from</span> A to C</span><br><span class="line">moving <span class="keyword">from</span> B to A</span><br><span class="line">moving <span class="keyword">from</span> B to C</span><br><span class="line">moving <span class="keyword">from</span> A to C</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>python数据结构</tag>
+      </tags>
+  </entry>
 </search>
