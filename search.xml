@@ -11855,4 +11855,296 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <category>算法</category>
       </categories>
   </entry>
+  <entry>
+    <title>模拟CPU内存占用</title>
+    <url>/2021/12/13/%E6%A8%A1%E6%8B%9FCPU%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="模拟CPU占满"><a href="#模拟CPU占满" class="headerlink" title="模拟CPU占满"></a>模拟CPU占满</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for i in `seq 1 $(cat /proc/cpuinfo |grep &quot;physical id&quot; |wc -l)`; do dd if=/dev/zero of=/dev/null &amp; done</span><br></pre></td></tr></table></figure>
+
+<h4 id="模拟CPU只占两核"><a href="#模拟CPU只占两核" class="headerlink" title="模拟CPU只占两核"></a>模拟CPU只占两核</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for i in `seq 1 2`; do dd if=/dev/zero of=/dev/null &amp; done</span><br></pre></td></tr></table></figure>
+
+<h4 id="网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）"><a href="#网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）" class="headerlink" title="网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）"></a>网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）</h4><span id="more"></span>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为延迟 100 毫秒发送。</span></span><br><span class="line">1.tc qdisc add dev eth0 root netem delay 100ms</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将删除 eth0 网卡 的传输设置为延迟 100 毫秒发送。</span></span><br><span class="line">2.tc qdisc del dev eth0 root netem delay 100ms</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 10ms 该命令将 eth0 网卡 的传输设置为延迟 100ms ± 10ms (90 ~ 110 ms 之间的任意值)发送。</span></span><br><span class="line">3.tc qdisc add dev eth0 root netem delay 100ms 10ms</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为 100ms ,同 时,大约有 30% 的包会延迟 ± 10ms 发送。</span></span><br><span class="line">4.tc qdisc add dev eth0 root netem delay 100ms 10ms 30%</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为随机丢掉 1% 的数据包</span></span><br><span class="line">5.tc qdisc add dev eth0 root netem loss 1%</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为随机丢掉 1% 的数据包,成功率为 30%</span></span><br><span class="line">6.tc qdisc add dev eth0 root netem loss 1% 30%</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看已经配置的网络条件"><a href="#查看已经配置的网络条件" class="headerlink" title="查看已经配置的网络条件"></a>查看已经配置的网络条件</h4><p><code>tc qdisc show dev eth0</code></p>
+<h4 id="查看已经配置的网络条件-1"><a href="#查看已经配置的网络条件-1" class="headerlink" title="查看已经配置的网络条件"></a>查看已经配置的网络条件</h4><p><code>tc qdisc del dev eth0 root</code></p>
+<h4 id="监控CPU、内存"><a href="#监控CPU、内存" class="headerlink" title="监控CPU、内存"></a>监控CPU、内存</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 总的CPU</span></span><br><span class="line">nohup top -b -d 10 -n 240 | grep &quot;%Cpu(s)&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 总的内存</span></span><br><span class="line">nohup top -b -d 10 -n 240 | grep &quot;KiB Mem&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进程监控</span></span><br><span class="line">nohup top -b -d 10 -n 180 | grep 进程号</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>nohup</code> 后台运行</p>
+</li>
+<li><p><code>-d</code> 几秒钟提取一次信息</p>
+</li>
+<li><p><code>-n</code> 总的提取次数</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Linux awk命令</title>
+    <url>/2021/12/13/Linux-awk%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="Linux-awk-命令"><a href="#Linux-awk-命令" class="headerlink" title="Linux awk 命令"></a>Linux awk 命令</h3><p>AWK 是一种处理文本文件的语言，是一个强大的文本分析工具</p>
+<p>之所以叫 AWK 是因为其取了三位创始人 Alfred Aho，Peter Weinberger, 和 Brian Kernighan 的 Family Name 的首字符。</p>
+<span id="more"></span>
+
+<p><strong>语法</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">awk [选项参数] <span class="string">&#x27;script&#x27;</span> var=value file(s)</span><br><span class="line">或</span><br><span class="line">awk [选项参数] -f scriptfile var=value file(s)</span><br></pre></td></tr></table></figure>
+
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>log.txt文本内容如下：</p>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> this <span class="built_in">is</span> a test</span><br><span class="line"><span class="number">3</span> Are you <span class="built_in">like</span> awk</span><br><span class="line">This<span class="comment">&#x27;s a test</span></span><br><span class="line"><span class="number">10</span> There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+<p>用法一：</p>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;[pattern] action&#125;&#x27;</span> &#123;filenames&#125;   <span class="meta"># 行匹配语句 awk <span class="string">&#x27;&#x27;</span> 只能用单引号</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 每行按空格或TAB分割，输出文本中的1、4项</span></span><br><span class="line"> $ awk <span class="string">&#x27;&#123;print $1,$4&#125;&#x27;</span> log.txt</span><br><span class="line"> ---------------------------------------------</span><br><span class="line"> 2 a</span><br><span class="line"> 3 like</span><br><span class="line"> This<span class="string">&#x27;s</span></span><br><span class="line"><span class="string"> 10 orange,apple,mongo</span></span><br><span class="line"><span class="string"> # 格式化输出</span></span><br><span class="line"><span class="string"> $ awk &#x27;</span>&#123;<span class="built_in">printf</span> <span class="string">&quot;%-8s %-10s\n&quot;</span>,<span class="variable">$1</span>,<span class="variable">$4</span>&#125;<span class="string">&#x27; log.txt</span></span><br><span class="line"><span class="string"> ---------------------------------------------</span></span><br><span class="line"><span class="string"> 2        a</span></span><br><span class="line"><span class="string"> 3        like</span></span><br><span class="line"><span class="string"> This&#x27;</span>s</span><br><span class="line"> 10       orange,apple,mongo</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>用法二：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">awk</span> -F  <span class="comment">#-F相当于内置变量FS, 指定分割字符</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用<span class="string">&quot;,&quot;</span>分割</span></span><br><span class="line"><span class="meta"> $</span><span class="bash">  awk -F, <span class="string">&#x27;&#123;print $1,$2&#125;&#x27;</span>   log.txt</span></span><br><span class="line"> ---------------------------------------------</span><br><span class="line"> 2 this is a test</span><br><span class="line"> 3 Are you like awk</span><br><span class="line"> This&#x27;s a test</span><br><span class="line"> 10 There are orange apple</span><br><span class="line"><span class="meta"> #</span><span class="bash"> 或者使用内建变量</span></span><br><span class="line"><span class="meta"> $</span><span class="bash"> awk <span class="string">&#x27;BEGIN&#123;FS=&quot;,&quot;&#125; &#123;print $1,$2&#125;&#x27;</span>     log.txt</span></span><br><span class="line"> ---------------------------------------------</span><br><span class="line"> 2 this is a test</span><br><span class="line"> 3 Are you like awk</span><br><span class="line"> This&#x27;s a test</span><br><span class="line"> 10 There are orange apple</span><br><span class="line"><span class="meta"> #</span><span class="bash"> 使用多个分隔符.先使用空格分割，然后对分割结果再使用<span class="string">&quot;,&quot;</span>分割</span></span><br><span class="line"><span class="meta"> $</span><span class="bash"> awk -F <span class="string">&#x27;[ ,]&#x27;</span>  <span class="string">&#x27;&#123;print $1,$2,$5&#125;&#x27;</span>   log.txt</span></span><br><span class="line"> ---------------------------------------------</span><br><span class="line"> 2 this test</span><br><span class="line"> 3 Are awk</span><br><span class="line"> This&#x27;s a</span><br><span class="line"> 10 There apple</span><br></pre></td></tr></table></figure>
+
+<p>用法三：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">awk</span> -v  <span class="comment"># 设置变量</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk -va=1 <span class="string">&#x27;&#123;print $1,$1+a&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">2 3</span><br><span class="line">3 4</span><br><span class="line">This&#x27;s 1</span><br><span class="line">10 11</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk -va=1 -vb=s <span class="string">&#x27;&#123;print $1,$1+a,$1b&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">2 3 2s</span><br><span class="line">3 4 3s</span><br><span class="line">This&#x27;s 1 This&#x27;ss</span><br><span class="line">10 11 10s</span><br></pre></td></tr></table></figure>
+
+<p>用法四：</p>
+<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml">awk -f </span><span class="template-variable">&#123;awk脚本&#125;</span><span class="xml"> </span><span class="template-variable">&#123;文件名&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> awk -f cal.awk <span class="built_in">log</span>.txt</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">= += -= *= /= %= ^= **=</td>
+<td align="left">赋值</td>
+</tr>
+<tr>
+<td align="left">?:</td>
+<td align="left">C条件表达式</td>
+</tr>
+<tr>
+<td align="left">||</td>
+<td align="left">逻辑或</td>
+</tr>
+<tr>
+<td align="left">&amp;&amp;</td>
+<td align="left">逻辑与</td>
+</tr>
+<tr>
+<td align="left">~ 和 !~</td>
+<td align="left">匹配正则表达式和不匹配正则表达式</td>
+</tr>
+<tr>
+<td align="left">&lt; &lt;= &gt; &gt;= != ==</td>
+<td align="left">关系运算符</td>
+</tr>
+<tr>
+<td align="left">空格</td>
+<td align="left">连接</td>
+</tr>
+<tr>
+<td align="left">+ -</td>
+<td align="left">加，减</td>
+</tr>
+<tr>
+<td align="left">* / %</td>
+<td align="left">乘，除与求余</td>
+</tr>
+<tr>
+<td align="left">+ - !</td>
+<td align="left">一元加，减和逻辑非</td>
+</tr>
+<tr>
+<td align="left">^ ***</td>
+<td align="left">求幂</td>
+</tr>
+<tr>
+<td align="left">++ –</td>
+<td align="left">增加或减少，作为前缀或后缀</td>
+</tr>
+<tr>
+<td align="left">$</td>
+<td align="left">字段引用</td>
+</tr>
+<tr>
+<td align="left">in</td>
+<td align="left">数组成员</td>
+</tr>
+</tbody></table>
+<p>过滤第一列大于2的行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$1&gt;2&#x27;</span> log.txt    <span class="comment">#命令</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">输出</span></span><br><span class="line">3 Are you like awk</span><br><span class="line">This&#x27;s a test</span><br><span class="line">10 There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+<p>过滤第一列等于2的行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$1==2 &#123;print $1,$3&#125;&#x27;</span> log.txt    <span class="comment">#命令</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">输出</span></span><br><span class="line">2 is</span><br></pre></td></tr></table></figure>
+
+<p>过滤第一列大于2并且第二列等于’Are’的行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$1&gt;2 &amp;&amp; $2==&quot;Are&quot; &#123;print $1,$2,$3&#125;&#x27;</span> log.txt    <span class="comment">#命令</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">输出</span></span><br><span class="line">3 Are you</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h2><table>
+<thead>
+<tr>
+<th align="left">变量</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$n</td>
+<td align="left">当前记录的第n个字段，字段间由FS分隔</td>
+</tr>
+<tr>
+<td align="left">$0</td>
+<td align="left">完整的输入记录</td>
+</tr>
+<tr>
+<td align="left">ARGC</td>
+<td align="left">命令行参数的数目</td>
+</tr>
+<tr>
+<td align="left">ARGIND</td>
+<td align="left">命令行中当前文件的位置(从0开始算)</td>
+</tr>
+<tr>
+<td align="left">ARGV</td>
+<td align="left">包含命令行参数的数组</td>
+</tr>
+<tr>
+<td align="left">CONVFMT</td>
+<td align="left">数字转换格式(默认值为%.6g)ENVIRON环境变量关联数组</td>
+</tr>
+<tr>
+<td align="left">ERRNO</td>
+<td align="left">最后一个系统错误的描述</td>
+</tr>
+<tr>
+<td align="left">FIELDWIDTHS</td>
+<td align="left">字段宽度列表(用空格键分隔)</td>
+</tr>
+<tr>
+<td align="left">FILENAME</td>
+<td align="left">当前文件名</td>
+</tr>
+<tr>
+<td align="left">FNR</td>
+<td align="left">各文件分别计数的行号</td>
+</tr>
+<tr>
+<td align="left">FS</td>
+<td align="left">字段分隔符(默认是任何空格)</td>
+</tr>
+<tr>
+<td align="left">IGNORECASE</td>
+<td align="left">如果为真，则进行忽略大小写的匹配</td>
+</tr>
+<tr>
+<td align="left">NF</td>
+<td align="left">一条记录的字段的数目</td>
+</tr>
+<tr>
+<td align="left">NR</td>
+<td align="left">已经读出的记录数，就是行号，从1开始</td>
+</tr>
+<tr>
+<td align="left">OFMT</td>
+<td align="left">数字的输出格式(默认值是%.6g)</td>
+</tr>
+<tr>
+<td align="left">OFS</td>
+<td align="left">输出字段分隔符，默认值与输入字段分隔符一致。</td>
+</tr>
+<tr>
+<td align="left">ORS</td>
+<td align="left">输出记录分隔符(默认值是一个换行符)</td>
+</tr>
+<tr>
+<td align="left">RLENGTH</td>
+<td align="left">由match函数所匹配的字符串的长度</td>
+</tr>
+<tr>
+<td align="left">RS</td>
+<td align="left">记录分隔符(默认是一个换行符)</td>
+</tr>
+<tr>
+<td align="left">RSTART</td>
+<td align="left">由match函数所匹配的字符串的第一个位置</td>
+</tr>
+<tr>
+<td align="left">SUBSEP</td>
+<td align="left">数组下标分隔符(默认值是/034)</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;BEGIN&#123;printf &quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;,&quot;FILENAME&quot;,&quot;ARGC&quot;,&quot;FNR&quot;,&quot;FS&quot;,&quot;NF&quot;,&quot;NR&quot;,&quot;OFS&quot;,&quot;ORS&quot;,&quot;RS&quot;;printf &quot;---------------------------------------------\n&quot;&#125; &#123;printf &quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;,FILENAME,ARGC,FNR,FS,NF,NR,OFS,ORS,RS&#125;&#x27;</span>  log.txt</span></span><br><span class="line">FILENAME ARGC  FNR   FS   NF   NR  OFS  ORS   RS</span><br><span class="line">---------------------------------------------</span><br><span class="line">log.txt    2    1         5    1</span><br><span class="line">log.txt    2    2         5    2</span><br><span class="line">log.txt    2    3         3    3</span><br><span class="line">log.txt    2    4         4    4</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk -F\<span class="string">&#x27; &#x27;</span>BEGIN&#123;<span class="built_in">printf</span> <span class="string">&quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;</span>,<span class="string">&quot;FILENAME&quot;</span>,<span class="string">&quot;ARGC&quot;</span>,<span class="string">&quot;FNR&quot;</span>,<span class="string">&quot;FS&quot;</span>,<span class="string">&quot;NF&quot;</span>,<span class="string">&quot;NR&quot;</span>,<span class="string">&quot;OFS&quot;</span>,<span class="string">&quot;ORS&quot;</span>,<span class="string">&quot;RS&quot;</span>;<span class="built_in">printf</span> <span class="string">&quot;---------------------------------------------\n&quot;</span>&#125; &#123;<span class="built_in">printf</span> <span class="string">&quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;</span>,FILENAME,ARGC,FNR,FS,NF,NR,OFS,ORS,RS&#125;<span class="string">&#x27;  log.txt</span></span></span><br><span class="line">FILENAME ARGC  FNR   FS   NF   NR  OFS  ORS   RS</span><br><span class="line">---------------------------------------------</span><br><span class="line">log.txt    2    1    &#x27;    1    1</span><br><span class="line">log.txt    2    2    &#x27;    1    2</span><br><span class="line">log.txt    2    3    &#x27;    2    3</span><br><span class="line">log.txt    2    4    &#x27;    1    4</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> 输出顺序号 NR, 匹配文本行号</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"><span class="string"> awk &#x27;</span>&#123;<span class="built_in">print</span> NR,FNR,<span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$3</span>&#125;<span class="string">&#x27; log.txt</span></span></span><br><span class="line">---------------------------------------------</span><br><span class="line">1 1 2 this is</span><br><span class="line">2 2 3 Are you</span><br><span class="line">3 3 This&#x27;s a test</span><br><span class="line">4 4 10 There are</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> 指定输出分割符</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"><span class="string">  awk &#x27;</span>&#123;<span class="built_in">print</span> <span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$5</span>&#125;<span class="string">&#x27; OFS=&quot; $ &quot;  log.txt</span></span></span><br><span class="line">---------------------------------------------</span><br><span class="line">2 $ this $ test</span><br><span class="line">3 $ Are $ awk</span><br><span class="line">This&#x27;s $ a $</span><br><span class="line">10 $ There $</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="使用正则，字符串匹配"><a href="#使用正则，字符串匹配" class="headerlink" title="使用正则，字符串匹配"></a>使用正则，字符串匹配</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 输出第二列包含 <span class="string">&quot;th&quot;</span>，并打印第二列与第四列</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$2 ~ /th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">this a</span><br></pre></td></tr></table></figure>
+
+<p><strong>~ 表示模式开始。// 中是模式。</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 输出包含 <span class="string">&quot;re&quot;</span> 的行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;/re/ &#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">3 Are you like awk</span><br><span class="line">10 There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="忽略大小写"><a href="#忽略大小写" class="headerlink" title="忽略大小写"></a>忽略大小写</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;BEGIN&#123;IGNORECASE=1&#125; /this/&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">2 this is a test</span><br><span class="line">This&#x27;s a test</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="模式取反"><a href="#模式取反" class="headerlink" title="模式取反"></a>模式取反</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$2 !~ /th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;!/th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="awk脚本"><a href="#awk脚本" class="headerlink" title="awk脚本"></a>awk脚本</h2><p>关于 awk 脚本，我们需要注意两个关键词 BEGIN 和 END。</p>
+<ul>
+<li>BEGIN{ 这里面放的是执行前的语句 }</li>
+<li>END {这里面放的是处理完所有的行后要执行的语句 }</li>
+<li>{这里面放的是处理每一行时要执行的语句}</li>
+</ul>
+<p>假设有这么一个文件（学生成绩表）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat score.txt</span></span><br><span class="line">Marry   2143 78 84 77</span><br><span class="line">Jack    2321 66 78 45</span><br><span class="line">Tom     2122 48 77 71</span><br><span class="line">Mike    2537 87 97 95</span><br><span class="line">Bob     2415 40 57 62</span><br></pre></td></tr></table></figure>
+
+<p>我们的 awk 脚本如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat cal.awk</span></span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/awk -f</span></span><br><span class="line"><span class="meta">#</span><span class="bash">运行前</span></span><br><span class="line">BEGIN &#123;</span><br><span class="line">    math = 0</span><br><span class="line">    english = 0</span><br><span class="line">    computer = 0</span><br><span class="line"> </span><br><span class="line">    printf &quot;NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL\n&quot;</span><br><span class="line">    printf &quot;---------------------------------------------\n&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash">运行中</span></span><br><span class="line">&#123;</span><br><span class="line">    math+=$3</span><br><span class="line">    english+=$4</span><br><span class="line">    computer+=$5</span><br><span class="line">    printf &quot;%-6s %-6s %4d %8d %8d %8d\n&quot;, $1, $2, $3,$4,$5, $3+$4+$5</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash">运行后</span></span><br><span class="line">END &#123;</span><br><span class="line">    printf &quot;---------------------------------------------\n&quot;</span><br><span class="line">    printf &quot;  TOTAL:%10d %8d %8d \n&quot;, math, english, computer</span><br><span class="line">    printf &quot;AVERAGE:%10.2f %8.2f %8.2f\n&quot;, math/NR, english/NR, computer/NR</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来看一下执行结果：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk -f cal.awk score.txt</span></span><br><span class="line">NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL</span><br><span class="line">---------------------------------------------</span><br><span class="line">Marry  2143     78       84       77      239</span><br><span class="line">Jack   2321     66       78       45      189</span><br><span class="line">Tom    2122     48       77       71      196</span><br><span class="line">Mike   2537     87       97       95      279</span><br><span class="line">Bob    2415     40       57       62      159</span><br><span class="line">---------------------------------------------</span><br><span class="line">  TOTAL:       319      393      350</span><br><span class="line">AVERAGE:     63.80    78.60    70.00</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="另外一些实例"><a href="#另外一些实例" class="headerlink" title="另外一些实例"></a>另外一些实例</h2><p>AWK 的 hello world 程序为：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">BEGIN</span> &#123; <span class="attribute">print</span> <span class="string">&quot;Hello, world!&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>计算文件大小</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="section">$ ls -l *.txt | awk &#x27;&#123;sum+=$5&#125; END &#123;print sum&#125;&#x27;</span></span><br><span class="line"><span class="section">--------------------------------------------------</span></span><br><span class="line">666581</span><br></pre></td></tr></table></figure>
+
+<p>从文件中找出长度大于 80 的行：</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">awk &#x27;length&gt;80&#x27; <span class="built_in">log</span>.txt</span><br></pre></td></tr></table></figure>
+
+<p>打印九九乘法表</p>
+<figure class="highlight scilab"><table><tr><td class="code"><pre><span class="line">seq <span class="number">9</span> | sed <span class="string">&#x27;H;g&#x27;</span> | awk -v RS=<span class="string">&#x27;&#x27;</span> <span class="string">&#x27;&#123;for(i=1;i&lt;=NF;i++)printf(&quot;</span>%dx%d=%d<span class="literal">%s</span><span class="string">&quot;, i, NR, i*NR, i==NR?&quot;</span>\n<span class="string">&quot;:&quot;</span>\t<span class="string">&quot;)&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更多内容：</p>
+<ul>
+<li><a href="https://www.runoob.com/w3cnote/awk-work-principle.html">AWK 工作原理</a></li>
+<li><a href="https://www.runoob.com/w3cnote/awk-arrays.html">AWK 数组</a></li>
+<li><a href="https://www.runoob.com/w3cnote/awk-if-loop.html">AWK 条件语句与循环</a></li>
+<li><a href="https://www.runoob.com/w3cnote/awk-user-defined-functions.html">AWK 用户自定义函数</a></li>
+<li><a href="https://www.runoob.com/w3cnote/awk-built-in-functions.html">AWK 内置函数</a></li>
+<li><a href="https://www.runoob.com/w3cnote/8-awesome-awk-built-in-variables.html">8 个有力的 Awk 内建变量</a></li>
+<li><a href="http://www.gnu.org/software/gawk/manual/gawk.html">AWK 官方手册</a></li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+  </entry>
 </search>
