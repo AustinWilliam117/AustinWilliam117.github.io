@@ -11745,4 +11745,114 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <tag>2021</tag>
       </tags>
   </entry>
+  <entry>
+    <title>leetcode 搜索插入位置</title>
+    <url>/2021/12/13/leetcode-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="35-搜索插入位置"><a href="#35-搜索插入位置" class="headerlink" title="35. 搜索插入位置"></a><a href="https://leetcode-cn.com/problems/search-insert-position/">35. 搜索插入位置</a></h4><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+<p>请必须使用时间复杂度为 <code>O(log n)</code> 的算法。</p>
+<span id="more"></span> 
+
+<p><strong>示例 1:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">输入: nums = [1,3,5,6], target = 5</span></span><br><span class="line"><span class="section">输出: 2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">输入: nums = [1,3,5,6], target = 2</span></span><br><span class="line"><span class="section">输出: 1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">输入: nums = [1,3,5,6], target = 7</span></span><br><span class="line"><span class="section">输出: 4</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 4:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">输入: nums = [1,3,5,6], target = 0</span></span><br><span class="line"><span class="section">输出: 0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 5:</strong></p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line"><span class="section">输入: nums = [1], target = 0</span></span><br><span class="line"><span class="section">输出: 0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 104</code></li>
+<li><code>-104 &lt;= nums[i] &lt;= 104</code></li>
+<li><code>nums</code> 为<strong>无重复元素</strong>的<strong>升序</strong>排列数组</li>
+<li><code>-104 &lt;= target &lt;= 104</code></li>
+</ul>
+<p>思想：</p>
+<p>log n 的时间复杂度为二分法，如果target在列表中没有，low=high，则插入位置为low与high重合点</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">searchInsert</span>(<span class="params">self, nums, target</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    :type nums: List[int]</span></span><br><span class="line"><span class="string">    :type target: int</span></span><br><span class="line"><span class="string">    :rtype: int</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = <span class="built_in">len</span>(nums)</span><br><span class="line">    <span class="keyword">while</span> low &lt; high:</span><br><span class="line">        mid = (high + low)//<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> nums[mid] &gt; target:</span><br><span class="line">            high = mid</span><br><span class="line">        <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">            low = mid +<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">    <span class="keyword">return</span> low</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>leetcode 转换成小写字母</title>
+    <url>/2021/12/13/leetcode-%E8%BD%AC%E6%8D%A2%E6%88%90%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="709-转换成小写字母"><a href="#709-转换成小写字母" class="headerlink" title="709. 转换成小写字母"></a><a href="https://leetcode-cn.com/problems/to-lower-case/">709. 转换成小写字母</a></h4><p>给你一个字符串 <code>s</code> ，将该字符串中的大写字母转换成相同的小写字母，返回新的字符串。</p>
+<span id="more"></span>
+
+<p><strong>示例 1：</strong></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">输入：<span class="attr">s</span> = <span class="string">&quot;Hello&quot;</span></span><br><span class="line">输出：<span class="string">&quot;hello&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">输入：<span class="attr">s</span> = <span class="string">&quot;here&quot;</span></span><br><span class="line">输出：<span class="string">&quot;here&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">输入：<span class="attr">s</span> = <span class="string">&quot;LOVELY&quot;</span></span><br><span class="line">输出：<span class="string">&quot;lovely&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 100</code></li>
+<li><code>s</code> 由 ASCII 字符集中的可打印字符组成</li>
+</ul>
+<p>方法一：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toLowerCase</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> s.lower()</span><br></pre></td></tr></table></figure>
+
+<p>方法二：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toLowerCase</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">ord</span>(i) &gt;= <span class="number">65</span> <span class="keyword">and</span> <span class="built_in">ord</span>(i) &lt;= <span class="number">90</span>:</span><br><span class="line">                i = <span class="built_in">chr</span>(<span class="built_in">ord</span>(i) + <span class="number">32</span>)</span><br><span class="line">                res += <span class="string">&#x27;&#x27;</span>.join(i)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                res += i</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>leetcode 检测大写字母</title>
+    <url>/2021/12/13/leetcode-%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4 id="520-检测大写字母"><a href="#520-检测大写字母" class="headerlink" title="520. 检测大写字母"></a><a href="https://leetcode-cn.com/problems/detect-capital/">520. 检测大写字母</a></h4><p>我们定义，在以下情况时，单词的大写用法是正确的：</p>
+<ul>
+<li>全部字母都是大写，比如 <code>&quot;USA&quot;</code> 。</li>
+<li>单词中所有字母都不是大写，比如 <code>&quot;leetcode&quot;</code> 。</li>
+<li>如果单词不只含有一个字母，只有首字母大写， 比如 <code>&quot;Google&quot;</code> 。</li>
+</ul>
+<p>给你一个字符串 <code>word</code> 。如果大写用法正确，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<span id="more"></span>
+
+<p><strong>示例 1：</strong></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">输入：<span class="built_in">word</span> = <span class="string">&quot;USA&quot;</span></span><br><span class="line">输出：<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">输入：<span class="built_in">word</span> = <span class="string">&quot;FlaG&quot;</span></span><br><span class="line">输出：<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= word.length &lt;= 100</code></li>
+<li><code>word</code> 由小写和大写英文字母组成</li>
+</ul>
+<p><strong>分析</strong></p>
+<p>如果第一个字母是大写，则后面的字母都是大写</p>
+<p>如果第一个字母不是大写，则后面的字母都不是大写</p>
+<p>Python写法一：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">detectCapitalUse</span>(<span class="params">self,word</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type word: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        upper,lower = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">ord</span>(s) &gt;= <span class="number">65</span> <span class="keyword">and</span> <span class="built_in">ord</span>(s) &lt;= <span class="number">90</span>:</span><br><span class="line">                upper += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                lower += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> upper == <span class="number">0</span> <span class="keyword">or</span> lower == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">ord</span>(word[<span class="number">0</span>]) &gt;= <span class="number">65</span> <span class="keyword">and</span> <span class="built_in">ord</span>(word[<span class="number">0</span>]) &lt;= <span class="number">90</span> <span class="keyword">and</span> lower == <span class="built_in">len</span>(word) -<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>Python写法二：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">calss Solution(<span class="built_in">object</span>):</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">detetCapitalUse</span>(<span class="params">self,word</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type word: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> word.upper()==word <span class="keyword">or</span> word.lower()==word <span class="keyword">or</span> word.title()==word</span><br></pre></td></tr></table></figure>
+
+
+
+<p>C写法：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">deteCapitaUse</span><span class="params">(<span class="keyword">char</span> * word)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 记录大写字母、小写字母最后出现的位置</span></span><br><span class="line">    <span class="keyword">int</span> lastUpperCharIndex = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> lastLowerCharIndex = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    wile(word[index])&#123;</span><br><span class="line">        <span class="keyword">if</span>(word[index] &gt;= <span class="string">&#x27;a&#x27;</span> &amp;&amp; word[index] &lt;= <span class="string">&#x27;z&#x27;</span>)</span><br><span class="line">            lastLowerCharIndex = index;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            lastUpperCharIndex = index;</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 如果一个单词里存在小写字母，且大写字母的位置不为0，则大写用法不正确</span></span><br><span class="line">    <span class="keyword">if</span>(lastUpperIndex &gt;= <span class="number">1</span> &amp;&amp; lastLowerCharIndex &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+  </entry>
 </search>
