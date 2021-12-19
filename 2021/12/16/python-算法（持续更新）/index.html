@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://example.com/2021/12/16/python-%E7%AE%97%E6%B3%95%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/hanoi.png">
 <meta property="og:image" content="http://example.com/2021/12/16/python-%E7%AE%97%E6%B3%95%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/BinarySearch.png">
 <meta property="article:published_time" content="2021-12-16T14:54:41.000Z">
-<meta property="article:modified_time" content="2021-12-16T14:59:19.323Z">
+<meta property="article:modified_time" content="2021-12-19T14:47:36.739Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="python数据结构">
 <meta name="twitter:card" content="summary">
@@ -223,10 +223,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-12-16 22:54:41 / Modified: 22:59:19" itemprop="dateCreated datePublished" datetime="2021-12-16T22:54:41+08:00">2021-12-16</time>
+              <time title="Created: 2021-12-16 22:54:41" itemprop="dateCreated datePublished" datetime="2021-12-16T22:54:41+08:00">2021-12-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-19 22:47:36" itemprop="dateModified" datetime="2021-12-19T22:47:36+08:00">2021-12-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -250,7 +256,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.7k</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -366,7 +372,25 @@
 
 
 
-<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4>
+<h4 id="选择排序-（Select-Sort）"><a href="#选择排序-（Select-Sort）" class="headerlink" title="选择排序 （Select Sort）"></a>选择排序 （Select Sort）</h4><ul>
+<li>一趟排序记录最小的数，放到第一个位置</li>
+<li>再一趟排序记录记录列表无序区最小的数，放到第二个位置</li>
+<li>算法关键点：有序区和无序区、无序区最小数的位置</li>
+</ul>
+<p><strong>方法一「不推荐」</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span>(<span class="params">li</span>):</span></span><br><span class="line">  li_new = []</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(li)):</span><br><span class="line">    min_val = <span class="built_in">min</span>(li)</span><br><span class="line">    li_new.append(min_val)</span><br><span class="line">    li.remove(min_val)</span><br><span class="line">  <span class="keyword">return</span> li</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>min()函数的时间复杂度为O(n)</li>
+<li>remove()函数的时间复杂度为O(n)，因为删除列表的一个个数后，需要将被删除数后的其他数一一移动一个位置</li>
+<li>因为新创建了一个列表，所以他的空间复杂度也增加了</li>
+</ul>
+<p><strong>方法二</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span>(<span class="params">li</span>):</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(li)-<span class="number">1</span>):	<span class="comment"># i是第几趟</span></span><br><span class="line">    min_loc = i</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,<span class="built_in">len</span>(li)):</span><br><span class="line">			<span class="keyword">if</span> li[j] &lt; li[min_loc]:</span><br><span class="line">        min_loc = j</span><br><span class="line">    li[j],li[min_loc] = li[min_loc],li[j]</span><br><span class="line">  <span class="keyword">return</span> li</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="插入排序（Inster-Sort）"><a href="#插入排序（Inster-Sort）" class="headerlink" title="插入排序（Inster Sort）"></a>插入排序（Inster Sort）</h4>
     </div>
 
     
@@ -446,7 +470,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E9%80%92%E5%BD%92%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">两个递归实例：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%89%E8%AF%BA%E5%A1%94%EF%BC%88hanoi%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">汉诺塔（hanoi）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">2.</span> <span class="nav-text">查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%9F%A5%E6%89%BE%EF%BC%88Linear-Search%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">列表查找（Linear Search）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88Binary-Search%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">二分查找（Binary Search）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%8E%92%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">列表排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%88Bubble-Sort%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">冒泡排序（Bubble Sort）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">选择排序</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E9%80%92%E5%BD%92%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">两个递归实例：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%89%E8%AF%BA%E5%A1%94%EF%BC%88hanoi%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">汉诺塔（hanoi）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">2.</span> <span class="nav-text">查找</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%9F%A5%E6%89%BE%EF%BC%88Linear-Search%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">列表查找（Linear Search）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88Binary-Search%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">二分查找（Binary Search）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%8E%92%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">列表排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%88Bubble-Sort%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">冒泡排序（Bubble Sort）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F-%EF%BC%88Select-Sort%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">选择排序 （Select Sort）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%88Inster-Sort%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">插入排序（Inster Sort）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -526,7 +550,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">411k</span>
+    <span title="Symbols count total">412k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

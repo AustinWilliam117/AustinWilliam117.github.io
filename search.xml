@@ -12294,7 +12294,25 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4>]]></content>
+<h4 id="选择排序-（Select-Sort）"><a href="#选择排序-（Select-Sort）" class="headerlink" title="选择排序 （Select Sort）"></a>选择排序 （Select Sort）</h4><ul>
+<li>一趟排序记录最小的数，放到第一个位置</li>
+<li>再一趟排序记录记录列表无序区最小的数，放到第二个位置</li>
+<li>算法关键点：有序区和无序区、无序区最小数的位置</li>
+</ul>
+<p><strong>方法一「不推荐」</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span>(<span class="params">li</span>):</span></span><br><span class="line">  li_new = []</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(li)):</span><br><span class="line">    min_val = <span class="built_in">min</span>(li)</span><br><span class="line">    li_new.append(min_val)</span><br><span class="line">    li.remove(min_val)</span><br><span class="line">  <span class="keyword">return</span> li</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>min()函数的时间复杂度为O(n)</li>
+<li>remove()函数的时间复杂度为O(n)，因为删除列表的一个个数后，需要将被删除数后的其他数一一移动一个位置</li>
+<li>因为新创建了一个列表，所以他的空间复杂度也增加了</li>
+</ul>
+<p><strong>方法二</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span>(<span class="params">li</span>):</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(li)-<span class="number">1</span>):	<span class="comment"># i是第几趟</span></span><br><span class="line">    min_loc = i</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>,<span class="built_in">len</span>(li)):</span><br><span class="line">			<span class="keyword">if</span> li[j] &lt; li[min_loc]:</span><br><span class="line">        min_loc = j</span><br><span class="line">    li[j],li[min_loc] = li[min_loc],li[j]</span><br><span class="line">  <span class="keyword">return</span> li</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="插入排序（Inster-Sort）"><a href="#插入排序（Inster-Sort）" class="headerlink" title="插入排序（Inster Sort）"></a>插入排序（Inster Sort）</h4>]]></content>
       <categories>
         <category>数据结构</category>
       </categories>
