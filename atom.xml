@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-12-26T11:16:44.334Z</updated>
+  <updated>2022-01-08T14:15:28.327Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>因为一句诗而迷上苏轼</title>
+    <link href="http://example.com/2022/01/08/%E5%9B%A0%E4%B8%BA%E4%B8%80%E5%8F%A5%E8%AF%97%E8%80%8C%E8%BF%B7%E4%B8%8A%E8%8B%8F%E8%BD%BC/"/>
+    <id>http://example.com/2022/01/08/%E5%9B%A0%E4%B8%BA%E4%B8%80%E5%8F%A5%E8%AF%97%E8%80%8C%E8%BF%B7%E4%B8%8A%E8%8B%8F%E8%BD%BC/</id>
+    <published>2022-01-08T13:37:11.000Z</published>
+    <updated>2022-01-08T14:15:28.327Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><center>  临 江 仙 <br>  夜 归 临 皋 <br><br>  夜饮东坡醒复醉，归来仿佛三更。家童鼻息已雷鸣。敲门都不应，倚杖听江声。<br>  长恨自身非我有，何时忘却营营。夜阑风静縠纹平。<b>小舟从此逝，江海寄余生。</b><br>  <span id="more"></span><p><br><br></p><center>定 风 波<br>  <small>三月七日，沙湖道中遇雨，雨具先去，通行皆狼狈，余独不觉。已而遂晴，故作此。</small><br><br>  莫听穿林打叶声，何妨吟啸且徐行，<b>竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生</b><br>    料峭春风吹酒醒，微冷，山头斜照却相迎，<b>回首向来萧瑟处，归去，也无风雨也无晴。</b><br><p><br><br></p><center>  和 子 由 渑 池 怀 旧<br><br>    <b>人生到处知何处，应似飞鸿踏雪泥。</b><br>  泥上偶有留指爪，飞鸿那复计东西。<br>  老僧已死成新塔，坏壁无由见旧题。<br>  往日崎岖还记否，路长人困蹇驴嘶。<br></center><p><br><br></p><center>  望 江 南<br>  超 然 台 作<br><br>  春未老，风细柳斜斜。试上超然台上看，半壕春水一城花，烟雨暗千家。<br>  寒食后，酒醒却咨成嗟。<b>休对故人思故国，且降新火试新茶，诗酒趁年华。</b><br></center><p><br><br></p>]]></content>
+    
+    
+    <summary type="html">&lt;center&gt;
+  临 江 仙 &lt;br&gt;
+  夜 归 临 皋 &lt;br&gt;&lt;br&gt;
+  夜饮东坡醒复醉，归来仿佛三更。家童鼻息已雷鸣。敲门都不应，倚杖听江声。&lt;br&gt;
+  长恨自身非我有，何时忘却营营。夜阑风静縠纹平。&lt;b&gt;小舟从此逝，江海寄余生。&lt;/b&gt;&lt;br&gt;</summary>
+    
+    
+    
+    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+    <category term="诗词歌赋" scheme="http://example.com/tags/%E8%AF%97%E8%AF%8D%E6%AD%8C%E8%B5%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>刀锋</title>
@@ -459,28 +484,6 @@
     
     
     <category term="2021" scheme="http://example.com/tags/2021/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python __name__==&#39;__main__&#39;作用详解</title>
-    <link href="http://example.com/2021/11/27/python-name-main-%E4%BD%9C%E7%94%A8%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://example.com/2021/11/27/python-name-main-%E4%BD%9C%E7%94%A8%E8%AF%A6%E8%A7%A3/</id>
-    <published>2021-11-27T09:43:15.000Z</published>
-    <updated>2021-11-27T09:53:34.587Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>在阅读别人写的自定义模块时，经常会看到有如下这行判断语句：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br></pre></td></tr></table></figure><p>这行代码的作用是什么呢？本节就详解讲解以下它的作用。</p><span id="more"></span><p>一般情况下，当我们写完自定义的模块之后，都会写一个测试代码，检验一些模块中各个功能是否能够成功运行。例如，创建一个 candf.py 文件，并编写如下代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">摄氏度和华氏度的相互转换模块</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">c2f</span>(<span class="params">cel</span>):</span></span><br><span class="line">    fah = cel * <span class="number">1.8</span> + <span class="number">32</span></span><br><span class="line">    <span class="keyword">return</span> fah</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2c</span>(<span class="params">fah</span>):</span></span><br><span class="line">    cel = (fah - <span class="number">32</span>) / <span class="number">1.8</span></span><br><span class="line">    <span class="keyword">return</span> cel</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;测试数据：0 摄氏度 = %.2f 华氏度&quot;</span> % c2f(<span class="number">0</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;测试数据：0 华氏度 = %.2f 摄氏度&quot;</span> % f2c(<span class="number">0</span>))</span><br><span class="line">test()</span><br></pre></td></tr></table></figure><p>单独运行此模块文件，可以看到如下运行结果：</p><p>测试数据：0 摄氏度 = 32.00 华氏度<br>测试数据：0 华氏度 = -17.78 摄氏度</p><p>在 candf.py 模块文件的基础上，在同目录下再创建一个 demo.py 文件，并编写如下代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> candf</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;32 摄氏度 = %.2f 华氏度&quot;</span> % candf.c2f(<span class="number">32</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;99 华氏度 = %.2f 摄氏度&quot;</span> % candf.f2c(<span class="number">99</span>))</span><br></pre></td></tr></table></figure><p>运行 demo.py 文件，其运行结果如下所示：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">测试数据：0 摄氏度 = 32.00 华氏度</span><br><span class="line">测试数据：0 华氏度 = -17.78 摄氏度</span><br><span class="line">32 摄氏度 = 89.60 华氏度</span><br><span class="line">99 华氏度 = 37.22 摄氏度</span><br></pre></td></tr></table></figure><p>可以看到，<a href="http://c.biancheng.net/python/">Python</a>解释器将模块（candf.py）中的测试代码也一块儿运行了，这并不是我们想要的结果。想要避免这种情况的关键在于，要让 Python 解释器知道，当前要运行的程度代码，是模块文件本身，还是导入模块的其它程序。</p><p>为了实现这一点，就需要使用 Python 内置的系统变量 __name__，它用于标识所在模块的模块名。例如，在 demo.py 程序文件中，添加如下代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(__name__)</span><br><span class="line"><span class="built_in">print</span>(candf.__name__)</span><br><span class="line">其运行结果为：</span><br><span class="line">__main__</span><br><span class="line">candf</span><br></pre></td></tr></table></figure><p>可以看到，当前运行的程序，其 <strong>name</strong> 的值为 __main__，而导入到当前程序中的模块，其 <strong>name</strong> 值为自己的模块名。</p><p>因此，<code>if __name__ == &#39;__main__&#39;:</code> 的作用是确保只有单独运行该模块时，此表达式才成立，才可以进入此判断语法，执行其中的测试代码；反之，如果只是作为模块导入到其他程序文件中，则此表达式将不成立，运行其它程序时，也就不会执行该判断语句中的测试代码。</p><blockquote><p>转载自：<a href="http://c.biancheng.net/view/4643.html">http://c.biancheng.net/view/4643.html</a></p></blockquote>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;在阅读别人写的自定义模块时，经常会看到有如下这行判断语句：&lt;/p&gt;
-&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; __name__ == &lt;span class=&quot;string&quot;&gt;&amp;#x27;__main__&amp;#x27;&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;这行代码的作用是什么呢？本节就详解讲解以下它的作用。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Python" scheme="http://example.com/categories/Python/"/>
-    
     
   </entry>
   
