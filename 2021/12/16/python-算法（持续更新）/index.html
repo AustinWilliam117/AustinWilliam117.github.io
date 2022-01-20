@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/2021/12/16/python-%E7%AE%97%E6%B3%95%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/BinarySearch.png">
 <meta property="og:image" content="http://example.com/2021/12/16/python-%E7%AE%97%E6%B3%95%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/QuickSort.png">
 <meta property="article:published_time" content="2021-12-16T14:54:41.000Z">
-<meta property="article:modified_time" content="2022-01-19T15:12:16.840Z">
+<meta property="article:modified_time" content="2022-01-20T13:26:02.490Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="python数据结构">
 <meta name="twitter:card" content="summary">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">137</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">138</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-19 23:12:16" itemprop="dateModified" datetime="2022-01-19T23:12:16+08:00">2022-01-19</time>
+                <time title="Modified: 2022-01-20 21:26:02" itemprop="dateModified" datetime="2022-01-20T21:26:02+08:00">2022-01-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -393,7 +393,7 @@
 <li>初始时手里（有序区）只有一张手牌</li>
 <li>每次（从无序区）摸一张牌，插入到手里已有牌的正确位置</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span>(<span class="params">li</span>):</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(li)):			<span class="comment"># i 指摸到牌的下标</span></span><br><span class="line">    tmp = li[i]</span><br><span class="line">    j = i - <span class="number">1</span>											<span class="comment"># j 指手里牌的下标</span></span><br><span class="line">    <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> li[j] &gt; tmp:</span><br><span class="line">      li[j+<span class="number">1</span>] = tmp</span><br><span class="line">      <span class="built_in">print</span>(li)</span><br><span class="line">      </span><br><span class="line">li = [<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>]</span><br><span class="line"><span class="built_in">print</span>(li)</span><br><span class="line">insert_sort(li)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span>(<span class="params">li</span>):</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(li)):			<span class="comment"># i 指摸到牌的下标</span></span><br><span class="line">    tmp = li[i]</span><br><span class="line">    j = i - <span class="number">1</span>											<span class="comment"># j 指手里牌的下标</span></span><br><span class="line">    <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> li[j] &gt; tmp:</span><br><span class="line">      li[j+<span class="number">1</span>] = li[j]</span><br><span class="line">      j -= <span class="number">1</span></span><br><span class="line">    li[j+<span class="number">1</span>] = tmp</span><br><span class="line">      </span><br><span class="line">li = [<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>]</span><br><span class="line">insert_sort(li)</span><br><span class="line"><span class="built_in">print</span>(li)</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>时间复杂度为：O(n^2)</li>
@@ -507,7 +507,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-count">138</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -571,7 +571,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">423k</span>
+    <span title="Symbols count total">424k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
