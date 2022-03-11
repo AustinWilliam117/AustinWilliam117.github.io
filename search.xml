@@ -13379,4 +13379,314 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <category>Python</category>
       </categories>
   </entry>
+  <entry>
+    <title>ADB命令大全</title>
+    <url>/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote>
+<p>转载自：<a href="https://zhuanlan.zhihu.com/p/89060003">知乎：木头人</a></p>
+</blockquote>
+<p>常用命令用于速查，都是经常需要用到的，没有接触过adb命令从第二节开始看，对每个命令有详细解释。</p>
+<h2 id="1-常用命令："><a href="#1-常用命令：" class="headerlink" title="1. 常用命令："></a>1. 常用命令：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb devices #查看连接设备</span><br><span class="line"></span><br><span class="line">adb -s cf27456f shell # 指定连接设备使用命令</span><br><span class="line"></span><br><span class="line">adb install test.apk # 安装应用</span><br><span class="line"></span><br><span class="line">adb install -r demo.apk #重新安装现有应用，保留其数据。</span><br><span class="line"></span><br><span class="line">adb uninstall cn.com.test.mobile #卸载应用，需要指定包</span><br><span class="line"></span><br><span class="line">adb uninstall -k cn.com.test.mobile #卸载app 但保留数据和缓存文件</span><br><span class="line"></span><br><span class="line">adb shell pm list packages #列出手机装的所有app 的包名</span><br><span class="line"></span><br><span class="line">adb shell pm list packages -3 #列出除了系统应用的第三方应用包名</span><br><span class="line"></span><br><span class="line">adb shell pm clear cn.com.test.mobile #清除应用数据与缓存</span><br><span class="line"></span><br><span class="line">adb shell am start -ncn.com.test.mobile/.ui.SplashActivity #启动应用</span><br><span class="line"></span><br><span class="line">adb shell dumpsys package #包信息Package Information</span><br><span class="line"></span><br><span class="line">adb shell dumpsys meminfo #内存使用情况Memory Usage</span><br><span class="line"></span><br><span class="line">adb shell am force-stop cn.com.test.mobile #强制停止应用</span><br><span class="line"></span><br><span class="line">adb logcat #查看日志</span><br><span class="line"></span><br><span class="line">adb logcat -c #清除log 缓存</span><br><span class="line"></span><br><span class="line">adb reboot #重启</span><br><span class="line"></span><br><span class="line">adb get-serialno #获取序列号</span><br><span class="line"></span><br><span class="line">adb shell getprop ro.build.version.release #查看Android 系统版本</span><br><span class="line"></span><br><span class="line">adb shell top -s 10 #查看占用内存前10 的app</span><br><span class="line"></span><br><span class="line">adb push &lt;local&gt; &lt;remote&gt; #从本地复制文件到设备</span><br><span class="line"></span><br><span class="line">adb pull &lt;remote&gt; &lt;local&gt; #从设备复制文件到本地</span><br><span class="line"></span><br><span class="line">adb bugreport #查看bug 报告</span><br><span class="line"></span><br><span class="line">adb help #查看ADB 帮助</span><br></pre></td></tr></table></figure>
+
+
+
+<span id="more"></span>
+
+
+
+<h2 id="2-1-连接设备"><a href="#2-1-连接设备" class="headerlink" title="2.1 连接设备"></a>2.1 连接设备</h2><p><strong>adb [-d|-e|-s <serialNumber>] <command></strong></p>
+<p>连接指定设备</p>
+<p>参数：</p>
+<p>-d 指定当前唯一通过USB 连接的Android 设备为命令目标</p>
+<p>-e 指定当前唯一运行的模拟器为命令目标</p>
+<p>-s <serialNumber> 指定相应serialNumber 号的设备/模拟器为命令目标</p>
+<p>command 为所需对设备执行的命令</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> devices</span><br><span class="line">List of devices attached</span><br><span class="line">cf263b7f device</span><br><span class="line">emulator<span class="literal">-5554</span> offline</span><br><span class="line"><span class="number">192.168</span>.<span class="number">1.6</span>:<span class="number">5555</span> device</span><br><span class="line"><span class="variable">$adb</span> <span class="literal">-s</span> cf263b7f <span class="comment">#连接cf264b8f 设备</span></span><br></pre></td></tr></table></figure>
+
+<p>adb devices 查看已连接的设备信息, 上面已经连接3台设备。</p>
+<h2 id="2-2-查看信息"><a href="#2-2-查看信息" class="headerlink" title="2.2 查看信息"></a>2.2 查看信息</h2><p><strong>2.2.1 查看版本设备</strong></p>
+<p><strong>adb version</strong> 查看adb 版本信息</p>
+<p><strong>adb devices</strong> 查看adb 连接设备</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> devices</span><br><span class="line">List of devices attached</span><br><span class="line"><span class="number">1226959</span>f device</span><br><span class="line"><span class="number">3426422</span>f offline</span><br></pre></td></tr></table></figure>
+
+<p>注意：offline 表示设备未连接成功或无响应，device 设备已连接</p>
+<p><strong>adb shell getprop ro.product.model</strong> 查看设备型号</p>
+<p><strong>adb get-serialno</strong> 获取设备序列号</p>
+<p><strong>adb bugreport</strong> 查看bug 报告</p>
+<p><strong>adb logcat</strong> 查看日志</p>
+<p><strong>adb shell wm size</strong> 查看屏幕分辨率</p>
+<p><strong>adb shell wm density</strong> 查看屏幕密度</p>
+<p><strong>2.2.2 查看应用信息</strong></p>
+<p><strong>adb shell pm list packages</strong> 列出手机装的所有app 的包名</p>
+<p><strong>adb shell pm list packages -s</strong> 列出系统应用的所有包名</p>
+<p><strong>adb shell pm list packages -3</strong> 列出除了系统应用的第三方应用包名</p>
+<p><strong>adb shell pm list packages | find “test” win</strong> 列出手机装带有的test的包</p>
+<p><strong>adb shell pm list packages | grep ‘test’ linux</strong> 列出手机装带有的test的包</p>
+<p><strong>adb shell cat */sys/class/net/wlan0/address*</strong> 获取MAC 地址, 根据系统版本参数可能不同</p>
+<p><strong>adb shell getprop ro.build.version.release</strong> 查看Android 系统版本</p>
+<p><strong>adb shell dumpsys activity services [<packagename>]</strong> 查看正在运行的Services</p>
+<p><packagename> 参数不是必须的，指定<packagename> 表示查看与某个包名相关的Services，不指定表示查看所有Services。</p>
+<p><packagename> 不一定要给出完整的包名，比如运行adb shell dumpsys activity services org.zhihu，那么包名org.zhihu.demo1、org.zhihu.demo2 和org.zhihu 等相关的Services 都会列出来。</p>
+<h2 id="2-3-app-安装和卸载"><a href="#2-3-app-安装和卸载" class="headerlink" title="2.3 app 安装和卸载"></a>2.3 app 安装和卸载</h2><p><strong>2.3.1 app 安装：</strong></p>
+<p><strong>adb install <apkfile></strong> 参数apkfile 为.apk 文件名称</p>
+<p><strong>adb install -r *test.apk*</strong> 保留数据和缓存文件，重新安装apk</p>
+<p><strong>adb install -s *test.apk*</strong> 安装apk 到sd 卡</p>
+<p><strong>2.3.2 app 卸载</strong></p>
+<p><strong>adb uninstall <package></strong> 参数package 为软件包名称</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> uninstall cn.com.test.mobile</span><br><span class="line"> </span><br><span class="line"><span class="comment">#  卸载app 但保留数据和缓存文件</span></span><br><span class="line"><span class="variable">$adb</span> uninstall <span class="literal">-k</span> ccn.com.test.mobile </span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-启动停止服务"><a href="#2-4-启动停止服务" class="headerlink" title="2.4 启动停止服务"></a>2.4 启动停止服务</h2><p><strong>adb start-server</strong></p>
+<p>启动adb 服务，基本不会用到，因为只要设备连接正确，会自动启动adb server</p>
+<p><strong>adb kill-server</strong></p>
+<p>停止adb server</p>
+<p><strong>adb -P <port> start-server</strong></p>
+<p>指定adb server 的网络端口port （默认为5037）启动服务</p>
+<h2 id="2-5-与应用交互"><a href="#2-5-与应用交互" class="headerlink" title="2.5 与应用交互"></a>2.5 与应用交互</h2><p><strong>adb shell pm clear <packagename></strong></p>
+<p>清除应用数据与缓存</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell pm <span class="built_in">clear</span> cn.com.test.mobile</span><br></pre></td></tr></table></figure>
+
+<p><strong>adb shell am force-stop <packagename></strong></p>
+<p>强制停止应用</p>
+<p>示例：强制停止微信</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell am force<span class="literal">-stop</span> com.tencent.mm</span><br></pre></td></tr></table></figure>
+
+<p><strong>adb shell am <command></strong></p>
+<p>command 命令详解</p>
+<blockquote>
+<p>command 用途<br>start [options] <INTENT> 启动 <INTENT> 指定的 Activity<br>startservice [options] <INTENT> 启动 <INTENT> 指定的 Service<br>broadcast [options] <INTENT> 发送 <INTENT> 指定的广播<br>force-stop <packagename> 停止 <packagename> 相关的进程</p>
+</blockquote>
+<p><INTENT> 参数很灵活，和写 Android 程序时代码里的 Intent 相对应,用于决定 intent 对象的选项如下：</p>
+<blockquote>
+<p>-a <ACTION> 指定 action，如android.intent.action.VIEW<br>-c <CATEGORY> 指定 category，如android.intent.category.APP_CONTACTS<br>-n <COMPONENT> 指定完整 component 名，用于明确指定启动哪个 Activity，如<br><a href="https://link.zhihu.com/?target=http://com.example.app/.ExampleActivity">com.example.app/.ExampleActivity</a></p>
+</blockquote>
+<p><strong>2.5.1 启动 Activity</strong></p>
+<p><strong>adb shell am start [options] <INTENT></strong></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"> <span class="comment">#指定完整 component 名，用于明确指定启动哪个Activity</span></span><br><span class="line"><span class="variable">$adb</span> shell am <span class="built_in">start</span> <span class="literal">-n</span> &lt;COMPONENT&gt;  </span><br><span class="line">如： <span class="comment">#表示调起微信主界面</span></span><br><span class="line"><span class="variable">$adb</span> shell am <span class="built_in">start</span> <span class="literal">-n</span> com.tencent.mm/.ui.LauncherUI  </span><br></pre></td></tr></table></figure>
+
+<p><strong>2.5.2 启动 Service</strong></p>
+<p><strong>adb shell am startservice [options] <INTENT></strong></p>
+<p>示例： 表示调起微信的某 Service。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell am startservice <span class="literal">-n</span> com.tencent.mm/.plugin.accountsync.model.AccountAuthenticatorService</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.5.3 发送广播</strong></p>
+<p>可以向所有组件广播，也可以只向指定组件广播。</p>
+<p>adb shell am broadcast [options] <INTENT></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#向所有组件广播 BOOT_COMPLETED (开机广播)</span></span><br><span class="line"><span class="variable">$adb</span> shell am broadcast <span class="literal">-a</span> android.intent.action.BOOT_COMPLETED   </span><br><span class="line"><span class="comment">#如：只向 org.mazhuang.boottimemeasure/.BootCompletedReceiver 广播 BOOT_COMPLETED：</span></span><br><span class="line"><span class="variable">$adb</span> shell am broadcast <span class="literal">-a</span> android.intent.action.BOOT_COMPLETED <span class="literal">-n</span> org.mazhuang.boottimemeasure/.BootCompletedReceiver</span><br></pre></td></tr></table></figure>
+
+<p>系统预定义的广播：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c1eb5c565ef8dbea3610dc7957225917_1440w.jpg" alt="img">Android 系统预定义广播</p>
+<p><strong>2.5.4 强制停止应用</strong></p>
+<p><strong>adb shell am force-stop <packagename></strong></p>
+<p><em>示例：</em></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"> <span class="comment"># 查询出包名</span></span><br><span class="line"><span class="variable">$adb</span> shell pm list packages </span><br><span class="line">.....</span><br><span class="line"><span class="comment"># 强制停止微信</span></span><br><span class="line"><span class="variable">$adb</span> shell am force<span class="literal">-stop</span> com.tencent.mm</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-6-文件管理"><a href="#2-6-文件管理" class="headerlink" title="2.6 文件管理"></a><strong>2.6 文件管理</strong></h2><p><strong>2.6.1 复制设备里的文件到电脑</strong></p>
+<p><strong>adb pull &lt;设备里的文件路径&gt; [电脑上的目录]</strong></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> pull /sdcard/abc.mp4  ~/tmp/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><em><strong>小技巧</strong>：设备上的文件路径可能需要 root 权限才能访问，如果你的设备已经 root 过，可以先使用 adb shell 和 su 命令在 adb shell 里获取 root 权限后，先 cp /path/on/device /sdcard/filename 将文件复制到 sdcard，然后 adb pull /sdcard/filename /path/on/pc。</em></p>
+</blockquote>
+<p><strong>2.6.2 复制电脑里的文件到设备</strong></p>
+<p><strong>adb push &lt;电脑上的文件路径&gt; &lt;设备里的目录&gt;</strong></p>
+<p><strong>示例：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> push  e:/ss.au3  /<span class="keyword">data</span>/local/tmp/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><em><strong>小技巧</strong>：设备上的文件路径普通权限可能无法直接写入，如果你的设备已经 root 过，可以先 adb push /path/on/pc /sdcard/filename，然后 adb shell 和 su 在 adb shell 里获取 root 权限后，cp /sdcard/filename /path/on/device</em></p>
+</blockquote>
+<h2 id="2-7-使用ADB命令模拟按键-输入"><a href="#2-7-使用ADB命令模拟按键-输入" class="headerlink" title="2.7 使用ADB命令模拟按键/输入"></a><strong>2.7 使用ADB命令模拟按键/输入</strong></h2><p><strong>adb shell input keyevent <keycode></strong></p>
+<p>keycode位操作参数，不同的 keycode 能实现不同的功能</p>
+<p>完整的功能见：<a href="https://link.zhihu.com/?target=https://developer.android.com/reference/android/view/KeyEvent.html">https://developer.android.com/reference/android/view/KeyEvent.html</a></p>
+<p>keycode 能实现不同的功能，对应的编码如下：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-19f07a6dc7f9b589c0ca808be3302e32_1440w.jpg" alt="img">keycode 列表</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">26</span>  <span class="comment">#电源键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">82</span>  <span class="comment">#菜单键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">3</span>  <span class="comment">#HOME 键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">4</span> <span class="comment">#返回键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">24</span> <span class="comment">#增加音量</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">25</span> <span class="comment">#降低音量</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">164</span> <span class="comment">#静音</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">85</span>  <span class="comment">#播放/暂停</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">86</span> <span class="comment">#停止播放</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">87</span> <span class="comment">#播放下一首</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">88</span> <span class="comment">#播放上一首</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">126</span> <span class="comment">#恢复播放</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">127</span> <span class="comment">#暂停播放</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">224</span> <span class="comment">#点亮屏幕</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">223</span> <span class="comment">#熄灭屏幕</span></span><br><span class="line"><span class="variable">$adb</span> shell input swipe <span class="number">300</span> <span class="number">1000</span> <span class="number">300</span> <span class="number">500</span>  <span class="comment">#滑动解锁，向上滑动手势解锁</span></span><br><span class="line"><span class="comment">#参数 300 1000 300 500 分别表示起始点x坐标 起始点y坐标 结束点x坐标 结束点y坐标 </span></span><br><span class="line"><span class="variable">$adb</span> shell input text hello <span class="comment">#焦点处于某文本框时输入文本</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-8-查看日志"><a href="#2-8-查看日志" class="headerlink" title="2.8 查看日志"></a><strong>2.8 查看日志</strong></h2><h3 id="2-8-1-Android-日志"><a href="#2-8-1-Android-日志" class="headerlink" title="2.8.1 Android 日志"></a><strong>2.8.1 Android 日志</strong></h3><p><strong>[adb] logcat [<option>] … [<filter-spec>] …</strong></p>
+<p>*<strong>按级别过滤日志*</strong></p>
+<p>按某级别过滤日志则会将该级别及以上的日志输出，Android 日志的优先级如下：</p>
+<blockquote>
+<p>V —— Verbose（最低，输出得最多）<br>D —— Debug<br>I —— Info<br>W —— Warning<br>E —— Error<br>F —— Fatal<br>S —— Silent（最高，啥也不输出）</p>
+</blockquote>
+<p>示例：输出W之上的日志，W,E,F,S</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat *:W</span><br></pre></td></tr></table></figure>
+
+<p>*<strong>按 tag 和级别过滤日志*</strong></p>
+<p><filter-spec> 可以由多个 <tag>[:priority] 组成</p>
+<p>示例：输出 tag ActivityManager 的 I 以上级别日志，输出tag MyApp的D 以上级别日志，及其它 tag 的 S 级别日志（即屏蔽其它 tag 日志）。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat ActivityManager:I MyApp:D *:S</span><br></pre></td></tr></table></figure>
+
+<p>*<strong>日志格式*</strong></p>
+<p><strong>adb logcat -v <format></strong></p>
+<p>指定日志输出格式</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> &lt;format&gt;  指定日志输出格式</span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> brief   <span class="comment">#默认格式,&lt;priority&gt;/&lt;tag&gt;(&lt;pid&gt;): &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> <span class="keyword">process</span> <span class="comment">#&lt;priority&gt;(&lt;pid&gt;) &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> tag  <span class="comment">#&lt;priority&gt;/&lt;tag&gt;: &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> raw  <span class="comment">#&lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> time  <span class="comment">#&lt;datetime&gt; &lt;priority&gt;/&lt;tag&gt;(&lt;pid&gt;): &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> threadtime <span class="comment">#&lt;datetime&gt; &lt;pid&gt; &lt;tid&gt; &lt;priority&gt; &lt;tag&gt;: &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> long  <span class="comment">#[ &lt;datetime&gt; &lt;pid&gt;:&lt;tid&gt; &lt;priority&gt;/&lt;tag&gt;:] &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> long ActivityManager:I *:S  <span class="comment">#指定格式可与上面的过滤同时使用</span></span><br></pre></td></tr></table></figure>
+
+<p>*<strong>清空日志*</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-c</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2.8.2 内核日志</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dmesg  </span><br></pre></td></tr></table></figure>
+
+<p>查看内核日志</p>
+<h2 id="2-9-查看设备信息"><a href="#2-9-查看设备信息" class="headerlink" title="2.9 查看设备信息"></a><strong>2.9 查看设备信息</strong></h2><h3 id="2-9-1-型号"><a href="#2-9-1-型号" class="headerlink" title="2.9.1 型号"></a><strong>2.9.1 型号</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell getprop ro.product.model</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-2-电池状况"><a href="#2-9-2-电池状况" class="headerlink" title="2.9.2 电池状况"></a><strong>2.9.2 电池状况</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dumpsys battery</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-3-屏幕分辨率"><a href="#2-9-3-屏幕分辨率" class="headerlink" title="2.9.3 屏幕分辨率"></a><strong>2.9.3 屏幕分辨率</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell wm size</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-4-屏幕密度"><a href="#2-9-4-屏幕密度" class="headerlink" title="2.9.4 屏幕密度"></a><strong>2.9.4 屏幕密度</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell wm density</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-5-显示屏参数"><a href="#2-9-5-显示屏参数" class="headerlink" title="2.9.5 显示屏参数"></a><strong>2.9.5 显示屏参数</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dumpsys window displays</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-6-android-id"><a href="#2-9-6-android-id" class="headerlink" title="2.9.6 android_id"></a><strong>2.9.6 android_id</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell settings get secure android_id</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-7-IMEI"><a href="#2-9-7-IMEI" class="headerlink" title="2.9.7 IMEI"></a><strong>2.9.7 IMEI</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dumpsys iphonesubinfo</span><br><span class="line"><span class="comment">#而在 Android 5.0 及以上版本里这个命令输出为空，得通过其它方式获取了（需要 root 权限）：</span></span><br><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line"><span class="variable">$service</span> call iphonesubinfo <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-8-Android-系统版本"><a href="#2-9-8-Android-系统版本" class="headerlink" title="2.9.8 Android 系统版本"></a><strong>2.9.8 Android 系统版本</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell getprop ro.build.version.release</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-9-IP-地址"><a href="#2-9-9-IP-地址" class="headerlink" title="2.9.9 IP 地址"></a><strong>2.9.9 IP 地址</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell ifconfig | find “Mask”</span><br><span class="line"><span class="variable">$adb</span> shell ifconfig wlan0 <span class="comment">#设备连着 WiFi，可以使用如下命令来查看局域网 IP</span></span><br><span class="line"><span class="variable">$adb</span> shell netcfg <span class="comment"># 上面两个无结果可以用这个，查看网络连接状态</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-10-Mac-地址"><a href="#2-9-10-Mac-地址" class="headerlink" title="2.9.10 Mac 地址"></a><strong>2.9.10 Mac 地址</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">net</span>/<span class="title">wlan0</span>/<span class="title">address</span> # 设备不同可能地址不同</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-11-CPU-信息"><a href="#2-9-11-CPU-信息" class="headerlink" title="2.9.11 CPU 信息"></a><strong>2.9.11 CPU 信息</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /proc/cpuinfo</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-12-内存信息"><a href="#2-9-12-内存信息" class="headerlink" title="2.9.12 内存信息"></a><strong>2.9.12 内存信息</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /proc/meminfo</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-13更多硬件与系统属性"><a href="#2-9-13更多硬件与系统属性" class="headerlink" title="2.9.13更多硬件与系统属性"></a><strong>2.9.13更多硬件与系统属性</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /system/build.prop</span><br></pre></td></tr></table></figure>
+
+<p><strong>adb shell getprop &lt;属性名&gt;</strong></p>
+<p>也可以</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /system/build.prop | grep ro.product.cpu.abi</span><br><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /system/build.prop | find “ro.product.cpu.abi”</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic2.zhimg.com/80/v2-1991d0e88f480209f16d87c8dabf69b5_1440w.jpg" alt="img"></p>
+<h2 id="2-10-修改设置"><a href="#2-10-修改设置" class="headerlink" title="2.10 修改设置"></a><strong>2.10 修改设置</strong></h2><p>修改设置之后，运行恢复命令仍然不太正常，可以运行 adb reboot 重启设备或手动重启。</p>
+<p>修改设置的原理主要是通过 settings 命令修改 /data/data/com.android.providers.settings/databases/settings.db 里存放的设置值。</p>
+<h3 id="2-10-1分辨率"><a href="#2-10-1分辨率" class="headerlink" title="2.10.1分辨率"></a><strong>2.10.1分辨率</strong></h3><p><strong>adb shell wm size *480x1024*</strong> #将分辨率修改为 480px * 1024px</p>
+<p><strong>adb shell wm size reset</strong> #恢复原分辨率</p>
+<h3 id="2-10-2屏幕密度"><a href="#2-10-2屏幕密度" class="headerlink" title="2.10.2屏幕密度"></a><strong>2.10.2屏幕密度</strong></h3><p><strong>adb shell wm density *160*</strong> #屏幕密度修改为 160dpi</p>
+<p><strong>adb shell wm density reset</strong> #恢复原屏幕密度</p>
+<h3 id="2-10-3显示区域"><a href="#2-10-3显示区域" class="headerlink" title="2.10.3显示区域"></a><strong>2.10.3显示区域</strong></h3><p><strong>adb shell wm overscan *0,0,0,100*</strong></p>
+<p># 四个数字分别表示距离左、上、右、下边缘的留白像素，以上命令表示将屏幕底部 100px留白</p>
+<p><strong>adb shell wm overscan reset</strong> #恢复显示区域</p>
+<h3 id="2-10-4-关闭-USB-调试模式"><a href="#2-10-4-关闭-USB-调试模式" class="headerlink" title="2.10.4 关闭 USB 调试模式"></a><strong>2.10.4 关闭 USB 调试模式</strong></h3><p><strong>adb shell settings put global adb_enabled 0</strong></p>
+<p>使用命令无法恢复调试模式，只能通过手动</p>
+<h3 id="2-10-5-状态栏和导航栏的显示隐藏"><a href="#2-10-5-状态栏和导航栏的显示隐藏" class="headerlink" title="2.10.5 状态栏和导航栏的显示隐藏"></a><strong>2.10.5 状态栏和导航栏的显示隐藏</strong></h3><p><strong>adb shell settings put global policy_control <key-values></strong></p>
+<p><key-values> 可由如下几种键及其对应的值组成，格式为 <key1>=<value1>:<key2>=<value2></p>
+<p>key 键对应的值</p>
+<p><img src="https://pic3.zhimg.com/80/v2-bd196a935a4b328d77fdfef289dc1926_1440w.jpg" alt="img"></p>
+<p>这些键对应的值可则如下值用逗号组合</p>
+<p><img src="https://pic1.zhimg.com/80/v2-a88f429d1bdaccbae6f7feeef65546d8_1440w.jpg" alt="img"></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置在所有界面下都同时隐藏状态栏和导航栏</span></span><br><span class="line"><span class="variable">$adb</span> shell settings put global policy_control immersive.full=*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置在包名为 com.package1 和 com.package2 的应用里隐藏状态栏，在除了包名为 com.package3 的所有应用里隐藏导航栏。</span></span><br><span class="line"><span class="variable">$adb</span> shell settings put global policy_control immersive.status=com.package1,com.package2:immersive.navigation=apps,<span class="literal">-com</span>.package3</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-11-实用功能"><a href="#2-11-实用功能" class="headerlink" title="2.11 实用功能"></a><strong>2.11 实用功能</strong></h2><h3 id="2-11-1屏幕截图"><a href="#2-11-1屏幕截图" class="headerlink" title="2.11.1屏幕截图"></a><strong>2.11.1屏幕截图</strong></h3><p><strong>adb exec-out screencap -p &gt; img.png</strong> # 老版本无exec-out命令，只适合于新版的截图</p>
+<p><strong>adb shell screencap -p /sdcard/img.png</strong> # 老版本截图先保存在设备端</p>
+<p><strong>adb pull /sdcard/img.png</strong> # 通过pull拷贝到本地</p>
+<p>screencap 参数：</p>
+<p>参数 含义</p>
+<p>-p 指定保存文件为 png 格式</p>
+<p>-d display-id 指定截图的显示屏编号（有多显示屏的情况下）</p>
+<h3 id="2-11-2录制屏幕"><a href="#2-11-2录制屏幕" class="headerlink" title="2.11.2录制屏幕"></a><strong>2.11.2录制屏幕</strong></h3><p><strong>#</strong> 默认录制时间和最长录制时间都是180s</p>
+<p><strong>adb shell screenrecord /sdcard/filename.mp4</strong></p>
+<p>screenrecord 参数：</p>
+<p>参数 含义</p>
+<p>–size WIDTHxHEIGHT 视频的尺寸，比如 1280x720，默认是屏幕分辨率。</p>
+<p>–bit-rate RATE 视频的比特率，默认是 4Mbps。</p>
+<p>–time-limit TIME 录制时长，单位秒。</p>
+<p>–verbose 输出更多信息。</p>
+<p><strong>2.11.3 重新挂载 system 分区为可写</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<p>/system 分区默认挂载为只读，但有些操作比如给 Android 系统添加命令、删除自带应用等需要对 /system 进行写操作，所以需要重新挂载它为可读写。</p>
+<p>步骤：</p>
+<p>1.进入 shell 并切换到 root 用户权限。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br></pre></td></tr></table></figure>
+
+<p>2.查看当前分区挂载情况。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$mount</span></span><br><span class="line">输出如下</span><br><span class="line">.....</span><br><span class="line">debugfs /sys/kernel/debug debugfs rw,relatime <span class="number">0</span> <span class="number">0</span></span><br><span class="line">none /acct cgroup rw,relatime,cpuacct <span class="number">0</span> <span class="number">0</span></span><br><span class="line">none /sys/fs/cgroup tmpfs rw,seclabel,relatime,mode=<span class="number">750</span>,gid=<span class="number">1000</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">tmpfs /mnt/obb tmpfs rw,seclabel,relatime,mode=<span class="number">755</span>,gid=<span class="number">1000</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">none /dev/cpuctl cgroup rw,relatime,cpu <span class="number">0</span> <span class="number">0</span></span><br><span class="line">/dev/block/mtdblock0 /system ext4 ro,seclabel,relatime,<span class="keyword">data</span>=ordered <span class="number">0</span> <span class="number">0</span></span><br><span class="line">.......</span><br></pre></td></tr></table></figure>
+
+<p>找到其中我们关注的带 <strong>/system</strong> 的那一行：</p>
+<p>3.重新挂载。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$mount</span> <span class="literal">-o</span> remount,rw <span class="literal">-t</span> yaffs2 /dev/block/mtdblock0 /system</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.4 查看连接过的 WiFi 密码</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br><span class="line"><span class="variable">$cat</span> /<span class="keyword">data</span>/misc/wifi/*.conf</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.5设置系统日期和时间</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br><span class="line"><span class="variable">$date</span> <span class="literal">-s</span> <span class="number">20190531.131600</span>  <span class="comment">#将系统日期和时间更改为 2019 年 05 月 31 日 13 点 16 分 00 秒。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.6 重启手机</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.7 检测设备是否已 root</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br></pre></td></tr></table></figure>
+
+<p>此时命令行提示符是 $ 则表示没有 root 权限，是 # 则表示已 root。</p>
+<p><strong>2.11.8 使用 Monkey 进行压力测试</strong></p>
+<p>Monkey 可以生成伪随机用户事件来模拟单击、触摸、手势等操作，可以对正在开发中的程序进行随机压力测试。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 向 &lt;packagename&gt; 指定的应用程序发送 500 个伪随机事件</span></span><br><span class="line"><span class="variable">$adb</span> shell monkey <span class="literal">-p</span> &lt;packagename&gt; <span class="literal">-v</span> <span class="number">500</span></span><br></pre></td></tr></table></figure>
+
+<p>monkey 官方文档 <a href="https://link.zhihu.com/?target=https://developer.android.com/studio/test/monkey.html">https://developer.android.com/studio/test/monkey.html</a></p>
+<p><strong>2.11.9 开启/关闭 WiFi</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<p>开启 WiFi：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> root</span><br><span class="line"><span class="variable">$adb</span> shell svc wifi enable</span><br></pre></td></tr></table></figure>
+
+<p>关闭 WiFi：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> root</span><br><span class="line"><span class="variable">$adb</span> shell svc wifi disable</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-12刷机相关命令"><a href="#2-12刷机相关命令" class="headerlink" title="2.12刷机相关命令"></a><strong>2.12刷机相关命令</strong></h2><p><strong>注：不要随便操作，没实验过无法保证成功</strong></p>
+<h3 id="2-12-1重启到-Recovery-模式"><a href="#2-12-1重启到-Recovery-模式" class="headerlink" title="2.12.1重启到 Recovery 模式"></a><strong>2.12.1重启到 Recovery 模式</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot recovery</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-12-2从-Recovery-重启到-Android"><a href="#2-12-2从-Recovery-重启到-Android" class="headerlink" title="2.12.2从 Recovery 重启到 Android"></a><strong>2.12.2从 Recovery 重启到 Android</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-12-3重启到-Fastboot-模式"><a href="#2-12-3重启到-Fastboot-模式" class="headerlink" title="2.12.3重启到 Fastboot 模式"></a><strong>2.12.3重启到 Fastboot 模式</strong></h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot bootloader</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-12-4通过-sideload-更新系统"><a href="#2-12-4通过-sideload-更新系统" class="headerlink" title="2.12.4通过 sideload 更新系统"></a><strong>2.12.4通过 sideload 更新系统</strong></h3><p>如果我们下载了 Android 设备对应的系统更新包到电脑上，那么也可以通过 adb 来完成更新。</p>
+<p>以 Recovery 模式下更新为例：</p>
+<p>1.重启到 Recovery 模式。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot recovery</span><br></pre></td></tr></table></figure>
+
+<p>2.在设备的 Recovery 界面上操作进入 Apply update-Apply from ADB。</p>
+<p>注：不同的 Recovery 菜单可能与此有差异，有的是一级菜单就有 Apply update from ADB。</p>
+<p>3.通过 adb 上传和更新系统。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$adb</span> sideload &lt;path<span class="literal">-to</span><span class="literal">-update</span>.zip&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-13-更多-adb-shell-命令"><a href="#2-13-更多-adb-shell-命令" class="headerlink" title="2.13 更多 adb shell 命令"></a><strong>2.13 更多 adb shell 命令</strong></h2><h3 id="2-13-1查看进程"><a href="#2-13-1查看进程" class="headerlink" title="2.13.1查看进程"></a><strong>2.13.1查看进程</strong></h3><p>adb shell ps</p>
+<h3 id="2-13-2查看实时资源占用情况"><a href="#2-13-2查看实时资源占用情况" class="headerlink" title="2.13.2查看实时资源占用情况"></a><strong>2.13.2查看实时资源占用情况</strong></h3><p>adb shell top</p>
+<p>top命令参数如下：</p>
+<p>使用方法: top [ -m max_procs ] [ -n iterations ] [ -d delay ] [ -s sort_column ] [ -t ] [ -h ]</p>
+<blockquote>
+<p>-m num 最多显示多少个进程<br>-n num 刷新多少次后退出<br>-d num 刷新时间间隔（单位秒，默认值 5）<br>-s col 按某列排序（可用 col 值：cpu, vss, rss, thr）<br>-t 显示线程信息<br>-h 显示帮助文档</p>
+</blockquote>
+<p><strong>2.13.3其它</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-6044fe28a519255e62608e7ea542e65c_1440w.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>软件测试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>sql循环生成数据</title>
+    <url>/2022/03/11/sql%E5%BE%AA%E7%8E%AF%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>使用python脚本，批量生成mysql数据，并插入到服务器中</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 导入pymysql模块</span></span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接database</span></span><br><span class="line">conn = pymysql.connect(host=<span class="string">&#x27;ip&#x27;</span>, user=<span class="string">&#x27;root&#x27;</span>, port=<span class="number">3306</span>, password=<span class="string">&#x27;admin&#x27;</span>, db=<span class="string">&#x27;iod&#x27;</span>,charset=<span class="string">&#x27;utf8mb4&#x27;</span>)</span><br><span class="line"><span class="comment"># 得到一个可以执行SQL语句的光标对象</span></span><br><span class="line">cursor = conn.cursor()</span><br><span class="line"><span class="comment"># 插入sql</span></span><br><span class="line">sql = <span class="string">&quot;&quot;&quot;INSERT INTO table(column1,column2...) VALUES (value1,value2,...);</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行SQL语句，一次生成100W条太费时间，每1000条循环一次</span></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">    [cursor.execute(sql) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>)]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Done &quot;</span>+<span class="built_in">str</span>(k))</span><br><span class="line"><span class="comment"># 提交事务</span></span><br><span class="line">conn.commit()</span><br><span class="line">cursor.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+  </entry>
 </search>

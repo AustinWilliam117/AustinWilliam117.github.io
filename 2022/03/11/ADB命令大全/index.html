@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转载自：知乎：木头人  常用命令用于速查，都是经常需要用到的，没有接触过adb命令从第二节开始看，对每个命令有详细解释。 1. 常用命令：123456789101112131415161718192021222324252627282930313233343536373839404142434445adb devices #查看连接设备adb -s cf27456f shell # 指定连接设备">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ADB命令大全">
+<meta property="og:url" content="http://example.com/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="转载自：知乎：木头人  常用命令用于速查，都是经常需要用到的，没有接触过adb命令从第二节开始看，对每个命令有详细解释。 1. 常用命令：123456789101112131415161718192021222324252627282930313233343536373839404142434445adb devices #查看连接设备adb -s cf27456f shell # 指定连接设备">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c1eb5c565ef8dbea3610dc7957225917_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-19f07a6dc7f9b589c0ca808be3302e32_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1991d0e88f480209f16d87c8dabf69b5_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-bd196a935a4b328d77fdfef289dc1926_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-a88f429d1bdaccbae6f7feeef65546d8_1440w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6044fe28a519255e62608e7ea542e65c_1440w.jpg">
+<meta property="article:published_time" content="2022-03-11T15:29:59.000Z">
+<meta property="article:modified_time" content="2022-03-11T15:31:59.967Z">
+<meta property="article:author" content="蒙珣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-c1eb5c565ef8dbea3610dc7957225917_1440w.jpg">
+
+<link rel="canonical" href="http://example.com/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>ADB命令大全 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">未来很长，当有勇气面对，当与自己和解。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">34</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">146</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ADB命令大全
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-11 23:29:59 / Modified: 23:31:59" itemprop="dateCreated datePublished" datetime="2022-03-11T23:29:59+08:00">2022-03-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>9 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>转载自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89060003">知乎：木头人</a></p>
+</blockquote>
+<p>常用命令用于速查，都是经常需要用到的，没有接触过adb命令从第二节开始看，对每个命令有详细解释。</p>
+<h2 id="1-常用命令："><a href="#1-常用命令：" class="headerlink" title="1. 常用命令："></a>1. 常用命令：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">adb devices #查看连接设备</span><br><span class="line"></span><br><span class="line">adb -s cf27456f shell # 指定连接设备使用命令</span><br><span class="line"></span><br><span class="line">adb install test.apk # 安装应用</span><br><span class="line"></span><br><span class="line">adb install -r demo.apk #重新安装现有应用，保留其数据。</span><br><span class="line"></span><br><span class="line">adb uninstall cn.com.test.mobile #卸载应用，需要指定包</span><br><span class="line"></span><br><span class="line">adb uninstall -k cn.com.test.mobile #卸载app 但保留数据和缓存文件</span><br><span class="line"></span><br><span class="line">adb shell pm list packages #列出手机装的所有app 的包名</span><br><span class="line"></span><br><span class="line">adb shell pm list packages -3 #列出除了系统应用的第三方应用包名</span><br><span class="line"></span><br><span class="line">adb shell pm clear cn.com.test.mobile #清除应用数据与缓存</span><br><span class="line"></span><br><span class="line">adb shell am start -ncn.com.test.mobile/.ui.SplashActivity #启动应用</span><br><span class="line"></span><br><span class="line">adb shell dumpsys package #包信息Package Information</span><br><span class="line"></span><br><span class="line">adb shell dumpsys meminfo #内存使用情况Memory Usage</span><br><span class="line"></span><br><span class="line">adb shell am force-stop cn.com.test.mobile #强制停止应用</span><br><span class="line"></span><br><span class="line">adb logcat #查看日志</span><br><span class="line"></span><br><span class="line">adb logcat -c #清除log 缓存</span><br><span class="line"></span><br><span class="line">adb reboot #重启</span><br><span class="line"></span><br><span class="line">adb get-serialno #获取序列号</span><br><span class="line"></span><br><span class="line">adb shell getprop ro.build.version.release #查看Android 系统版本</span><br><span class="line"></span><br><span class="line">adb shell top -s 10 #查看占用内存前10 的app</span><br><span class="line"></span><br><span class="line">adb push &lt;local&gt; &lt;remote&gt; #从本地复制文件到设备</span><br><span class="line"></span><br><span class="line">adb pull &lt;remote&gt; &lt;local&gt; #从设备复制文件到本地</span><br><span class="line"></span><br><span class="line">adb bugreport #查看bug 报告</span><br><span class="line"></span><br><span class="line">adb help #查看ADB 帮助</span><br></pre></td></tr></table></figure>
+
+
+
+<span id="more"></span>
+
+
+
+<h2 id="2-1-连接设备"><a href="#2-1-连接设备" class="headerlink" title="2.1 连接设备"></a>2.1 连接设备</h2><p><strong>adb [-d|-e|-s <serialNumber>] <command></strong></p>
+<p>连接指定设备</p>
+<p>参数：</p>
+<p>-d 指定当前唯一通过USB 连接的Android 设备为命令目标</p>
+<p>-e 指定当前唯一运行的模拟器为命令目标</p>
+<p>-s <serialNumber> 指定相应serialNumber 号的设备/模拟器为命令目标</p>
+<p>command 为所需对设备执行的命令</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> devices</span><br><span class="line">List of devices attached</span><br><span class="line">cf263b7f device</span><br><span class="line">emulator<span class="literal">-5554</span> offline</span><br><span class="line"><span class="number">192.168</span>.<span class="number">1.6</span>:<span class="number">5555</span> device</span><br><span class="line"><span class="variable">$adb</span> <span class="literal">-s</span> cf263b7f <span class="comment">#连接cf264b8f 设备</span></span><br></pre></td></tr></table></figure>
+
+<p>adb devices 查看已连接的设备信息, 上面已经连接3台设备。</p>
+<h2 id="2-2-查看信息"><a href="#2-2-查看信息" class="headerlink" title="2.2 查看信息"></a>2.2 查看信息</h2><p><strong>2.2.1 查看版本设备</strong></p>
+<p><strong>adb version</strong> 查看adb 版本信息</p>
+<p><strong>adb devices</strong> 查看adb 连接设备</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> devices</span><br><span class="line">List of devices attached</span><br><span class="line"><span class="number">1226959</span>f device</span><br><span class="line"><span class="number">3426422</span>f offline</span><br></pre></td></tr></table></figure>
+
+<p>注意：offline 表示设备未连接成功或无响应，device 设备已连接</p>
+<p><strong>adb shell getprop ro.product.model</strong> 查看设备型号</p>
+<p><strong>adb get-serialno</strong> 获取设备序列号</p>
+<p><strong>adb bugreport</strong> 查看bug 报告</p>
+<p><strong>adb logcat</strong> 查看日志</p>
+<p><strong>adb shell wm size</strong> 查看屏幕分辨率</p>
+<p><strong>adb shell wm density</strong> 查看屏幕密度</p>
+<p><strong>2.2.2 查看应用信息</strong></p>
+<p><strong>adb shell pm list packages</strong> 列出手机装的所有app 的包名</p>
+<p><strong>adb shell pm list packages -s</strong> 列出系统应用的所有包名</p>
+<p><strong>adb shell pm list packages -3</strong> 列出除了系统应用的第三方应用包名</p>
+<p><strong>adb shell pm list packages | find “test” win</strong> 列出手机装带有的test的包</p>
+<p><strong>adb shell pm list packages | grep ‘test’ linux</strong> 列出手机装带有的test的包</p>
+<p><strong>adb shell cat */sys/class/net/wlan0/address*</strong> 获取MAC 地址, 根据系统版本参数可能不同</p>
+<p><strong>adb shell getprop ro.build.version.release</strong> 查看Android 系统版本</p>
+<p><strong>adb shell dumpsys activity services [<packagename>]</strong> 查看正在运行的Services</p>
+<p><packagename> 参数不是必须的，指定<packagename> 表示查看与某个包名相关的Services，不指定表示查看所有Services。</p>
+<p><packagename> 不一定要给出完整的包名，比如运行adb shell dumpsys activity services org.zhihu，那么包名org.zhihu.demo1、org.zhihu.demo2 和org.zhihu 等相关的Services 都会列出来。</p>
+<h2 id="2-3-app-安装和卸载"><a href="#2-3-app-安装和卸载" class="headerlink" title="2.3 app 安装和卸载"></a>2.3 app 安装和卸载</h2><p><strong>2.3.1 app 安装：</strong></p>
+<p><strong>adb install <apkfile></strong> 参数apkfile 为.apk 文件名称</p>
+<p><strong>adb install -r *test.apk*</strong> 保留数据和缓存文件，重新安装apk</p>
+<p><strong>adb install -s *test.apk*</strong> 安装apk 到sd 卡</p>
+<p><strong>2.3.2 app 卸载</strong></p>
+<p><strong>adb uninstall <package></strong> 参数package 为软件包名称</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> uninstall cn.com.test.mobile</span><br><span class="line"> </span><br><span class="line"><span class="comment">#  卸载app 但保留数据和缓存文件</span></span><br><span class="line"><span class="variable">$adb</span> uninstall <span class="literal">-k</span> ccn.com.test.mobile </span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-启动停止服务"><a href="#2-4-启动停止服务" class="headerlink" title="2.4 启动停止服务"></a>2.4 启动停止服务</h2><p><strong>adb start-server</strong></p>
+<p>启动adb 服务，基本不会用到，因为只要设备连接正确，会自动启动adb server</p>
+<p><strong>adb kill-server</strong></p>
+<p>停止adb server</p>
+<p><strong>adb -P <port> start-server</strong></p>
+<p>指定adb server 的网络端口port （默认为5037）启动服务</p>
+<h2 id="2-5-与应用交互"><a href="#2-5-与应用交互" class="headerlink" title="2.5 与应用交互"></a>2.5 与应用交互</h2><p><strong>adb shell pm clear <packagename></strong></p>
+<p>清除应用数据与缓存</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell pm <span class="built_in">clear</span> cn.com.test.mobile</span><br></pre></td></tr></table></figure>
+
+<p><strong>adb shell am force-stop <packagename></strong></p>
+<p>强制停止应用</p>
+<p>示例：强制停止微信</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell am force<span class="literal">-stop</span> com.tencent.mm</span><br></pre></td></tr></table></figure>
+
+<p><strong>adb shell am <command></strong></p>
+<p>command 命令详解</p>
+<blockquote>
+<p>command 用途<br>start [options] <INTENT> 启动 <INTENT> 指定的 Activity<br>startservice [options] <INTENT> 启动 <INTENT> 指定的 Service<br>broadcast [options] <INTENT> 发送 <INTENT> 指定的广播<br>force-stop <packagename> 停止 <packagename> 相关的进程</p>
+</blockquote>
+<p><INTENT> 参数很灵活，和写 Android 程序时代码里的 Intent 相对应,用于决定 intent 对象的选项如下：</p>
+<blockquote>
+<p>-a <ACTION> 指定 action，如android.intent.action.VIEW<br>-c <CATEGORY> 指定 category，如android.intent.category.APP_CONTACTS<br>-n <COMPONENT> 指定完整 component 名，用于明确指定启动哪个 Activity，如<br><a href="https://link.zhihu.com/?target=http://com.example.app/.ExampleActivity">com.example.app/.ExampleActivity</a></p>
+</blockquote>
+<p><strong>2.5.1 启动 Activity</strong></p>
+<p><strong>adb shell am start [options] <INTENT></strong></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">#指定完整 component 名，用于明确指定启动哪个Activity</span></span><br><span class="line"><span class="variable">$adb</span> shell am <span class="built_in">start</span> <span class="literal">-n</span> &lt;COMPONENT&gt;  </span><br><span class="line">如： <span class="comment">#表示调起微信主界面</span></span><br><span class="line"><span class="variable">$adb</span> shell am <span class="built_in">start</span> <span class="literal">-n</span> com.tencent.mm/.ui.LauncherUI  </span><br></pre></td></tr></table></figure>
+
+<p><strong>2.5.2 启动 Service</strong></p>
+<p><strong>adb shell am startservice [options] <INTENT></strong></p>
+<p>示例： 表示调起微信的某 Service。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell am startservice <span class="literal">-n</span> com.tencent.mm/.plugin.accountsync.model.AccountAuthenticatorService</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.5.3 发送广播</strong></p>
+<p>可以向所有组件广播，也可以只向指定组件广播。</p>
+<p>adb shell am broadcast [options] <INTENT></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#向所有组件广播 BOOT_COMPLETED (开机广播)</span></span><br><span class="line"><span class="variable">$adb</span> shell am broadcast <span class="literal">-a</span> android.intent.action.BOOT_COMPLETED   </span><br><span class="line"><span class="comment">#如：只向 org.mazhuang.boottimemeasure/.BootCompletedReceiver 广播 BOOT_COMPLETED：</span></span><br><span class="line"><span class="variable">$adb</span> shell am broadcast <span class="literal">-a</span> android.intent.action.BOOT_COMPLETED <span class="literal">-n</span> org.mazhuang.boottimemeasure/.BootCompletedReceiver</span><br></pre></td></tr></table></figure>
+
+<p>系统预定义的广播：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c1eb5c565ef8dbea3610dc7957225917_1440w.jpg" alt="img">Android 系统预定义广播</p>
+<p><strong>2.5.4 强制停止应用</strong></p>
+<p><strong>adb shell am force-stop <packagename></strong></p>
+<p><em>示例：</em></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 查询出包名</span></span><br><span class="line"><span class="variable">$adb</span> shell pm list packages </span><br><span class="line">.....</span><br><span class="line"><span class="comment"># 强制停止微信</span></span><br><span class="line"><span class="variable">$adb</span> shell am force<span class="literal">-stop</span> com.tencent.mm</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-6-文件管理"><a href="#2-6-文件管理" class="headerlink" title="2.6 文件管理"></a><strong>2.6 文件管理</strong></h2><p><strong>2.6.1 复制设备里的文件到电脑</strong></p>
+<p><strong>adb pull &lt;设备里的文件路径&gt; [电脑上的目录]</strong></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> pull /sdcard/abc.mp4  ~/tmp/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><em><strong>小技巧</strong>：设备上的文件路径可能需要 root 权限才能访问，如果你的设备已经 root 过，可以先使用 adb shell 和 su 命令在 adb shell 里获取 root 权限后，先 cp /path/on/device /sdcard/filename 将文件复制到 sdcard，然后 adb pull /sdcard/filename /path/on/pc。</em></p>
+</blockquote>
+<p><strong>2.6.2 复制电脑里的文件到设备</strong></p>
+<p><strong>adb push &lt;电脑上的文件路径&gt; &lt;设备里的目录&gt;</strong></p>
+<p><strong>示例：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> push  e:/ss.au3  /<span class="keyword">data</span>/local/tmp/</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><em><strong>小技巧</strong>：设备上的文件路径普通权限可能无法直接写入，如果你的设备已经 root 过，可以先 adb push /path/on/pc /sdcard/filename，然后 adb shell 和 su 在 adb shell 里获取 root 权限后，cp /sdcard/filename /path/on/device</em></p>
+</blockquote>
+<h2 id="2-7-使用ADB命令模拟按键-输入"><a href="#2-7-使用ADB命令模拟按键-输入" class="headerlink" title="2.7 使用ADB命令模拟按键/输入"></a><strong>2.7 使用ADB命令模拟按键/输入</strong></h2><p><strong>adb shell input keyevent <keycode></strong></p>
+<p>keycode位操作参数，不同的 keycode 能实现不同的功能</p>
+<p>完整的功能见：<a href="https://link.zhihu.com/?target=https://developer.android.com/reference/android/view/KeyEvent.html">https://developer.android.com/reference/android/view/KeyEvent.html</a></p>
+<p>keycode 能实现不同的功能，对应的编码如下：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-19f07a6dc7f9b589c0ca808be3302e32_1440w.jpg" alt="img">keycode 列表</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">26</span>  <span class="comment">#电源键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">82</span>  <span class="comment">#菜单键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">3</span>  <span class="comment">#HOME 键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">4</span> <span class="comment">#返回键</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">24</span> <span class="comment">#增加音量</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">25</span> <span class="comment">#降低音量</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">164</span> <span class="comment">#静音</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">85</span>  <span class="comment">#播放/暂停</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">86</span> <span class="comment">#停止播放</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">87</span> <span class="comment">#播放下一首</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">88</span> <span class="comment">#播放上一首</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">126</span> <span class="comment">#恢复播放</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">127</span> <span class="comment">#暂停播放</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">224</span> <span class="comment">#点亮屏幕</span></span><br><span class="line"><span class="variable">$adb</span> shell input keyevent <span class="number">223</span> <span class="comment">#熄灭屏幕</span></span><br><span class="line"><span class="variable">$adb</span> shell input swipe <span class="number">300</span> <span class="number">1000</span> <span class="number">300</span> <span class="number">500</span>  <span class="comment">#滑动解锁，向上滑动手势解锁</span></span><br><span class="line"><span class="comment">#参数 300 1000 300 500 分别表示起始点x坐标 起始点y坐标 结束点x坐标 结束点y坐标 </span></span><br><span class="line"><span class="variable">$adb</span> shell input text hello <span class="comment">#焦点处于某文本框时输入文本</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-8-查看日志"><a href="#2-8-查看日志" class="headerlink" title="2.8 查看日志"></a><strong>2.8 查看日志</strong></h2><h3 id="2-8-1-Android-日志"><a href="#2-8-1-Android-日志" class="headerlink" title="2.8.1 Android 日志"></a><strong>2.8.1 Android 日志</strong></h3><p><strong>[adb] logcat [<option>] … [<filter-spec>] …</strong></p>
+<p>*<strong>按级别过滤日志*</strong></p>
+<p>按某级别过滤日志则会将该级别及以上的日志输出，Android 日志的优先级如下：</p>
+<blockquote>
+<p>V —— Verbose（最低，输出得最多）<br>D —— Debug<br>I —— Info<br>W —— Warning<br>E —— Error<br>F —— Fatal<br>S —— Silent（最高，啥也不输出）</p>
+</blockquote>
+<p>示例：输出W之上的日志，W,E,F,S</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat *:W</span><br></pre></td></tr></table></figure>
+
+<p>*<strong>按 tag 和级别过滤日志*</strong></p>
+<p><filter-spec> 可以由多个 <tag>[:priority] 组成</p>
+<p>示例：输出 tag ActivityManager 的 I 以上级别日志，输出tag MyApp的D 以上级别日志，及其它 tag 的 S 级别日志（即屏蔽其它 tag 日志）。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat ActivityManager:I MyApp:D *:S</span><br></pre></td></tr></table></figure>
+
+<p>*<strong>日志格式*</strong></p>
+<p><strong>adb logcat -v <format></strong></p>
+<p>指定日志输出格式</p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> &lt;format&gt;  指定日志输出格式</span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> brief   <span class="comment">#默认格式,&lt;priority&gt;/&lt;tag&gt;(&lt;pid&gt;): &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> <span class="keyword">process</span> <span class="comment">#&lt;priority&gt;(&lt;pid&gt;) &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> tag  <span class="comment">#&lt;priority&gt;/&lt;tag&gt;: &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> raw  <span class="comment">#&lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> time  <span class="comment">#&lt;datetime&gt; &lt;priority&gt;/&lt;tag&gt;(&lt;pid&gt;): &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> threadtime <span class="comment">#&lt;datetime&gt; &lt;pid&gt; &lt;tid&gt; &lt;priority&gt; &lt;tag&gt;: &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> long  <span class="comment">#[ &lt;datetime&gt; &lt;pid&gt;:&lt;tid&gt; &lt;priority&gt;/&lt;tag&gt;:] &lt;message&gt;</span></span><br><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-v</span> long ActivityManager:I *:S  <span class="comment">#指定格式可与上面的过滤同时使用</span></span><br></pre></td></tr></table></figure>
+
+<p>*<strong>清空日志*</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> logcat <span class="literal">-c</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2.8.2 内核日志</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dmesg  </span><br></pre></td></tr></table></figure>
+
+<p>查看内核日志</p>
+<h2 id="2-9-查看设备信息"><a href="#2-9-查看设备信息" class="headerlink" title="2.9 查看设备信息"></a><strong>2.9 查看设备信息</strong></h2><h3 id="2-9-1-型号"><a href="#2-9-1-型号" class="headerlink" title="2.9.1 型号"></a><strong>2.9.1 型号</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell getprop ro.product.model</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-2-电池状况"><a href="#2-9-2-电池状况" class="headerlink" title="2.9.2 电池状况"></a><strong>2.9.2 电池状况</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dumpsys battery</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-3-屏幕分辨率"><a href="#2-9-3-屏幕分辨率" class="headerlink" title="2.9.3 屏幕分辨率"></a><strong>2.9.3 屏幕分辨率</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell wm size</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-4-屏幕密度"><a href="#2-9-4-屏幕密度" class="headerlink" title="2.9.4 屏幕密度"></a><strong>2.9.4 屏幕密度</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell wm density</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-5-显示屏参数"><a href="#2-9-5-显示屏参数" class="headerlink" title="2.9.5 显示屏参数"></a><strong>2.9.5 显示屏参数</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dumpsys window displays</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-6-android-id"><a href="#2-9-6-android-id" class="headerlink" title="2.9.6 android_id"></a><strong>2.9.6 android_id</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell settings get secure android_id</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-7-IMEI"><a href="#2-9-7-IMEI" class="headerlink" title="2.9.7 IMEI"></a><strong>2.9.7 IMEI</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell dumpsys iphonesubinfo</span><br><span class="line"><span class="comment">#而在 Android 5.0 及以上版本里这个命令输出为空，得通过其它方式获取了（需要 root 权限）：</span></span><br><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line"><span class="variable">$service</span> call iphonesubinfo <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-8-Android-系统版本"><a href="#2-9-8-Android-系统版本" class="headerlink" title="2.9.8 Android 系统版本"></a><strong>2.9.8 Android 系统版本</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell getprop ro.build.version.release</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-9-IP-地址"><a href="#2-9-9-IP-地址" class="headerlink" title="2.9.9 IP 地址"></a><strong>2.9.9 IP 地址</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell ifconfig | find “Mask”</span><br><span class="line"><span class="variable">$adb</span> shell ifconfig wlan0 <span class="comment">#设备连着 WiFi，可以使用如下命令来查看局域网 IP</span></span><br><span class="line"><span class="variable">$adb</span> shell netcfg <span class="comment"># 上面两个无结果可以用这个，查看网络连接状态</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-10-Mac-地址"><a href="#2-9-10-Mac-地址" class="headerlink" title="2.9.10 Mac 地址"></a><strong>2.9.10 Mac 地址</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /sys/<span class="class"><span class="keyword">class</span>/<span class="title">net</span>/<span class="title">wlan0</span>/<span class="title">address</span> # 设备不同可能地址不同</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-11-CPU-信息"><a href="#2-9-11-CPU-信息" class="headerlink" title="2.9.11 CPU 信息"></a><strong>2.9.11 CPU 信息</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /proc/cpuinfo</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-12-内存信息"><a href="#2-9-12-内存信息" class="headerlink" title="2.9.12 内存信息"></a><strong>2.9.12 内存信息</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /proc/meminfo</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-9-13更多硬件与系统属性"><a href="#2-9-13更多硬件与系统属性" class="headerlink" title="2.9.13更多硬件与系统属性"></a><strong>2.9.13更多硬件与系统属性</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /system/build.prop</span><br></pre></td></tr></table></figure>
+
+<p><strong>adb shell getprop &lt;属性名&gt;</strong></p>
+<p>也可以</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /system/build.prop | grep ro.product.cpu.abi</span><br><span class="line"><span class="variable">$adb</span> shell <span class="built_in">cat</span> /system/build.prop | find “ro.product.cpu.abi”</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic2.zhimg.com/80/v2-1991d0e88f480209f16d87c8dabf69b5_1440w.jpg" alt="img"></p>
+<h2 id="2-10-修改设置"><a href="#2-10-修改设置" class="headerlink" title="2.10 修改设置"></a><strong>2.10 修改设置</strong></h2><p>修改设置之后，运行恢复命令仍然不太正常，可以运行 adb reboot 重启设备或手动重启。</p>
+<p>修改设置的原理主要是通过 settings 命令修改 /data/data/com.android.providers.settings/databases/settings.db 里存放的设置值。</p>
+<h3 id="2-10-1分辨率"><a href="#2-10-1分辨率" class="headerlink" title="2.10.1分辨率"></a><strong>2.10.1分辨率</strong></h3><p><strong>adb shell wm size *480x1024*</strong> #将分辨率修改为 480px * 1024px</p>
+<p><strong>adb shell wm size reset</strong> #恢复原分辨率</p>
+<h3 id="2-10-2屏幕密度"><a href="#2-10-2屏幕密度" class="headerlink" title="2.10.2屏幕密度"></a><strong>2.10.2屏幕密度</strong></h3><p><strong>adb shell wm density *160*</strong> #屏幕密度修改为 160dpi</p>
+<p><strong>adb shell wm density reset</strong> #恢复原屏幕密度</p>
+<h3 id="2-10-3显示区域"><a href="#2-10-3显示区域" class="headerlink" title="2.10.3显示区域"></a><strong>2.10.3显示区域</strong></h3><p><strong>adb shell wm overscan *0,0,0,100*</strong></p>
+<p># 四个数字分别表示距离左、上、右、下边缘的留白像素，以上命令表示将屏幕底部 100px留白</p>
+<p><strong>adb shell wm overscan reset</strong> #恢复显示区域</p>
+<h3 id="2-10-4-关闭-USB-调试模式"><a href="#2-10-4-关闭-USB-调试模式" class="headerlink" title="2.10.4 关闭 USB 调试模式"></a><strong>2.10.4 关闭 USB 调试模式</strong></h3><p><strong>adb shell settings put global adb_enabled 0</strong></p>
+<p>使用命令无法恢复调试模式，只能通过手动</p>
+<h3 id="2-10-5-状态栏和导航栏的显示隐藏"><a href="#2-10-5-状态栏和导航栏的显示隐藏" class="headerlink" title="2.10.5 状态栏和导航栏的显示隐藏"></a><strong>2.10.5 状态栏和导航栏的显示隐藏</strong></h3><p><strong>adb shell settings put global policy_control <key-values></strong></p>
+<p><key-values> 可由如下几种键及其对应的值组成，格式为 <key1>=<value1>:<key2>=<value2></p>
+<p>key 键对应的值</p>
+<p><img src="https://pic3.zhimg.com/80/v2-bd196a935a4b328d77fdfef289dc1926_1440w.jpg" alt="img"></p>
+<p>这些键对应的值可则如下值用逗号组合</p>
+<p><img src="https://pic1.zhimg.com/80/v2-a88f429d1bdaccbae6f7feeef65546d8_1440w.jpg" alt="img"></p>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置在所有界面下都同时隐藏状态栏和导航栏</span></span><br><span class="line"><span class="variable">$adb</span> shell settings put global policy_control immersive.full=*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置在包名为 com.package1 和 com.package2 的应用里隐藏状态栏，在除了包名为 com.package3 的所有应用里隐藏导航栏。</span></span><br><span class="line"><span class="variable">$adb</span> shell settings put global policy_control immersive.status=com.package1,com.package2:immersive.navigation=apps,<span class="literal">-com</span>.package3</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-11-实用功能"><a href="#2-11-实用功能" class="headerlink" title="2.11 实用功能"></a><strong>2.11 实用功能</strong></h2><h3 id="2-11-1屏幕截图"><a href="#2-11-1屏幕截图" class="headerlink" title="2.11.1屏幕截图"></a><strong>2.11.1屏幕截图</strong></h3><p><strong>adb exec-out screencap -p &gt; img.png</strong> # 老版本无exec-out命令，只适合于新版的截图</p>
+<p><strong>adb shell screencap -p /sdcard/img.png</strong> # 老版本截图先保存在设备端</p>
+<p><strong>adb pull /sdcard/img.png</strong> # 通过pull拷贝到本地</p>
+<p>screencap 参数：</p>
+<p>参数 含义</p>
+<p>-p 指定保存文件为 png 格式</p>
+<p>-d display-id 指定截图的显示屏编号（有多显示屏的情况下）</p>
+<h3 id="2-11-2录制屏幕"><a href="#2-11-2录制屏幕" class="headerlink" title="2.11.2录制屏幕"></a><strong>2.11.2录制屏幕</strong></h3><p><strong>#</strong> 默认录制时间和最长录制时间都是180s</p>
+<p><strong>adb shell screenrecord /sdcard/filename.mp4</strong></p>
+<p>screenrecord 参数：</p>
+<p>参数 含义</p>
+<p>–size WIDTHxHEIGHT 视频的尺寸，比如 1280x720，默认是屏幕分辨率。</p>
+<p>–bit-rate RATE 视频的比特率，默认是 4Mbps。</p>
+<p>–time-limit TIME 录制时长，单位秒。</p>
+<p>–verbose 输出更多信息。</p>
+<p><strong>2.11.3 重新挂载 system 分区为可写</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<p>/system 分区默认挂载为只读，但有些操作比如给 Android 系统添加命令、删除自带应用等需要对 /system 进行写操作，所以需要重新挂载它为可读写。</p>
+<p>步骤：</p>
+<p>1.进入 shell 并切换到 root 用户权限。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br></pre></td></tr></table></figure>
+
+<p>2.查看当前分区挂载情况。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$mount</span></span><br><span class="line">输出如下</span><br><span class="line">.....</span><br><span class="line">debugfs /sys/kernel/debug debugfs rw,relatime <span class="number">0</span> <span class="number">0</span></span><br><span class="line">none /acct cgroup rw,relatime,cpuacct <span class="number">0</span> <span class="number">0</span></span><br><span class="line">none /sys/fs/cgroup tmpfs rw,seclabel,relatime,mode=<span class="number">750</span>,gid=<span class="number">1000</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">tmpfs /mnt/obb tmpfs rw,seclabel,relatime,mode=<span class="number">755</span>,gid=<span class="number">1000</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">none /dev/cpuctl cgroup rw,relatime,cpu <span class="number">0</span> <span class="number">0</span></span><br><span class="line">/dev/block/mtdblock0 /system ext4 ro,seclabel,relatime,<span class="keyword">data</span>=ordered <span class="number">0</span> <span class="number">0</span></span><br><span class="line">.......</span><br></pre></td></tr></table></figure>
+
+<p>找到其中我们关注的带 <strong>/system</strong> 的那一行：</p>
+<p>3.重新挂载。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$mount</span> <span class="literal">-o</span> remount,rw <span class="literal">-t</span> yaffs2 /dev/block/mtdblock0 /system</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.4 查看连接过的 WiFi 密码</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br><span class="line"><span class="variable">$cat</span> /<span class="keyword">data</span>/misc/wifi/*.conf</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.5设置系统日期和时间</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br><span class="line"><span class="variable">$date</span> <span class="literal">-s</span> <span class="number">20190531.131600</span>  <span class="comment">#将系统日期和时间更改为 2019 年 05 月 31 日 13 点 16 分 00 秒。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.6 重启手机</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.11.7 检测设备是否已 root</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> shell</span><br><span class="line"><span class="variable">$su</span></span><br></pre></td></tr></table></figure>
+
+<p>此时命令行提示符是 $ 则表示没有 root 权限，是 # 则表示已 root。</p>
+<p><strong>2.11.8 使用 Monkey 进行压力测试</strong></p>
+<p>Monkey 可以生成伪随机用户事件来模拟单击、触摸、手势等操作，可以对正在开发中的程序进行随机压力测试。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 向 &lt;packagename&gt; 指定的应用程序发送 500 个伪随机事件</span></span><br><span class="line"><span class="variable">$adb</span> shell monkey <span class="literal">-p</span> &lt;packagename&gt; <span class="literal">-v</span> <span class="number">500</span></span><br></pre></td></tr></table></figure>
+
+<p>monkey 官方文档 <a href="https://link.zhihu.com/?target=https://developer.android.com/studio/test/monkey.html">https://developer.android.com/studio/test/monkey.html</a></p>
+<p><strong>2.11.9 开启/关闭 WiFi</strong></p>
+<p><strong>注：需要 root 权限</strong></p>
+<p>开启 WiFi：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> root</span><br><span class="line"><span class="variable">$adb</span> shell svc wifi enable</span><br></pre></td></tr></table></figure>
+
+<p>关闭 WiFi：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> root</span><br><span class="line"><span class="variable">$adb</span> shell svc wifi disable</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-12刷机相关命令"><a href="#2-12刷机相关命令" class="headerlink" title="2.12刷机相关命令"></a><strong>2.12刷机相关命令</strong></h2><p><strong>注：不要随便操作，没实验过无法保证成功</strong></p>
+<h3 id="2-12-1重启到-Recovery-模式"><a href="#2-12-1重启到-Recovery-模式" class="headerlink" title="2.12.1重启到 Recovery 模式"></a><strong>2.12.1重启到 Recovery 模式</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot recovery</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-12-2从-Recovery-重启到-Android"><a href="#2-12-2从-Recovery-重启到-Android" class="headerlink" title="2.12.2从 Recovery 重启到 Android"></a><strong>2.12.2从 Recovery 重启到 Android</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-12-3重启到-Fastboot-模式"><a href="#2-12-3重启到-Fastboot-模式" class="headerlink" title="2.12.3重启到 Fastboot 模式"></a><strong>2.12.3重启到 Fastboot 模式</strong></h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot bootloader</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-12-4通过-sideload-更新系统"><a href="#2-12-4通过-sideload-更新系统" class="headerlink" title="2.12.4通过 sideload 更新系统"></a><strong>2.12.4通过 sideload 更新系统</strong></h3><p>如果我们下载了 Android 设备对应的系统更新包到电脑上，那么也可以通过 adb 来完成更新。</p>
+<p>以 Recovery 模式下更新为例：</p>
+<p>1.重启到 Recovery 模式。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> reboot recovery</span><br></pre></td></tr></table></figure>
+
+<p>2.在设备的 Recovery 界面上操作进入 Apply update-Apply from ADB。</p>
+<p>注：不同的 Recovery 菜单可能与此有差异，有的是一级菜单就有 Apply update from ADB。</p>
+<p>3.通过 adb 上传和更新系统。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$adb</span> sideload &lt;path<span class="literal">-to</span><span class="literal">-update</span>.zip&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-13-更多-adb-shell-命令"><a href="#2-13-更多-adb-shell-命令" class="headerlink" title="2.13 更多 adb shell 命令"></a><strong>2.13 更多 adb shell 命令</strong></h2><h3 id="2-13-1查看进程"><a href="#2-13-1查看进程" class="headerlink" title="2.13.1查看进程"></a><strong>2.13.1查看进程</strong></h3><p>adb shell ps</p>
+<h3 id="2-13-2查看实时资源占用情况"><a href="#2-13-2查看实时资源占用情况" class="headerlink" title="2.13.2查看实时资源占用情况"></a><strong>2.13.2查看实时资源占用情况</strong></h3><p>adb shell top</p>
+<p>top命令参数如下：</p>
+<p>使用方法: top [ -m max_procs ] [ -n iterations ] [ -d delay ] [ -s sort_column ] [ -t ] [ -h ]</p>
+<blockquote>
+<p>-m num 最多显示多少个进程<br>-n num 刷新多少次后退出<br>-d num 刷新时间间隔（单位秒，默认值 5）<br>-s col 按某列排序（可用 col 值：cpu, vss, rss, thr）<br>-t 显示线程信息<br>-h 显示帮助文档</p>
+</blockquote>
+<p><strong>2.13.3其它</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-6044fe28a519255e62608e7ea542e65c_1440w.jpg" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/11/sql%E5%BE%AA%E7%8E%AF%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE/" rel="prev" title="sql循环生成数据">
+      <i class="fa fa-chevron-left"></i> sql循环生成数据
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">1. 常用命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E8%BF%9E%E6%8E%A5%E8%AE%BE%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">2.1 连接设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">2.2 查看信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-app-%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%B8%E8%BD%BD"><span class="nav-number">4.</span> <span class="nav-text">2.3 app 安装和卸载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E5%90%AF%E5%8A%A8%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.</span> <span class="nav-text">2.4 启动停止服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E4%B8%8E%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BA%92"><span class="nav-number">6.</span> <span class="nav-text">2.5 与应用交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">2.6 文件管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-%E4%BD%BF%E7%94%A8ADB%E5%91%BD%E4%BB%A4%E6%A8%A1%E6%8B%9F%E6%8C%89%E9%94%AE-%E8%BE%93%E5%85%A5"><span class="nav-number">8.</span> <span class="nav-text">2.7 使用ADB命令模拟按键&#x2F;输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">9.</span> <span class="nav-text">2.8 查看日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-1-Android-%E6%97%A5%E5%BF%97"><span class="nav-number">9.1.</span> <span class="nav-text">2.8.1 Android 日志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-9-%E6%9F%A5%E7%9C%8B%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF"><span class="nav-number">10.</span> <span class="nav-text">2.9 查看设备信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-1-%E5%9E%8B%E5%8F%B7"><span class="nav-number">10.1.</span> <span class="nav-text">2.9.1 型号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-2-%E7%94%B5%E6%B1%A0%E7%8A%B6%E5%86%B5"><span class="nav-number">10.2.</span> <span class="nav-text">2.9.2 电池状况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-3-%E5%B1%8F%E5%B9%95%E5%88%86%E8%BE%A8%E7%8E%87"><span class="nav-number">10.3.</span> <span class="nav-text">2.9.3 屏幕分辨率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-4-%E5%B1%8F%E5%B9%95%E5%AF%86%E5%BA%A6"><span class="nav-number">10.4.</span> <span class="nav-text">2.9.4 屏幕密度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-5-%E6%98%BE%E7%A4%BA%E5%B1%8F%E5%8F%82%E6%95%B0"><span class="nav-number">10.5.</span> <span class="nav-text">2.9.5 显示屏参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-6-android-id"><span class="nav-number">10.6.</span> <span class="nav-text">2.9.6 android_id</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-7-IMEI"><span class="nav-number">10.7.</span> <span class="nav-text">2.9.7 IMEI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-8-Android-%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC"><span class="nav-number">10.8.</span> <span class="nav-text">2.9.8 Android 系统版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-9-IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">10.9.</span> <span class="nav-text">2.9.9 IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-10-Mac-%E5%9C%B0%E5%9D%80"><span class="nav-number">10.10.</span> <span class="nav-text">2.9.10 Mac 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-11-CPU-%E4%BF%A1%E6%81%AF"><span class="nav-number">10.11.</span> <span class="nav-text">2.9.11 CPU 信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-12-%E5%86%85%E5%AD%98%E4%BF%A1%E6%81%AF"><span class="nav-number">10.12.</span> <span class="nav-text">2.9.12 内存信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-13%E6%9B%B4%E5%A4%9A%E7%A1%AC%E4%BB%B6%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%B1%9E%E6%80%A7"><span class="nav-number">10.13.</span> <span class="nav-text">2.9.13更多硬件与系统属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-10-%E4%BF%AE%E6%94%B9%E8%AE%BE%E7%BD%AE"><span class="nav-number">11.</span> <span class="nav-text">2.10 修改设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-1%E5%88%86%E8%BE%A8%E7%8E%87"><span class="nav-number">11.1.</span> <span class="nav-text">2.10.1分辨率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-2%E5%B1%8F%E5%B9%95%E5%AF%86%E5%BA%A6"><span class="nav-number">11.2.</span> <span class="nav-text">2.10.2屏幕密度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-3%E6%98%BE%E7%A4%BA%E5%8C%BA%E5%9F%9F"><span class="nav-number">11.3.</span> <span class="nav-text">2.10.3显示区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-4-%E5%85%B3%E9%97%AD-USB-%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">11.4.</span> <span class="nav-text">2.10.4 关闭 USB 调试模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-5-%E7%8A%B6%E6%80%81%E6%A0%8F%E5%92%8C%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%9A%84%E6%98%BE%E7%A4%BA%E9%9A%90%E8%97%8F"><span class="nav-number">11.5.</span> <span class="nav-text">2.10.5 状态栏和导航栏的显示隐藏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-11-%E5%AE%9E%E7%94%A8%E5%8A%9F%E8%83%BD"><span class="nav-number">12.</span> <span class="nav-text">2.11 实用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-1%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE"><span class="nav-number">12.1.</span> <span class="nav-text">2.11.1屏幕截图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-2%E5%BD%95%E5%88%B6%E5%B1%8F%E5%B9%95"><span class="nav-number">12.2.</span> <span class="nav-text">2.11.2录制屏幕</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-12%E5%88%B7%E6%9C%BA%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">13.</span> <span class="nav-text">2.12刷机相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-1%E9%87%8D%E5%90%AF%E5%88%B0-Recovery-%E6%A8%A1%E5%BC%8F"><span class="nav-number">13.1.</span> <span class="nav-text">2.12.1重启到 Recovery 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-2%E4%BB%8E-Recovery-%E9%87%8D%E5%90%AF%E5%88%B0-Android"><span class="nav-number">13.2.</span> <span class="nav-text">2.12.2从 Recovery 重启到 Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-3%E9%87%8D%E5%90%AF%E5%88%B0-Fastboot-%E6%A8%A1%E5%BC%8F"><span class="nav-number">13.3.</span> <span class="nav-text">2.12.3重启到 Fastboot 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-4%E9%80%9A%E8%BF%87-sideload-%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F"><span class="nav-number">13.4.</span> <span class="nav-text">2.12.4通过 sideload 更新系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-13-%E6%9B%B4%E5%A4%9A-adb-shell-%E5%91%BD%E4%BB%A4"><span class="nav-number">14.</span> <span class="nav-text">2.13 更多 adb shell 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-13-1%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="nav-number">14.1.</span> <span class="nav-text">2.13.1查看进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-13-2%E6%9F%A5%E7%9C%8B%E5%AE%9E%E6%97%B6%E8%B5%84%E6%BA%90%E5%8D%A0%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">14.2.</span> <span class="nav-text">2.13.2查看实时资源占用情况</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/logo.JPG">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">444k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">6:43</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>
