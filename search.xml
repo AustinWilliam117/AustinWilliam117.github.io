@@ -13744,4 +13744,111 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <category>Python</category>
       </categories>
   </entry>
+  <entry>
+    <title>Docker常用命令</title>
+    <url>/2022/07/11/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="帮助启动类命令"><a href="#帮助启动类命令" class="headerlink" title="帮助启动类命令"></a>帮助启动类命令</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动docker</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止docker</span></span><br><span class="line">sudo systemctl stop docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker状态</span></span><br><span class="line">sudo systemctl status docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开机启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker概要信息</span></span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker总体帮助文档</span></span><br><span class="line">docker --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker命令帮助文档</span></span><br><span class="line">docker 具体命令 --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h3><ul>
+<li><p><code>docker images</code>：列出本地主机上的镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-a：列出本地所有的镜像（含历史映像层）</span><br><span class="line">-q：只显示镜像ID</span><br></pre></td></tr></table></figure></li>
+<li><p><code>docker search 某个xxx镜像名字</code>：</p>
+<p>网站：<a href="https://hub.docker.com/">https://hub.docker.com</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 命令</span></span><br><span class="line">docker search [options] 镜像名字</span><br><span class="line"></span><br><span class="line"><span class="comment"># options说明</span></span><br><span class="line">--<span class="built_in">limit</span>：只列出N个镜像，默认25个</span><br><span class="line">docker search --<span class="built_in">limit</span> 5 redis</span><br></pre></td></tr></table></figure></li>
+<li><p><code>docker pull 某个xxx镜像名字</code>：下载镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写法1：+TAG 镜像版本号</span></span><br><span class="line">docker pull 镜像名字[:TAG]</span><br><span class="line"><span class="comment"># 例如：docker pull redis:6.0.8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写法2：下载最新版latest</span></span><br><span class="line">docker pull 镜像名字</span><br></pre></td></tr></table></figure></li>
+<li><p><code>docker system df</code>：查看镜像、容器、数据卷所占空间</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker system df</span><br><span class="line">TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE</span><br><span class="line">Images          1         1         9.136kB   0B (0%)</span><br><span class="line">Containers      2         0         0B        0B</span><br><span class="line">Local Volumes   0         0         0B        0B</span><br><span class="line">Build Cache     0         0         0B        0B</span><br><span class="line"></span><br><span class="line"><span class="comment"># Images 镜像有几个</span></span><br><span class="line"><span class="comment"># Containers 容器有几个</span></span><br><span class="line"><span class="comment"># Local Volumes 本地卷</span></span><br><span class="line"><span class="comment"># Build Cache 构建的缓存</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>docker rmi 某个xxx镜像名字ID</code>：删除镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-f 强制删除</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除单个镜像</span></span><br><span class="line">docker rmi -f 镜像ID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除多个镜像</span></span><br><span class="line">docker rmi -f 镜像名1:TAG 镜像名2:TAG</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除全部</span></span><br><span class="line">docker rmi -f $(docker images -qa)</span><br><span class="line"><span class="comment"># $() 引用命令</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>问题：docker虚悬镜像是什么？</strong></p>
+<ul>
+<li><p>仓库名、标签都是<none>的镜像，俗称虚悬镜像<code>dangling image</code>，工作中没有什么用，建议删除。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker images</span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED        SIZE</span><br><span class="line">&lt;none&gt;   			&lt;none&gt;    18e5af790473   9 months ago   9.14kB</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h3><ul>
+<li><p>新建+启动容器</p>
+<p><code>docker run [OPTIONS] IMAGE [COMMAND] [ARG]</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># options 说明</span></span><br><span class="line">--name=<span class="string">&quot;容器新名字&quot;</span>	为容器指定一个名称</span><br><span class="line">-d:	后台运行容器并返回容器ID，即启动守护式容器（后台运行）</span><br><span class="line"></span><br><span class="line">-i: 以交互模式运行容器，通常与-t同时使用</span><br><span class="line">-t：为容器重新分配一个伪输入终端，通常与-同时使用</span><br><span class="line">即启动交互式容器（前台有伪终端，等待交互），退出终端输入：<span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">-P：随机端口映射</span><br><span class="line">-p：指定端口映射</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用镜像ubuntu:latest 以交互模式启动一个容器，在容器内执行bash命令</span></span><br><span class="line">$ sudo docker run -it ubuntu bash</span><br><span class="line">root@908d43950860:/<span class="comment"># ps -ef</span></span><br><span class="line">UID          PID    PPID  C STIME TTY          TIME CMD</span><br><span class="line">root           1       0  0 13:00 pts/0    00:00:00 bash</span><br><span class="line">root           9       1  0 13:00 pts/0    00:00:00 ps -ef</span><br><span class="line">root@908d43950860:/<span class="comment"># exit</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure></li>
+<li><p>列出当前所有正在运行的容器</p>
+<p><code>docker ps [OPTIONS]</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># options 说明</span></span><br><span class="line">-a：列出当前所有正在运行的容器+历史上运行过的</span><br><span class="line">-l：显示最近创建的容器</span><br><span class="line">-n：显示最近n个创建的容器</span><br><span class="line">-q：静默模式，只显示容器编号</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker run -it --name=myyu1 ubuntu bash</span><br><span class="line">root@96e714997794:/<span class="comment">#</span></span><br><span class="line"></span><br><span class="line">$ sudo docker ps</span><br><span class="line">CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NAMES</span><br><span class="line">96e714997794   ubuntu    <span class="string">&quot;bash&quot;</span>    45 seconds ago   Up 45 seconds             myyu1</span><br><span class="line"></span><br><span class="line"><span class="comment"># CONTAINER ID 容器名</span></span><br><span class="line"><span class="comment"># IMAGE 镜像名</span></span><br><span class="line"><span class="comment"># COMMAND 运行的命令</span></span><br><span class="line"><span class="comment"># CREATED 运行时间</span></span><br><span class="line"><span class="comment"># PORTS 暴露端口号</span></span><br><span class="line"><span class="comment"># NAMES 名称</span></span><br></pre></td></tr></table></figure></li>
+<li><p>退出容器</p>
+<p><code>exit</code>：run进入容器，exit退出，容器会停止</p>
+<p><code>ctrl+p+q</code>：run进入容器，ctrl+p+q退出，容器不会停止</p>
+</li>
+<li><p>启动已停止运行的容器</p>
+<p><code>docker start 容器ID或容器名</code></p>
+</li>
+<li><p>重启容器</p>
+<p><code>docker restart 容器ID或容器名</code></p>
+</li>
+<li><p>停止容器</p>
+<p><code>docker stop 容器ID或容器名</code></p>
+</li>
+<li><p>强制停止容器</p>
+<p><code>docker kill 容器ID或容器名</code></p>
+</li>
+<li><p>删除已停止的容器</p>
+<p><code>docker rm 容器ID</code></p>
+</li>
+<li><p>一次性删除多个容器实例</p>
+<p><code>docker rm -f $(docker ps -aq)</code> 或者 <code>docker ps -aq | xargs docker rm</code></p>
+</li>
+</ul>
+<h3 id="重要"><a href="#重要" class="headerlink" title="重要"></a>重要</h3><ul>
+<li><p>启动守护式容器（后台服务器）</p>
+<p><code>docker run -d 容器名</code> </p>
+</li>
+<li><p>查看容器日志</p>
+<p><code>docker logs 容器ID</code></p>
+</li>
+<li><p>查看容器内部运行的进程</p>
+<p><code>docker top 容器ID</code></p>
+</li>
+<li><p>查看容器内部细节</p>
+<p><code>docker inspect 容器ID</code></p>
+</li>
+<li><p><strong>进入正在运行的容器并以命令行交互</strong></p>
+<ul>
+<li><p><code>docker exec -it 容器ID /bin/bash</code>  推荐使用</p>
+</li>
+<li><p>重新进入 <code>docker attach 容器ID</code></p>
+</li>
+</ul>
+<p>上述两个区别：</p>
+<ul>
+<li>attach 直接进入容器启动命令的终端，不会启动新的进程，用exit退出，会导致容器停止。</li>
+<li>exec 是在容器中打开新的终端，并且可以启动新的进程，用exit退出，不会导致容器停止。</li>
+</ul>
+</li>
+<li><p>从容器内拷贝文件到主机上</p>
+<p><code>docker cp 容器ID:容器内路径 目的主机路径</code></p>
+</li>
+<li><p>导入和导出容器</p>
+<ul>
+<li>export 导出容器的内容留作为一个tar归档文件 [对应import命令]</li>
+<li>import 从tar包中的内容创建一个新的文件系统再导入为镜像 [对应export]</li>
+</ul>
+<p>export</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/home/william/DYJ</span><br><span class="line"></span><br><span class="line">$ sudo docker images</span><br><span class="line">[sudo] password <span class="keyword">for</span> william:</span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">tomcat        latest    b64abfdee99c   6 months ago    668MB</span><br><span class="line">ubuntu        latest    d5ca7a445605   8 months ago    65.6MB</span><br><span class="line">hello-world   latest    18e5af790473   9 months ago    9.14kB</span><br><span class="line">redis         6.0.8     d4deb73856a2   20 months ago   98.5MB</span><br><span class="line"></span><br><span class="line">$ sudo docker run -it ubuntu /bin/bash</span><br><span class="line">root@69d281c34a71:/<span class="comment"># %</span></span><br><span class="line"></span><br><span class="line">$ sudo docker ps</span><br><span class="line">CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES</span><br><span class="line">69d281c34a71   ubuntu    <span class="string">&quot;/bin/bash&quot;</span>   30 seconds ago   Up 30 seconds             friendly_kapitsa</span><br><span class="line"></span><br><span class="line">$ sudo docker <span class="built_in">export</span> 69d281c34a71 &gt; adcd.tar.gz</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">adcd.tar.gz   git  java  python  shell</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>import </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cat 文件名.tar | docker import - 镜像用户/镜像名:镜像版本号</span></span><br><span class="line">$ cat adcd.tar.gz | docker import - william/ubuntu</span><br><span class="line">sha256:8c2d3dca3bda65e49ad314f30f56c6ae3b7ff5c65d83e6f61d8af87979269b20</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
 </search>
