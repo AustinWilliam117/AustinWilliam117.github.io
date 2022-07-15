@@ -13747,9 +13747,55 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
   <entry>
     <title>Docker常用命令</title>
     <url>/2022/07/11/Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="帮助启动类命令"><a href="#帮助启动类命令" class="headerlink" title="帮助启动类命令"></a>帮助启动类命令</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动docker</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止docker</span></span><br><span class="line">sudo systemctl stop docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker状态</span></span><br><span class="line">sudo systemctl status docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开机启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker概要信息</span></span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker总体帮助文档</span></span><br><span class="line">docker --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker命令帮助文档</span></span><br><span class="line">docker 具体命令 --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
-
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="Docker的基本组成"><a href="#Docker的基本组成" class="headerlink" title="Docker的基本组成"></a>Docker的基本组成</h3><p><strong>镜像（image）</strong></p>
+<p>Docker镜像（Image）就是一个<strong>只读</strong>的模板。镜像可以用来创建Docker容器，<strong>一个镜像可以创建很多容器。</strong></p>
+<p>它也相当于一个root文件系统。比如官方镜像CentOs:7就包含了一套CentOs:7最小系统的root文件系统。</p>
+<p>相当于容器的“源代码”，<font color="red">docker镜像文件类似于Java的类模板，而docker容器实例类似于Java中new出来的实例对象。</font></p>
 <span id="more"></span>
+
+
+
+<p><strong>容器（container）</strong></p>
+<ul>
+<li><p>从面向对象角度</p>
+<p>Docker利用容器（Container）独立运行的一个或一组应用，应用程序或服务运行在容器里面，容器就类似于一个虚拟化的运行环境，容器就是用镜像创建的运行实例。就像是Java中的类和实例对象一样，镜像是静态的定义，容器是镜像运行时的实体。容器为镜像提供了一个标准的和隔离的运行环境，它可以被启动、开始、停止、删除。每个容器都是相互隔离的、保证安全的平台。</p>
+</li>
+<li><p>从镜像容器角度</p>
+<p><font color="red">可以把容器看做是一个简易版的Linux环境</font>（包括root用户权限、进程空间、用户空间和网络空间等）和运行在其中的应用程序。</p>
+</li>
+<li><p>仓库（Repository）</p>
+<p>仓库（Repository）是<font color="red">集中存放镜像</font>文件的场所。</p>
+<p>类似于 <strong>Maven</strong> 仓库，存放各种 <strong>jar</strong> 包的地方；</p>
+<p><strong>GitHub</strong> 仓库，存放各种 <strong>git</strong> 项目的地方；</p>
+<p><strong>Docker</strong> 公司提供的官方 <strong>registry</strong> 被称为 <strong>Docker Hub</strong>，存放各种进项模板的地方。</p>
+<p>仓库分为公开仓库（Public）和私有仓库（Private）两种形式。</p>
+<p>最大的公开仓库是 Docker Hub(<a href="https://hub.docker.com/)%EF%BC%8C%E5%AD%98%E6%94%BE%E4%BA%86%E6%95%B0%E9%87%8F%E5%BA%9E%E5%A4%A7%E7%9A%84%E9%95%9C%E5%83%8F%E4%BE%9B%E7%94%A8%E6%88%B7%E4%B8%8B%E8%BD%BD%E3%80%82%E5%9B%BD%E5%86%85%E7%9A%84%E5%85%AC%E5%BC%80%E4%BB%93%E5%BA%93%E5%8C%85%E6%8B%AC%E9%98%BF%E9%87%8C%E4%BA%91">https://hub.docker.com/)，存放了数量庞大的镜像供用户下载。国内的公开仓库包括阿里云</a> 、网易云等。</p>
+</li>
+<li><p>总结</p>
+<p><font color="blue">需要正确的理解仓库/镜像/容器这几个概念:</font></p>
+<p><font color="blue">Docker</font></p>
+<ul>
+<li>本身是一个容器运行载体或称之为管理引擎。我们把应用程序和配置依赖打包好形成一个可交付的运行环境，这个打包好的运行环境就是image镜像文件。只有通过这个镜像文件才能生成Docker容器实例(类似Java中new出来一个对象)。</li>
+</ul>
+<p><font color="blue">Image</font></p>
+<ul>
+<li>文件可以看作是容器的模板。Docker 根据 image 文件生成容器的实例。同一个 image 文件，可以生成多个同时运行的容器实例。</li>
+</ul>
+<p><font color="blue">镜像文件</font></p>
+<ul>
+<li>image 文件生成的容器实例，本身也是一个文件，称为镜像文件。</li>
+</ul>
+<p><font color="blue">容器实例</font></p>
+<ul>
+<li>一个容器运行一种服务，当我们需要的时候，就可以通过docker客户端创建一个对应的运行实例，也就是我们的容器</li>
+</ul>
+<p><font color="blue">仓库</font></p>
+<ul>
+<li>就是放一堆镜像的地方，我们可以把镜像发布到仓库中，需要的时候再从仓库中拉下来就可以了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="帮助启动类命令"><a href="#帮助启动类命令" class="headerlink" title="帮助启动类命令"></a>帮助启动类命令</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动docker</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止docker</span></span><br><span class="line">sudo systemctl stop docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker状态</span></span><br><span class="line">sudo systemctl status docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开机启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker概要信息</span></span><br><span class="line">docker info</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker总体帮助文档</span></span><br><span class="line">docker --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看docker命令帮助文档</span></span><br><span class="line">docker 具体命令 --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h3><ul>
 <li><p><code>docker images</code>：列出本地主机上的镜像</p>
@@ -13806,6 +13852,17 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <h3 id="重要"><a href="#重要" class="headerlink" title="重要"></a>重要</h3><ul>
 <li><p>启动守护式容器（后台服务器）</p>
 <p><code>docker run -d 容器名</code> </p>
+<p><strong>注意</strong></p>
+<p>使用镜像ubuntu:lates以后台启动一个容器</p>
+<p><code>sudo docker run -d ubuntu</code></p>
+<p>问题：使用<code>sudo docker ps -a </code> 进行查看，发现容器已经退出</p>
+<p><strong>很重要说明一点：<font color="red">Docker容器后台运行，就必须有一个前台进程</font></strong></p>
+<p>容器运行的命令如果不是那些<strong>一直挂起的命令（比如运行top、tail），就是会自动退出的</strong></p>
+<p>这个是Docker的机制问题，比如你的web容器，我们以nginx为例，正常情况下：</p>
+<p>我们配置启动服务只需要启动响应的service即可，例如<code>service nginx start</code></p>
+<p>但是，这样做 nginx 为后台进程模式运行，就导致docker前台没有运行的应用。</p>
+<p>这样的容器后台启动后，会立即自杀因为他觉得他无事可做了</p>
+<p>所以，最佳的解决方案是：**<font color="red">将你要运行的程序以前台进程的形式运行，常见就是命令行模式，表示还有交互操作，别中断。</font>**</p>
 </li>
 <li><p>查看容器日志</p>
 <p><code>docker logs 容器ID</code></p>
@@ -13843,6 +13900,8 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p>import </p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cat 文件名.tar | docker import - 镜像用户/镜像名:镜像版本号</span></span><br><span class="line">$ cat adcd.tar.gz | docker import - william/ubuntu</span><br><span class="line">sha256:8c2d3dca3bda65e49ad314f30f56c6ae3b7ff5c65d83e6f61d8af87979269b20</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">attach    Attach to a running container                 # 当前 shell 下 attach 连接指定运行镜像</span><br><span class="line"></span><br><span class="line">build     Build an image from a Dockerfile              # 通过 Dockerfile 定制镜像</span><br><span class="line"></span><br><span class="line">commit    Create a new image from a container changes   # 提交当前容器为新的镜像</span><br><span class="line"></span><br><span class="line">cp        Copy files/folders from the containers filesystem to the host path   #从容器中拷贝指定文件或者目录到宿主机中</span><br><span class="line"></span><br><span class="line">create    Create a new container                        # 创建一个新的容器，同 run，但不启动容器</span><br><span class="line"></span><br><span class="line">diff      Inspect changes on a container&#x27;s filesystem   # 查看 docker 容器变化</span><br><span class="line"></span><br><span class="line">events    Get real time events from the server          # 从 docker 服务获取容器实时事件</span><br><span class="line"></span><br><span class="line">exec      Run a command in an existing container        # 在已存在的容器上运行命令</span><br><span class="line"></span><br><span class="line">export    Stream the contents of a container as a tar archive   # 导出容器的内容流作为一个 tar 归档文件[对应 import ]</span><br><span class="line"></span><br><span class="line">history   Show the history of an image                  # 展示一个镜像形成历史</span><br><span class="line"></span><br><span class="line">images    List images                                   # 列出系统当前镜像</span><br><span class="line"></span><br><span class="line">import    Create a new filesystem image from the contents of a tarball # 从tar包中的内容创建一个新的文件系统映像[对应export]</span><br><span class="line"></span><br><span class="line">info      Display system-wide information               # 显示系统相关信息</span><br><span class="line"></span><br><span class="line">inspect   Return low-level information on a container   # 查看容器详细信息</span><br><span class="line"></span><br><span class="line">kill      Kill a running container                      # kill 指定 docker 容器</span><br><span class="line"></span><br><span class="line">load      Load an image from a tar archive              # 从一个 tar 包中加载一个镜像[对应 save]</span><br><span class="line"></span><br><span class="line">login     Register or Login to the docker registry server    # 注册或者登陆一个 docker 源服务器</span><br><span class="line"></span><br><span class="line">logout    Log out from a Docker registry server          # 从当前 Docker registry 退出</span><br><span class="line"></span><br><span class="line">logs      Fetch the logs of a container                 # 输出当前容器日志信息</span><br><span class="line"></span><br><span class="line">port      Lookup the public-facing port which is NAT-ed to PRIVATE_PORT    # 查看映射端口对应的容器内部源端口</span><br><span class="line"></span><br><span class="line">pause     Pause all processes within a container        # 暂停容器</span><br><span class="line"></span><br><span class="line">ps        List containers                               # 列出容器列表</span><br><span class="line"></span><br><span class="line">pull      Pull an image or a repository from the docker registry server   # 从docker镜像源服务器拉取指定镜像或者库镜像</span><br><span class="line"></span><br><span class="line">push      Push an image or a repository to the docker registry server    # 推送指定镜像或者库镜像至docker源服务器</span><br><span class="line"></span><br><span class="line">restart   Restart a running container                   # 重启运行的容器</span><br><span class="line"></span><br><span class="line">rm        Remove one or more containers                 # 移除一个或者多个容器</span><br><span class="line"></span><br><span class="line">rmi       Remove one or more images       # 移除一个或多个镜像[无容器使用该镜像才可删除，否则需删除相关容器才可继续或 -f 强制删除]</span><br><span class="line"></span><br><span class="line">run       Run a command in a new container              # 创建一个新的容器并运行一个命令</span><br><span class="line"></span><br><span class="line">save      Save an image to a tar archive                # 保存一个镜像为一个 tar 包[对应 load]</span><br><span class="line"></span><br><span class="line">search    Search for an image on the Docker Hub         # 在 docker hub 中搜索镜像</span><br><span class="line"></span><br><span class="line">start     Start a stopped containers                    # 启动容器</span><br><span class="line"></span><br><span class="line">stop      Stop a running containers                     # 停止容器</span><br><span class="line"></span><br><span class="line">tag       Tag an image into a repository                # 给源中镜像打标签</span><br><span class="line"></span><br><span class="line">top       Lookup the running processes of a container   # 查看容器中运行的进程信息</span><br><span class="line"></span><br><span class="line">unpause   Unpause a paused container                    # 取消暂停容器</span><br><span class="line"></span><br><span class="line">version   Show the docker version information           # 查看 docker 版本号</span><br><span class="line"></span><br><span class="line">wait      Block until a container stops, then print its exit code   # 截取容器停止时的退出状态值</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Linux</category>
