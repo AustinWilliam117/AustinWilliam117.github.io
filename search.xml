@@ -14134,4 +14134,107 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <category>Python</category>
       </categories>
   </entry>
+  <entry>
+    <title>好用的shell脚本</title>
+    <url>/2022/07/31/%E5%A5%BD%E7%94%A8%E7%9A%84shell%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="批量修改文件名"><a href="#批量修改文件名" class="headerlink" title="批量修改文件名"></a>批量修改文件名</h3><p>原始文件名</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file_1_finished.jpg  file_2_finished.jpg  file_3_finished.jpg</span><br></pre></td></tr></table></figure>
+
+<p><strong>批量修改文件名</strong></p>
+<p>将所有文件名的 <code>_finished</code> 去掉</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">for file in `ls *.jpg`</span><br><span class="line"></span><br><span class="line">do</span><br><span class="line">    # echo $file|sed &#x27;s/_finished//g&#x27;</span><br><span class="line"></span><br><span class="line">    mv $file `echo $file|sed &#x27;s/_finished//g&#x27;`</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>修改后的文件名称</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file_1.jpg  file_2.jpg  file_3.jpg</span><br></pre></td></tr></table></figure>
+
+<p><strong>批量添加文件名</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls|awk -F &quot;.&quot; &#x27;&#123;print &quot;mv&quot;,$0,$1&quot;_finished.&quot;$2&#125;&#x27;|bash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">&quot;mv&quot;</span> 拼成了mv修改命令</span></span><br><span class="line">mv file_1.jpg file_1_finished.jpg</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> |bash 由bash执行命令</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>rename方法</strong> </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改前的文件名称：file_1_finished.jpg  file_2_finished.jpg  file_3_finished.jpg</span></span><br><span class="line"></span><br><span class="line">rename &quot;_finished&quot; &quot;&quot; *.jpg</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改后的文件名称：file_1.jpg  file_2.jpg  file_3.jpg</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="删除find后的文件名"><a href="#删除find后的文件名" class="headerlink" title="删除find后的文件名"></a>删除find后的文件名</h3><p><code>find ./ -name filename -exec rm -rf &#123;&#125; \;</code></p>
+<p>(1) “./“ 表示从当前目录开始递归查找</p>
+<p>(2) “ -name ‘*.exe’ “根据名称来查找，要查找所有以.exe结尾的文件夹或者文件</p>
+<p>(3) “ -type f “查找的类型为文件</p>
+<p>(4) “-print” 输出查找的文件目录名</p>
+<p>(5) 最主要的是是-exec了，-exec选项后边跟着一个所要执行的命令，表示将find出来的文件或目录执行该命令。<br>exec选项后面跟随着所要执行的命令或脚本，然后是一对儿{}，一个空格和一个，最后是一个分号.</p>
+<h3 id="为每个文件夹下的文件生成list绝对路径"><a href="#为每个文件夹下的文件生成list绝对路径" class="headerlink" title="为每个文件夹下的文件生成list绝对路径"></a>为每个文件夹下的文件生成list绝对路径</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">(base) [yujing@capricorn 8k16bitLeft]$ ls</span><br><span class="line">办公室  虫  厨房  纯音乐  地铁  歌曲人声  公交车  核酸  火车  街道  雷雨声  马路边  鸟  人声  食堂  手机铃声  洗衣机  装修</span><br><span class="line"></span><br><span class="line">(base) [yujing@capricorn 8k16bitLeft]$ list=<span class="string">&quot;.list&quot;</span></span><br><span class="line"></span><br><span class="line">(base) [yujing@capricorn 8k16bitLeft]$ <span class="keyword">for</span> file <span class="keyword">in</span> `ls`; <span class="keyword">do</span> ls `<span class="built_in">pwd</span>`/<span class="variable">$file</span>/* &gt; ../$file<span class="variable">$list</span>; <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">(base) [yujing@capricorn voice]$ ls</span><br><span class="line">8k16bitLeft  虫.list    纯音乐.list  歌曲人声.list  核酸.list  街道.list    马路边.list  人声.list  手机铃声.list  装修.list</span><br><span class="line">办公室.list  厨房.list  地铁.list    公交车.list    火车.list  雷雨声.list  鸟.list      食堂.list  洗衣机.list</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="检测磁盘IO"><a href="#检测磁盘IO" class="headerlink" title="检测磁盘IO"></a>检测磁盘IO</h3><p><code>iostat命令</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost unimrcp]<span class="comment"># iostat</span></span><br><span class="line">Linux 3.10.0-1062.4.1.el7.x86_64 (localhost.localdomain) 	07/21/2022 	_x86_64_	(24 CPU)</span><br><span class="line"></span><br><span class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</span><br><span class="line">           4.63    0.00    0.84    0.61    0.00   93.91</span><br><span class="line"></span><br><span class="line">Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn</span><br><span class="line">sdb              30.54       558.87       219.60 4631847649 1820013606</span><br><span class="line">sdc               0.00         0.00         0.00       4372          0</span><br><span class="line">sda              18.88       105.91       843.55  877787772 6991263568</span><br><span class="line">dm-0             31.27       558.82       219.44 4631447628 1818731803</span><br><span class="line">dm-1              0.05         0.04         0.15     366288    1279052</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>监控IO日志，每1秒执行一次，3次后停止监控</p>
+<p><code>iostat -d 1 3</code></p>
+<p>每一秒检测一次sdb盘的io，将日志存放在io.log</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..10&#125; ;<span class="keyword">do</span> `iostat | grep <span class="string">&quot;sdb&quot;</span> &gt;&gt; io.log`;sleep 1;<span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="截取日志中间几行到几行"><a href="#截取日志中间几行到几行" class="headerlink" title="截取日志中间几行到几行"></a>截取日志中间几行到几行</h3><p>从第3000行开始，显示1000行，即显示3000~3999行</p>
+<p><code>cat 文件名 | tail -n +3000 | head -n 1000</code></p>
+<p><strong>通过sed查看，推荐</strong></p>
+<p><code>sed -n &#39;10,20p&#39; 文件名</code></p>
+<p>查看该文件10-20行</p>
+<blockquote>
+<p><a href="http://c.biancheng.net/linux/sed.html">sed命令妙用</a></p>
+</blockquote>
+<h3 id="只显示文件最后一行或只显示第一行"><a href="#只显示文件最后一行或只显示第一行" class="headerlink" title="只显示文件最后一行或只显示第一行"></a>只显示文件最后一行或只显示第一行</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 显示第一行</span></span><br><span class="line">sed -n <span class="string">&#x27;1p&#x27;</span> test.txt</span><br><span class="line"><span class="comment"># 显示最后一行</span></span><br><span class="line">sed -n <span class="string">&#x27;$p&#x27;</span> test.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="日志监控"><a href="#日志监控" class="headerlink" title="日志监控"></a>日志监控</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 我自己写的脚本，还请海涵</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">获取当前时间</span></span><br><span class="line">date1=`date &quot;+%Y%m%d%H%M%S&quot;`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">========================配置==============================</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mrcp原始日志</span></span><br><span class="line">path_m=&quot;/usr/local/unimrcp/log/unimrcpserver-00.log&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vcg原始日志</span></span><br><span class="line">path_v=&quot;/log/qy/qy.log&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 结果存放路径</span></span><br><span class="line">result=&quot;/usr/local/unimrcp/result/&quot;$date1&#x27;/&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash">========================配置==============================</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建日期路径</span></span><br><span class="line">mkdir -p $result</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">------------------------io-------------------------------</span></span><br><span class="line">while true</span><br><span class="line">do</span><br><span class="line">    # 检测umc进程，如果进程消失，停止所有监控</span><br><span class="line">    UMC_PID=`ps -ef | grep -v grep |grep &quot;./umc&quot; | awk &#x27;&#123;print $2;exit&#125;&#x27;`</span><br><span class="line">    if [ -n &quot;$UMC_PID&quot; ]; then</span><br><span class="line">        printf &quot;`date &quot;+%Y-%m-%d %H:%M:%S&quot;`\t&quot; &gt;&gt; $result&quot;io.log&quot;</span><br><span class="line">        iostat |grep sdb | awk &#x27;&#123;print $1 &quot;\t\t\t&quot; $4 &quot;\t\t\t&quot; $5&#125;&#x27;&gt;&gt; $result&quot;io.log&quot;</span><br><span class="line">        sleep 1</span><br><span class="line">    else</span><br><span class="line">        break</span><br><span class="line">    fi</span><br><span class="line">done</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">处理IO日志</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cat $result<span class="variable">$date1</span><span class="string">&quot;_io.log&quot;</span> | grep sdb | awk <span class="string">&#x27;&#123;print $1 &quot;\t\t\t&quot; $4 &quot;\t\t\t&quot; $5&#125;&#x27;</span> &gt; <span class="variable">$result</span><span class="string">&quot;ioDone.log&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 打印IO日志路径</span></span><br><span class="line">echo &quot;io监控完毕，日志存放路径：&quot;$result&quot;io.log&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">-------------------------提取日志--------------------------</span></span><br><span class="line"></span><br><span class="line">if [ -n &quot;$&#123;path_v&#125;&quot; ]</span><br><span class="line">then</span><br><span class="line">    echo &quot;开始提取vcg日志&quot;</span><br><span class="line"></span><br><span class="line">    #获取vcg对应的行号</span><br><span class="line">    nu_start=`grep -n &quot;request=http:&quot; $path_v | sed -n &#x27;$p&#x27; | awk -F &#x27;:&#x27; &#x27;&#123;print $1;exit&#125;&#x27;`</span><br><span class="line">    echo &quot;VCG开始行号：$nu_start&quot;</span><br><span class="line"></span><br><span class="line">    #获取最后的行号</span><br><span class="line">    nu_end=`cat $path_v |wc -l`</span><br><span class="line">    echo &quot;VCG结束行号：$nu_end&quot;</span><br><span class="line"></span><br><span class="line">    #截取日志</span><br><span class="line">    sed -n &quot;$&#123;nu_start&#125;,$&#123;nu_end&#125;p&quot; $path_v &gt; $result&quot;vcg.log&quot;</span><br><span class="line"></span><br><span class="line">    #提取结果</span><br><span class="line">    echo &quot;vcg提取结果存放路径：&quot;$result&quot;vcg.log&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ -n &quot;$&#123;path_m&#125;&quot; ]</span><br><span class="line">then</span><br><span class="line"></span><br><span class="line">    echo &quot;开始提取mrcp日志&quot;</span><br><span class="line">    #获取mrcp日志对应的行号</span><br><span class="line">    nu_start=`grep -n &quot;VCG success&quot; $path_m | sed -n &#x27;$p&#x27; | awk -F &#x27;:&#x27; &#x27;NR==1&#123;print $1&#125;&#x27;`</span><br><span class="line">    echo &quot;MRCP开始行号：$nu_start&quot;</span><br><span class="line"></span><br><span class="line">    #获取最后的行号</span><br><span class="line">    nu_end=`cat $path_m|wc -l`</span><br><span class="line">    echo &quot;MRCP结束行号：$nu_end&quot;</span><br><span class="line"></span><br><span class="line">    #截取日志</span><br><span class="line">    sed -n &quot;$&#123;nu_start&#125;,$&#123;nu_end&#125;p&quot; $path_m &gt; $result&quot;mrcp.log&quot;</span><br><span class="line"></span><br><span class="line">    #提取关键日志信息</span><br><span class="line">    grep -E &quot;VCG success|vcg ret&quot; $result&quot;mrcp.log&quot; | awk &#x27;&#123;print $2&#125;&#x27;|sed &#x27;s/\(.*\)\(:\)/\1\./&#x27; &gt; $result&quot;result_mrcp.log&quot;</span><br><span class="line"></span><br><span class="line">    #提取结果</span><br><span class="line">    echo &quot;mrcp提取结果存放路径：&quot;$result&quot;result_mrcp.log&quot;</span><br><span class="line">    cat $result&quot;result_mrcp.log&quot;</span><br><span class="line"></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="使用dd命令快速生成大文件或者小文件的方法"><a href="#使用dd命令快速生成大文件或者小文件的方法" class="headerlink" title="使用dd命令快速生成大文件或者小文件的方法"></a>使用dd命令快速生成大文件或者小文件的方法</h3><ol>
+<li>dd命令可以轻易实现创建指定大小的文件，如</li>
+</ol>
+<p><code>dd if=/dev/zero of=test bs=1M count=1000</code></p>
+<p>在当前目录下会生成一个1000M的test文件，文件内容为全0（因从/dev/zero中读取，/dev/zero为0源），但是这样为实际写入硬盘，文件产生速度取决于硬盘读写速度，如果欲产生超大文件，速度很慢。在某种场景下，我们只想让文件系统认为存在一个超大文件在此，但是并不实际写入硬盘则可以</p>
+<p><code>dd if=/dev/zero of=test bs=1M count=0 seek=100000</code></p>
+<p>此时创建的文件在文件系统中的显示大小为100000MB，但是并不实际占用block，因此创建速度与内存速度相当，seek的作用是跳过输出文件中指定大小的部分，这就达到了创建大文件，但是并不实际写入的目的。当然，因为不实际写入硬盘，所以你在容量只有10G的硬盘上创建100G的此类文件都是可以的。</p>
+<ol start="2">
+<li>随机生成1百万个1K的文件</li>
+</ol>
+<p><code>seq 1000000 | xargs -i dd if=/dev/zero of=&#123;&#125;.dat bs=1024 count=1 </code></p>
+<p>dd命令功能很强大具体可以参考 <a href="http://www.cnblogs.com/licheng/archive/2008/03/21/1116492.html">http://www.cnblogs.com/licheng/archive/2008/03/21/1116492.html</a></p>
+<p>转载自： <a href="http://blog.csdn.net/cywosp/article/details/9674757">http://blog.csdn.net/cywosp/article/details/9674757</a></p>
+<h3 id="查看当前路径下的进程"><a href="#查看当前路径下的进程" class="headerlink" title="查看当前路径下的进程"></a>查看当前路径下的进程</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps aux | grep `pwd`</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="根据进程号查看当前程序路径"><a href="#根据进程号查看当前程序路径" class="headerlink" title="根据进程号查看当前程序路径"></a>根据进程号查看当前程序路径</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pwdx 18337</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="为每个文件单独打包"><a href="#为每个文件单独打包" class="headerlink" title="为每个文件单独打包"></a>为每个文件单独打包</h3><p><a href="https://www.runoob.com/linux/linux-comm-xargs.html">xargs</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 每个文件都单独打包</span></span><br><span class="line">ls |xargs -i tar zcvf &#123;&#125;.tar.gz &#123;&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> tar解压文件夹下的所有tar.gz文件</span></span><br><span class="line">ls *.tar.gz | xargs -n1 -I &#123;&#125; tar xzvf &#123;&#125; -C ..</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>ls *.tar.gz</code>         列出所有的压缩包</p>
+</li>
+<li><p><code>xargs -n1</code>        一次只使用一个argument</p>
+</li>
+<li><p><code>-I &#123;&#125;</code>                 用符号{}代表上面的argument</p>
+</li>
+<li><p><code>tar xzvf &#123;&#125;</code>        解压缩每一个压缩包</p>
+</li>
+<li><p><code>-C ..</code>                输出路径，这里是父路径</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+      </tags>
+  </entry>
 </search>
