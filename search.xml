@@ -14076,7 +14076,123 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 </ul>
 </li>
 </ol>
-<h2 id="Docker常规安装简介"><a href="#Docker常规安装简介" class="headerlink" title="Docker常规安装简介"></a>Docker常规安装简介</h2>]]></content>
+<h2 id="Docker常规安装简介"><a href="#Docker常规安装简介" class="headerlink" title="Docker常规安装简介"></a>Docker常规安装简介</h2><h3 id="总体步骤"><a href="#总体步骤" class="headerlink" title="总体步骤"></a>总体步骤</h3><ul>
+<li>搜索镜像</li>
+<li>拉去镜像</li>
+<li>查看镜像</li>
+<li>启动镜像</li>
+<li>停止容器</li>
+<li>移除容器</li>
+</ul>
+<h3 id="安装-tomcat"><a href="#安装-tomcat" class="headerlink" title="安装 tomcat"></a>安装 tomcat</h3><ol>
+<li><p>docker hub上查找镜像</p>
+<p>或者使用命令<code>docker search tomcat</code></p>
+</li>
+<li><p>从docker hub上拉取tomcat镜像到本地</p>
+<p><code>docker pull tomcat</code></p>
+</li>
+<li><p>docker images查看是否有拉取到的tomcat</p>
+<p><code>docker images tomcat</code></p>
+</li>
+<li><p>使用tomcat镜像创建容器实例（也叫运行镜像）</p>
+<p><code>docker run -it -p 8080:8080 tomcat</code></p>
+<ul>
+<li>-p 小写，主机端口:docker容器端口</li>
+<li>-P 大写，随机分配端口</li>
+<li>-i 交互</li>
+<li>-t 终端</li>
+<li>-d 后台</li>
+</ul>
+<p>通过-P进行演示：主机端口为49153映射到tomcat容器端口8080</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@arch ~]$ sudo docker run -it -P tomcat</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[william@arch ~]$ sudo docker ps</span><br><span class="line">CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS        PORTS                                         NAMES</span><br><span class="line">22747fb85b75   tomcat        <span class="string">&quot;catalina.sh run&quot;</span>        22 hours ago   Up 22 hours   0.0.0.0:49153-&gt;8080/tcp, :::49153-&gt;8080/tcp   lucid_mccarthy</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>访问tomcat首页</p>
+<ul>
+<li><p><strong>问题</strong>：访问 192.168.80.130:49153 出现 404 错误</p>
+</li>
+<li><p>解决方法：</p>
+<ul>
+<li>可能没有映射端口或者没有关闭防火墙</li>
+<li>把 webapps.dist 目录换成 webapps</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看tomcat容器ID</span></span><br><span class="line">[william@arch ~]$ sudo docker ps</span><br><span class="line">CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS        PORTS                                         NAMES</span><br><span class="line">22747fb85b75   tomcat        <span class="string">&quot;catalina.sh run&quot;</span>        22 hours ago   Up 22 hours   0.0.0.0:49153-&gt;8080/tcp, :::49153-&gt;8080/tcp   lucid_mccarthy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入该容器</span></span><br><span class="line">[william@arch ~]$ sudo docker <span class="built_in">exec</span> -it 22747fb85b75 /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除/usr/local/tomcat 目录下的webapps目录</span></span><br><span class="line">root@22747fb85b75:/usr/<span class="built_in">local</span>/tomcat<span class="comment"># rm -rf webapps</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将webapps.dist更改为webapps</span></span><br><span class="line">root@22747fb85b75:/usr/<span class="built_in">local</span>/tomcat<span class="comment"># mv webapps.dist/ webapps</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\William\AppData\Roaming\Typora\typora-user-images\image-20220803125107969.png" alt="image-20220803125107969"></p>
+</li>
+</ul>
+</li>
+<li><p>免修改版说明</p>
+</li>
+</ol>
+<ul>
+<li><p>安装tomcat8</p>
+<p><code>docker pull billygoo/tomcat8-jdk8</code></p>
+</li>
+<li><p>运行tomcat8</p>
+<p><code>docker run -d -p 8080:8080 --name mytomcat8 billygoo/tomcat8-jdk8</code></p>
+</li>
+</ul>
+<h3 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h3><ol>
+<li><p>docker hub 上面查找mysql镜像</p>
+<p>或者<code>docker search mysql</code></p>
+</li>
+<li><p>从docker hub上（阿里云加速器）拉去mysql镜像到本地标签为5.7</p>
+<p><code>docker pull mysql:5.7</code></p>
+</li>
+<li><p>使用mysql5.7镜像创建容器（也叫运行镜像）</p>
+<ul>
+<li><p>使用命令出处 <strong>hub.docker.com/_/mysql</strong></p>
+<p><code>docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag</code></p>
+<p><font color="Darkorange"><strong>docker启动的端口号，可能被主机占用了，导致docker起不来</strong></font></p>
+<p>进入mysql</p>
+<p><code>docker exec -it some-mysql /bin/bash</code></p>
+<p><code>mysql -uroot -p</code></p>
+</li>
+<li><p>简单版（不推荐）</p>
+<ul>
+<li><p>建库、建表插入数据</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; create database db01;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use db01;</span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line">mysql&gt; create table aa(id int,name varchar(20));</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into aa values(1,&#x27;z3&#x27;);</span><br><span class="line">Query OK, 1 row affected (0.02 sec)</span><br></pre></td></tr></table></figure></li>
+<li><p>外部Win11连接运行在docker上的mysql容器实例服务</p>
+</li>
+<li><p>问题</p>
+<ul>
+<li><p>插入中文数据时报错：</p>
+<p>docker上默认字符集编码隐患</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE &#x27;character%&#x27;;</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| Variable_name            | Value                      |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| character_set_client     | latin1                     |</span><br><span class="line">| character_set_connection | latin1                     |</span><br><span class="line">| character_set_database   | latin1                     |</span><br><span class="line">| character_set_filesystem | binary                     |</span><br><span class="line">| character_set_results    | latin1                     |</span><br><span class="line">| character_set_server     | latin1                     |</span><br><span class="line">| character_set_system     | utf8                       |</span><br><span class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></li>
+<li><p>删除容器后，里面的mysql数据怎么办？</p>
+<p>删除后就该跑路了</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>实战版</p>
+<ul>
+<li><p>新建mysql容器实例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@arch ~]$ docker run -d -p 3306:3306 --privileged=<span class="literal">true</span> -v /home/william/DYJ/docker/mysql/<span class="built_in">log</span>:/var/<span class="built_in">log</span>/mysql -v /home/william/DYJ/docker/mysql/data:/var/lib/mysql -v /home/william/DYJ/docker/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456  --name mysql mysql:5.7</span><br></pre></td></tr></table></figure>
+
+<p>记录一次启动mysql失败的问题</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@arch ~]$ sudo docker run -d -P --privileged=<span class="literal">true</span> -v /home/william/DYJ/docker/mysql/<span class="built_in">log</span>:/var/<span class="built_in">log</span>/mysql -v /home/william/DYJ/docker/mysql/data:/var/lib/mysql -v /home/william/DYJ/docker/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=123456  --name mysql1 mysql:5.7</span><br><span class="line">docker: Error response from daemon: Conflict. The container name <span class="string">&quot;/mysql1&quot;</span> is already <span class="keyword">in</span> use by container <span class="string">&quot;2651888e8211ebe53a49bdea5c8ea8a3a41b08d83cea5d92ac8ba509830b1610&quot;</span>. You have to remove (or rename) that container to be able to reuse that name.</span><br><span class="line">See <span class="string">&#x27;docker run --help&#x27;</span>.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示这个容器已经被使用，必须删除或者重命名才能使用该容器。如果我们使用docker ps 会发现下面更本没有容器</span></span><br><span class="line"></span><br><span class="line">[william@arch ~]$ sudo docker ps</span><br><span class="line">CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS    PORTS     NAMES</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用docker ps -l 则会显示最新创建的容器包括所有状态</span></span><br><span class="line">[william@arch ~]$ sudo docker ps -l</span><br><span class="line">CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS    PORTS     NAMES</span><br><span class="line">2651888e8211   mysql:5.7   <span class="string">&quot;docker-entrypoint.s…&quot;</span>   7 minutes ago   Created             mysql1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除后便可启动</span></span><br><span class="line">[william@arch ~]$ sudo docker rm 2651888e8211</span><br></pre></td></tr></table></figure></li>
+<li><p>新建my.cnf</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@arch conf]$ <span class="built_in">cd</span> /home/william/DYJ/docker/mysql/conf</span><br><span class="line"></span><br><span class="line">[william@arch conf]$ vim my.cnf</span><br><span class="line"></span><br><span class="line">[william@arch conf]$ cat my.cnf</span><br><span class="line">[client]</span><br><span class="line">default_character_set=utf8</span><br><span class="line">[mysqld]</span><br><span class="line">collation_server=utf8_general_ci</span><br><span class="line">character_set_server=utf8</span><br></pre></td></tr></table></figure></li>
+<li><p>重新启动mysql容器实例，再重新进入并查看字符编码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[william@arch conf]$ sudo docker ps</span><br><span class="line">CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS                                                                                        NAMES</span><br><span class="line">75eba7aaa729   mysql:5.7   <span class="string">&quot;docker-entrypoint.s…&quot;</span>   6 minutes ago   Up 6 minutes   0.0.0.0:49155-&gt;3306/tcp, :::49155-&gt;3306/tcp, 0.0.0.0:49154-&gt;33060/tcp, :::49154-&gt;33060/tcp   mysql1</span><br><span class="line">22747fb85b75   tomcat      <span class="string">&quot;catalina.sh run&quot;</span>        29 hours ago    Up 29 hours    0.0.0.0:49153-&gt;8080/tcp, :::49153-&gt;8080/tcp                                                  lucid_mccarthy</span><br><span class="line">57a82b1d18d4   ubuntu      <span class="string">&quot;/bin/bash&quot;</span>              2 weeks ago     Up 2 weeks                                                                                                  busy_jennings</span><br><span class="line">[william@arch conf]$ sudo docker restart 75eba7aaa729</span><br><span class="line">75eba7aaa729</span><br><span class="line"></span><br><span class="line">[william@arch conf]$ sudo docker <span class="built_in">exec</span> -it 75eba7aaa729 bash</span><br><span class="line"></span><br><span class="line">bash-4.2<span class="comment"># mysql -uroot -p</span></span><br><span class="line">Enter password:</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 2</span><br><span class="line">Server version: 5.7.39 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like <span class="string">&#x27;character%&#x27;</span>;</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| Variable_name            | Value                      |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">| character_set_client     | utf8                       |</span><br><span class="line">| character_set_connection | utf8                       |</span><br><span class="line">| character_set_database   | utf8                       |</span><br><span class="line">| character_set_filesystem | binary                     |</span><br><span class="line">| character_set_results    | utf8                       |</span><br><span class="line">| character_set_server     | utf8                       |</span><br><span class="line">| character_set_system     | utf8                       |</span><br><span class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</span><br><span class="line">+--------------------------+----------------------------+</span><br><span class="line">8 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br></pre></td></tr></table></figure></li>
+<li><p>新建库新建表，再插入中文测试</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql&gt; create database db01;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; use db01;</span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line">mysql&gt; create table bb(id int,name varchar(20));</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line"># 没法打中文的话，就远程连接</span><br><span class="line">mysql&gt; GRANT ALL ON *.* TO user@&#x27;%&#x27; IDENTIFIED BY &#x27;123456&#x27; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">mysql&gt; insert into bb values(1,&#x27;张三&#x27;);</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from bb;</span><br><span class="line">+------+--------+</span><br><span class="line">| id   | name   |</span><br><span class="line">+------+--------+</span><br><span class="line">|    1 | 张三   |</span><br><span class="line">+------+--------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></li>
+<li><p>结论：</p>
+<ul>
+<li><font color="Darkorange">docker安装完MySQL并run出容器后，建议请先修改完字符集编码后，再新建mysql库-表-插入数据</font></li>
+<li>数据库最好指定端口号，不要使用-P</li>
+</ul>
+</li>
+<li><p>假如将当前容器实例删除，再重来一次，之前建的db01实例还有吗？</p>
+<p>依然存在</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
       <categories>
         <category>Linux</category>
       </categories>
