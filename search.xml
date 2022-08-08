@@ -14192,6 +14192,32 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 </ul>
 </li>
 </ol>
+<h3 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h3><ol>
+<li><p>从docker hub上（阿里云加速器）拉取redis镜像到本地标签为6.0.8</p>
+<p>或者<code>docker pull redis:6.0.8</code></p>
+</li>
+<li><p>入门命令</p>
+<p><code>docker run -d -p 6379:6379 redis:6.0.8</code></p>
+<p><code>docker exec -it e6df68a8353a /bin/bash</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@e6df68a8353a:/data<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>命令提醒：容器卷记得加入 <code>--privileged=true</code></p>
+</li>
+<li><p>在CentOS宿主机下新建目录<code>/app/redis</code></p>
+<p><code>mkdir -p /app/redis</code></p>
+</li>
+<li><p>将一个redis.conf文件模板拷贝进<code>/app/redis</code>目录下</p>
+<p><code>cp /home/william/DYJ/redis-6.0.8/redis.conf /app/redis</code></p>
+</li>
+<li><p><code>/app/readis</code>目录下修改redis.conf文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 1.允许redis外地连接</span><br><span class="line">注释掉 #bind 127.0.0.1</span><br><span class="line"></span><br><span class="line"># 2.将daemonize yes 设置成 no，或者注释掉（因为该配置和docker run中 -d 参数冲突，会导致容器一直启动失败）</span><br><span class="line">daemonize no</span><br><span class="line"></span><br><span class="line"># 3.开启redis数据持久化（可选）</span><br><span class="line">appendonly yes</span><br><span class="line"></span><br><span class="line"># 4.关闭保护模式（可选）</span><br><span class="line">protected-mode no</span><br></pre></td></tr></table></figure></li>
+<li><p>使用redis6.0.8镜像创建容器（也叫运行镜像）</p>
+<p><code>sudo docker run -p 6379:6379 --name redis --privileged=true -v /app/redis/redis.conf:/etc/redis/redis.conf -v /app/redis/data:/data -d redis:6.0.8 redis-server /etc/redis/redis.conf</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">william@william-ARM-Ubuntu:~$ sudo docker run -p 6379:6379 --name redis --privileged=<span class="literal">true</span> -v /app/redis/redis.conf:/etc/redis/redis.conf -v /app/redis/data:/data -d redis:6.0.8 redis-server /etc/redis/redis.conf</span><br><span class="line"></span><br><span class="line">e64e1fb8ed15a85e0fcaf7a68a0ea15ce1f14a8d78b49b3ae7b3851f172f7262</span><br><span class="line"></span><br><span class="line">william@william-ARM-Ubuntu:~$ sudo docker ps</span><br><span class="line">CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                       NAMES</span><br><span class="line">e64e1fb8ed15   redis:6.0.8   <span class="string">&quot;docker-entrypoint.s…&quot;</span>   14 seconds ago   Up 13 seconds   0.0.0.0:6379-&gt;6379/tcp, :::6379-&gt;6379/tcp   redis</span><br><span class="line">3bbcd1f874b5   registry      <span class="string">&quot;/entrypoint.sh /etc…&quot;</span>   8 days ago       Up 8 days       0.0.0.0:5000-&gt;5000/tcp, :::5000-&gt;5000/tcp   youthful_knuth</span><br></pre></td></tr></table></figure></li>
+<li><p>测试redis-cli连接上来</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">william@william-ARM-Ubuntu:~$ sudo docker <span class="built_in">exec</span> -it redis /bin/bash</span><br><span class="line"></span><br><span class="line">root@e64e1fb8ed15:~<span class="comment"># redis-cli</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k1 v1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get k1</span><br><span class="line"><span class="string">&quot;v1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>请证明docker启动使用了我们自己指定的配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1.将宿主机的 redis.conf 中 databases 16 更改为 10</span></span><br><span class="line">databases 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.在docker redis-cli中输入</span></span><br><span class="line">127.0.0.1:6379[10]&gt; select 16</span><br><span class="line">(error) ERR DB index is out of range</span><br><span class="line">127.0.0.1:6379[10]&gt; select 10</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[10]&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过这种方式可以证明docker使用了我们自己指定的配置文件</span></span><br></pre></td></tr></table></figure></li>
+</ol>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -14594,6 +14620,48 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
       </categories>
       <tags>
         <tag>2022</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker高级篇</title>
+    <url>/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="Docker-复杂安装详说"><a href="#Docker-复杂安装详说" class="headerlink" title="Docker 复杂安装详说"></a>Docker 复杂安装详说</h2><h3 id="安装MySQL主从复制"><a href="#安装MySQL主从复制" class="headerlink" title="安装MySQL主从复制"></a>安装MySQL主从复制</h3><h4 id="主从复制的简介"><a href="#主从复制的简介" class="headerlink" title="主从复制的简介"></a>主从复制的简介</h4><p>在实际的生产中，为了解决Mysql的单点故障已经提高MySQL的整体服务性能，一般都会采用<strong>「主从复制」</strong>。</p>
+<p>比如：在复杂的业务系统中，有一句sql执行后导致锁表，并且这条sql的的执行时间有比较长，那么此sql执行的期间导致服务不可用，这样就会严重影响用户的体验度。</p>
+<p>主从复制中分为<strong>「主服务器（master）「和」从服务器（slave）」</strong>，<strong>「主服务器负责写，而从服务器负责读」</strong>，Mysql的主从复制的过程是一个<strong>「异步的过程」</strong>。</p>
+<p>这样读写分离的过程能够是整体的服务性能提高，即使写操作时间比较长，也不影响读操作的进行。</p>
+<span id="more"></span>
+
+<h4 id="主从复制的原理"><a href="#主从复制的原理" class="headerlink" title="主从复制的原理"></a>主从复制的原理</h4><p>首先放一张Mysql主从复制的原理图，总的来说Mysql的主从复制原理还是比较好理解的，原理非常的简单。</p>
+<p><img src="1.png"></p>
+<p>Mysql的主从复制中主要有三个线程：<code>master（binlog dump thread）、slave（I/O thread 、SQL thread）</code>，Master一条线程和Slave中的两条线程。</p>
+<p><code>master（binlog dump thread）</code>主要负责Master库中有数据更新的时候，会按照<code>binlog</code>格式，将更新的事件类型写入到主库的<code>binlog</code>文件中。</p>
+<p>并且，Master会创建<code>log dump</code>线程通知Slave主库中存在数据更新，这就是为什么主库的binlog日志一定要开启的原因。</p>
+<p><code>I/O thread</code>线程在Slave中创建，该线程用于请求Master，Master会返回binlog的名称以及当前数据更新的位置、binlog文件位置的副本。</p>
+<p>然后，将<code>binlog</code>保存在 <strong>「relay log（中继日志）」</strong> 中，中继日志也是记录数据更新的信息。</p>
+<p>SQL线程也是在Slave中创建的，当Slave检测到中继日志有更新，就会将更新的内容同步到Slave数据库中，这样就保证了主从的数据的同步。</p>
+<p>以上就是主从复制的过程，当然，主从复制的过程有不同的策略方式进行数据的同步，主要包含以下几种：</p>
+<ol>
+<li><strong>「同步策略」</strong>：Master会等待所有的Slave都回应后才会提交，这个主从的同步的性能会严重的影响。</li>
+<li><strong>「半同步策略」</strong>：Master至少会等待一个Slave回应后提交。</li>
+<li><strong>「异步策略」</strong>：Master不用等待Slave回应就可以提交。</li>
+<li><strong>「延迟策略」</strong>：Slave要落后于Master指定的时间。</li>
+</ol>
+<p>对于不同的业务需求，有不同的策略方案，但是一般都会采用最终一致性，不会要求强一致性，毕竟强一致性会严重影响性能。</p>
+<h4 id="主从搭建步骤"><a href="#主从搭建步骤" class="headerlink" title="主从搭建步骤"></a>主从搭建步骤</h4><h3 id="安装redis集群（大厂面试题-分布式存储案例）"><a href="#安装redis集群（大厂面试题-分布式存储案例）" class="headerlink" title="安装redis集群（大厂面试题-分布式存储案例）"></a>安装redis集群（大厂面试题-分布式存储案例）</h3><h2 id="DockerFile-解析"><a href="#DockerFile-解析" class="headerlink" title="DockerFile 解析"></a>DockerFile 解析</h2><h3 id="DockerFile-是什么"><a href="#DockerFile-是什么" class="headerlink" title="DockerFile 是什么"></a>DockerFile 是什么</h3><p>DockerFile 是用来构建Docker镜像的文本文件，是由一条条构建镜像所需的指令和参数构成的脚本。</p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>如果我们想拥有一个增强型的docker镜像，就需要多次添加功能然后commit。这样非常繁琐，而且也很消耗IO</p>
+<p><img src="DockerFile.png"></p>
+<h4 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h4><p><code>https://docs.docker.com/engine/reference/builder</code></p>
+<h4 id="构建三步骤"><a href="#构建三步骤" class="headerlink" title="构建三步骤"></a>构建三步骤</h4><ul>
+<li>编写DockerFile</li>
+<li>docker build 命令构建镜像</li>
+<li>docker run 依照新编写好的镜像运行容器实例</li>
+</ul>
+<h3 id="DockerFile-构建过程解析"><a href="#DockerFile-构建过程解析" class="headerlink" title="DockerFile 构建过程解析"></a>DockerFile 构建过程解析</h3><h3 id="DockerFile-常用保留字指令"><a href="#DockerFile-常用保留字指令" class="headerlink" title="DockerFile 常用保留字指令"></a>DockerFile 常用保留字指令</h3><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
       </tags>
   </entry>
 </search>
