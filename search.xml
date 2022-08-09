@@ -14656,7 +14656,56 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li>docker build 命令构建镜像</li>
 <li>docker run 依照新编写好的镜像运行容器实例</li>
 </ul>
-<h3 id="DockerFile-构建过程解析"><a href="#DockerFile-构建过程解析" class="headerlink" title="DockerFile 构建过程解析"></a>DockerFile 构建过程解析</h3><h3 id="DockerFile-常用保留字指令"><a href="#DockerFile-常用保留字指令" class="headerlink" title="DockerFile 常用保留字指令"></a>DockerFile 常用保留字指令</h3><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+<h3 id="DockerFile-构建过程解析"><a href="#DockerFile-构建过程解析" class="headerlink" title="DockerFile 构建过程解析"></a>DockerFile 构建过程解析</h3><h4 id="DockerFile-的基础内容知识"><a href="#DockerFile-的基础内容知识" class="headerlink" title="DockerFile 的基础内容知识"></a>DockerFile 的基础内容知识</h4><ol>
+<li>每条关键字指令都<font color="OrangeRed">必须为大写字母</font>且后面要跟随至少一个参数</li>
+<li>指令按照从上到下，顺序执行</li>
+<li>#表示注释</li>
+<li>每条指令都会创建一个新的镜像层并对镜像进行提交</li>
+</ol>
+<h4 id="Docker-执行-DockerFile-的大致流程"><a href="#Docker-执行-DockerFile-的大致流程" class="headerlink" title="Docker 执行 DockerFile 的大致流程"></a>Docker 执行 DockerFile 的大致流程</h4><ol>
+<li>Docker 从基础镜像运行一个容器</li>
+<li>执行一条指令并对容器做出修改</li>
+<li>执行类似 docker commit 的操作提交一个新的镜像层</li>
+<li>docker 再基于刚提交的镜像运行一个新的容器</li>
+<li>执行 dockerfile 中的下一条指令直到所有指令都执行完成</li>
+</ol>
+<h4 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h4><p>从应用软件的角度来看，DockerFile、Docker镜像与Docker容器分别代表软件的三个不同阶段</p>
+<ul>
+<li>DockerFile 是软件的原材料</li>
+<li>Docker 镜像是软件的交付品</li>
+<li>Docker 容器则可以认为是软件镜像的运行态，也即依照镜像运行的容器实例</li>
+</ul>
+<p>DockerFile 面向开发，Docker 镜像称为交付标准，Docker 容器则涉及部署与运维，三者缺一不可，合力充当Docker体系的基石。</p>
+<p><img src="dockerfile%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.png"></p>
+<ol>
+<li>DockerFile：需要定义一个DockerFile，DockerFile 定义了进程需要的一切东西。DockerFile涉及的内容包括执行代码或者是文件、环境变量、依赖包、运行时环境、动态链接库、操作系统的发行版、服务进程和内核进程（当应用进程需要和系统服务和内核进程打交道，这时需要考虑如何设计namespace的权限控制）等等；</li>
+<li>Docker 镜像：在用 DockerFile 定义一个文件后，docker build 时会产生一个Docker镜像，当运行Docker镜像时会真正开始提供服务；</li>
+<li>Docker 容器：容器时直接提供服务的；</li>
+</ol>
+<h3 id="DockerFile-常用保留字指令"><a href="#DockerFile-常用保留字指令" class="headerlink" title="DockerFile 常用保留字指令"></a>DockerFile 常用保留字指令</h3><p>参考 tomcat8 的 dockerfile 入门：<code>https://github.com/docker-library/tomcat</code></p>
+<h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><p>基础镜像，当前新镜像时基于哪个镜像的，指定一个已经存在的镜像作为模板，第一条必须是from</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># tomcat 镜像来自于 amazoncorretto 版本号为8</span></span><br><span class="line"><span class="keyword">FROM</span> amazoncorretto:<span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="MAINTAINER"><a href="#MAINTAINER" class="headerlink" title="MAINTAINER"></a>MAINTAINER</h4><p>镜像维护者的姓名和邮箱地址</p>
+<h4 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h4><ul>
+<li><p>容器构建时需要运行的命令</p>
+</li>
+<li><p>两种格式</p>
+<ul>
+<li><p>shell 格式</p>
+<p><code>RUN &lt;命令行命令&gt;</code></p>
+<p>&lt;命令行命令&gt; 等同于，在终端操作的 shell 命令。</p>
+</li>
+<li><p>exec 格式</p>
+</li>
+</ul>
+</li>
+<li><p>RUN 是在 docker build 时运行</p>
+<p><code>RUN [&quot;可执行文件&quot;,&quot;参数1&quot;,&quot;参数2&quot;]</code></p>
+<p><code>RUN [&quot;./test.php&quot;,&quot;dev&quot;,&quot;offline&quot;] 等价于 RUN ./test.php dev offline</code></p>
+</li>
+</ul>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><h4 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h4><h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
