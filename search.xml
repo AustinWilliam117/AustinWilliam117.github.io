@@ -14647,42 +14647,42 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li><strong>「延迟策略」</strong>：Slave要落后于Master指定的时间。</li>
 </ol>
 <p>对于不同的业务需求，有不同的策略方案，但是一般都会采用最终一致性，不会要求强一致性，毕竟强一致性会严重影响性能。</p>
-<h4 id="主从搭建步骤"><a href="#主从搭建步骤" class="headerlink" title="主从搭建步骤"></a>主从搭建步骤</h4><h3 id="安装redis集群（大厂面试题-分布式存储案例）"><a href="#安装redis集群（大厂面试题-分布式存储案例）" class="headerlink" title="安装redis集群（大厂面试题-分布式存储案例）"></a>安装redis集群（大厂面试题-分布式存储案例）</h3><h2 id="DockerFile-解析"><a href="#DockerFile-解析" class="headerlink" title="DockerFile 解析"></a>DockerFile 解析</h2><h3 id="DockerFile-是什么"><a href="#DockerFile-是什么" class="headerlink" title="DockerFile 是什么"></a>DockerFile 是什么</h3><p>DockerFile 是用来构建Docker镜像的文本文件，是由一条条构建镜像所需的指令和参数构成的脚本。</p>
+<h4 id="主从搭建步骤"><a href="#主从搭建步骤" class="headerlink" title="主从搭建步骤"></a>主从搭建步骤</h4><h3 id="安装redis集群（大厂面试题-分布式存储案例）"><a href="#安装redis集群（大厂面试题-分布式存储案例）" class="headerlink" title="安装redis集群（大厂面试题-分布式存储案例）"></a>安装redis集群（大厂面试题-分布式存储案例）</h3><h2 id="Dockerfile-解析"><a href="#Dockerfile-解析" class="headerlink" title="Dockerfile 解析"></a>Dockerfile 解析</h2><h3 id="Dockerfile-是什么"><a href="#Dockerfile-是什么" class="headerlink" title="Dockerfile 是什么"></a>Dockerfile 是什么</h3><p>Dockerfile 是用来构建Docker镜像的文本文件，是由一条条构建镜像所需的指令和参数构成的脚本。</p>
 <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>如果我们想拥有一个增强型的docker镜像，就需要多次添加功能然后commit。这样非常繁琐，而且也很消耗IO</p>
-<p><img src="DockerFile.png"></p>
+<p><img src="Dockerfile.png"></p>
 <h4 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h4><p><code>https://docs.docker.com/engine/reference/builder</code></p>
 <h4 id="构建三步骤"><a href="#构建三步骤" class="headerlink" title="构建三步骤"></a>构建三步骤</h4><ul>
-<li>编写DockerFile</li>
+<li>编写Dockerfile</li>
 <li>docker build 命令构建镜像</li>
 <li>docker run 依照新编写好的镜像运行容器实例</li>
 </ul>
-<h3 id="DockerFile-构建过程解析"><a href="#DockerFile-构建过程解析" class="headerlink" title="DockerFile 构建过程解析"></a>DockerFile 构建过程解析</h3><h4 id="DockerFile-的基础内容知识"><a href="#DockerFile-的基础内容知识" class="headerlink" title="DockerFile 的基础内容知识"></a>DockerFile 的基础内容知识</h4><ol>
+<h3 id="Dockerfile-构建过程解析"><a href="#Dockerfile-构建过程解析" class="headerlink" title="Dockerfile 构建过程解析"></a>Dockerfile 构建过程解析</h3><h4 id="Dockerfile-的基础内容知识"><a href="#Dockerfile-的基础内容知识" class="headerlink" title="Dockerfile 的基础内容知识"></a>Dockerfile 的基础内容知识</h4><ol>
 <li>每条关键字指令都<font color="OrangeRed">必须为大写字母</font>且后面要跟随至少一个参数</li>
 <li>指令按照从上到下，顺序执行</li>
 <li>#表示注释</li>
 <li>每条指令都会创建一个新的镜像层并对镜像进行提交</li>
 </ol>
-<h4 id="Docker-执行-DockerFile-的大致流程"><a href="#Docker-执行-DockerFile-的大致流程" class="headerlink" title="Docker 执行 DockerFile 的大致流程"></a>Docker 执行 DockerFile 的大致流程</h4><ol>
+<h4 id="Docker-执行-Dockerfile-的大致流程"><a href="#Docker-执行-Dockerfile-的大致流程" class="headerlink" title="Docker 执行 Dockerfile 的大致流程"></a>Docker 执行 Dockerfile 的大致流程</h4><ol>
 <li>Docker 从基础镜像运行一个容器</li>
 <li>执行一条指令并对容器做出修改</li>
 <li>执行类似 docker commit 的操作提交一个新的镜像层</li>
 <li>docker 再基于刚提交的镜像运行一个新的容器</li>
-<li>执行 dockerfile 中的下一条指令直到所有指令都执行完成</li>
+<li>执行 Dockerfile 中的下一条指令直到所有指令都执行完成</li>
 </ol>
-<h4 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h4><p>从应用软件的角度来看，DockerFile、Docker镜像与Docker容器分别代表软件的三个不同阶段</p>
+<h4 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h4><p>从应用软件的角度来看，Dockerfile、Docker镜像与Docker容器分别代表软件的三个不同阶段</p>
 <ul>
-<li>DockerFile 是软件的原材料</li>
+<li>Dockerfile 是软件的原材料</li>
 <li>Docker 镜像是软件的交付品</li>
 <li>Docker 容器则可以认为是软件镜像的运行态，也即依照镜像运行的容器实例</li>
 </ul>
-<p>DockerFile 面向开发，Docker 镜像称为交付标准，Docker 容器则涉及部署与运维，三者缺一不可，合力充当Docker体系的基石。</p>
-<p><img src="dockerfile%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.png"></p>
+<p>Dockerfile 面向开发，Docker 镜像称为交付标准，Docker 容器则涉及部署与运维，三者缺一不可，合力充当Docker体系的基石。</p>
+<p><img src="Dockerfile%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.png"></p>
 <ol>
-<li>DockerFile：需要定义一个DockerFile，DockerFile 定义了进程需要的一切东西。DockerFile涉及的内容包括执行代码或者是文件、环境变量、依赖包、运行时环境、动态链接库、操作系统的发行版、服务进程和内核进程（当应用进程需要和系统服务和内核进程打交道，这时需要考虑如何设计namespace的权限控制）等等；</li>
-<li>Docker 镜像：在用 DockerFile 定义一个文件后，docker build 时会产生一个Docker镜像，当运行Docker镜像时会真正开始提供服务；</li>
+<li>Dockerfile：需要定义一个Dockerfile，Dockerfile 定义了进程需要的一切东西。Dockerfile涉及的内容包括执行代码或者是文件、环境变量、依赖包、运行时环境、动态链接库、操作系统的发行版、服务进程和内核进程（当应用进程需要和系统服务和内核进程打交道，这时需要考虑如何设计namespace的权限控制）等等；</li>
+<li>Docker 镜像：在用 Dockerfile 定义一个文件后，docker build 时会产生一个Docker镜像，当运行Docker镜像时会真正开始提供服务；</li>
 <li>Docker 容器：容器时直接提供服务的；</li>
 </ol>
-<h3 id="DockerFile-常用保留字指令"><a href="#DockerFile-常用保留字指令" class="headerlink" title="DockerFile 常用保留字指令"></a>DockerFile 常用保留字指令</h3><p>参考 tomcat8 的 dockerfile 入门：<code>https://github.com/docker-library/tomcat</code></p>
+<h3 id="Dockerfile-常用保留字指令"><a href="#Dockerfile-常用保留字指令" class="headerlink" title="Dockerfile 常用保留字指令"></a>Dockerfile 常用保留字指令</h3><p>参考 tomcat8 的 Dockerfile 入门：<code>https://github.com/docker-library/tomcat</code></p>
 <h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><p>基础镜像，当前新镜像时基于哪个镜像的，指定一个已经存在的镜像作为模板，第一条必须是from</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># tomcat 镜像来自于 amazoncorretto 版本号为8</span></span><br><span class="line"><span class="keyword">FROM</span> amazoncorretto:<span class="number">8</span></span><br></pre></td></tr></table></figure>
 
@@ -14702,6 +14702,11 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 </li>
 </ul>
 <h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><p>当前容器直接对外暴露的端口</p>
+<p>作用：</p>
+<ul>
+<li>帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射。</li>
+<li>在运行时使用随机端口映射时，也就是 docker run -P 时，会自动随机映射 EXPOSE 的端口。</li>
+</ul>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h4><p>指定在创建容器后，终端默认登陆的进来工作目录，一个落脚点</p>
@@ -14709,7 +14714,100 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p>docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 WORKDIR 创建的目录才会一直存在。</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> &lt;工作目录路径&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$HOME</span></span></span><br></pre></td></tr></table></figure>
 
-<h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+<h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><p>指定该镜像以什么样的用户去执行，如果都不指定，默认是root</p>
+<p>指定执行后续命令的用户和用户组，这边只是切换后续命令执行的用户（用户和用户组必须提前已经存在）。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">USER</span> &lt;用户名&gt;[:&lt;用户组&gt;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><p>用来在构建镜像过程中设置环境变量</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">ENV</span> &lt;key&gt; &lt;value&gt;</span><br><span class="line"><span class="keyword">ENV</span> &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如1：</span></span><br><span class="line"><span class="keyword">ENV</span> CATALINA_HOME /usr/local/tomcat</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$CATALINA_HOME</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如2：以下示例设置 NODE_VERSION = 7.2.0 ， 在后续的指令中可以通过 $NODE_VERSION 引用</span></span><br><span class="line"><span class="keyword">ENV</span> NODE_VERSION <span class="number">7.2</span>.<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> curl -SLO <span class="string">&quot;https://nodejs.org/dist/v<span class="variable">$NODE_VERSION</span>/node-v<span class="variable">$NODE_VERSION</span>-linux-x64.tar.xz&quot;</span> \</span></span><br><span class="line"><span class="bash">  &amp;&amp; curl -SLO <span class="string">&quot;https://nodejs.org/dist/v<span class="variable">$NODE_VERSION</span>/SHASUMS256.txt.asc&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><p>将宿主机目录下的文件拷贝进镜像且会自动处理URL和解压tar压缩包</p>
+<p>ADD 指令和 COPY 的使用格类似（同样需求下，官方推荐使用 COPY）。功能也类似，不同之处如下：</p>
+<ul>
+<li>ADD 的优点：在执行 &lt;源文件&gt; 为 tar 压缩文件的话，压缩格式为 gzip, bzip2 以及 xz 的情况下，会自动复制并解压到 &lt;目标路径&gt;。</li>
+<li>ADD 的缺点：在不解压的前提下，无法复制 tar 压缩文件。会令镜像构建缓存失效，从而可能会令镜像构建变得比较缓慢。具体是否使用，可以根据是否需要自动解压来决定。</li>
+</ul>
+<h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><p>复制指令，从上下文目录中复制文件或者目录到容器里指定路径。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> [--chown=&lt;user&gt;:&lt;group&gt;] &lt;源路径1&gt;...  &lt;目标路径&gt;</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> [--chown=&lt;user&gt;:&lt;group&gt;] [<span class="string">&quot;&lt;源路径1&gt;&quot;</span>,...  <span class="string">&quot;&lt;目标路径&gt;&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>**[–chown=<user>:<group>]**：可选参数，用户改变复制到容器内文件的拥有者和属组。</p>
+<p>**&lt;源路径&gt;**：源文件或者源目录，这里可以是通配符表达式，其通配符规则要满足 Go 的 filepath.Match 规则。例如：</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> hom* /mydir/</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> hom?.txt /mydir/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><p>容器数据卷，用于数据保存和持久化工作。</p>
+<p>定义匿名数据卷。在启动容器时忘记挂载数据卷，会自动挂载到匿名卷。</p>
+<p>作用：</p>
+<ul>
+<li>避免重要的数据，因容器重启而丢失，这是非常致命的。</li>
+<li>避免容器不断变大。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> [<span class="string">&quot;&lt;路径1&gt;&quot;</span>, <span class="string">&quot;&lt;路径2&gt;&quot;</span>...]</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> &lt;路径&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在启动容器 docker run 的时候，我们可以通过 -v 参数修改挂载点。</p>
+<h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><p><strong>作用</strong>：指定容器启动后要做的事情</p>
+<p><strong>注意</strong>：<font color="orangered">如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效。</font></p>
+<p><strong>CMD 容器启动命令</strong></p>
+<p><code>CMD</code> 指令的格式和 <code>RUN</code> 相似，也是两种格式：</p>
+<ul>
+<li><code>shell</code> 格式：<code>CMD &lt;命令&gt;</code></li>
+<li><code>exec</code> 格式：<code>CMD [&quot;可执行文件&quot;,&quot;参数1&quot;,&quot;参数2&quot;...]</code></li>
+<li>参数列表格式：<code>CMD [&quot;参数1&quot;,&quot;参数2&quot;...]</code>。在指定了 <code>ENTRYPOINT</code> 指令后，用 <code>CMD</code> 指定具体的参数</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动catalina.sh</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;catalina.sh&quot;</span>, <span class="string">&quot;run&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>与RUN命令的区别</strong></p>
+<ul>
+<li>CMD 是在 docker run 时运行</li>
+<li>RUN 是在 docker build 时运行</li>
+</ul>
+<h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><p>类似于 CMD 指令，<font color="orangered">但其不会被 docker run 的命令行参数指定的指令所覆盖，而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序。</font></p>
+<p><strong>但是, 如果运行 docker run 时使用了 –entrypoint 选项，将覆盖 ENTRYPOINT 指令指定的程序。</strong></p>
+<p><strong>优点</strong>：在执行 docker run 的时候可以指定 ENTRYPOINT 运行所需的参数。</p>
+<p><strong>注意</strong>：如果 Dockerfile 中如果存在多个 ENTRYPOINT 指令，仅最后一个生效。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;&lt;executeable&gt;&quot;</span>,<span class="string">&quot;&lt;param1&gt;&quot;</span>,<span class="string">&quot;&lt;param2&gt;&quot;</span>,...]</span></span><br></pre></td></tr></table></figure>
+
+<p>可以搭配 CMD 命令使用：一般是变参才会使用 CMD ，这里的 CMD 等于是在给 ENTRYPOINT 传参，以下示例会提到。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 假设已通过 Dockerfile 构建了 nginx:test 镜像：</span></span><br><span class="line"><span class="keyword">FROM</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;nginx&quot;</span>, <span class="string">&quot;-c&quot;</span>] <span class="comment"># 定参</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;/etc/nginx/nginx.conf&quot;</span>] <span class="comment"># 变参 </span></span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>是否传参</th>
+<th>按照Dockerfile编写执行</th>
+<th>传参运行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Docker命令</td>
+<td>docker run nginx:test</td>
+<td>docker run nginx:test -c /etc/nginx/new.conf</td>
+</tr>
+<tr>
+<td>衍生出的实际命令</td>
+<td>nginx -c /etc/nginx/nginx.conf</td>
+<td>nginx -c /etc/nginx/new.conf</td>
+</tr>
+</tbody></table>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="自定义镜像-mycentosjava8"><a href="#自定义镜像-mycentosjava8" class="headerlink" title="自定义镜像 mycentosjava8"></a>自定义镜像 mycentosjava8</h4><p><strong>要求</strong></p>
+<ol>
+<li>Centos7 镜像具备 vim、ifconfig、jdk8</li>
+<li>JDK 下载镜像地址<ul>
+<li>官网：<a href="https://www.oracle.com/java/technologies/downloads/#java8">https://www.oracle.com/java/technologies/downloads/#java8</a></li>
+<li><a href="https://mirrors.yangxingzhen.com/jdk/">https://mirrors.yangxingzhen.com/jdk/</a></li>
+</ul>
+</li>
+</ol>
+<p><strong>编写</strong></p>
+<p>准备镜像：<code>sudo docker pull centos:7</code></p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> centos:<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> MYPATH /usr/local</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$MYPATH</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装vim编辑器</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install vim</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装ifconfig命令查看网络IP</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install net-tools</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装java8以及lib库</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum -y install glibc.i686</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir /usr/<span class="built_in">local</span>/java</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ADD 是相对路径jar，把jdk-8u171-linux-x64.tar.gz添加到容器中，安装包必须要和Dockerfile文件同在一个位置</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> jdk-8u171-linux-x64.tar.gz /usr/<span class="built_in">local</span>/java/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置java环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> JAVA_HOME /usr/local/java/jdk1.<span class="number">8.0</span>_171</span><br><span class="line"><span class="keyword">ENV</span> JRE_HOME $JAVA_HOME/jre</span><br><span class="line"><span class="keyword">ENV</span> CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line"><span class="keyword">ENV</span> PATH $JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> JAVA_HOME /usr/local/java/jdk1.<span class="number">8.0</span>_171</span><br><span class="line"><span class="keyword">ENV</span> JRE_HOME $JAVA_HOME/jre</span><br><span class="line"><span class="keyword">ENV</span> CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line"><span class="keyword">ENV</span> PATH $JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$MYPATH</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;success--------------ok&quot;</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> /bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>构建</strong></p>
+<p><code>docker build -t 新镜像名字:TAG .</code> </p>
+<p>注意：TAG 后面有一个空格，一个点</p>
+<p><strong>运行</strong></p>
+<p><code>sudo docker build -t centosjava8:1.0 .</code></p>
+<p><strong>再体会 UnionFS（联合文件系统）</strong></p>
+<h4 id="虚悬镜像"><a href="#虚悬镜像" class="headerlink" title="虚悬镜像"></a>虚悬镜像</h4><h4 id="自定义镜像-myubuntu"><a href="#自定义镜像-myubuntu" class="headerlink" title="自定义镜像 myubuntu"></a>自定义镜像 myubuntu</h4><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -14774,7 +14872,14 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p>黑塞对于东方哲学这种超脱的概念，理解深刻，而又自成体系。没有什么救世主，没有什么超度者，佛性，或者说神性，就蕴藏在每一个人身上，这就是这个世界的完美之处。我们只有自我救赎，而唯一能阻碍你得到内心宁静的，也只有你自己。这个世界本身就已经蕴含着神圣了，去发现它，接纳它，理解它，最终爱它。</p>
 <p><strong>一切皆是必然，于是一切只须我的欣然赞同；万物皆为圆满，于是世上无物可侵害于我。</strong></p>
 <p><br><br></p>
-<p>我听便灵魂与肉体的安排，<br>去经历罪孽，追逐肉欲和财富，<br><br>去贪慕虚荣，以陷入最羞耻的绝望，<br><br>以学会放弃挣扎，学会热爱世界。<br><br>我不再将这个世界与我所期待的，<br><br>塑造的圆满世界比照，<br><br>而是接受这个世界，<br><br>爱它，属于它。</p>
+<p>我听便灵魂与肉体的安排，</p>
+<p>去经历罪孽，追逐肉欲和财富，</p>
+<p>去贪慕虚荣，以陷入最羞耻的绝望，</p>
+<p>以学会放弃挣扎，学会热爱世界。</p>
+<p>我不再将这个世界与我所期待的，</p>
+<p>塑造的圆满世界比照，</p>
+<p>而是接受这个世界，</p>
+<p>爱它，属于它。</p>
 ]]></content>
       <categories>
         <category>书评</category>
