@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/DockerFile.png">
 <meta property="og:image" content="http://example.com/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/dockerfile%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.png">
 <meta property="article:published_time" content="2022-08-08T14:13:15.000Z">
-<meta property="article:modified_time" content="2022-08-09T15:19:19.477Z">
+<meta property="article:modified_time" content="2022-08-10T14:08:05.907Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-09 23:19:19" itemprop="dateModified" datetime="2022-08-09T23:19:19+08:00">2022-08-09</time>
+                <time title="Modified: 2022-08-10 22:08:05" itemprop="dateModified" datetime="2022-08-10T22:08:05+08:00">2022-08-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,14 +257,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.6k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
+              <span>3 mins.</span>
             </span>
 
         </div>
@@ -344,19 +344,23 @@
 <li><p>两种格式</p>
 <ul>
 <li><p>shell 格式</p>
-<p><code>RUN &lt;命令行命令&gt;</code></p>
-<p>&lt;命令行命令&gt; 等同于，在终端操作的 shell 命令。</p>
-</li>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> &lt;命令行命令&gt;</span></span><br><span class="line"><span class="comment"># &lt;命令行命令&gt; 等同于，在终端操作的 shell 命令。</span></span><br></pre></td></tr></table></figure></li>
 <li><p>exec 格式</p>
-</li>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> [<span class="string">&quot;可执行文件&quot;</span>,<span class="string">&quot;参数1&quot;</span>,<span class="string">&quot;参数2&quot;</span>]</span></span><br><span class="line"><span class="comment"># 例如：</span></span><br><span class="line"><span class="comment"># RUN [&quot;./test.php&quot;,&quot;dev&quot;,&quot;offline&quot;] 等价于 RUN ./test.php dev offline</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>RUN 是在 docker build 时运行</p>
-<p><code>RUN [&quot;可执行文件&quot;,&quot;参数1&quot;,&quot;参数2&quot;]</code></p>
-<p><code>RUN [&quot;./test.php&quot;,&quot;dev&quot;,&quot;offline&quot;] 等价于 RUN ./test.php dev offline</code></p>
 </li>
 </ul>
-<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><h4 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h4><h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><p>当前容器直接对外暴露的端口</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h4><p>指定在创建容器后，终端默认登陆的进来工作目录，一个落脚点</p>
+<p>指定工作目录。用 WORKDIR 指定的工作目录，会在构建镜像的每一层中都存在。（WORKDIR 指定的工作目录，必须是提前创建好的）。</p>
+<p>docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 WORKDIR 创建的目录才会一直存在。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> &lt;工作目录路径&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$HOME</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
     </div>
 
     
@@ -519,13 +523,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">505k</span>
+    <span title="Symbols count total">506k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">7:39</span>
+    <span title="Reading time total">7:40</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

@@ -14693,19 +14693,23 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li><p>两种格式</p>
 <ul>
 <li><p>shell 格式</p>
-<p><code>RUN &lt;命令行命令&gt;</code></p>
-<p>&lt;命令行命令&gt; 等同于，在终端操作的 shell 命令。</p>
-</li>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> &lt;命令行命令&gt;</span></span><br><span class="line"><span class="comment"># &lt;命令行命令&gt; 等同于，在终端操作的 shell 命令。</span></span><br></pre></td></tr></table></figure></li>
 <li><p>exec 格式</p>
-</li>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> [<span class="string">&quot;可执行文件&quot;</span>,<span class="string">&quot;参数1&quot;</span>,<span class="string">&quot;参数2&quot;</span>]</span></span><br><span class="line"><span class="comment"># 例如：</span></span><br><span class="line"><span class="comment"># RUN [&quot;./test.php&quot;,&quot;dev&quot;,&quot;offline&quot;] 等价于 RUN ./test.php dev offline</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>RUN 是在 docker build 时运行</p>
-<p><code>RUN [&quot;可执行文件&quot;,&quot;参数1&quot;,&quot;参数2&quot;]</code></p>
-<p><code>RUN [&quot;./test.php&quot;,&quot;dev&quot;,&quot;offline&quot;] 等价于 RUN ./test.php dev offline</code></p>
 </li>
 </ul>
-<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><h4 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h4><h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><p>当前容器直接对外暴露的端口</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h4><p>指定在创建容器后，终端默认登陆的进来工作目录，一个落脚点</p>
+<p>指定工作目录。用 WORKDIR 指定的工作目录，会在构建镜像的每一层中都存在。（WORKDIR 指定的工作目录，必须是提前创建好的）。</p>
+<p>docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 WORKDIR 创建的目录才会一直存在。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> &lt;工作目录路径&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$HOME</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -14769,17 +14773,8 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p>我对佛学仅知皮毛，但是全书有一点我是无比赞同的——<strong>佛不是坐而悟道的</strong>，悉达多要摒弃自我，要感知梵天，就要先体验俗尘荒诞，而后知众生有爱，而后知万物有灵。所谓「得道」，不是读经书习教义，而是对生活（乃至生命）体验的深刻理解。</p>
 <p>黑塞对于东方哲学这种超脱的概念，理解深刻，而又自成体系。没有什么救世主，没有什么超度者，佛性，或者说神性，就蕴藏在每一个人身上，这就是这个世界的完美之处。我们只有自我救赎，而唯一能阻碍你得到内心宁静的，也只有你自己。这个世界本身就已经蕴含着神圣了，去发现它，接纳它，理解它，最终爱它。</p>
 <p><strong>一切皆是必然，于是一切只须我的欣然赞同；万物皆为圆满，于是世上无物可侵害于我。</strong></p>
-<center>
-  我听便灵魂与肉体的安排，<br>
-  去经历罪孽，追逐肉欲和财富，<br>
-  去贪慕虚荣，以陷入最羞耻的绝望，<br>
-  以学会放弃挣扎，学会热爱世界。<br>
-  我不再将这个世界与我所期待的，<br>
-  塑造的圆满世界比照，<br>
-  而是接受这个世界，<br>
-  爱它，属于它。
-</center>
-
+<p><br><br></p>
+<p>我听便灵魂与肉体的安排，<br>去经历罪孽，追逐肉欲和财富，<br><br>去贪慕虚荣，以陷入最羞耻的绝望，<br><br>以学会放弃挣扎，学会热爱世界。<br><br>我不再将这个世界与我所期待的，<br><br>塑造的圆满世界比照，<br><br>而是接受这个世界，<br><br>爱它，属于它。</p>
 ]]></content>
       <categories>
         <category>书评</category>
