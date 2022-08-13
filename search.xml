@@ -1604,7 +1604,7 @@
 <li>Docker 容器则可以认为是软件镜像的运行态，也即依照镜像运行的容器实例</li>
 </ul>
 <p>Dockerfile 面向开发，Docker 镜像称为交付标准，Docker 容器则涉及部署与运维，三者缺一不可，合力充当Docker体系的基石。</p>
-<p><img src="Dockerfile%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.png"></p>
+<p><img src="dockerfile%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.png"></p>
 <ol>
 <li>Dockerfile：需要定义一个Dockerfile，Dockerfile 定义了进程需要的一切东西。Dockerfile涉及的内容包括执行代码或者是文件、环境变量、依赖包、运行时环境、动态链接库、操作系统的发行版、服务进程和内核进程（当应用进程需要和系统服务和内核进程打交道，这时需要考虑如何设计namespace的权限控制）等等；</li>
 <li>Docker 镜像：在用 Dockerfile 定义一个文件后，docker build 时会产生一个Docker镜像，当运行Docker镜像时会真正开始提供服务；</li>
@@ -1735,7 +1735,55 @@
 <p><strong>运行</strong></p>
 <p><code>sudo docker build -t centosjava8:1.0 .</code></p>
 <p><strong>再体会 UnionFS（联合文件系统）</strong></p>
-<h4 id="虚悬镜像"><a href="#虚悬镜像" class="headerlink" title="虚悬镜像"></a>虚悬镜像</h4><h4 id="自定义镜像-myubuntu"><a href="#自定义镜像-myubuntu" class="headerlink" title="自定义镜像 myubuntu"></a>自定义镜像 myubuntu</h4><h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
+<h4 id="虚悬镜像"><a href="#虚悬镜像" class="headerlink" title="虚悬镜像"></a>虚悬镜像</h4><p>虚悬镜像：构建镜像或者删除镜像的时候，出现一些错误，导致仓库名、标签都是<none>。俗称dangling image</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用 dockerfile 写一个虚悬镜像</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&#x27;Action is success!&#x27;</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker build .</span><br><span class="line">Sending build context to Docker daemon  2.048kB</span><br><span class="line">Step 1/2 : FROM ubuntu</span><br><span class="line"> ---&gt; 27941809078c</span><br><span class="line">Step 2/2 : CMD <span class="built_in">echo</span> <span class="string">&#x27;Action is success!&#x27;</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 6d81af912655</span><br><span class="line">Removing intermediate container 6d81af912655</span><br><span class="line"> ---&gt; ff77ab86dc99</span><br><span class="line">Successfully built ff77ab86dc99</span><br><span class="line"></span><br><span class="line">$ sudo docker images</span><br><span class="line">REPOSITORY       TAG       IMAGE ID       CREATED          SIZE</span><br><span class="line">&lt;none&gt;           &lt;none&gt;    ff77ab86dc99   8 seconds ago    77.8MB</span><br></pre></td></tr></table></figure>
+
+<p><strong>单独查看虚悬镜像</strong></p>
+<p><code>sudo docker image ls -f dangling=true</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker image ls -f dangling=<span class="literal">true</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">&lt;none&gt;       &lt;none&gt;    ff77ab86dc99   2 minutes ago   77.8MB</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除虚悬镜像</strong></p>
+<p>虚悬镜像已经失去存在价值，可以删除</p>
+<p>删除所有的虚悬镜像：<code>docker image prune</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker image prune</span><br><span class="line">WARNING! This will remove all dangling images.</span><br><span class="line">Are you sure you want to <span class="built_in">continue</span>? [y/N] y</span><br><span class="line">Deleted Images:</span><br><span class="line">deleted: sha256:ff77ab86dc99b1d14f961856aab31e4fdd4407fa09c393150cb30608a248c35e</span><br><span class="line"></span><br><span class="line">Total reclaimed space: 0B</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义镜像-myubuntu"><a href="#自定义镜像-myubuntu" class="headerlink" title="自定义镜像 myubuntu"></a>自定义镜像 myubuntu</h4><ul>
+<li>编写：编写Dockerfile文件</li>
+<li>构建：docker build -t 新镜像名字:TAG .</li>
+<li>运行：docker run -it 新镜像名字:TAG</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> MYPATH /usr/local</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$MYPATH</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新源</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装vim编辑器</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get -y install vim</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装ifconfig命令查看网络IP</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get -y install net-tools</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装java8以及lib库</span></span><br><span class="line"><span class="comment"># RUN apt-get -y install glibc.i686</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir /usr/<span class="built_in">local</span>/java</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ADD 是相对路径jar，把jdk-8u71-linux-x64.tar 添加到容器中，安装包必须要和Dockerfile文件在同一个路径下</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> jdk-8u171-linux-x64.tar.gz /usr/<span class="built_in">local</span>/java</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置java环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> JAVA_HOME /usr/local/java/jdk1.<span class="number">8.0</span>_171</span><br><span class="line"><span class="keyword">ENV</span> JRE_HOME $JAVA_HOME/jre</span><br><span class="line"><span class="keyword">ENV</span> CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH</span><br><span class="line"><span class="keyword">ENV</span> PATH $JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;指定路径为：<span class="variable">$MYPATH</span>&quot;</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;-----------------------success-----------------------&quot;</span></span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> /bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h3><h2 id="Docker-微服务实战"><a href="#Docker-微服务实战" class="headerlink" title="Docker 微服务实战"></a>Docker 微服务实战</h2><h4 id="通过IDEA新建一个普通微服务模块"><a href="#通过IDEA新建一个普通微服务模块" class="headerlink" title="通过IDEA新建一个普通微服务模块"></a>通过IDEA新建一个普通微服务模块</h4><ol>
+<li>建Module</li>
+<li>改POM</li>
+<li>写YML</li>
+<li>主启动</li>
+<li>业务类</li>
+</ol>
+<h4 id="通过Dockerfile发布微服务部署到docker容器"><a href="#通过Dockerfile发布微服务部署到docker容器" class="headerlink" title="通过Dockerfile发布微服务部署到docker容器"></a>通过Dockerfile发布微服务部署到docker容器</h4><ul>
+<li><p>IDEA工具里面搞定微服务jar包</p>
+</li>
+<li><p>编写Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基础镜像使用java</span></span><br><span class="line"><span class="keyword">FROM</span> java:<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># VOLUME 指定临时文件目录为/tmp，在主机/var/lib/docker目录下创建了一个临时文件，并链接到容器的/tmp</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /tmp</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将jar包添加到容器中并更名为mydocker.jar</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> docker_boot-0.0.1-SNAPSHOT.jar mydocker.jar</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行jar包</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> bash -c <span class="string">&#x27;touch /mydocker.jar&#x27;</span></span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/mydocker.jar&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露6001端口作为微服务</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6001</span></span><br></pre></td></tr></table></figure></li>
+<li><p>构建镜像</p>
+<p><code>docker build -t mydocker:1.0 .</code></p>
+</li>
+<li><p>运行容器</p>
+<p><code>docker run -d -p 6001:6001 mydocker:1.0</code></p>
+<p>关闭防火墙</p>
+<p><code>systemctl stop firewalld</code></p>
+<p>重启docker</p>
+<p><code>systemctl restart docker</code></p>
+<p>再次运行容器</p>
+<p><code>docker run -d -p 6001:6001 mydocker:1.0</code></p>
+</li>
+<li><p>访问测试</p>
+</li>
+</ul>
+<h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-compose-容器编排"><a href="#Docker-compose-容器编排" class="headerlink" title="Docker-compose 容器编排"></a>Docker-compose 容器编排</h2><h2 id="Docker-轻量级可视化工具-Portainer"><a href="#Docker-轻量级可视化工具-Portainer" class="headerlink" title="Docker 轻量级可视化工具 Portainer"></a>Docker 轻量级可视化工具 Portainer</h2><h2 id="Docker-容器监控之-Cadvisor-InfluxDB-Granfana"><a href="#Docker-容器监控之-Cadvisor-InfluxDB-Granfana" class="headerlink" title="Docker 容器监控之 Cadvisor+InfluxDB Granfana"></a>Docker 容器监控之 Cadvisor+InfluxDB Granfana</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>]]></content>
       <categories>
         <category>Linux</category>
       </categories>
