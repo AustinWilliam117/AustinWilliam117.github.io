@@ -1891,7 +1891,7 @@
 <li><p>访问测试</p>
 </li>
 </ul>
-<h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h2 id="Docker-Compose-容器编排"><a href="#Docker-Compose-容器编排" class="headerlink" title="Docker-Compose 容器编排"></a>Docker-Compose 容器编排</h2><h3 id="Docker-Compose是什么"><a href="#Docker-Compose是什么" class="headerlink" title="Docker-Compose是什么"></a>Docker-Compose是什么</h3><p>Docker-Compose是Docker官方的开源项目，负责实现对Docker容器集群的快速编排</p>
+<h2 id="Docker-网络"><a href="#Docker-网络" class="headerlink" title="Docker 网络"></a>Docker 网络</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><h3 id="常用基本命令"><a href="#常用基本命令" class="headerlink" title="常用基本命令"></a>常用基本命令</h3><h3 id="能干嘛"><a href="#能干嘛" class="headerlink" title="能干嘛"></a>能干嘛</h3><h3 id="网络模式"><a href="#网络模式" class="headerlink" title="网络模式"></a>网络模式</h3><h3 id="Docker平台架构图解"><a href="#Docker平台架构图解" class="headerlink" title="Docker平台架构图解"></a>Docker平台架构图解</h3><h2 id="Docker-Compose-容器编排"><a href="#Docker-Compose-容器编排" class="headerlink" title="Docker-Compose 容器编排"></a>Docker-Compose 容器编排</h2><h3 id="Docker-Compose是什么"><a href="#Docker-Compose是什么" class="headerlink" title="Docker-Compose是什么"></a>Docker-Compose是什么</h3><p>Docker-Compose是Docker官方的开源项目，负责实现对Docker容器集群的快速编排</p>
 <p>Compose 是 Docker 公司推出的一个工具软件，可以管理多个Docker容器组成一个应用。你需要定义一个YAML格式的配置文件docker-compose.yml，写好多个容器之间的调用关系。然后，只要一个命令，就能同事启动/关闭这些容器。</p>
 <h3 id="Docker-Compose能干嘛"><a href="#Docker-Compose能干嘛" class="headerlink" title="Docker-Compose能干嘛"></a>Docker-Compose能干嘛</h3><p>docker建议我们每一个容器中只运行一个服务，因为docker容器本身占用的资源极少，所以最好是将每个服务单独分割开来，但是我们又面临了一个问题？</p>
 <p>如果我们需要同事部署好多个服务，难道要每个服务单独写一个dockerfile然后在构建镜像，构建容器，这样累都累死了，所以docker官方给我们提供了docker-compose多服务部署工具</p>
