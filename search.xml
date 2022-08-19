@@ -1963,8 +1963,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker rm -f u2</span><br><span class="line"></span><br><span class="line">$ sudo docker run -it --name u3 ubuntu bash</span><br><span class="line"></span><br><span class="line">$ sudo docker inspect u3 | tail -n 20</span><br><span class="line">            <span class="string">&quot;Networks&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;bridge&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;IPAMConfig&quot;</span>: null,</span><br><span class="line">                    <span class="string">&quot;Links&quot;</span>: null,</span><br><span class="line">                    <span class="string">&quot;Aliases&quot;</span>: null,</span><br><span class="line">                    <span class="string">&quot;NetworkID&quot;</span>: <span class="string">&quot;56db7d5b5e57968e94573b4fd6d3d715c97555dcb951c92ac5eebe49c740ba0e&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;EndpointID&quot;</span>: <span class="string">&quot;a4fb4ecd447b4ab54b7cb490a4ac230cd5df6477aaa6baa5db94ea68e9542c6f&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;Gateway&quot;</span>: <span class="string">&quot;172.17.0.1&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;IPAddress&quot;</span>: <span class="string">&quot;172.17.0.7&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;IPPrefixLen&quot;</span>: 16,</span><br><span class="line">                    <span class="string">&quot;IPv6Gateway&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;GlobalIPv6Address&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;GlobalIPv6PrefixLen&quot;</span>: 0,</span><br><span class="line">                    <span class="string">&quot;MacAddress&quot;</span>: <span class="string">&quot;02:42:ac:11:00:07&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;DriverOpts&quot;</span>: null</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
 <h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p><font color="orange"><strong>Docker 容器内部的IP是有可能会发生改变的</strong></font></p>
-<h3 id="案例说明"><a href="#案例说明" class="headerlink" title="案例说明"></a>案例说明</h3><h4 id="bridge"><a href="#bridge" class="headerlink" title="bridge"></a>bridge</h4><ol>
-<li><p>bridge是什么</p>
+<h3 id="案例说明"><a href="#案例说明" class="headerlink" title="案例说明"></a>案例说明</h3><h4 id="bridge"><a href="#bridge" class="headerlink" title="bridge"></a>bridge</h4><p><strong>bridge是什么</strong></p>
 <ul>
 <li><p>Docker 服务默认会创建一个<code>docker0</code>网桥（其上有一个 docker0 内部接口），该桥接网络的名称为 docker0，它在<strong>内核层</strong>连通了其他的物理或虚拟网卡，这就将所有容器和本地主机都放到<strong>同一个物理网络</strong>。Docker 默认指定了 docker0 接口的IP地址和子网掩码，<strong>让主机和容器之间可以通过网桥互相通信</strong></p>
 </li>
@@ -1974,11 +1973,42 @@
 <li><p>ifconfig</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ifconfig | grep docker</span><br><span class="line">docker0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br></pre></td></tr></table></figure></li>
 </ul>
+<p><strong>bridge案例</strong></p>
+<ol>
+<li><p>说明</p>
+<ul>
+<li><p>Docker 使用Linux桥接，在宿主机虚拟一个Docker容器网桥（docker0），Docker启动一个容器时会根据Docker网桥的网段分配给容器一个IP地址，称为Container-IP，同时Docker网桥是每个容器的默认网关。因为在同一宿主机内的容器都接入同一个网桥，这样容器之间就能够通过容器的Container-IP直接通信</p>
 </li>
-<li><p>案例</p>
+<li><p><code>docker run</code> 的时候，没有指定<code>network</code>的话，默认使用的网桥模式就是bridge，使用的就是docker0。在宿主机<code>ifconfig</code>就可以看到<code>docker0</code>和自己<code>create</code>的<code>network</code> eth0、eth1、eth2…代表网卡1、网卡2、网卡3…，lo代表127.0.0.1，即<code>localhost</code>，inet addr 用来表示网卡的IP地址</p>
+</li>
+<li><p>网桥<code>docker0</code>创建一对对等虚拟设备接口，一个叫<code>veth</code>，另一个叫<code>eth0</code>，成对匹配</p>
+<ul>
+<li><p>整个宿主机的网桥模式都是<code>docker0</code>，类似一个交换机有一堆接口，每个接口叫<code>veth</code>，在本地主机和容器内分别创建一个虚拟接口，并让他们彼此连通（这样一对接口叫 veth pair）</p>
+</li>
+<li><p>每个容器实例内部也有一块网卡，每个接口叫 eth0</p>
+</li>
+<li><p>docker0 上面的每个 veth匹配某个容器实例内部的 eth0，两两配对，一一匹配</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>通过上述，将宿主机上所有容器都连接到这个内部网络上，两个容器在同一个网络下，会从这个罔顾炎下各自拿到分配的IP，此时两个容器的网络是互通的</p>
+</li>
+<li><p>代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 8081:8080 --name tomcat81 billygoo/tomcat8-jdk8</span><br><span class="line">$ docker run -d -p 8082:8080 --name tomcat82 billygoo/tomcat8-jdk8</span><br></pre></td></tr></table></figure></li>
+<li><p>两两匹配验证</p>
 </li>
 </ol>
-<h4 id="host"><a href="#host" class="headerlink" title="host"></a>host</h4><h4 id="none"><a href="#none" class="headerlink" title="none"></a>none</h4><h4 id="container"><a href="#container" class="headerlink" title="container"></a>container</h4><h4 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h4><h3 id="Docker平台架构图解"><a href="#Docker平台架构图解" class="headerlink" title="Docker平台架构图解"></a>Docker平台架构图解</h3><h3 id="整体说明"><a href="#整体说明" class="headerlink" title="整体说明"></a>整体说明</h3><p>从其架构和运行流程来看，Docker是一个 C/S 模式的架构，后端是一个耦合架构，众多模块各司其职</p>
+<h4 id="host"><a href="#host" class="headerlink" title="host"></a>host</h4><p><strong>host 是什么</strong></p>
+<p>直接使用宿主机的IP地址与外界进行通信，不再需要额外进行NAT转换</p>
+<p><strong>host 案例</strong></p>
+<ol>
+<li>说明</li>
+<li>代码</li>
+<li>无之前的配对显示，看容器实例内部</li>
+<li>没有设置-p的端口映射了，如何访问启动的tomcat83？？</li>
+</ol>
+<h4 id="none"><a href="#none" class="headerlink" title="none"></a>none</h4><h4 id="container"><a href="#container" class="headerlink" title="container"></a>container</h4><h4 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h4><h3 id="Docker平台架构图解"><a href="#Docker平台架构图解" class="headerlink" title="Docker平台架构图解"></a>Docker平台架构图解</h3><h3 id="整体说明"><a href="#整体说明" class="headerlink" title="整体说明"></a>整体说明</h3><p>从其架构和运行流程来看，Docker是一个 C/S 模式的架构，后端是一个耦合架构，众多模块各司其职</p>
 <p>Docker 运行的基本流程为：</p>
 <ol>
 <li>用户使用 Docker Clinet 与 Docker Daemon 建立通信，并发送请求给后者</li>
