@@ -32,8 +32,9 @@
 <meta property="og:image" content="http://example.com/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/1.png">
 <meta property="og:image" content="http://example.com/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/Dockerfile.png">
 <meta property="og:image" content="http://example.com/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/dockerfile%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="http://example.com/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/dockernetwork.png">
 <meta property="article:published_time" content="2022-08-08T14:13:15.000Z">
-<meta property="article:modified_time" content="2022-08-19T15:35:11.500Z">
+<meta property="article:modified_time" content="2022-08-21T04:38:08.099Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
@@ -232,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-19 23:35:11" itemprop="dateModified" datetime="2022-08-19T23:35:11+08:00">2022-08-19</time>
+                <time title="Modified: 2022-08-21 12:38:08" itemprop="dateModified" datetime="2022-08-21T12:38:08+08:00">2022-08-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -716,6 +717,7 @@
 </li>
 </ul>
 <p>通过上述，将宿主机上所有容器都连接到这个内部网络上，两个容器在同一个网络下，会从这个罔顾炎下各自拿到分配的IP，此时两个容器的网络是互通的</p>
+<p><img src="dockernetwork.png"></p>
 </li>
 <li><p>代码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d -p 8081:8080 --name tomcat81 billygoo/tomcat8-jdk8</span><br><span class="line">$ docker run -d -p 8082:8080 --name tomcat82 billygoo/tomcat8-jdk8</span><br></pre></td></tr></table></figure></li>

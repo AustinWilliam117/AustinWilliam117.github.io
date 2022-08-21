@@ -1993,6 +1993,7 @@
 </li>
 </ul>
 <p>通过上述，将宿主机上所有容器都连接到这个内部网络上，两个容器在同一个网络下，会从这个罔顾炎下各自拿到分配的IP，此时两个容器的网络是互通的</p>
+<p><img src="dockernetwork.png"></p>
 </li>
 <li><p>代码</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 8081:8080 --name tomcat81 billygoo/tomcat8-jdk8</span><br><span class="line">$ docker run -d -p 8082:8080 --name tomcat82 billygoo/tomcat8-jdk8</span><br></pre></td></tr></table></figure></li>
