@@ -1996,20 +1996,79 @@
 <p><img src="dockernetwork.png"></p>
 </li>
 <li><p>代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 8081:8080 --name tomcat81 billygoo/tomcat8-jdk8</span><br><span class="line">$ docker run -d -p 8082:8080 --name tomcat82 billygoo/tomcat8-jdk8</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker run -d -p 8081:8080 --name tomcat81 billygoo/tomcat8-jdk8</span><br><span class="line">$ sudo docker run -d -p 8082:8080 --name tomcat82 billygoo/tomcat8-jdk8</span><br></pre></td></tr></table></figure></li>
 <li><p>两两匹配验证</p>
+<p><img src="bridge1.png"></p>
+<p><img src="bridge2.png"></p>
+<p><img src="dockerbridge.png"></p>
 </li>
 </ol>
 <h4 id="host"><a href="#host" class="headerlink" title="host"></a>host</h4><p><strong>host 是什么</strong></p>
 <p>直接使用宿主机的IP地址与外界进行通信，不再需要额外进行NAT转换</p>
 <p><strong>host 案例</strong></p>
 <ol>
-<li>说明</li>
-<li>代码</li>
-<li>无之前的配对显示，看容器实例内部</li>
-<li>没有设置-p的端口映射了，如何访问启动的tomcat83？？</li>
+<li><p>说明</p>
+<ul>
+<li>容器将不会获得一个独立的 Network Namespace，而是和宿主机共用一个 Network Namespace。<font color="orange">容器将不会虚拟出自己的网卡而是使用宿主机的IP和端口。</font></li>
+</ul>
+</li>
+<li><p>代码</p>
+<ul>
+<li><p>警告 ⚠️</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker run -d -p 8083:8080 --network host --name tomcat83 billygoo/tomcat8-jdk8</span><br><span class="line">WARNING: Published ports are discarded when using host network mode</span><br><span class="line">c3ab7f5659606f0cfe7ca6c452e605b1b8158aff4db1c81845908303ae566baf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当我们用host网络时，会弹出警告：发布的端口是不被推荐的</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="host.png"></p>
+<p><strong>问题：</strong></p>
+<p>docker 启动时总是遇见标题中的警告</p>
+<p><strong>原因：</strong></p>
+<p>docker 启动时指定 <code>--network=host</code> 或 <code>-net=host</code>，如果还指定了 <code>-p</code> 映射端口，那这个时候就会有此警告。</p>
+<p>并且通过-p设置的参数将不会起任何作用，端口号会以主机端口号为主，重复时则递增。</p>
+<p><strong>解决：</strong></p>
+<p>解决的办法就是使用docker的其他网络模式，例如<code>--network=bridge</code>，这样就可以解决问题，或者直接无视</p>
+</li>
+<li><p>正确 ✅</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker -d --network host --name tomcat83 billygoo/tomcat8-jdk8 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 容器的网关、IP地址为空</span></span><br><span class="line">$ sudo docker inspect tomcat83 | tail -f 20</span><br><span class="line"><span class="string">&quot;Networks&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;host&quot;</span>: &#123;</span><br><span class="line">		...</span><br><span class="line">		<span class="string">&quot;Gateway&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">		<span class="string">&quot;IPAddress&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入容器内部，查看网络会发现，容器的ip addr 与宿主机的ip addr 一样</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>无之前的配对显示，看容器实例内部</p>
+<p>进入容器内部，查看网络会发现，容器的ip addr 与宿主机的ip addr 一样</p>
+</li>
+<li><p>没有设置-p的端口映射了，如何访问启动的tomcat83？？</p>
+<p><code>http://宿主机IP:8080</code></p>
+<p>在CentOS里面默认的火狐浏览器访问容器内的tomcat83看到访问成功，因为此时容器的IP借用主机的，所以容器共享宿主机网络IP，这样的好处是外部主机与容器可以直接通信</p>
+</li>
 </ol>
-<h4 id="none"><a href="#none" class="headerlink" title="none"></a>none</h4><h4 id="container"><a href="#container" class="headerlink" title="container"></a>container</h4><h4 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h4><h3 id="Docker平台架构图解"><a href="#Docker平台架构图解" class="headerlink" title="Docker平台架构图解"></a>Docker平台架构图解</h3><h3 id="整体说明"><a href="#整体说明" class="headerlink" title="整体说明"></a>整体说明</h3><p>从其架构和运行流程来看，Docker是一个 C/S 模式的架构，后端是一个耦合架构，众多模块各司其职</p>
+<h4 id="none"><a href="#none" class="headerlink" title="none"></a>none</h4><ol>
+<li><p>none是什么</p>
+<p><strong>禁用网络功能，只有IO标识（就是127.0.0.1表示本地回环）</strong></p>
+</li>
+<li><p>none案例</p>
+<p><code>sudo docker run -d -p 8084:8080 --network none --name tomcat84 billygoo/tomcat8-jdk8</code></p>
+</li>
+</ol>
+<h4 id="container"><a href="#container" class="headerlink" title="container"></a>container</h4><ol>
+<li><p>Container是什么</p>
+<p>新建的容器和已经存在的一个容器共享一个网络IP配置而不是和宿主机共享。</p>
+<p>新创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。</p>
+<p><img src="networkcontainer.png"></p>
+</li>
+<li><p>错误案例 ❌</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker run -d -p 8085:8080 --name tomcat85 billygoo/tomcat8-jdk8</span><br><span class="line">sudo docker run -d -p 8086:8080 --network container:tomcat85 --name tomcat86 billygoo/tomcat8-jdk8</span><br><span class="line">docker: Error response from daemon: conflicting options: port publishing and the container <span class="built_in">type</span> network mode.</span><br><span class="line">See <span class="string">&#x27;docker&#x27;</span> run --<span class="built_in">help</span></span><br><span class="line"><span class="comment"># 相当于tomcat86和tomcat85公用同一个ip同一个端口，导致端口冲突</span></span><br></pre></td></tr></table></figure>
+
+<p>本案例并不适合用tomcat进行演示</p>
+</li>
+<li><p>正确案例 :heavy_check_mark:</p>
+<p>Alpine Linux 是一款独立的、非商用的通用 Linux 发行版，专为追求安全性、简单性和资源效率的用户而设计。因小巧、简单、安全而著称，所以作为基础镜像是非常好的一个选择，可谓是麻雀虽小五脏俱全，镜像非常小巧，不到6M的大小，所以特别适合容器打包。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker run -it --name alpine1 alpine /bin/sh</span><br><span class="line">sudo docker run -it --network container:alpine1 --name alpine2 alpine /bin/sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="container1.png"></p>
+<p>假如此时关闭alpine1，再看看alpine2</p>
+<p><img src="container2.png"></p>
+</li>
+</ol>
+<h4 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h4><h3 id="Docker平台架构图解"><a href="#Docker平台架构图解" class="headerlink" title="Docker平台架构图解"></a>Docker平台架构图解</h3><h3 id="整体说明"><a href="#整体说明" class="headerlink" title="整体说明"></a>整体说明</h3><p>从其架构和运行流程来看，Docker是一个 C/S 模式的架构，后端是一个耦合架构，众多模块各司其职</p>
 <p>Docker 运行的基本流程为：</p>
 <ol>
 <li>用户使用 Docker Clinet 与 Docker Daemon 建立通信，并发送请求给后者</li>
