@@ -2068,7 +2068,38 @@
 <p><img src="container2.png"></p>
 </li>
 </ol>
-<h4 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h4><h3 id="Docker平台架构图解"><a href="#Docker平台架构图解" class="headerlink" title="Docker平台架构图解"></a>Docker平台架构图解</h3><h3 id="整体说明"><a href="#整体说明" class="headerlink" title="整体说明"></a>整体说明</h3><p>从其架构和运行流程来看，Docker是一个 C/S 模式的架构，后端是一个耦合架构，众多模块各司其职</p>
+<h4 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h4><ol>
+<li> 没用自定义网络</li>
+</ol>
+<ul>
+<li><p>案例</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run -d -p 8081:8080 --name tomcat81 billygoo/tomcat8-jdk8</span><br><span class="line">$ docker run -d -p 8082:8080 --name tomcat82 billygoo/tomcat8-jdk8</span><br><span class="line"><span class="comment"># 上述成功启动并用docker exec进入各自容器实例内部</span></span><br></pre></td></tr></table></figure></li>
+<li><p>问题</p>
+<p>按照IP地址ping是OK的</p>
+<p><img src="%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C1.png"></p>
+<p>按照服务名ping不通</p>
+<p><img src="%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C2.png"></p>
+</li>
+</ul>
+<ol start="2">
+<li><p>用了自定义网络</p>
+<ul>
+<li><p>自定义桥接网络，自定义网络默认使用的是桥接网络bridge</p>
+</li>
+<li><p>新建自定义网络</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker network create zzyy_network</span><br><span class="line">89a510a9014b5f51d232e546d3f69ea7e70c80f6d8a22563f4f9ddab36565ff5</span><br><span class="line"></span><br><span class="line">$ sudo docker network ls</span><br><span class="line">NETWORK ID     NAME           DRIVER    SCOPE</span><br><span class="line">56db7d5b5e57   bridge         bridge    <span class="built_in">local</span></span><br><span class="line">a43e2d636b9d   host           host      <span class="built_in">local</span></span><br><span class="line">d6d9f2afbb37   none           null      <span class="built_in">local</span></span><br><span class="line">89a510a9014b   zzyy_netwrok   bridge    <span class="built_in">local</span></span><br></pre></td></tr></table></figure></li>
+<li><p>新建容器加入上一步新建的自定义网络</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo docker run -d -p 8081:8080 --network zzyy_network --name tomcat81 billygoo/tomcat8-jdk8</span><br><span class="line">$ sudo docker run -d -p 8082:8080 --networl zzyy_network --name tomcat82 billygoo/tomcat8-jdk8</span><br></pre></td></tr></table></figure></li>
+<li><p>互相ping测试</p>
+<p><img src="%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C3.png"></p>
+</li>
+</ul>
+</li>
+<li><p>自定义网络的问题结论</p>
+<p><font color=orange>自定义网络本身就维护好了主机名和IP的对应关系（IP和域名都能通）</font></p>
+</li>
+</ol>
+<h3 id="Docker平台架构图解"><a href="#Docker平台架构图解" class="headerlink" title="Docker平台架构图解"></a>Docker平台架构图解</h3><h3 id="整体说明"><a href="#整体说明" class="headerlink" title="整体说明"></a>整体说明</h3><p>从其架构和运行流程来看，Docker是一个 C/S 模式的架构，后端是一个耦合架构，众多模块各司其职</p>
 <p>Docker 运行的基本流程为：</p>
 <ol>
 <li>用户使用 Docker Clinet 与 Docker Daemon 建立通信，并发送请求给后者</li>
@@ -2079,7 +2110,8 @@
 <li>当需要限制 Docker 容器运行资源或执行用户指令等操作时，则通过 Exec driver 来完成</li>
 <li>Libcontainer 是一项独立的容器管理包，Network dirver 以及 Exec driver 都是通过 LibContainer 来实现具体对容器进行的操作</li>
 </ol>
-<h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><h2 id="Docker-Compose-容器编排"><a href="#Docker-Compose-容器编排" class="headerlink" title="Docker-Compose 容器编排"></a>Docker-Compose 容器编排</h2><h3 id="Docker-Compose是什么"><a href="#Docker-Compose是什么" class="headerlink" title="Docker-Compose是什么"></a>Docker-Compose是什么</h3><p>Docker-Compose是Docker官方的开源项目，负责实现对Docker容器集群的快速编排</p>
+<h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p><img src="docker%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84.png"></p>
+<h2 id="Docker-Compose-容器编排"><a href="#Docker-Compose-容器编排" class="headerlink" title="Docker-Compose 容器编排"></a>Docker-Compose 容器编排</h2><h3 id="Docker-Compose是什么"><a href="#Docker-Compose是什么" class="headerlink" title="Docker-Compose是什么"></a>Docker-Compose是什么</h3><p>Docker-Compose是Docker官方的开源项目，负责实现对Docker容器集群的快速编排</p>
 <p>Compose 是 Docker 公司推出的一个工具软件，可以管理多个Docker容器组成一个应用。你需要定义一个YAML格式的配置文件docker-compose.yml，写好多个容器之间的调用关系。然后，只要一个命令，就能同事启动/关闭这些容器。</p>
 <h3 id="Docker-Compose能干嘛"><a href="#Docker-Compose能干嘛" class="headerlink" title="Docker-Compose能干嘛"></a>Docker-Compose能干嘛</h3><p>docker建议我们每一个容器中只运行一个服务，因为docker容器本身占用的资源极少，所以最好是将每个服务单独分割开来，但是我们又面临了一个问题？</p>
 <p>如果我们需要同事部署好多个服务，难道要每个服务单独写一个dockerfile然后在构建镜像，构建容器，这样累都累死了，所以docker官方给我们提供了docker-compose多服务部署工具</p>
