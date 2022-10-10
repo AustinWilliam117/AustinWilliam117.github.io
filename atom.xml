@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-08-10T15:09:09.335Z</updated>
+  <updated>2022-10-10T14:15:56.860Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,70 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你当像鸟飞往你的山</title>
+    <link href="http://example.com/2022/10/10/%E4%BD%A0%E5%BD%93%E5%83%8F%E9%B8%9F%E9%A3%9E%E5%BE%80%E4%BD%A0%E7%9A%84%E5%B1%B1/"/>
+    <id>http://example.com/2022/10/10/%E4%BD%A0%E5%BD%93%E5%83%8F%E9%B8%9F%E9%A3%9E%E5%BE%80%E4%BD%A0%E7%9A%84%E5%B1%B1/</id>
+    <published>2022-10-10T14:14:46.000Z</published>
+    <updated>2022-10-10T14:15:56.860Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>《你当像鸟飞往你的山》刚看到这个名字的时候，我以为是回归本心，或是久别重逢，却没想到是通过教育来认识世界，从而坚持自我。</p><p>这也正印证了英文的标题《Educated》</p><p>塔拉的家庭无疑是一个偏激的摩门家庭——父母不信任政府、不参与涉及关于政府的任何工作、从不去医院治疗、他的孩子也从不上学。</p><p>直接原因应该是：<strong>韦恩家事件</strong></p><p>书中多处提到韦恩家在1990年发生的惨案，这导致了父亲的直接转变。但这一切父亲并未亲身经历，只是双向情感障碍带来的幻想。</p><p>对于塔拉来说，家庭是不可分割的一部分。即使肖恩对塔拉在残忍，塔拉依然愿意相信哥哥，而非是自己的记忆。对于父母的作为，她更愿意相信那是一场梦，只要有人告诉她这一切都是她自己幻想出来的，她就会相信。</p><p>直到父母在巴克峰中大肆宣扬她被恶魔附身，塔拉用了一年的时间终于与父亲切断联系，但还是对母亲念念不忘。</p><p>对于父母给塔拉施加的偏激思想——不可以穿露出肉的衣服、不要相信政府、不能去医院等，还有那些文化与学识。塔拉都通过教育慢慢的认清社会与现实。</p><p>教育改变了自己，认清了和家人的隔阂，不会再为家人而妥协与让步，而是更多的考虑自身</p><p>我想到了我父母也是带有这偏激色彩，小病不相信医院也不愿意去医院，反而耽误了病情。还有一些网上的说教也严重影响了他们的主观认知。对于他们来说，那些东西他们也不曾经历过，而奉为经典。</p><p>或许对于我们来说，父母的偏激不会那么明显，但教育是能够认清自己，并摆脱他们偏激思想的重要途径</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="书评" scheme="http://example.com/categories/%E4%B9%A6%E8%AF%84/"/>
+    
+    
+    <category term="2022" scheme="http://example.com/tags/2022/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>离散数学</title>
+    <link href="http://example.com/2022/08/28/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/"/>
+    <id>http://example.com/2022/08/28/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/</id>
+    <published>2022-08-28T07:14:23.000Z</published>
+    <updated>2022-09-01T15:59:27.508Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>离散数学课程的主要内容：</p><ol><li>基础：逻辑和证明</li><li>基本结构（包括集合、函数、序列、求和与矩阵）</li><li>计数</li><li>高级计数</li><li>关系</li><li>图</li><li>树</li><li>布尔代数</li></ol><p>学习该课程的目的：</p><ol><li>为学习计算机后继课程，如数据结构、编译原理、操作系统、数据库原理、形式语言及自动机。软件工程与方法学、计算机网络和人工智能、高级程序设计语言等，提供必要的数据基础；为阅读计算机文章作充分的数学准备</li></ol><p>数理逻辑：人工智能、数据库、形式语言及自动机、高级程序设计语言</p><p>集合论：信息结构与检索、数据结构</p><p>布尔代数等：开关理论、逻辑设计和程序理论、语法分析</p><p>图论：可计算性理论、计算机网络、数据结构</p><ol start="2"><li>通过学习离散数学，可以培养和提高自己的抽象思维和逻辑推理能力，获得解决实际问题的能力，为以后的软、硬学习和研究开发工作，打下坚实的数学基础。</li></ol><span id="more"></span><h2 id="基础：逻辑和证明"><a href="#基础：逻辑和证明" class="headerlink" title="基础：逻辑和证明"></a>基础：逻辑和证明</h2><h3 id="命题逻辑"><a href="#命题逻辑" class="headerlink" title="命题逻辑"></a>命题逻辑</h3><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h4><ul><li>命题</li><li>联结词<ul><li>否定联结词</li><li>合取联结词</li><li>析取联结词</li><li>条件语句：逆命题、逆否命题、反命题</li><li>双条件语句</li></ul></li><li>真值表</li></ul><h4 id="命题"><a href="#命题" class="headerlink" title="命题"></a>命题</h4><ul><li><strong>命题：</strong>是一个陈述句（即陈述事实的语句），它或者或假，但不能既真又假。即：<strong>命题是能够判断真假的陈述句。</strong></li><li><strong>原子命题：</strong>不能分解为更简单的陈述句</li></ul><p><img src="%E5%91%BD%E9%A2%981.png"></p><p>说明：</p><ol><li><p>只有具有确定真值得陈述句才是命题。</p><p>一切没有判断内容的句子，无所谓是非的句子，如：祈使句、感叹句、疑问句等都不是命题</p></li><li><p>因为命题只有两种真值，所以“命题逻辑”又称“二值逻辑”</p></li><li><p>“具有确定真值”是指客观上的具有，有我们是否知道它的真值是两回事</p><p>比如：其他星球上有生命</p></li></ol><p>命题逻辑</p><p><strong>命题构造</strong></p><ul><li>命题变元：p，q，r，s……</li><li>一个命题是真命题，用T表示</li><li>一个命题是加盟命题，用F表示</li><li>复合命题：由原子命题用逻辑运算符组合而来<ul><li>否定联结词：┐</li><li>合取联结词：∧</li><li>析取联结词：∨</li><li>or 联结词：⊕</li><li>条件联结词：→</li><li>双条件联结词：↔</li></ul></li></ul><h4 id="复合命题——联结词"><a href="#复合命题——联结词" class="headerlink" title="复合命题——联结词"></a>复合命题——联结词</h4><ol><li><p>否定联结词（逻辑非）</p><p>令p为一命题，则p的否定记作┐p</p><table><thead><tr><th>p</th><th>┐p</th></tr></thead><tbody><tr><td>T</td><td>F</td></tr><tr><td>F</td><td>T</td></tr></tbody></table></li><li><p>合取联结词（逻辑与）</p><p>令p和q为命题，p、q的合取记作p∧q</p><table><thead><tr><th>p</th><th>q</th><th>p∧q</th></tr></thead><tbody><tr><td>T</td><td>T</td><td>T</td></tr><tr><td>T</td><td>F</td><td>F</td></tr><tr><td>F</td><td>T</td><td>F</td></tr><tr><td>F</td><td>F</td><td>F</td></tr></tbody></table></li><li><p>析取联结词（逻辑或）</p><p>令p和q为命题，p、q的析取记作p∨q</p><table><thead><tr><th>p</th><th>q</th><th>pVq</th></tr></thead><tbody><tr><td>T</td><td>T</td><td>T</td></tr><tr><td>T</td><td>F</td><td>T</td></tr><tr><td>F</td><td>T</td><td>T</td></tr><tr><td>F</td><td>F</td><td>F</td></tr></tbody></table></li><li><p>联结词 or （or有两种不同的含义）</p><ul><li><p>兼或（inclusive or）</p><p>例如：修过计算机科学或高数的学生可以修这门课</p><p>这就是析取的含义，p v q为真，只要两个命题之一为真或两者均为真即可。</p></li><li><p>异或（exclusive or）【相异为真】</p><p>例如：套餐含汤或饮料</p><p>这就是异或（XOR）的含义。p⊕q为真，则两个命题只有一个为真，但不能同事为真</p></li></ul><p>两个命题异或的真值表</p><table><thead><tr><th>p</th><th>q</th><th>p⊕q</th></tr></thead><tbody><tr><td>T</td><td>T</td><td>F</td></tr><tr><td>T</td><td>F</td><td>T</td></tr><tr><td>F</td><td>T</td><td>T</td></tr><tr><td>F</td><td>F</td><td>F</td></tr></tbody></table></li><li><p>条件联结词（如果p，则q）</p><table><thead><tr><th>p（前件）</th><th>q（后件）</th><th>p→q</th></tr></thead><tbody><tr><td>T</td><td>T</td><td>T</td></tr><tr><td>T</td><td>F</td><td>F</td></tr><tr><td>F</td><td>T</td><td>T</td></tr><tr><td>F</td><td>F</td><td>T</td></tr></tbody></table><p>前提条件为假，结果必为真。例如：</p><ul><li>如果月亮是绿色奶酪做的，我比比尔盖茨更有钱</li><li>如果月亮是绿色奶酪做的，那么我就得靠救济生活</li><li>如果1+1=3，那么猪会飞。</li></ul><p>在条件语句p→q中，在前件之间不需要有任何联系。p→q只依赖于p和q的真值</p><p><img src="%E5%B8%B8%E7%94%A8%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5%E8%A1%A8%E8%BF%B0%E6%96%B9%E5%BC%8F.png" alt="常用条件语句表述方式"></p><p><strong>逆命题、逆否命题、反命题</strong></p><ul><li>q→p    是p→q的逆命题</li><li>┐q→┐p    是p→q的逆否命题</li><li>┐p→┐q    是p→q的反命题</li></ul></li><li><p>双条件联结词【相同为真】（与异或相反）</p><table><thead><tr><th>p</th><th>q</th><th>p↔q</th></tr></thead><tbody><tr><td>T</td><td>T</td><td>T</td></tr><tr><td>T</td><td>F</td><td>F</td></tr><tr><td>F</td><td>T</td><td>F</td></tr><tr><td>F</td><td>F</td><td>T</td></tr></tbody></table><p>双条件的表达方式</p><ul><li>p是q的充分必要条件</li><li>如果p那么q，反之亦然</li><li>p当且仅当q</li></ul></li></ol><h4 id="等价命题"><a href="#等价命题" class="headerlink" title="等价命题"></a>等价命题</h4><p><strong>如果两个命题总是有相同的真值，他们就是等价的</strong></p><p>例：用真值表说明条件语句等价于逆否命题</p><table><thead><tr><th>p</th><th>q</th><th>┐p</th><th>┐q</th><th>p→q</th><th>┐q→┐p</th></tr></thead><tbody><tr><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr><tr><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td><td>F</td></tr><tr><td>F</td><td>T</td><td>T</td><td>F</td><td>T</td><td>T</td></tr><tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td></tr></tbody></table><p>问题：有n个命题变元的真值表有多少行</p><p>解：2^n。我们可以构造的命题数量（不相等）为2^2^n个</p><h4 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h4><table><thead><tr><th>Operator</th><th>Precedence</th></tr></thead><tbody><tr><td>┐</td><td>1</td></tr><tr><td>∧</td><td>2</td></tr><tr><td>∨</td><td>3</td></tr><tr><td>→</td><td>4</td></tr><tr><td>↔</td><td>5</td></tr></tbody></table><h3 id="命题逻辑的应用"><a href="#命题逻辑的应用" class="headerlink" title="命题逻辑的应用"></a>命题逻辑的应用</h3><h4 id="摘要-1"><a href="#摘要-1" class="headerlink" title="摘要"></a>摘要</h4><ul><li>语句翻译</li><li>系统规范说明</li><li>布尔搜索</li><li>逻辑谜题</li><li>逻辑电路</li></ul><h4 id="语句翻译"><a href="#语句翻译" class="headerlink" title="语句翻译"></a>语句翻译</h4><p>汉语常有二义性，为了在数学上避免歧义，需要翻译成由命题变量和逻辑联结词组成的表达式</p><p><strong>如何翻译成正确的命题公式</strong></p><p>命题演算的合式公式Wff</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;离散数学课程的主要内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;基础：逻辑和证明&lt;/li&gt;
+&lt;li&gt;基本结构（包括集合、函数、序列、求和与矩阵）&lt;/li&gt;
+&lt;li&gt;计数&lt;/li&gt;
+&lt;li&gt;高级计数&lt;/li&gt;
+&lt;li&gt;关系&lt;/li&gt;
+&lt;li&gt;图&lt;/li&gt;
+&lt;li&gt;树&lt;/li&gt;
+&lt;li&gt;布尔代数&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;学习该课程的目的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;为学习计算机后继课程，如数据结构、编译原理、操作系统、数据库原理、形式语言及自动机。软件工程与方法学、计算机网络和人工智能、高级程序设计语言等，提供必要的数据基础；为阅读计算机文章作充分的数学准备&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;数理逻辑：人工智能、数据库、形式语言及自动机、高级程序设计语言&lt;/p&gt;
+&lt;p&gt;集合论：信息结构与检索、数据结构&lt;/p&gt;
+&lt;p&gt;布尔代数等：开关理论、逻辑设计和程序理论、语法分析&lt;/p&gt;
+&lt;p&gt;图论：可计算性理论、计算机网络、数据结构&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;通过学习离散数学，可以培养和提高自己的抽象思维和逻辑推理能力，获得解决实际问题的能力，为以后的软、硬学习和研究开发工作，打下坚实的数学基础。&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="数学" scheme="http://example.com/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>悉达多——一首印度的诗</title>
@@ -471,56 +535,6 @@
     
     
     <category term="2022" scheme="http://example.com/tags/2022/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一月小记</title>
-    <link href="http://example.com/2022/01/25/%E4%B8%80%E6%9C%88%E5%B0%8F%E8%AE%B0/"/>
-    <id>http://example.com/2022/01/25/%E4%B8%80%E6%9C%88%E5%B0%8F%E8%AE%B0/</id>
-    <published>2022-01-25T15:18:56.000Z</published>
-    <updated>2022-01-25T15:36:52.804Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>今年1月真的是全新的开始。不得不说，如果你心情烦闷了，不如一个人去野外走走。如果你感到孤独了，不如叫个朋友陪你旅行。</p><p>这不1月1日新年初始，我就去了凤凰岭。毕竟新年爬山，步步高升嘛！</p><span id="more"></span><p><img src="1.jpeg" alt="凤凰岭"></p><p>之后8号，我在咸鱼认识了一位朋友。本以为交易完毕，再无交集，却发生了一些小“意外”，感觉这份友谊会因为这次“意外”走的更加长远。</p><p>刚开始见到他的时候，感觉挺帅气的，还是红发，还想着不会是“社会少年”吧？哈哈哈，尴尬</p><p>毕竟，让我白等了一个半小时，还以为是寻我开心。</p><p>（ps：他的手机铃声好像是《三天三夜》，还打不通，当时坐在汉堡王的我简直精神肉体双重折磨。）</p><p>他看起来比较毛躁，这点仅是对他自己而言。从刚开始认识他，把电脑放在不平的桌子上，挪动的时候还不小心碰了一下。到和他一起去看北京中轴线，当我们走在狭长的过道时，我提醒过他书包会剐蹭到墙壁，不过他好像并不以为然。感觉他有在意，又有点在旁人面前不好在意，又有那么点不在意的样子。</p><p>不过这样一个毛毛躁躁的人，对待他人却挺心细的。从退货的理由和礼物，到我拍照时会刻意走在我后面，再到吃辣子鸡时给我特意倒水而非倒酒，可以看出对待他人是一个很细心的家伙，会观察对方的言行。</p><p>（pps：不过喝酒这一点我要吐槽，就不能不那么在意谁的杯子比谁低嘛？让我有种拘束感，我又不是长辈。）</p><p>在那次交易完毕之后，我就和朋友去了朝阳公园滑冰。这我不得不夸赞下我自己的运动天赋（这文章应该没人看吧），我本来以为会摔倒无数次，结果下地就会滑了，而且滑的挺有样子，这里我要感谢下小时候滑旱冰摔跤而没放弃的自己。</p><p>之后的16号，我和他去了中轴线。因为15号突发奇想想看看即将开冬奥的鸟巢，所以大晚上去了奥体中心。正如他所说奥林匹克塔远远望去神圣而又给人安宁。那天晚上它散发着幽暗的紫光，与周围的建筑格格不入，看上去更像是外星文明。如果说周围的建筑是这个时代的产物，那么奥林匹克塔就是我想象中《三体》的巨树。</p><p><img src="2.jpeg"></p><p>我发现我现在有点神经病，因为做决定总是突然之间的，并未经过大脑，或仅是短暂停留。</p><p>其实，我还在担心我这么直接邀请他去中轴线，会不会人家不好意思拒绝而耽误了他的冬奥志愿者。那我不就成了“千古罪人”，还好疫情并不严重，而我也像章北海一样内心怀有坚定的信念。</p><p>走在南长街，当夕阳洒在地上，望着飞鸟，看着河面，感受微风抚摸你的脸颊。将身体的每一个部分都交给它，将自己化作这古城的一部分，感受岁月的流逝，感受千古的历史。那一刻好像时间静止，而你已是永恒。</p><p>最开始把他当成学生，觉得凡事都多该为他想想，毕竟是祖国的未来嘛。现在看来，我真是个神经病，正常朋友对待就好了。在这次旅程中，我渐渐忘了他学生的身份，把他当成了朋友，同事或是同学，毕竟也没比我小多少。</p><p>那天的月亮又圆又亮，灯火阑珊间，看着男男女女们走在石桥上，好像是一对对相会的爱人。</p><p>那晚我们走在烟袋斜街，望着城墙，望着月亮，平静如水的是心。</p><p>20号北京下雪了而且连续下了3天，真是上天眷顾。这不马不停蹄的去了故宫，这雪景我是可不能错过的。</p><p><img src="3.jpeg" alt="故宫雪景1"></p><br><p><img src="4.jpeg" alt="故宫雪景2"></p><p>景是好景，但人实在是太多了，那样就少了独特的孤独感。</p><p>于是……我又来到了香山。山里的雪景一定也是很好看的吧！</p><p>（一天都没吃饭了，还能再爬个香山…我终于找的我长不胖的原因了。）</p><p>不过正如我所说，美景难寻。</p><p><img src="5.jpeg" alt="香山美景"></p><br><p><img src="6.jpeg" alt="香山美景"></p><p>在我们的聊天中，我得知他是一名重度抑郁患者。当时我想到了在我为数不多的朋友中，也有一位轻度抑郁患者。他们好像饱受失眠，焦虑，学业等各种社会压力的影响。</p><p>但我并不能看的出来，觉得他们和别人也没有什么不同。除了因失眠带来的困扰能让我感同身受，我并不懂得如何帮助他们，或许这和他们的原生家庭有关，还是不区别对待他们就好啦。</p><p>总之能在新年初始，便能遇到一位闪闪发光的朋友，真的是无比幸运。</p><p>那么祝大家晚安啦，好梦~~~</p><br>    <div id="aplayer-NqrXNbhs" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="1422246732" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;今年1月真的是全新的开始。不得不说，如果你心情烦闷了，不如一个人去野外走走。如果你感到孤独了，不如叫个朋友陪你旅行。&lt;/p&gt;
-&lt;p&gt;这不1月1日新年初始，我就去了凤凰岭。毕竟新年爬山，步步高升嘛！&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="2022" scheme="http://example.com/tags/2022/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2022年的雪</title>
-    <link href="http://example.com/2022/01/20/2022%E5%B9%B4%E7%9A%84%E9%9B%AA/"/>
-    <id>http://example.com/2022/01/20/2022%E5%B9%B4%E7%9A%84%E9%9B%AA/</id>
-    <published>2022-01-20T13:46:35.000Z</published>
-    <updated>2022-01-20T14:22:46.108Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>    <div id="aplayer-ThaXOHec" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="355794" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"    ></div><br><p>还记得2021年年初的时候，也下了很大的雪。我却在家里看着《武林外传》感叹美景，实在罪过。</p><p>那篇文章的标题叫《雪》😂</p><span id="more"></span><br><br><p>今年的雪，不得不说真的好大啊。我和同事还很不解，为啥天气预报显示的是小雪，而我这却大雪纷飞呢？</p><p>难道是上天的眷顾？</p><p>原来朝阳没有雪，我下班出地铁人都傻了，地都干了。朝阳真有你的！</p><p>我都有点害怕，周六去故宫没有雪怎么办。</p><p>对了，昨天终于找到能让我静下心来看的书了。太高兴了，虽然很短。书名嘛，等我读完发书评就知道了。</p><p>然后就是因为疫情，我去不了长白山了，有点小遗憾，但也在意料之中吧。</p><p>上周日，医生给我开了去痘痘的药，药效不错。就是吃完了头晕，哈哈哈。</p><p>地铁上看到了一段话，还是写出来吧。</p><blockquote><p>不要刻意回避，要成长就要学会面对。</p><p>你还年轻，未来还是有很多可能，只是你遇到的太少，总觉得他是你的天花板。</p><p>别人已经远去，何必留在原地回想以前？如果以前是美好的，还可以想象，可是以前并不美好。</p><p>该走了。</p><p>任何时候都要明白不依附任何人，不谄媚任何人，自己要发光发热。</p></blockquote><br><br><p>好了，今天就着雪，学了两首小诗。</p><center>  <b>春 雪</b><br>唐 韩愈<br><br>新年都未有芳华，二月初惊见草芽。<br>白雪却嫌春色晚，故穿庭树作飞花。</center><br><br><center>  <b>冬晚对雪忆胡居士家</b><br>  唐 王维<br><br>  寒更传晓箭，清镜览衰颜。<br>  隔牖风惊竹，开门雪满山。<br>  洒空深港静，积素广庭闲。<br>  借问袁安问，翛然尚闭关。</center><br><br><center>  <b>对 雪</b><br>  唐 杜甫<br><br>  站哭多新鬼，愁吟独老翁。<br>  乱云低薄暮，急雪舞回风。<br>  瓢弃尊无绿，炉存火似红。<br>  数州消息断，愁坐正书空。</center><br><p>好吧，其实是三首，杜甫这首单纯因为“乱云低薄暮，急雪舞回风”有感觉。</p><br><p><img src="1.jpg"></p><br><p><img src="2.jpg"></p>]]></content>
-    
-    
-    <summary type="html">&lt;div id=&quot;aplayer-ThaXOHec&quot; class=&quot;aplayer aplayer-tag-marker meting-tag-marker&quot;
-         data-id=&quot;355794&quot; data-server=&quot;netease&quot; data-type=&quot;song&quot; data-mode=&quot;circulation&quot; data-autoplay=&quot;false&quot; data-mutex=&quot;true&quot; data-listmaxheight=&quot;340px&quot; data-preload=&quot;auto&quot; data-theme=&quot;#ad7a86&quot;
-    &gt;&lt;/div&gt;
-
-&lt;br&gt;
-
-&lt;p&gt;还记得2021年年初的时候，也下了很大的雪。我却在家里看着《武林外传》感叹美景，实在罪过。&lt;/p&gt;
-&lt;p&gt;那篇文章的标题叫《雪》😂&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="2021" scheme="http://example.com/tags/2021/"/>
     
   </entry>
   
