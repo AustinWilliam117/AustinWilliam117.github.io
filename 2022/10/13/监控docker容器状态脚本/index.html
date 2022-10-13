@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用前先要修改的内容  更改server_log_path 存储路径，该路径是存储监控内容的总路径   修改server_array 数组值，修改成要监控的docker容器名称  同步修改calc.sh文件第13行 printf &#39;0.FreeSwitch\t1.dialer\t2.PNLP\t3.MRCP\t4.VCG_TTS\t5.ptts_cloud\t 6.VCG\t7.PSTT\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="监控docker容器状态脚本">
+<meta property="og:url" content="http://example.com/2022/10/13/%E7%9B%91%E6%8E%A7docker%E5%AE%B9%E5%99%A8%E7%8A%B6%E6%80%81%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="使用前先要修改的内容  更改server_log_path 存储路径，该路径是存储监控内容的总路径   修改server_array 数组值，修改成要监控的docker容器名称  同步修改calc.sh文件第13行 printf &#39;0.FreeSwitch\t1.dialer\t2.PNLP\t3.MRCP\t4.VCG_TTS\t5.ptts_cloud\t 6.VCG\t7.PSTT\">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-13T14:51:39.000Z">
+<meta property="article:modified_time" content="2022-10-13T15:01:51.030Z">
+<meta property="article:author" content="蒙珣">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/10/13/%E7%9B%91%E6%8E%A7docker%E5%AE%B9%E5%99%A8%E7%8A%B6%E6%80%81%E8%84%9A%E6%9C%AC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>监控docker容器状态脚本 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">未来很长，当有勇气面对，当与自己和解。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">34</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">160</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/13/%E7%9B%91%E6%8E%A7docker%E5%AE%B9%E5%99%A8%E7%8A%B6%E6%80%81%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          监控docker容器状态脚本
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-13 22:51:39 / Modified: 23:01:51" itemprop="dateCreated datePublished" datetime="2022-10-13T22:51:39+08:00">2022-10-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>7.6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>7 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>使用前先要修改的内容</strong></p>
+<ol>
+<li><p>更改<code>server_log_path</code> 存储路径，该路径是存储监控内容的总路径 </p>
+</li>
+<li><p>修改<code>server_array</code> 数组值，修改成要监控的docker容器名称</p>
+</li>
+<li><p>同步修改calc.sh文件第13行 <code>printf &#39;0.FreeSwitch\t1.dialer\t2.PNLP\t3.MRCP\t4.VCG_TTS\t5.ptts_cloud\t 6.VCG\t7.PSTT\n&#39;</code></p>
+</li>
+</ol>
+<p><strong>使用方法</strong></p>
+<ol>
+<li><p>执行 calc.sh 文件</p>
+</li>
+<li><p>输入要监控的容器名称，**数字间空格分开。如: 0 2 3 **</p>
+</li>
+<li><p>输入监控的时长<strong>只能输入数字</strong></p>
+<p><strong>注意1: calc.py 和 calc.sh</strong> <strong>要在同一个目录下</strong></p>
+<p><strong>注意2: 请使用管理员用户执行该脚本，否则需要修改脚本中docker status，给其添加权限</strong></p>
+</li>
+</ol>
+<span id="more"></span>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">----------------------------------------------------------------------------------------------------</span></span><br><span class="line">date_time=`date &quot;+%Y_%m_%d_%H-%M-%S&quot;`</span><br><span class="line">server_log_path=/home/dengyuanjing/docker/test</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始服务数组</span></span><br><span class="line">server_array=(&quot;Freeswitch&quot; &quot;dialer&quot; &quot;PNLP&quot; &quot;MRCP&quot; &quot;VCG_TTS&quot; &quot;ptts_cloud&quot; &quot;VCG&quot; &quot;PSTT&quot;)</span><br><span class="line"></span><br><span class="line">echo &quot;-----------------------------------------------------------------------------------------------&quot;</span><br><span class="line">echo &quot;生成的目录名称是：$date_time&quot;</span><br><span class="line">printf &#x27;\n&#x27;</span><br><span class="line">printf &#x27;0.FreeSwitch\t1.dialer\t2.PNLP\t3.MRCP\t4.VCG_TTS\t5.ptts_cloud\t 6.VCG\t7.PSTT\n&#x27;</span><br><span class="line">printf &#x27;\n&#x27;</span><br><span class="line">read -p &quot;请输入要监控的服务序号(空格分隔)：&quot; number</span><br><span class="line">read -p &quot;请输入要监控的时长(分钟)：&quot; server_time</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取用户输入的长度（不包括空格）</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> num=`<span class="built_in">echo</span> <span class="variable">$number</span> | awk -F <span class="string">&quot; &quot;</span> <span class="string">&#x27;&#123;print NF&#125;&#x27;</span>`</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 用户指定要监控的数组</span></span><br><span class="line">select_array=()</span><br><span class="line"></span><br><span class="line">for i in $&#123;number[@]&#125;</span><br><span class="line">do</span><br><span class="line">    select_array[$&#123;#select_array[@]&#125;]=$&#123;server_array[$i]&#125;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo &quot;您所选择的监控有：$&#123;select_array[@]&#125;&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">----------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用下面命令生成1.txt</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> docker stats dialer &gt; dialer.txt</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 存放<span class="built_in">log</span>的路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash">LOG_PATH=/home/dengyuanjing/docker/<span class="built_in">test</span>/<span class="variable">$date_time</span>/<span class="variable">$server</span>/</span></span><br><span class="line">PID_array=()</span><br><span class="line">for server in $&#123;select_array[@]&#125;</span><br><span class="line">do</span><br><span class="line">    log_path=$server_log_path/$date_time/$server</span><br><span class="line">    mkdir -p $log_path</span><br><span class="line">    log_result_path=$log_path/result</span><br><span class="line">    mkdir -p $log_result_path</span><br><span class="line">    # 后台监控docker进程</span><br><span class="line">    nohup docker stats $server &gt; $log_path/$server.txt 2&gt;&amp; 1 &amp;</span><br><span class="line">    # 将各个服务的进程号记录的数组中</span><br><span class="line">    PID_array[$&#123;#PID_array[@]&#125;]=$!</span><br><span class="line">done</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出PID_array的值</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ps -ef | grep <span class="string">&quot;docker stats dialer&quot;</span></span></span><br><span class="line">for i in $&#123;PID_array[@]&#125;</span><br><span class="line">do</span><br><span class="line">    echo &quot;所监控的进程ID为：$i&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">sleep $&#123;server_time&#125;m</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">kill</span> 掉监控进程</span></span><br><span class="line">for server_PID in $&#123;PID_array[@]&#125;</span><br><span class="line">do</span><br><span class="line">    kill -9 $server_PID</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">sleep 1m</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">----------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 过滤docker监控的文本</span></span><br><span class="line"></span><br><span class="line">for server in $&#123;select_array[@]&#125;</span><br><span class="line">do</span><br><span class="line">    log_path=$server_log_path/$date_time/$server</span><br><span class="line">    log_result_path=$log_path/result/</span><br><span class="line">    #echo &quot;现在要过滤的server名称为：$server&quot;</span><br><span class="line">    #echo &quot;路径为：$log_path/$server.txt&quot;</span><br><span class="line">    # 1.过滤出Container ID</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;NR==2 &#123;print $1&#125;&#x27; | grep -v CONTAINER &gt; CONTAINER.log</span><br><span class="line">    # 2.过滤出容器名</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;NR==2 &#123;print $2&#125;&#x27; &gt; CONTAINER_NAME.log</span><br><span class="line">    # 3.过滤出CPU</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;&#123;print $3&#125;&#x27; | grep -v NAME &gt; CPU_Usage.log</span><br><span class="line">    # 4.过滤出使用内存</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;&#123;print $4&#125;&#x27; | grep -v CPU &gt; MEM_Usage.log</span><br><span class="line">    # 5.过滤出内存占比</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;&#123;print $7&#125;&#x27; | grep -v USAGE &gt; MEM_Rate.log</span><br><span class="line">    # 6.过滤出发送数据量Net I</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;&#123;print $8&#125;&#x27; | grep -v USAGE |grep -v / &gt; NET_input.log</span><br><span class="line">    # 7.过滤出接受数据量Net O</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;&#123;print $10&#125;&#x27; | grep -v USAGE |grep -v &#x27;MEM&#x27; &gt; NET_output.log</span><br><span class="line">    # 8.过滤出块读取数据量Block </span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;&#123;print $11&#125;&#x27; | grep -v &quot;%&quot; &gt; Block_input.log</span><br><span class="line">    # 9.过滤出块写入数据量Block O</span><br><span class="line">    cat $log_path/$server.txt |awk &#x27;&#123;print $13&#125;&#x27; | grep -v &quot;I/O&quot; &gt; Block_output.log</span><br><span class="line">    # 10.过滤出容器线程数Pids</span><br><span class="line">    # PIDS=cat $log_path/$server.txt |awk &#x27;&#123;print $14&#125;&#x27; | grep -v &quot;BLOCK&quot;</span><br><span class="line"></span><br><span class="line">    # 将日志移入LOG_PATH下</span><br><span class="line">    mv CONTAINER.log $log_result_path</span><br><span class="line">    mv CONTAINER_NAME.log $log_result_path</span><br><span class="line">    mv CPU_Usage.log $log_result_path</span><br><span class="line">    mv MEM_Usage.log $log_result_path</span><br><span class="line">    mv MEM_Rate.log $log_result_path</span><br><span class="line">    mv NET_input.log $log_result_path</span><br><span class="line">    mv NET_output.log $log_result_path</span><br><span class="line">    mv Block_input.log $log_result_path</span><br><span class="line">    mv Block_output.log $log_result_path</span><br><span class="line">    </span><br><span class="line">done</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">----------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 计算</span></span><br><span class="line"></span><br><span class="line">for server in $&#123;select_array[@]&#125;</span><br><span class="line">do</span><br><span class="line">    log_path=$server_log_path/$date_time/$server</span><br><span class="line">    log_result_path=$log_path/result/</span><br><span class="line">    python3 calc.py $log_result_path $server</span><br><span class="line"></span><br><span class="line">    # 打印</span><br><span class="line">    sleep 5</span><br><span class="line">    log_result_path=$log_path/result</span><br><span class="line">    cat $log_result_path/calc.txt</span><br><span class="line">    echo &quot;&quot;</span><br><span class="line">done</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    设置读取的文本路径</span></span><br><span class="line"><span class="string">    1.cpuUsagePath</span></span><br><span class="line"><span class="string">    2.memUsagePath</span></span><br><span class="line"><span class="string">    3.memRatePath</span></span><br><span class="line"><span class="string">    4.netInputPath</span></span><br><span class="line"><span class="string">    5.netOutputPath</span></span><br><span class="line"><span class="string">    6.blockInputPath</span></span><br><span class="line"><span class="string">    7.blockOutputPath</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">PATH = sys.argv[<span class="number">1</span>]</span><br><span class="line">server = sys.argv[<span class="number">2</span>]</span><br><span class="line"><span class="comment">#print(&quot;============================================================&quot;)</span></span><br><span class="line"><span class="comment">#print(PATH)</span></span><br><span class="line">cpuUsagePath = PATH+<span class="string">&#x27;CPU_Usage.log&#x27;</span></span><br><span class="line">memUsagePath = PATH+<span class="string">&#x27;MEM_Usage.log&#x27;</span></span><br><span class="line">memRatePath = PATH+<span class="string">&#x27;MEM_Rate.log&#x27;</span></span><br><span class="line">netInputPath = PATH+<span class="string">&#x27;NET_input.log&#x27;</span></span><br><span class="line">netOutputPath = PATH+<span class="string">&#x27;NET_output.log&#x27;</span></span><br><span class="line">blockInputPath = PATH+<span class="string">&#x27;Block_input.log&#x27;</span></span><br><span class="line">blockOutputPath = PATH+<span class="string">&#x27;Block_output.log&#x27;</span></span><br><span class="line">arrayPath = [cpuUsagePath, memUsagePath, memRatePath, netInputPath, netOutputPath, blockInputPath, blockOutputPath]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_calc</span>():</span></span><br><span class="line">    txtPath = PATH + <span class="string">&#x27;calc.txt&#x27;</span></span><br><span class="line">    <span class="comment">#print(&quot;路径为：&quot;+txtPath)</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(txtPath,<span class="string">&#x27;a+&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(server+<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        f.write(<span class="string">&quot;======================================================\n&quot;</span>)</span><br><span class="line">        f.write(<span class="string">&quot;%s\t%s\t%s\t%s\t%s\t%s\t%s\n&quot;</span> %(<span class="string">&quot;type&quot;</span>,<span class="string">&quot;Max&quot;</span>,<span class="string">&quot;Min&quot;</span>,<span class="string">&quot;Avg&quot;</span>,<span class="string">&quot;PCT90&quot;</span>,<span class="string">&quot;PCT95&quot;</span>,<span class="string">&quot;PCT99&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    1.calc 函数接收两个参数，一个是shell过滤后的值的单位，一个是shell过滤后的数组</span></span><br><span class="line"><span class="string">    2.calc 仅接受排序后的数组</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc</span>(<span class="params">unit,array,server,listName</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 90/95/99百分率计算</span></span><br><span class="line">    percent1 = <span class="number">99</span></span><br><span class="line">    percent2 = <span class="number">95</span></span><br><span class="line">    percent3 = <span class="number">90</span></span><br><span class="line">    a1 = percent1/<span class="number">100</span></span><br><span class="line">    a2 = percent2/<span class="number">100</span></span><br><span class="line">    a3 = percent3/<span class="number">100</span></span><br><span class="line"></span><br><span class="line">    num_count = <span class="built_in">len</span>(array)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 最大值、最小值、平均值</span></span><br><span class="line">    maxValue = array[-<span class="number">1</span>]</span><br><span class="line">    mixValue = array[<span class="number">0</span>]</span><br><span class="line">    averageValue = <span class="built_in">sum</span>(array)/<span class="built_in">len</span>(array)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 90、95、99%</span></span><br><span class="line">    <span class="keyword">if</span> math.ceil(num_count*a1) == num_count:</span><br><span class="line">        percent_99 = array[num_count-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        percent_99 = array[math.ceil(num_count*a1)]</span><br><span class="line">    <span class="keyword">if</span> math.ceil(num_count*a2) == num_count:</span><br><span class="line">        percent_95 = array[num_count-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        percent_95 = array[math.ceil(num_count*a2)]</span><br><span class="line">    <span class="keyword">if</span> math.ceil(num_count*a3) == num_count:</span><br><span class="line">        percent_90 = array[num_count-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        percent_90 = array[math.ceil(num_count*a3)]</span><br><span class="line"></span><br><span class="line">    txtPath = PATH + <span class="string">&#x27;calc.txt&#x27;</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(txtPath,<span class="string">&#x27;a+&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(<span class="string">&quot;%s%s%s%s\t %.2f %.2f %.2f %.2f %.2f %.2f\n&quot;</span> %(listName,<span class="string">&quot;(&quot;</span>,unit,<span class="string">&quot;)&quot;</span>,maxValue,mixValue,averageValue,percent_90,percent_95,percent_99))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    用于分离出unit</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    用于读取数据，并创建列表，将其送入calc计算最大、最小值</span></span><br><span class="line"><span class="string">    1.循环列表</span></span><br><span class="line"><span class="string">    2.打印要计算的列表的名称，如：CPU_Usage、MEM_Usage</span></span><br><span class="line"><span class="string">    3.读取该路径文件</span></span><br><span class="line"><span class="string">    4.按照read_file()分离出来的unit，添加数组元素</span></span><br><span class="line"><span class="string">    5.送入calc()计算</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_file</span>():</span></span><br><span class="line">    <span class="comment"># 分割出每个log中的单位</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> arrayPath:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(i,<span class="string">&#x27;r+&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            firstLine = f.readline()</span><br><span class="line">            <span class="comment"># 正则匹配非数字的最后一位，即单位</span></span><br><span class="line">            pattern_value = re.findall(<span class="string">r&#x27;\D+&#x27;</span>,firstLine)</span><br><span class="line">            unit = pattern_value[-<span class="number">1</span>]</span><br><span class="line">            unit = unit.split()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment">#print(&#x27;-------------------------------------单位为：&#x27;+unit)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 用于读取数据，并创建列表，将其送入calc计算最大、最小值</span></span><br><span class="line">        listName = i.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">        listName = listName.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="comment">#print()</span></span><br><span class="line">        <span class="comment">#print(listName)</span></span><br><span class="line">        <span class="comment">#print(type(listName))</span></span><br><span class="line">        array = []</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(i,<span class="string">&#x27;r+&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">                lineValue = line.split(unit)[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    array.append(<span class="built_in">float</span>(lineValue))</span><br><span class="line">                <span class="keyword">except</span> ValueError:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;加入列表进行计算的值格式有误!&quot;</span>)</span><br><span class="line">        array.sort()</span><br><span class="line">        calc(unit,array,server,listName)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    write_calc()</span><br><span class="line">    read_file()</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/10/%E4%BD%A0%E5%BD%93%E5%83%8F%E9%B8%9F%E9%A3%9E%E5%BE%80%E4%BD%A0%E7%9A%84%E5%B1%B1/" rel="prev" title="你当像鸟飞往你的山">
+      <i class="fa fa-chevron-left"></i> 你当像鸟飞往你的山
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/logo.JPG">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">543k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">8:14</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>
