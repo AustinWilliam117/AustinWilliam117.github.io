@@ -135,12 +135,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">17</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">18</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">162</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">164</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,196 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/CH1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A6%82%E8%A6%81%E4%B8%8E%E6%8A%80%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/09/CH1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A6%82%E8%A6%81%E4%B8%8E%E6%8A%80%E6%9C%AF/" class="post-title-link" itemprop="url">CH1 计算机概要与技术</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-11-09 23:31:55" itemprop="dateCreated datePublished" datetime="2022-11-09T23:31:55+08:00">2022-11-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-21 22:48:11" itemprop="dateModified" datetime="2022-12-21T22:48:11+08:00">2022-12-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">计算机组成与设计</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：B站翼云</p>
+</blockquote>
+<p>在读完本书后，我们能够理解以下问题：</p>
+<ul>
+<li><p>用C或Java等高级语言编写的程序如何翻译成硬件之间的语言？硬件如何执行程序？</p>
+<p>领会这些概念是理解软硬件两者如何影响程序性能的基础</p>
+</li>
+<li><p>什么是软硬件之间的接口，以及软件如何指导硬件完成其功能？</p>
+<p>这些概念对于许多软件的编写十分重要</p>
+</li>
+<li><p>哪些因素决定了程序的性能？程序员如何才能改进程序性能？</p>
+<p>从本书中我们将知道，程序性能取决于原始程序、将该程序转换为计算机语言的软件以及执行该程序的硬件的有效性</p>
+</li>
+<li><p>什么技术可供硬件设计者用于改进性能？</p>
+<p>本书将介绍现代计算机设计的基本概念。有感兴趣的读者可深入阅读另一本进阶教材《Computer Architecture: A Quantitative Approach》</p>
+</li>
+<li><p>硬件设计者可使用那些技术提高能效？什么技术可供程序员提高或降低能效？</p>
+</li>
+<li><p>为什么串行处理近来发展为并行处理？这种发展带来的结果是什么？</p>
+<p>本书给出了解释，并介绍了当今支持并行处理的硬件机制，全面评述了新一代的多核微处理器（multicore microprocessor）</p>
+</li>
+<li><p>自1951年的第一台商用计算机开始，计算机架构师们提出的哪些伟大思想构成了计算机的基础？</p>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/11/09/CH1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A6%82%E8%A6%81%E4%B8%8E%E6%8A%80%E6%9C%AF/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">计算机系统基础</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-23 16:16:40" itemprop="dateCreated datePublished" datetime="2022-10-23T16:16:40+08:00">2022-10-23</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -991,208 +1181,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/04/%E5%86%99%E5%9C%A8%E4%B8%83%E5%A4%95%E5%90%8E%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E7%88%B1%E6%83%85%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E5%8F%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/04/%E5%86%99%E5%9C%A8%E4%B8%83%E5%A4%95%E5%90%8E%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E7%88%B1%E6%83%85%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E5%8F%97/" class="post-title-link" itemprop="url">写在七夕后——关于爱情的一些感受</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-08-04 00:19:14" itemprop="dateCreated datePublished" datetime="2022-08-04T00:19:14+08:00">2022-08-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-08 20:59:11" itemprop="dateModified" datetime="2022-08-08T20:59:11+08:00">2022-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.3k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>4 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div id="aplayer-fZuRgzIF" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="1330348068" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div>
-
-<br/>
-
-<center>
-南有乔木，不可休思；汉有游女，不可求思。<br>
-汉之广矣，不可泳思；江之永矣，不可方思。<br>
-翘翘错薪，言刈其楚；之子于归，言秣其马。<br>
-汉之广矣，不可泳思；江之永矣，不可方思。<br>
-翘翘错薪，言刈其蒌；之子于归，言秣其驹。<br>
-汉之广矣，不可泳思；江之永矣，不可方思。
-</center>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/08/04/%E5%86%99%E5%9C%A8%E4%B8%83%E5%A4%95%E5%90%8E%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E7%88%B1%E6%83%85%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E5%8F%97/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/31/%E5%A5%BD%E7%94%A8%E7%9A%84shell%E8%84%9A%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/31/%E5%A5%BD%E7%94%A8%E7%9A%84shell%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">好用的shell脚本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-07-31 20:46:10 / Modified: 21:05:41" itemprop="dateCreated datePublished" datetime="2022-07-31T20:46:10+08:00">2022-07-31</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>5.4k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>5 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="批量修改文件名"><a href="#批量修改文件名" class="headerlink" title="批量修改文件名"></a>批量修改文件名</h3><p>原始文件名</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file_1_finished.jpg  file_2_finished.jpg  file_3_finished.jpg</span><br></pre></td></tr></table></figure>
-
-<p><strong>批量修改文件名</strong></p>
-<p>将所有文件名的 <code>_finished</code> 去掉</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">for file in `ls *.jpg`</span><br><span class="line"></span><br><span class="line">do</span><br><span class="line">    # echo $file|sed &#x27;s/_finished//g&#x27;</span><br><span class="line"></span><br><span class="line">    mv $file `echo $file|sed &#x27;s/_finished//g&#x27;`</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/07/31/%E5%A5%BD%E7%94%A8%E7%9A%84shell%E8%84%9A%E6%9C%AC/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1264,14 +1252,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">164</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1328,13 +1316,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">548k</span>
+    <span title="Symbols count total">554k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">8:18</span>
+    <span title="Reading time total">8:24</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
