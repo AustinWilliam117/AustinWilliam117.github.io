@@ -15848,10 +15848,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
   <entry>
     <title>CH1 计算机概要与技术</title>
     <url>/2022/11/09/CH1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A6%82%E8%A6%81%E4%B8%8E%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote>
-<p>转自：B站翼云</p>
-</blockquote>
-<p>在读完本书后，我们能够理解以下问题：</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>在读完本书后，我们能够理解以下问题：</p>
 <ul>
 <li><p>用C或Java等高级语言编写的程序如何翻译成硬件之间的语言？硬件如何执行程序？</p>
 <p>领会这些概念是理解软硬件两者如何影响程序性能的基础</p>
@@ -16225,7 +16222,10 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h3 id="四川大学习题"><a href="#四川大学习题" class="headerlink" title="四川大学习题"></a>四川大学习题</h3>]]></content>
+<h3 id="四川大学习题"><a href="#四川大学习题" class="headerlink" title="四川大学习题"></a>四川大学习题</h3><blockquote>
+<p>转自：B站翼云</p>
+</blockquote>
+]]></content>
       <categories>
         <category>计算机组成与设计</category>
       </categories>
@@ -16233,7 +16233,11 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
   <entry>
     <title>CH2 指令: 计算机的语言</title>
     <url>/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><blockquote>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="第一部分-MIPS-32概述"><a href="#第一部分-MIPS-32概述" class="headerlink" title="第一部分 MIPS-32概述"></a>第一部分 MIPS-32概述</h3><p><img src="MIPS-32%E6%A6%82%E8%BF%B0.png"></p>
+<h4 id="指令的组成-MIPS的设计思想"><a href="#指令的组成-MIPS的设计思想" class="headerlink" title="指令的组成 MIPS的设计思想"></a>指令的组成 MIPS的设计思想</h4><p>计算机执行任何程序，本质上都是在执行机器语言指令（instruction），每条指令都是一条0-1串</p>
+<p>指令首先要指明执行什么操作，通常用0-1串中的前几位来表示，称为操作码 指令还要指出需要操作的数据来自哪里、操作后的结果数据放回哪里 通常用0-1串中的剩余位来表示，称为操作数或地址码 大部分操作数都是一个地址编号，告诉CPU从哪里取得数据、向哪里放回数据 所以操作数通常也叫做地址码</p>
+<p>虽然后来会有颜色来涂抹这样的一片遗憾</p>
+<blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
 ]]></content>
