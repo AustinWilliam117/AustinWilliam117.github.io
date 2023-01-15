@@ -32,8 +32,9 @@
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png">
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%802.png">
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS-32%E6%A6%82%E8%BF%B0.png">
+<meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png">
 <meta property="article:published_time" content="2023-01-12T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-15T11:54:45.232Z">
+<meta property="article:modified_time" content="2023-01-15T15:51:47.755Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png">
@@ -231,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-15 19:54:45" itemprop="dateModified" datetime="2023-01-15T19:54:45+08:00">2023-01-15</time>
+                <time title="Modified: 2023-01-15 23:51:47" itemprop="dateModified" datetime="2023-01-15T23:51:47+08:00">2023-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,7 +257,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>856</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -321,6 +322,33 @@
 <li>运算的临时变量、中间变量存放在<font color="orange">临时寄存器</font>（temp reg）中：$t0 ~ $t7 共8个</li>
 <li>还有一个<font color="orange">零寄存器</font>，永远存放32位的0，写作$zero</li>
 </ul>
+<h3 id="第二部分-三类汇编指令"><a href="#第二部分-三类汇编指令" class="headerlink" title="第二部分 三类汇编指令"></a>第二部分 三类汇编指令</h3><p><img src="%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png" alt="三类汇编指令"></p>
+<h4 id="算数运算：加add、减sub"><a href="#算数运算：加add、减sub" class="headerlink" title="算数运算：加add、减sub"></a>算数运算：加add、减sub</h4><p>C赋值语句：c = a + b;</p>
+<p><font color="orange">加法指令 add c, a, b</font>: 将a和b中的数据相加，并将结果存放在c中</p>
+<p>再次强调：MIPS中运算的操作数必须来自寄存器或者指令本身！</p>
+<p>假设变量a，b，c分别存放在寄存器$s0，$s1，$s2中，这条指令就应当写为</p>
+<p><code>add $s2, $s0, $s1</code></p>
+<p>加法中两个数可以对换，但减法不行，故c = a - b；必须写作</p>
+<p><code>sub $s2, $s0, $s1</code></p>
+<p>运算的 “原材料” a和b对应的寄存器$s0, $s1</p>
+<p>分别称为源操作数1*（src1）和源操作数2（src2）</p>
+<p>运算的结果c对应的寄存器$s2称为目的操作数（des）</p>
+<p><code>加减指令的通式：add/sub des, src1, src2</code></p>
+<h4 id="算术运算：加立即数addi"><a href="#算术运算：加立即数addi" class="headerlink" title="算术运算：加立即数addi"></a>算术运算：加立即数addi</h4><p>在 i++ 即 i = i + 1；这条赋值语句中，有个确定的常数1</p>
+<p>与其采取额外的步骤将1装入某个寄存器，不如让指令本身包含这个1</p>
+<p>假设变量i位于寄存器$s0，我们把加法指令的第二个源操作数改为常数1</p>
+<p><code>addi $s0, $s0, 1</code></p>
+<p> 就成了加立即数(add immediate)指令</p>
+<p>因为addi指令中的立即数可以取负数（对立即数取负后相加）</p>
+<p>因此，MIPS中没有subi指令</p>
+<h4 id="逻辑按位运算-and、or、nor指令"><a href="#逻辑按位运算-and、or、nor指令" class="headerlink" title="逻辑按位运算:and、or、nor指令"></a>逻辑按位运算:and、or、nor指令</h4><p>当两个源寄存器中，对应的位上同时为1时，与and操作结果为1 当两个源寄存器中，对应的位上至少有一个为1时，或or操作结果为1 因此，假设</p>
+<p><code>$t0 = 0000 0000 0000 0000 0000 0000 0000 1001</code></p>
+<p><code>$t1 = 0000 0000 0000 0000 0000 0000 0000 1100</code></p>
+<p>执行下列两条指令后，$t2中的数据分别变为多少? </p>
+<p><code>and $t2, $t0, $t1</code></p>
+<p><code> or $t2, $t0, $t1</code></p>
+<p>任何数据与0进行<font color="orange">或非nor操作</font>，都会0/1反转 执行下列指令后，$t2中的数据会变为多少?</p>
+<p><code> nor $t2, $t0, $zero</code></p>
 <blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
@@ -401,7 +429,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-MIPS-32%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">第一部分 MIPS-32概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E7%BB%84%E6%88%90-MIPS%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">指令的组成 MIPS的设计思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIPS-32%E4%B8%AD%E7%9A%84%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">MIPS-32中的通用寄存器</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-MIPS-32%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">第一部分 MIPS-32概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E7%BB%84%E6%88%90-MIPS%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">指令的组成 MIPS的设计思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIPS-32%E4%B8%AD%E7%9A%84%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">MIPS-32中的通用寄存器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">第二部分 三类汇编指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%EF%BC%9A%E5%8A%A0add%E3%80%81%E5%87%8Fsub"><span class="nav-number">2.1.</span> <span class="nav-text">算数运算：加add、减sub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%EF%BC%9A%E5%8A%A0%E7%AB%8B%E5%8D%B3%E6%95%B0addi"><span class="nav-number">2.2.</span> <span class="nav-text">算术运算：加立即数addi</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%8C%89%E4%BD%8D%E8%BF%90%E7%AE%97-and%E3%80%81or%E3%80%81nor%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">逻辑按位运算:and、or、nor指令</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -481,13 +509,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">555k</span>
+    <span title="Symbols count total">557k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">8:25</span>
+    <span title="Reading time total">8:26</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

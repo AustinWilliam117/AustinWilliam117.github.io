@@ -16222,7 +16222,29 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h3 id="四川大学习题"><a href="#四川大学习题" class="headerlink" title="四川大学习题"></a>四川大学习题</h3><blockquote>
+<h3 id="四川大学期末习题"><a href="#四川大学期末习题" class="headerlink" title="四川大学期末习题"></a>四川大学期末习题</h3><p><strong>1、下面哪种处理器不是采用RISC指令系统（D）</strong></p>
+<p>A. 华为麒麟处理器</p>
+<p>B. 高通845 处理器</p>
+<p>C. MIPS 处理器</p>
+<p>D. Intel 处理器</p>
+<p><strong>2、八位四选一多路选择器控制线位数是（）</strong></p>
+<p>A. 1    B. 2    C. 3    D. 8</p>
+<p><strong>3、下面关于CPI的说法，错误的是（）</strong></p>
+<p>A. 多周期CPU比单周期CPU的CPI大，因此单周期CPU更快</p>
+<p>B. 同一台机器中运行不同的程序CPI不一定相同</p>
+<p>C. MIPS单周期CPU各种指令的CPI是相同的</p>
+<p>D. MIPS多周期CPU访存指令CPI比R-type型指令CPI大</p>
+<p><strong>4、下列哪一项和CPU的运算速度关系不大（）</strong></p>
+<p>A. CPU主频    B. MIPS    C. CPI    D. 主存频率</p>
+<p><strong>5、将指令从符号码翻译成二进制码的程序（）</strong></p>
+<p>A. 汇编器    B. 编译器    C. 链接器    D. 加载器</p>
+<p><strong>6、同一个程序，在同一台计算机的CPU超频前和超频后运行，假设内存的访问速度不变，超频前和超频后CPI对比应该是（）</strong></p>
+<p>注：CPU超频是指增大CPU的时钟频率</p>
+<p>A. 超频前的CPI大</p>
+<p>B. 超频后的CPI大</p>
+<p><strong>7、某处理器执行某一段程序，该程序包含三类指令，其中运算指令120条，访存指令60条，分支指令20条，各类指令的CPI分别为5、10和2。请计算执行这段程序的平均CPI</strong></p>
+<p><strong>8、编译程序对一个应用在给定的处理器上的性能有极深的影响。假定一个程序，如果采用编译程序A，则动态指令数为1.0x10^9，执行时间为1.5s；如果采用编译程序B，则动态指令数为1.5x10^9，执行时间为2.1s。若该处理器的时钟周期为1ns，请分别求出每种编译程序下的平均CPI</strong></p>
+<blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
 ]]></content>
@@ -16279,6 +16301,33 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li>运算的临时变量、中间变量存放在<font color="orange">临时寄存器</font>（temp reg）中：$t0 ~ $t7 共8个</li>
 <li>还有一个<font color="orange">零寄存器</font>，永远存放32位的0，写作$zero</li>
 </ul>
+<h3 id="第二部分-三类汇编指令"><a href="#第二部分-三类汇编指令" class="headerlink" title="第二部分 三类汇编指令"></a>第二部分 三类汇编指令</h3><p><img src="%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png" alt="三类汇编指令"></p>
+<h4 id="算数运算：加add、减sub"><a href="#算数运算：加add、减sub" class="headerlink" title="算数运算：加add、减sub"></a>算数运算：加add、减sub</h4><p>C赋值语句：c = a + b;</p>
+<p><font color="orange">加法指令 add c, a, b</font>: 将a和b中的数据相加，并将结果存放在c中</p>
+<p>再次强调：MIPS中运算的操作数必须来自寄存器或者指令本身！</p>
+<p>假设变量a，b，c分别存放在寄存器$s0，$s1，$s2中，这条指令就应当写为</p>
+<p><code>add $s2, $s0, $s1</code></p>
+<p>加法中两个数可以对换，但减法不行，故c = a - b；必须写作</p>
+<p><code>sub $s2, $s0, $s1</code></p>
+<p>运算的 “原材料” a和b对应的寄存器$s0, $s1</p>
+<p>分别称为源操作数1*（src1）和源操作数2（src2）</p>
+<p>运算的结果c对应的寄存器$s2称为目的操作数（des）</p>
+<p><code>加减指令的通式：add/sub des, src1, src2</code></p>
+<h4 id="算术运算：加立即数addi"><a href="#算术运算：加立即数addi" class="headerlink" title="算术运算：加立即数addi"></a>算术运算：加立即数addi</h4><p>在 i++ 即 i = i + 1；这条赋值语句中，有个确定的常数1</p>
+<p>与其采取额外的步骤将1装入某个寄存器，不如让指令本身包含这个1</p>
+<p>假设变量i位于寄存器$s0，我们把加法指令的第二个源操作数改为常数1</p>
+<p><code>addi $s0, $s0, 1</code></p>
+<p> 就成了加立即数(add immediate)指令</p>
+<p>因为addi指令中的立即数可以取负数（对立即数取负后相加）</p>
+<p>因此，MIPS中没有subi指令</p>
+<h4 id="逻辑按位运算-and、or、nor指令"><a href="#逻辑按位运算-and、or、nor指令" class="headerlink" title="逻辑按位运算:and、or、nor指令"></a>逻辑按位运算:and、or、nor指令</h4><p>当两个源寄存器中，对应的位上同时为1时，与and操作结果为1 当两个源寄存器中，对应的位上至少有一个为1时，或or操作结果为1 因此，假设</p>
+<p><code>$t0 = 0000 0000 0000 0000 0000 0000 0000 1001</code></p>
+<p><code>$t1 = 0000 0000 0000 0000 0000 0000 0000 1100</code></p>
+<p>执行下列两条指令后，$t2中的数据分别变为多少? </p>
+<p><code>and $t2, $t0, $t1</code></p>
+<p><code> or $t2, $t0, $t1</code></p>
+<p>任何数据与0进行<font color="orange">或非nor操作</font>，都会0/1反转 执行下列指令后，$t2中的数据会变为多少?</p>
+<p><code> nor $t2, $t0, $zero</code></p>
 <blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
