@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-01-12T15:58:53.507Z</updated>
+  <updated>2023-01-15T11:54:45.232Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,15 +21,31 @@
     <link href="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/"/>
     <id>http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/</id>
     <published>2023-01-12T15:00:00.000Z</published>
-    <updated>2023-01-12T15:58:53.507Z</updated>
+    <updated>2023-01-15T11:54:45.232Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="第一部分-MIPS-32概述"><a href="#第一部分-MIPS-32概述" class="headerlink" title="第一部分 MIPS-32概述"></a>第一部分 MIPS-32概述</h3><p><img src="MIPS-32%E6%A6%82%E8%BF%B0.png"></p><h4 id="指令的组成-MIPS的设计思想"><a href="#指令的组成-MIPS的设计思想" class="headerlink" title="指令的组成 MIPS的设计思想"></a>指令的组成 MIPS的设计思想</h4><p>计算机执行任何程序，本质上都是在执行机器语言指令（instruction），每条指令都是一条0-1串</p><p>指令首先要指明执行什么操作，通常用0-1串中的前几位来表示，称为操作码 指令还要指出需要操作的数据来自哪里、操作后的结果数据放回哪里 通常用0-1串中的剩余位来表示，称为操作数或地址码 大部分操作数都是一个地址编号，告诉CPU从哪里取得数据、向哪里放回数据 所以操作数通常也叫做地址码</p><p>虽然后来会有颜色来涂抹这样的一片遗憾</p><blockquote><p>转自：B站翼云</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>MIPS 操作数</p><table><thead><tr><th>名字</th><th>示例</th><th>注释</th></tr></thead><tbody><tr><td>32个寄存器</td><td>$s0-$s7, $t0-$t9, $zero,<br />$a0-$a3, $v0-$v1, $gp, $fp,<br />$sp, $ra, $at</td><td>寄存器用于数据的快速存取。在MIPS中，只能对存放在寄存器中的数据执行算数操作，寄存器$zero的值恒为0，寄存器$at被汇编器保留，用于处理大的常数</td></tr><tr><td>20^30个存储器字</td><td>Memory[0], Memory[4], …,<br />Memory[4294967292]</td><td>存储器只能通过数据传输指令访问。MIPS使用字节编址，所以连续的字地址相差4。存储器用于保存数据结构、数组和溢出的寄存器。</td></tr></tbody></table><span id="more"></span><p><img src="MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png" alt="MIPS汇编语言"></p><p><img src="MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%802.png" alt="MIPS汇编语言"></p><h3 id="第一部分-MIPS-32概述"><a href="#第一部分-MIPS-32概述" class="headerlink" title="第一部分 MIPS-32概述"></a>第一部分 MIPS-32概述</h3><p><img src="MIPS-32%E6%A6%82%E8%BF%B0.png"></p><h4 id="指令的组成-MIPS的设计思想"><a href="#指令的组成-MIPS的设计思想" class="headerlink" title="指令的组成 MIPS的设计思想"></a>指令的组成 MIPS的设计思想</h4><p>计算机执行任何程序，本质上都是在执行机器语言指令（instruction），每条指令都是一条0-1串</p><p>指令首先要指明执行什么操作，通常用0-1串中的前几位来表示，称为操作码 指令还要指出需要操作的数据来自哪里、操作后的结果数据放回哪里 通常用0-1串中的剩余位来表示，称为<font color="orange">操作数</font>或<font color="orange">地址码</font>大部分操作数都是一个地址编号，告诉CPU从哪里取得数据、向哪里放回数据 所以操作数通常也叫做地址码</p><table><thead><tr><th align="center">操作码</th><th align="center">地址码</th><th align="center">地址码</th></tr></thead></table><p>MIPS作为RISC指令集，设计力求保证硬件设备的简单性，在我们讲解的32为MIPS汇编语言（MIPS-32）中，所有指令都是32位长</p><h4 id="MIPS-32中的通用寄存器"><a href="#MIPS-32中的通用寄存器" class="headerlink" title="MIPS-32中的通用寄存器"></a>MIPS-32中的通用寄存器</h4><p>MIPS中运算操作的操作数必须来自<font color="orange">寄存器</font>（register）或者指令本身一种位于CPU、比cache更小更快的存储器，用来暂时存放运算的源数据和结果</p><p>一些寄存器是专用的，如存放执行中指令的地址的<font color="orange">程序计数器</font>（PC）于此相对应，用于暂时存放运算数据的寄存器称为通用寄存器</p><p>MIPS中一共有32个32位寄存器，共128B（大部分架构都采用16或32个寄存器）</p><p>我们约定：</p><ul><li>程序中的变量存放在<font color="orange">保存寄存器</font>（store reg）中：$s0 ~ $s7 共8个</li><li>运算的临时变量、中间变量存放在<font color="orange">临时寄存器</font>（temp reg）中：$t0 ~ $t7 共8个</li><li>还有一个<font color="orange">零寄存器</font>，永远存放32位的0，写作$zero</li></ul><blockquote><p>转自：B站翼云</p></blockquote>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla</summary>
-      
+    <summary type="html">&lt;p&gt;MIPS 操作数&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名字&lt;/th&gt;
+&lt;th&gt;示例&lt;/th&gt;
+&lt;th&gt;注释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;32个寄存器&lt;/td&gt;
+&lt;td&gt;$s0-$s7, $t0-$t9, $zero,&lt;br /&gt;$a0-$a3, $v0-$v1, $gp, $fp,&lt;br /&gt;$sp, $ra, $at&lt;/td&gt;
+&lt;td&gt;寄存器用于数据的快速存取。在MIPS中，只能对存放在寄存器中的数据执行算数操作，寄存器$zero的值恒为0，寄存器$at被汇编器保留，用于处理大的常数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;20^30个存储器字&lt;/td&gt;
+&lt;td&gt;Memory[0], Memory[4], …,&lt;br /&gt;Memory[4294967292]&lt;/td&gt;
+&lt;td&gt;存储器只能通过数据传输指令访问。MIPS使用字节编址，所以连续的字地址相差4。存储器用于保存数据结构、数组和溢出的寄存器。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;</summary>
     
     
     

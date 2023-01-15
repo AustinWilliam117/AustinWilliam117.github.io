@@ -22,19 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="第一部分 MIPS-32概述 指令的组成 MIPS的设计思想计算机执行任何程序，本质上都是在执行机器语言指令（instruction），每条指令都是一条0-1串 指令首先要指明执行什么操作，通常用0-1串中的前几位来表示，称为操作码 指令还要指出需要操作的数据来自哪里、操作后的结果数据放回哪里 通常用0-1串中的剩余位来表示，称为操作数或地址码 大部分操作数都是一个地址编号，告诉CPU从哪里取得数">
+  <meta name="description" content="MIPS 操作数    名字 示例 注释    32个寄存器 $s0-$s7, $t0-$t9, $zero,$a0-$a3, $v0-$v1, $gp, $fp,$sp, $ra, $at 寄存器用于数据的快速存取。在MIPS中，只能对存放在寄存器中的数据执行算数操作，寄存器$zero的值恒为0，寄存器$at被汇编器保留，用于处理大的常数   20^30个存储器字 Memory[0], Memo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CH2 指令: 计算机的语言">
 <meta property="og:url" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/index.html">
 <meta property="og:site_name" content="蒙珣的博客">
-<meta property="og:description" content="第一部分 MIPS-32概述 指令的组成 MIPS的设计思想计算机执行任何程序，本质上都是在执行机器语言指令（instruction），每条指令都是一条0-1串 指令首先要指明执行什么操作，通常用0-1串中的前几位来表示，称为操作码 指令还要指出需要操作的数据来自哪里、操作后的结果数据放回哪里 通常用0-1串中的剩余位来表示，称为操作数或地址码 大部分操作数都是一个地址编号，告诉CPU从哪里取得数">
+<meta property="og:description" content="MIPS 操作数    名字 示例 注释    32个寄存器 $s0-$s7, $t0-$t9, $zero,$a0-$a3, $v0-$v1, $gp, $fp,$sp, $ra, $at 寄存器用于数据的快速存取。在MIPS中，只能对存放在寄存器中的数据执行算数操作，寄存器$zero的值恒为0，寄存器$at被汇编器保留，用于处理大的常数   20^30个存储器字 Memory[0], Memo">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png">
+<meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%802.png">
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS-32%E6%A6%82%E8%BF%B0.png">
 <meta property="article:published_time" content="2023-01-12T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-12T15:58:53.507Z">
+<meta property="article:modified_time" content="2023-01-15T11:54:45.232Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS-32%E6%A6%82%E8%BF%B0.png">
+<meta name="twitter:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png">
 
 <link rel="canonical" href="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/">
 
@@ -221,10 +223,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-01-12 23:00:00 / Modified: 23:58:53" itemprop="dateCreated datePublished" datetime="2023-01-12T23:00:00+08:00">2023-01-12</time>
+              <time title="Created: 2023-01-12 23:00:00" itemprop="dateCreated datePublished" datetime="2023-01-12T23:00:00+08:00">2023-01-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-15 19:54:45" itemprop="dateModified" datetime="2023-01-15T19:54:45+08:00">2023-01-15</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -248,7 +256,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>240</span>
+              <span>856</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -267,10 +275,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="第一部分-MIPS-32概述"><a href="#第一部分-MIPS-32概述" class="headerlink" title="第一部分 MIPS-32概述"></a>第一部分 MIPS-32概述</h3><p><img src="MIPS-32%E6%A6%82%E8%BF%B0.png"></p>
+        <p>MIPS 操作数</p>
+<table>
+<thead>
+<tr>
+<th>名字</th>
+<th>示例</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32个寄存器</td>
+<td>$s0-$s7, $t0-$t9, $zero,<br />$a0-$a3, $v0-$v1, $gp, $fp,<br />$sp, $ra, $at</td>
+<td>寄存器用于数据的快速存取。在MIPS中，只能对存放在寄存器中的数据执行算数操作，寄存器$zero的值恒为0，寄存器$at被汇编器保留，用于处理大的常数</td>
+</tr>
+<tr>
+<td>20^30个存储器字</td>
+<td>Memory[0], Memory[4], …,<br />Memory[4294967292]</td>
+<td>存储器只能通过数据传输指令访问。MIPS使用字节编址，所以连续的字地址相差4。存储器用于保存数据结构、数组和溢出的寄存器。</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<p><img src="MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png" alt="MIPS汇编语言"></p>
+<p><img src="MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%802.png" alt="MIPS汇编语言"></p>
+<h3 id="第一部分-MIPS-32概述"><a href="#第一部分-MIPS-32概述" class="headerlink" title="第一部分 MIPS-32概述"></a>第一部分 MIPS-32概述</h3><p><img src="MIPS-32%E6%A6%82%E8%BF%B0.png"></p>
 <h4 id="指令的组成-MIPS的设计思想"><a href="#指令的组成-MIPS的设计思想" class="headerlink" title="指令的组成 MIPS的设计思想"></a>指令的组成 MIPS的设计思想</h4><p>计算机执行任何程序，本质上都是在执行机器语言指令（instruction），每条指令都是一条0-1串</p>
-<p>指令首先要指明执行什么操作，通常用0-1串中的前几位来表示，称为操作码 指令还要指出需要操作的数据来自哪里、操作后的结果数据放回哪里 通常用0-1串中的剩余位来表示，称为操作数或地址码 大部分操作数都是一个地址编号，告诉CPU从哪里取得数据、向哪里放回数据 所以操作数通常也叫做地址码</p>
-<p>虽然后来会有颜色来涂抹这样的一片遗憾</p>
+<p>指令首先要指明执行什么操作，通常用0-1串中的前几位来表示，称为操作码 指令还要指出需要操作的数据来自哪里、操作后的结果数据放回哪里 通常用0-1串中的剩余位来表示，称为<font color="orange">操作数</font>或<font color="orange">地址码</font>大部分操作数都是一个地址编号，告诉CPU从哪里取得数据、向哪里放回数据 所以操作数通常也叫做地址码</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作码</th>
+<th align="center">地址码</th>
+<th align="center">地址码</th>
+</tr>
+</thead>
+</table>
+<p>MIPS作为RISC指令集，设计力求保证硬件设备的简单性，在我们讲解的32为MIPS汇编语言（MIPS-32）中，所有指令都是32位长</p>
+<h4 id="MIPS-32中的通用寄存器"><a href="#MIPS-32中的通用寄存器" class="headerlink" title="MIPS-32中的通用寄存器"></a>MIPS-32中的通用寄存器</h4><p>MIPS中运算操作的操作数必须来自<font color="orange">寄存器</font>（register）或者指令本身一种位于CPU、比cache更小更快的存储器，用来暂时存放运算的源数据和结果</p>
+<p>一些寄存器是专用的，如存放执行中指令的地址的<font color="orange">程序计数器</font>（PC）于此相对应，用于暂时存放运算数据的寄存器称为通用寄存器</p>
+<p>MIPS中一共有32个32位寄存器，共128B（大部分架构都采用16或32个寄存器）</p>
+<p>我们约定：</p>
+<ul>
+<li>程序中的变量存放在<font color="orange">保存寄存器</font>（store reg）中：$s0 ~ $s7 共8个</li>
+<li>运算的临时变量、中间变量存放在<font color="orange">临时寄存器</font>（temp reg）中：$t0 ~ $t7 共8个</li>
+<li>还有一个<font color="orange">零寄存器</font>，永远存放32位的0，写作$zero</li>
+</ul>
 <blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
@@ -351,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-MIPS-32%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">第一部分 MIPS-32概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E7%BB%84%E6%88%90-MIPS%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">指令的组成 MIPS的设计思想</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-MIPS-32%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">第一部分 MIPS-32概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E7%BB%84%E6%88%90-MIPS%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">指令的组成 MIPS的设计思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIPS-32%E4%B8%AD%E7%9A%84%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">MIPS-32中的通用寄存器</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -437,7 +487,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">8:24</span>
+    <span title="Reading time total">8:25</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
