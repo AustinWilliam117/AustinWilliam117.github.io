@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS-32%E6%A6%82%E8%BF%B0.png">
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png">
 <meta property="article:published_time" content="2023-01-12T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-15T15:51:47.755Z">
+<meta property="article:modified_time" content="2023-01-22T10:43:04.375Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png">
@@ -134,7 +134,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">34</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">35</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -144,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">164</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">165</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-15 23:51:47" itemprop="dateModified" datetime="2023-01-15T23:51:47+08:00">2023-01-15</time>
+                <time title="Modified: 2023-01-22 18:43:04" itemprop="dateModified" datetime="2023-01-22T18:43:04+08:00">2023-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,14 +257,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.6k</span>
+              <span>3.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>3 mins.</span>
             </span>
 
         </div>
@@ -313,6 +313,8 @@
 </thead>
 </table>
 <p>MIPS作为RISC指令集，设计力求保证硬件设备的简单性，在我们讲解的32为MIPS汇编语言（MIPS-32）中，所有指令都是32位长</p>
+</br>
+
 <h4 id="MIPS-32中的通用寄存器"><a href="#MIPS-32中的通用寄存器" class="headerlink" title="MIPS-32中的通用寄存器"></a>MIPS-32中的通用寄存器</h4><p>MIPS中运算操作的操作数必须来自<font color="orange">寄存器</font>（register）或者指令本身一种位于CPU、比cache更小更快的存储器，用来暂时存放运算的源数据和结果</p>
 <p>一些寄存器是专用的，如存放执行中指令的地址的<font color="orange">程序计数器</font>（PC）于此相对应，用于暂时存放运算数据的寄存器称为通用寄存器</p>
 <p>MIPS中一共有32个32位寄存器，共128B（大部分架构都采用16或32个寄存器）</p>
@@ -334,13 +336,17 @@
 <p>分别称为源操作数1*（src1）和源操作数2（src2）</p>
 <p>运算的结果c对应的寄存器$s2称为目的操作数（des）</p>
 <p><code>加减指令的通式：add/sub des, src1, src2</code></p>
+</br>
+
 <h4 id="算术运算：加立即数addi"><a href="#算术运算：加立即数addi" class="headerlink" title="算术运算：加立即数addi"></a>算术运算：加立即数addi</h4><p>在 i++ 即 i = i + 1；这条赋值语句中，有个确定的常数1</p>
 <p>与其采取额外的步骤将1装入某个寄存器，不如让指令本身包含这个1</p>
 <p>假设变量i位于寄存器$s0，我们把加法指令的第二个源操作数改为常数1</p>
 <p><code>addi $s0, $s0, 1</code></p>
-<p> 就成了加立即数(add immediate)指令</p>
+<p>就成了加立即数(add immediate)指令</p>
 <p>因为addi指令中的立即数可以取负数（对立即数取负后相加）</p>
 <p>因此，MIPS中没有subi指令</p>
+</br>
+
 <h4 id="逻辑按位运算-and、or、nor指令"><a href="#逻辑按位运算-and、or、nor指令" class="headerlink" title="逻辑按位运算:and、or、nor指令"></a>逻辑按位运算:and、or、nor指令</h4><p>当两个源寄存器中，对应的位上同时为1时，与and操作结果为1 当两个源寄存器中，对应的位上至少有一个为1时，或or操作结果为1 因此，假设</p>
 <p><code>$t0 = 0000 0000 0000 0000 0000 0000 0000 1001</code></p>
 <p><code>$t1 = 0000 0000 0000 0000 0000 0000 0000 1100</code></p>
@@ -349,6 +355,117 @@
 <p><code> or $t2, $t0, $t1</code></p>
 <p>任何数据与0进行<font color="orange">或非nor操作</font>，都会0/1反转 执行下列指令后，$t2中的数据会变为多少?</p>
 <p><code> nor $t2, $t0, $zero</code></p>
+<p><code>$t2 = 1111 1111 1111 1111 1111 1111 1111 0110</code></p>
+</br>
+
+<h4 id="逻辑位移运算：sll-和-srl-指令"><a href="#逻辑位移运算：sll-和-srl-指令" class="headerlink" title="逻辑位移运算：sll 和 srl 指令"></a>逻辑位移运算：sll 和 srl 指令</h4><p>比较12和120两个十进制数，通过在对低位的右边添加一个0，变成了10倍</p>
+<p>比较11和110两个二进制数，通过在最低位的右边添加一个0，变成了多少倍？1100呢？</p>
+</br>
+
+<p><font color="orange">逻辑左移（shift left logic）</font>指令让寄存器中的数据整体往左移动指定的位数，并在右边空出来的位上补0。</p>
+<p>假设<code>$s2 = 0000 0000 0000 0000 0000 0000 0000 0101</code></p>
+<p>逻辑左移两位后，放到寄存器$s0中：</p>
+<p><code>sll $s0, $s2, 2</code></p>
+<p>这里的2不是addi指令中的立即数，而是告诉计算机移动几位的<font color="orange">位移量（shift amount）</font></p>
+</br>
+
+<p>通过这样一条指令，我们实际上完成了x4的运算！</p>
+<p>x2、x8、x128时，移位量分别是多少？</p>
+<p>x2移位量为1，x8移位量为3，x128移位量为7</p>
+<p><code>srl 指令可以实现/2运算，使用场景不多，不额外讨论</code></p>
+</br>
+
+<h4 id="综合练习1：变量运算与赋值"><a href="#综合练习1：变量运算与赋值" class="headerlink" title="综合练习1：变量运算与赋值"></a>综合练习1：变量运算与赋值</h4><p>翻译以下C语句：</p>
+<p>result = a - 10 + (b + c * 5)；其中 result 为 $s3，a 为 $s0，b 为 $s1，c 为 $s2</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">c * <span class="number">5</span> -&gt; <span class="keyword">sll </span>$<span class="built_in">t0</span>, $<span class="built_in">s2</span>, <span class="number">2</span></span><br><span class="line">				 <span class="keyword">add </span>$<span class="built_in">t0</span>, $<span class="built_in">t0</span>, $<span class="built_in">s2</span></span><br><span class="line">				 </span><br><span class="line"><span class="keyword">b </span>+ c * <span class="number">5</span> -&gt; <span class="keyword">add </span>$<span class="built_in">t1</span>, $<span class="built_in">t0</span>, $<span class="built_in">s1</span></span><br><span class="line"></span><br><span class="line">a - <span class="number">10</span> -&gt; <span class="keyword">addi </span>$<span class="built_in">t2</span>, $<span class="built_in">s0</span>, -<span class="number">10</span></span><br><span class="line"></span><br><span class="line">result = <span class="keyword">add </span>$<span class="built_in">s3</span>, $<span class="built_in">t2</span>, $<span class="built_in">t1</span></span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h4 id="寄存器—存储器数据传送：lw指令"><a href="#寄存器—存储器数据传送：lw指令" class="headerlink" title="寄存器—存储器数据传送：lw指令"></a>寄存器—存储器数据传送：lw指令</h4><p>运算指令的操作数必须来自于寄存器/指令本身，但是，通用寄存器一共只有128B</p>
+<p>数组元素却可以占据成千上万个字节，只能存放在内存中</p>
+</br>
+
+<p>这时，我们把数组第一个元素（a[0]）的32位地址，称为数组的<font color="orange">基址</font>，放在寄存器中</p>
+<p>基址加上要找的元素的下标，就组成了这个元素的地址</p>
+</br>
+
+<p>如果源操作数在内存中，是数组a的5号元素（第六个元素），数组a的基址存放在$s1中。那么，a[5]的地址就表示为5($s1)</p>
+<p>计算机会自动计算$s1中的基址和<font color="orange">偏移量</font>5的和，找到a[5]的地址</p>
+</br>
+
+<p>将a[5]从内存传送到寄存器$s0，使用<font color="orange">取字指令（load word）</font></p>
+<p><code>lw $s0, 5($s1)</code></p>
+</br>
+
+<h4 id="寄存器—存储器数据传送：字与sw指令"><a href="#寄存器—存储器数据传送：字与sw指令" class="headerlink" title="寄存器—存储器数据传送：字与sw指令"></a>寄存器—存储器数据传送：字与sw指令</h4><p>MIPS的通用寄存器都是32位长，这个长度就是MIPS体系结构的<font color="orange">字长</font>，通常代表了参与运算的数据的长度，因此我们约定：整门课程中，1<font color="orange">字</font>=32b=4B</p>
+</br>
+
+<p>a[5]相对于a[0]，在内存中的距离是5个字，而不是5个字节。又因为内存按字节编址，即：内存每个字节都有一个特定的编号。</p>
+<p>所以偏移量应该是 5x4=20个字节，a[5]的地址应该表示成20($s1)，于是取数指令变为<font color="orange"><code>lw $s0, 20($s1)</code></font></p>
+</br>
+
+<p>如果我们要把$t0中运算结果送回内存中的a[2]，需要用到<font color="orange">存字指令（store word）</font>:    <font color="orange"><code>sw $t0, 8($s1)</code></font></p>
+</br>
+
+<h4 id="寄存器间数据传送-装载立即数到寄存器"><a href="#寄存器间数据传送-装载立即数到寄存器" class="headerlink" title="寄存器间数据传送 装载立即数到寄存器"></a>寄存器间数据传送 装载立即数到寄存器</h4><p>如果我们需要把数从$t0保存到存放某变量的$s1中，怎么实现?</p>
+<p>MIPS没有专门的寄存器间移动数据的指令。但是，通过把源寄存器中的数据加上0再保存到目标寄存器中，可以实现相同的功能</p>
+<p><code>addi $s1, $t0, 0</code> 或 <code>add $s1, $t0, $zero</code></p>
+<p>这个功能可以用<font color="orange">move伪指令</font>来代替 <font color="orange"><code>move $s1, $t0</code></font></p>
+</br>
+
+<p>假如我们要把一个常数10装入寄存器$s2，同样可以采用addi指令</p>
+<p><code>addi $s2, $zero, 10</code> 或使用<font color="orange">取立即数（load immediate）伪指令 <code>li $s2, 10</code></font></p>
+<p><em>程序设计题中能否使用伪指令，请咨询老师！</em></p>
+<h4 id="装载32位立即数到寄存器"><a href="#装载32位立即数到寄存器" class="headerlink" title="装载32位立即数到寄存器"></a>装载32位立即数到寄存器</h4><p>我们说可以用addi指令向寄存器装载立即数：<code>addi $s2, $zero, 10</code></p>
+<p>但是，addi指令中的立即数10只能占用32位指令中的一部分（16位，稍后介绍指令格式）</p>
+<p>16位只能表示2E16，即六万多个数，寄存器却能容纳2E32即40多亿个数</p>
+</br>
+
+<p>二进制与十六进制的转化在此不作介绍</p>
+<p>假设我们要向寄存器$s2装载一个32位的立即数：<code>10A2 7FFF(16)</code></p>
+</br>
+
+<p>我们必须先用取高位立即数（load upper immediate）指令，把10A2放入$s2的高16位</p>
+<p><font color="orange"><code>lui $s2,4258</code></font>  #十六进制的10A2等于十进制的4258</p>
+<p>再让$s2与低16位的立即数7FFF进行或运算</p>
+<p><font color="orange"><code>ori $s2, $s2, 32767</code></font> #7FFF(16)=32767(10)</p>
+<p>这样，就分两步把32位立即数装载到了32的寄存器中</p>
+<p><code>&lt;font color=&quot;grey&quot;&gt;不能使用addi代替ori指令，如果低16位的最高位是1，addi会把它理解为负数&lt;/font&gt;</code></p>
+<h4 id="综合练习2：数组元素运算与赋值"><a href="#综合练习2：数组元素运算与赋值" class="headerlink" title="综合练习2：数组元素运算与赋值"></a>综合练习2：数组元素运算与赋值</h4><p>a[i] = a[0] + 100000;</p>
+<p>假设数组 a 的基址位于 $s0，变量 i 位于 $s1</p>
+<p>100000(10) = 186A0(16)，1(16) = 1(10)，86A0(16) = 34464</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">1</span>.将a[<span class="number">0</span>]传到临时寄存器中</span><br><span class="line"><span class="attribute">lw</span> $t<span class="number">0</span>,<span class="number">0</span>($s<span class="number">0</span>)</span><br><span class="line"><span class="attribute">2</span>.将<span class="number">100000</span>装载<span class="number">32</span>位寄存器中</span><br><span class="line"><span class="attribute">lui</span> $t<span class="number">1</span>,<span class="number">1</span></span><br><span class="line"><span class="attribute">ori</span> $t<span class="number">1</span>,$t<span class="number">1</span>,<span class="number">34464</span></span><br><span class="line"><span class="attribute">3</span>.将a[<span class="number">0</span>] 与 <span class="number">100000</span> 相加</span><br><span class="line"><span class="attribute">add</span> $t<span class="number">2</span>,$t<span class="number">0</span>,$t<span class="number">1</span></span><br><span class="line"><span class="attribute">4</span>.获取a[i]的元素</span><br><span class="line"><span class="attribute">sll</span> $t<span class="number">3</span>,$s<span class="number">1</span>,<span class="number">2</span></span><br><span class="line"><span class="attribute">add</span> $t<span class="number">4</span>,$t<span class="number">0</span>,$t<span class="number">3</span></span><br><span class="line"><span class="attribute">5</span>.将t<span class="number">2</span>的值传给t<span class="number">4</span>所指向的a[i]地址</span><br><span class="line"><span class="attribute">sw</span> $t<span class="number">2</span>,<span class="number">0</span>($t<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
@@ -370,7 +487,10 @@
     <a href="/2022/11/09/CH1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%A6%82%E8%A6%81%E4%B8%8E%E6%8A%80%E6%9C%AF/" rel="prev" title="CH1 计算机概要与技术">
       <i class="fa fa-chevron-left"></i> CH1 计算机概要与技术
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/20/Zabbix-API/" rel="next" title="Zabbix API">
+      Zabbix API <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -429,7 +549,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-MIPS-32%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">第一部分 MIPS-32概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E7%BB%84%E6%88%90-MIPS%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">指令的组成 MIPS的设计思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIPS-32%E4%B8%AD%E7%9A%84%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">MIPS-32中的通用寄存器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">第二部分 三类汇编指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%EF%BC%9A%E5%8A%A0add%E3%80%81%E5%87%8Fsub"><span class="nav-number">2.1.</span> <span class="nav-text">算数运算：加add、减sub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%EF%BC%9A%E5%8A%A0%E7%AB%8B%E5%8D%B3%E6%95%B0addi"><span class="nav-number">2.2.</span> <span class="nav-text">算术运算：加立即数addi</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%8C%89%E4%BD%8D%E8%BF%90%E7%AE%97-and%E3%80%81or%E3%80%81nor%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">逻辑按位运算:and、or、nor指令</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86-MIPS-32%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">第一部分 MIPS-32概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E7%BB%84%E6%88%90-MIPS%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">指令的组成 MIPS的设计思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIPS-32%E4%B8%AD%E7%9A%84%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">MIPS-32中的通用寄存器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">第二部分 三类汇编指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%EF%BC%9A%E5%8A%A0add%E3%80%81%E5%87%8Fsub"><span class="nav-number">2.1.</span> <span class="nav-text">算数运算：加add、减sub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%EF%BC%9A%E5%8A%A0%E7%AB%8B%E5%8D%B3%E6%95%B0addi"><span class="nav-number">2.2.</span> <span class="nav-text">算术运算：加立即数addi</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%8C%89%E4%BD%8D%E8%BF%90%E7%AE%97-and%E3%80%81or%E3%80%81nor%E6%8C%87%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">逻辑按位运算:and、or、nor指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E4%BD%8D%E7%A7%BB%E8%BF%90%E7%AE%97%EF%BC%9Asll-%E5%92%8C-srl-%E6%8C%87%E4%BB%A4"><span class="nav-number">2.4.</span> <span class="nav-text">逻辑位移运算：sll 和 srl 指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A01%EF%BC%9A%E5%8F%98%E9%87%8F%E8%BF%90%E7%AE%97%E4%B8%8E%E8%B5%8B%E5%80%BC"><span class="nav-number">2.5.</span> <span class="nav-text">综合练习1：变量运算与赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E2%80%94%E5%AD%98%E5%82%A8%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%EF%BC%9Alw%E6%8C%87%E4%BB%A4"><span class="nav-number">2.6.</span> <span class="nav-text">寄存器—存储器数据传送：lw指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E2%80%94%E5%AD%98%E5%82%A8%E5%99%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%EF%BC%9A%E5%AD%97%E4%B8%8Esw%E6%8C%87%E4%BB%A4"><span class="nav-number">2.7.</span> <span class="nav-text">寄存器—存储器数据传送：字与sw指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E9%97%B4%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81-%E8%A3%85%E8%BD%BD%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%88%B0%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.8.</span> <span class="nav-text">寄存器间数据传送 装载立即数到寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A3%85%E8%BD%BD32%E4%BD%8D%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%88%B0%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">2.9.</span> <span class="nav-text">装载32位立即数到寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A02%EF%BC%9A%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E8%BF%90%E7%AE%97%E4%B8%8E%E8%B5%8B%E5%80%BC"><span class="nav-number">2.10.</span> <span class="nav-text">综合练习2：数组元素运算与赋值</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -445,7 +565,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">165</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -458,7 +578,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -509,13 +629,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">557k</span>
+    <span title="Symbols count total">562k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">8:26</span>
+    <span title="Reading time total">8:31</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
