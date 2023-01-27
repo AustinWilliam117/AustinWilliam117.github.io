@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png">
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93.png">
 <meta property="article:published_time" content="2023-01-12T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-27T16:31:27.976Z">
+<meta property="article:modified_time" content="2023-01-27T16:48:29.143Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-28 00:31:27" itemprop="dateModified" datetime="2023-01-28T00:31:27+08:00">2023-01-28</time>
+                <time title="Modified: 2023-01-28 00:48:29" itemprop="dateModified" datetime="2023-01-28T00:48:29+08:00">2023-01-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>5.1k</span>
+              <span>5.3k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -516,6 +516,31 @@
 <li><p><font color="orange">$s0<del>$s7分别为16</del>23号寄存器</font></p>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>000000</th>
+<th>10001</th>
+<th>10010</th>
+<th>01000</th>
+<th>00000</th>
+<th>100000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6位</td>
+<td>5位</td>
+<td>5位</td>
+<td>5位</td>
+<td>5位</td>
+<td>6位</td>
+</tr>
+</tbody></table>
+<p>sub指令仅仅是功能码funct字段从32变为了34，sub $s1, $s1, $s0的32位机器码是多少? </p>
+<p><font color="gray">需要记忆add、sub指令的操作码(都是0)和功能码(分别为32、34)</font></p>
+<p>此外，使用移位量的两条逻辑移位指令</p>
+<p><strong><code>sll/srl</code></strong><code>des, src1, shamt </code></p>
+<p>也属于R型指令，因为没有第二个源操作数寄存器，rt被置为0</p>
 <blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
@@ -685,7 +710,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">8:32</span>
+    <span title="Reading time total">8:33</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

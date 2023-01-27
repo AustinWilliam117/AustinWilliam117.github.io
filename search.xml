@@ -16502,6 +16502,31 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li><p><font color="orange">$s0<del>$s7分别为16</del>23号寄存器</font></p>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>000000</th>
+<th>10001</th>
+<th>10010</th>
+<th>01000</th>
+<th>00000</th>
+<th>100000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6位</td>
+<td>5位</td>
+<td>5位</td>
+<td>5位</td>
+<td>5位</td>
+<td>6位</td>
+</tr>
+</tbody></table>
+<p>sub指令仅仅是功能码funct字段从32变为了34，sub $s1, $s1, $s0的32位机器码是多少? </p>
+<p><font color="gray">需要记忆add、sub指令的操作码(都是0)和功能码(分别为32、34)</font></p>
+<p>此外，使用移位量的两条逻辑移位指令</p>
+<p><strong><code>sll/srl</code></strong><code>des, src1, shamt </code></p>
+<p>也属于R型指令，因为没有第二个源操作数寄存器，rt被置为0</p>
 <blockquote>
 <p>转自：B站翼云</p>
 </blockquote>
