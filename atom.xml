@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-01-29T07:45:19.470Z</updated>
+  <updated>2023-02-07T13:22:07.041Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python更改打印颜色</title>
+    <link href="http://example.com/2023/02/07/python%E6%9B%B4%E6%94%B9%E6%89%93%E5%8D%B0%E9%A2%9C%E8%89%B2/"/>
+    <id>http://example.com/2023/02/07/python%E6%9B%B4%E6%94%B9%E6%89%93%E5%8D%B0%E9%A2%9C%E8%89%B2/</id>
+    <published>2023-02-07T13:20:42.000Z</published>
+    <updated>2023-02-07T13:22:07.041Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>python 更改打印颜色</p><p><strong>终端的字符颜色是用转义序列控制的，是文本模式下的系统显示功能，和具体的语言无关。转义序列是以ESC开头,即用\033来完成（ESC的ASCII码用十进制表示是27，用八进制表示就是033）。</strong></p><span id="more"></span><p>首先，向终端输出彩色字符，色彩的设置由目标终端文字系统和<strong>转义字符</strong>控制，与具体的编程语言无关。其格式如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[文字效果;前景色;背景色m文字内容\033[0m&quot;</span>) </span><br></pre></td></tr></table></figure><p>显示颜色的参数：</p><table><thead><tr><th>显示方式</th><th>效果</th><th>前景色</th><th>背景色</th><th>颜色描述</th></tr></thead><tbody><tr><td>0</td><td>终端默认设置</td><td>30</td><td>40</td><td>黑色</td></tr><tr><td>1</td><td>高亮显示</td><td>31</td><td>41</td><td>红色</td></tr><tr><td>4</td><td>使用下划线</td><td>32</td><td>42</td><td>绿色</td></tr><tr><td>5</td><td>闪烁</td><td>33</td><td>43</td><td>黄色</td></tr><tr><td>7</td><td>反白显示</td><td>34</td><td>44</td><td>蓝色</td></tr><tr><td>8</td><td>不可见</td><td>35</td><td>45</td><td>紫红色</td></tr><tr><td>22</td><td>非高亮显示</td><td>36</td><td>46</td><td>青蓝色</td></tr><tr><td>24</td><td>去下划线</td><td>37</td><td>47</td><td>白色</td></tr><tr><td>25</td><td>去闪烁</td><td></td><td></td><td></td></tr><tr><td>27</td><td>非反白显示</td><td></td><td></td><td></td></tr><tr><td>28</td><td>可见</td><td></td><td></td><td></td></tr></tbody></table><p><a href="https://blog.csdn.net/wls666/article/details/100867234">参考</a></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以根据自己的需求，把常用的封装起来，用的时候直接调用就可以了</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bcolors</span>:</span></span><br><span class="line">    HEADER = <span class="string">&#x27;\033[95m&#x27;</span></span><br><span class="line">    OKBLUE = <span class="string">&#x27;\033[94m&#x27;</span></span><br><span class="line">    OKGREEN = <span class="string">&#x27;\033[92m&#x27;</span></span><br><span class="line">    WARNING = <span class="string">&#x27;\033[93m&#x27;</span></span><br><span class="line">    FAIL = <span class="string">&#x27;\033[91m&#x27;</span></span><br><span class="line">    ENDC = <span class="string">&#x27;\033[0m&#x27;</span></span><br><span class="line">    BOLD = <span class="string">&#x27;\033[1m&#x27;</span></span><br><span class="line">    UNDERLINE = <span class="string">&#x27;\033[4m&#x27;</span></span><br><span class="line">    END = <span class="string">&#x27;\033[0m &#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(bcolors.HEADER+<span class="string">&quot;header 颜色 okblue&quot;</span>+bcolors.OKBLUE)</span><br><span class="line"><span class="built_in">print</span>(bcolors.WARNING+<span class="string">&#x27;12345&#x27;</span>+bcolors.END)</span><br></pre></td></tr></table></figure><p>[参考：<a href="https://blog.csdn.net/qq_38236620/article/details/127474029]">https://blog.csdn.net/qq_38236620/article/details/127474029]</a>(</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;python 更改打印颜色&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;终端的字符颜色是用转义序列控制的，是文本模式下的系统显示功能，和具体的语言无关。转义序列是以ESC开头,即用\033来完成（ESC的ASCII码用十进制表示是27，用八进制表示就是033）。&lt;/strong&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Python" scheme="http://example.com/categories/Python/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Shell+Python监控脚本</title>
@@ -541,32 +561,6 @@
 &lt;p&gt;明明吃饭、出去玩、买别的都挺舍得的😂，是否有一丝当年老妈的感触呢？&lt;/p&gt;
 &lt;p&gt;也可能我并没有准备好，所以没有下定决心要买吧。&lt;/p&gt;
 &lt;p&gt;不过我觉得我能按照书上的教程画个八九不离十吧应该。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="随笔" scheme="http://example.com/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="2022" scheme="http://example.com/tags/2022/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>3.19雪中长城</title>
-    <link href="http://example.com/2022/03/19/3-19%E9%9B%AA%E4%B8%AD%E9%95%BF%E5%9F%8E/"/>
-    <id>http://example.com/2022/03/19/3-19%E9%9B%AA%E4%B8%AD%E9%95%BF%E5%9F%8E/</id>
-    <published>2022-03-19T14:46:51.000Z</published>
-    <updated>2022-03-20T14:10:07.103Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>好想变强，好想好好睡觉，好想走遍山河。</p><p>最近感觉自己越来越闲鱼了，上班之外基本啥也没有做，读书学习都没了兴趣。</p><p>现在唯一要等的就是花开了吧，唯一还有动力能做的就是游玩计划了吧。</p><p>苦瓜柠檬茶很好喝，苦瓜清甜而不苦，加上柠檬带有一丝微微的酸甜，还有冰能很好维持这种味道就久而不消散，以至于很久之后感觉嘴巴里还是清香甘甜的。</p><p>这个冬季，在每个雪天，去过了北京自然博物馆、天坛、故宫、香山、黑龙潭、北京游乐公园、长城</p><p>所以我能变成更好的那个自己吗</p><span id="more"></span><p><img src="1.jpg"></p><p><img src="2.jpg"></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;好想变强，好想好好睡觉，好想走遍山河。&lt;/p&gt;
-&lt;p&gt;最近感觉自己越来越闲鱼了，上班之外基本啥也没有做，读书学习都没了兴趣。&lt;/p&gt;
-&lt;p&gt;现在唯一要等的就是花开了吧，唯一还有动力能做的就是游玩计划了吧。&lt;/p&gt;
-&lt;p&gt;苦瓜柠檬茶很好喝，苦瓜清甜而不苦，加上柠檬带有一丝微微的酸甜，还有冰能很好维持这种味道就久而不消散，以至于很久之后感觉嘴巴里还是清香甘甜的。&lt;/p&gt;
-&lt;p&gt;这个冬季，在每个雪天，去过了北京自然博物馆、天坛、故宫、香山、黑龙潭、北京游乐公园、长城&lt;/p&gt;
-&lt;p&gt;所以我能变成更好的那个自己吗&lt;/p&gt;</summary>
     
     
     

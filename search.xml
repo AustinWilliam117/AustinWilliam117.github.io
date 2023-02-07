@@ -16581,4 +16581,116 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 ]]></content>
   </entry>
+  <entry>
+    <title>python更改打印颜色</title>
+    <url>/2023/02/07/python%E6%9B%B4%E6%94%B9%E6%89%93%E5%8D%B0%E9%A2%9C%E8%89%B2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>python 更改打印颜色</p>
+<p><strong>终端的字符颜色是用转义序列控制的，是文本模式下的系统显示功能，和具体的语言无关。转义序列是以ESC开头,即用\033来完成（ESC的ASCII码用十进制表示是27，用八进制表示就是033）。</strong></p>
+<span id="more"></span>
+
+<p>首先，向终端输出彩色字符，色彩的设置由目标终端文字系统和<strong>转义字符</strong>控制，与具体的编程语言无关。其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\033[文字效果;前景色;背景色m文字内容\033[0m&quot;</span>) </span><br></pre></td></tr></table></figure>
+
+
+
+<p>显示颜色的参数：</p>
+<table>
+<thead>
+<tr>
+<th>显示方式</th>
+<th>效果</th>
+<th>前景色</th>
+<th>背景色</th>
+<th>颜色描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>终端默认设置</td>
+<td>30</td>
+<td>40</td>
+<td>黑色</td>
+</tr>
+<tr>
+<td>1</td>
+<td>高亮显示</td>
+<td>31</td>
+<td>41</td>
+<td>红色</td>
+</tr>
+<tr>
+<td>4</td>
+<td>使用下划线</td>
+<td>32</td>
+<td>42</td>
+<td>绿色</td>
+</tr>
+<tr>
+<td>5</td>
+<td>闪烁</td>
+<td>33</td>
+<td>43</td>
+<td>黄色</td>
+</tr>
+<tr>
+<td>7</td>
+<td>反白显示</td>
+<td>34</td>
+<td>44</td>
+<td>蓝色</td>
+</tr>
+<tr>
+<td>8</td>
+<td>不可见</td>
+<td>35</td>
+<td>45</td>
+<td>紫红色</td>
+</tr>
+<tr>
+<td>22</td>
+<td>非高亮显示</td>
+<td>36</td>
+<td>46</td>
+<td>青蓝色</td>
+</tr>
+<tr>
+<td>24</td>
+<td>去下划线</td>
+<td>37</td>
+<td>47</td>
+<td>白色</td>
+</tr>
+<tr>
+<td>25</td>
+<td>去闪烁</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>27</td>
+<td>非反白显示</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>28</td>
+<td>可见</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><a href="https://blog.csdn.net/wls666/article/details/100867234">参考</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可以根据自己的需求，把常用的封装起来，用的时候直接调用就可以了</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bcolors</span>:</span></span><br><span class="line">    HEADER = <span class="string">&#x27;\033[95m&#x27;</span></span><br><span class="line">    OKBLUE = <span class="string">&#x27;\033[94m&#x27;</span></span><br><span class="line">    OKGREEN = <span class="string">&#x27;\033[92m&#x27;</span></span><br><span class="line">    WARNING = <span class="string">&#x27;\033[93m&#x27;</span></span><br><span class="line">    FAIL = <span class="string">&#x27;\033[91m&#x27;</span></span><br><span class="line">    ENDC = <span class="string">&#x27;\033[0m&#x27;</span></span><br><span class="line">    BOLD = <span class="string">&#x27;\033[1m&#x27;</span></span><br><span class="line">    UNDERLINE = <span class="string">&#x27;\033[4m&#x27;</span></span><br><span class="line">    END = <span class="string">&#x27;\033[0m &#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(bcolors.HEADER+<span class="string">&quot;header 颜色 okblue&quot;</span>+bcolors.OKBLUE)</span><br><span class="line"><span class="built_in">print</span>(bcolors.WARNING+<span class="string">&#x27;12345&#x27;</span>+bcolors.END)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>[参考：<a href="https://blog.csdn.net/qq_38236620/article/details/127474029]">https://blog.csdn.net/qq_38236620/article/details/127474029]</a>(</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+  </entry>
 </search>
