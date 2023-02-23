@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-02-21T14:48:51.294Z</updated>
+  <updated>2023-02-23T15:05:29.331Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>撒哈拉的故事</title>
+    <link href="http://example.com/2023/02/23/%E6%92%92%E5%93%88%E6%8B%89%E7%9A%84%E6%95%85%E4%BA%8B/"/>
+    <id>http://example.com/2023/02/23/%E6%92%92%E5%93%88%E6%8B%89%E7%9A%84%E6%95%85%E4%BA%8B/</id>
+    <published>2023-02-23T14:50:49.000Z</published>
+    <updated>2023-02-23T15:05:29.331Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>我每想你一次，天上便落下一粒沙，从此便有了撒哈拉。每想你一次，天上就掉下一滴水，于是形成了太平洋。</p><span id="more"></span><p>这又是一本去年就看完的书，但是一直比较懒就没有写下读书感受，现在来补一下。</p><blockquote><p>漫漫的黄沙，无边而庞大的天空下，只有我们两个渺小的身影在走着，四周寂寥的很。沙漠，在这个时候真是美极了。</p></blockquote><blockquote><p>我不是妇女解放运动的支持者，但是我极不愿在结婚后失去独立的人格和内心的自由自在化，所以我一再强调，婚后我还是“我行我素”，要不然不结婚。荷西当时对我说：“我就是要你‘你行你素’，失去了你的个性和作风，我何必娶你呢！”</p></blockquote><blockquote><p>“沙伊达能迷住他的不过是情欲上的给予，而这个沙仑一定要将沙伊达的肉体，解释做他这一生所有缺乏的东西的代表，他要的是爱，是亲情，是家，是温暖。这么一个拘谨孤单年轻的心，碰到一点即使是假的爱情，也当然要不顾一切地去抓住了。”</p></blockquote><blockquote><p>“我在想，飞蛾扑火时，一定是极其快乐幸福的。”</p></blockquote><blockquote><p>长久的沙漠生活，只使人学到一个好处，任何一点点现实生活上的享受，都附带地使心灵得到无限的满足和升华。</p></blockquote><blockquote><p>“去海边，穿过沙漠一个来回，汽油也是不得了。”<br>“去捉鱼呀，捉到了做咸鱼晒干，我们可以省菜钱，也可以抵汽油钱。”我的劲一向是很大的，说到玩，决不气馁。</p></blockquote><blockquote><p>友情也是无价的财富，我只有这么安慰他。</p></blockquote><blockquote><p>“我在想，我正疯狂地爱上了一个英俊的跛足军官，我正跟他在这高原上散步，四周长满了美丽的石南花，风吹着我的乱发，他正热烈地注视着我——浪漫而痛苦的日子啊！”我悲叹着。</p></blockquote><blockquote><p>人，是最害怕认识自己的动物</p></blockquote><blockquote><p>生命，在这样荒僻落后而贫苦的地方，一样欣欣向荣地滋长着，它，并不是挣扎着在生存，对于沙漠的居民而言，他们在此地的生老病死都好似是如此自然的事。我看着那些上升的烟火，觉得他们安详得近乎优雅起来。</p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;我每想你一次，天上便落下一粒沙，从此便有了撒哈拉。每想你一次，天上就掉下一滴水，于是形成了太平洋。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="书评" scheme="http://example.com/categories/%E4%B9%A6%E8%AF%84/"/>
+    
+    
+    <category term="2022" scheme="http://example.com/tags/2022/"/>
+    
+  </entry>
   
   <entry>
     <title>北京故事</title>
@@ -545,28 +566,6 @@
     
     
     <category term="Docker" scheme="http://example.com/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>随机生成句子</title>
-    <link href="http://example.com/2022/06/20/%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%8F%A5%E5%AD%90/"/>
-    <id>http://example.com/2022/06/20/%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%8F%A5%E5%AD%90/</id>
-    <published>2022-06-20T15:14:45.000Z</published>
-    <updated>2022-06-20T15:16:03.211Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，存在则删除</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file_exists</span>():</span></span><br><span class="line">    file_path = <span class="string">&#x27;/root/file&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(file_path):</span><br><span class="line">        os.remove(file_path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 封装句子生成</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_sentence</span>(<span class="params">i</span>):</span></span><br><span class="line">    f = Faker(<span class="string">&#x27;zh_CN&#x27;</span>)</span><br><span class="line">    s = f.sentence(nb_words=i, variable_nb_words=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将句子与标签拼接，生成文本</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_document</span>(<span class="params">sentence_list</span>):</span></span><br><span class="line">    create_paragraph = <span class="string">&#x27;&lt;audio src=&quot;询问.wav&quot;&gt;&#123;&#125;&lt;/audio&gt;&#123;&#125;&lt;audio src=&quot;金额.wav&quot;&gt;&#123;&#125;&lt;/audio&gt;&#123;&#125;&lt;audio src=&quot;请您在.wav&quot; &gt;&#123;&#125;&lt;/audio&gt;&#123;&#125;&lt;audio src=&quot;逾期提醒.wav&quot; &gt;&#123;&#125;&lt;/audio&gt;\n&#x27;</span>.<span class="built_in">format</span>(*sentence_list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/root/file&#x27;</span>,<span class="string">&#x27;at&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(create_paragraph)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主程序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    file_exists()</span><br><span class="line"></span><br><span class="line">    concurrent_time = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入并发次数：&quot;</span>))</span><br><span class="line">    loop_time = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入循环次数：&quot;</span>))</span><br><span class="line"></span><br><span class="line">    word_list = [<span class="number">21</span>,<span class="number">3</span>,<span class="number">15</span>,<span class="number">1</span>,<span class="number">18</span>,<span class="number">5</span>,<span class="number">33</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(loop_time*concurrent_time):</span><br><span class="line">        sentence_list = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> word_list:</span><br><span class="line">            data = create_sentence(i)</span><br><span class="line">            sentence_list.append(data)</span><br><span class="line">        create_document(sentence_list)</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="Python" scheme="http://example.com/categories/Python/"/>
-    
     
   </entry>
   
