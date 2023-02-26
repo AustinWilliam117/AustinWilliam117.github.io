@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="动态参数 *args  12345678def func(*args):  print(args)		# 元组类型 (22,)(22,33,99)()   # 只能按照位置传参func(22)func(22,33)func(22,33,99)func()   **kwargs  12345678def func(**kwargs):  print(kwargs)		# 字典类型 &amp;#123;&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python函数进阶">
+<meta property="og:url" content="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="动态参数 *args  12345678def func(*args):  print(args)		# 元组类型 (22,)(22,33,99)()   # 只能按照位置传参func(22)func(22,33)func(22,33,99)func()   **kwargs  12345678def func(**kwargs):  print(kwargs)		# 字典类型 &amp;#123;&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-26T05:52:05.000Z">
+<meta property="article:modified_time" content="2023-02-26T12:43:27.549Z">
+<meta property="article:author" content="蒙珣">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Python函数进阶 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">未来很长，当有勇气面对，当与自己和解。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">35</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">18</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">170</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python函数进阶
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-26 13:52:05 / Modified: 20:43:27" itemprop="dateCreated datePublished" datetime="2023-02-26T13:52:05+08:00">2023-02-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>8.1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>7 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="动态参数"><a href="#动态参数" class="headerlink" title="动态参数"></a>动态参数</h4><ul>
+<li>*args</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">*args</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(args)		<span class="comment"># 元组类型 (22,)(22,33,99)()</span></span><br><span class="line">  </span><br><span class="line"> <span class="comment"># 只能按照位置传参</span></span><br><span class="line">func(<span class="number">22</span>)</span><br><span class="line">func(<span class="number">22</span>,<span class="number">33</span>)</span><br><span class="line">func(<span class="number">22</span>,<span class="number">33</span>,<span class="number">99</span>)</span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>**kwargs</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">**kwargs</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(kwargs)		<span class="comment"># 字典类型 &#123;&quot;n1&quot;:&quot;蒙珣&quot;&#125; &#123;&#x27;n1&#x27;:&#x27;蒙珣&#x27;,&#x27;age&#x27;:18,&#x27;email&#x27;:&#x27;mengxun@11.com&#x27;&#125; &#123;&#125;</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 只能按关键字传参</span></span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>)</span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>,email=<span class="string">&quot;mengxun@11.com&quot;</span>)</span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>*args,**kwargs</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">*args,**kwargs</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(args,kwargs)		<span class="comment"># (22,33,99) (22,)&#123;&#x27;n1&#x27;:&#x27;蒙珣&#x27;,&#x27;age&#x27;:18&#125; ()&#123;&#125;</span></span><br><span class="line">  </span><br><span class="line">func(<span class="number">22</span>,<span class="number">33</span>,<span class="number">99</span>)</span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line">func(<span class="number">22</span>,n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+
+<p>提示：是否还记得字符串格式化时的format功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">v1 = <span class="string">&quot;我叫&#123;&#125;,今年&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;蒙珣&quot;</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">v2 = <span class="string">&quot;我叫&#123;name&#125;,今年&#123;age&#125;&quot;</span>.<span class="built_in">format</span>(name=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># def format(*args,**kwargs):</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="参数内存地址相关"><a href="#参数内存地址相关" class="headerlink" title="参数内存地址相关"></a>参数内存地址相关</h4><p>如果想查看某个值在内存中的地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = <span class="string">&quot;蒙珣&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>addr = <span class="built_in">id</span>(v1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(addr)</span><br><span class="line"><span class="number">4347695248</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v2 = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="built_in">id</span>(v1))</span><br><span class="line"><span class="number">4347824448</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="built_in">id</span>(v2))</span><br><span class="line"><span class="number">4347825216</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v2 = v1</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="built_in">id</span>(v1))</span><br><span class="line"><span class="number">4346072768</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="built_in">id</span>(v2))</span><br><span class="line"><span class="number">4346072768</span></span><br></pre></td></tr></table></figure>
+
+<p><font color="orange"><strong>记住一句话：函数执行传参时，传递的是内存地址</strong></font></p>
+<p>即：python传参默认传递的是内存地址</p>
+<p>Python参数的这一特性有两个好处：</p>
+<ul>
+<li>节省内存</li>
+<li>对于可变类型且函数中修改元素的内容，所有的地方都会修改。可变类型：列表、字典、集合。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可变类型 &amp; 修改内部</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">data</span>):</span></span><br><span class="line"><span class="meta">... </span> data.append(<span class="number">999</span>)</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>func(v1)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(v1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">[<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">999</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特殊情况：可变类型 &amp; 重新赋值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">data</span>):</span></span><br><span class="line"><span class="meta">... </span> data = [<span class="string">&quot;蒙珣&quot;</span>,<span class="string">&quot;william&quot;</span>]</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>func(v1)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(v1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">[<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 特殊情况：不可变类型，无法修改内部元素，只能重新赋值</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">data</span>):</span></span><br><span class="line"><span class="meta">... </span> data = <span class="string">&quot;William&quot;</span></span><br><span class="line"><span class="meta">... </span> <span class="built_in">print</span>(data)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = <span class="string">&quot;蒙珣&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>func(v1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">William</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="函数的返回值是内存地址"><a href="#函数的返回值是内存地址" class="headerlink" title="函数的返回值是内存地址"></a>函数的返回值是内存地址</h4><p>其他很多编程语言执行函数时，默认传参时会将数据重新拷贝一份，会浪费内存</p>
+<p>当然，如果你不想让外部的变量和函数内部参数的变量一致，也可以选择将外部值拷贝一份，再传给函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可变类型 &amp; 修改内部修改</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">data</span>):</span></span><br><span class="line">  data.append(<span class="number">999</span>)</span><br><span class="line">  </span><br><span class="line">v1 = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line"><span class="comment"># 拷贝一份数据</span></span><br><span class="line">new_v1 = copy.deepcopy(v1)</span><br><span class="line">func(new_v1)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(v1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果</span></span><br><span class="line">[<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>函数内存地址引用的变化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">  data = [<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line">  </span><br><span class="line">v1 = func()</span><br><span class="line"><span class="built_in">print</span>(v1)		<span class="comment"># [11,22,33]</span></span><br><span class="line"></span><br><span class="line">v2 = func()</span><br><span class="line"><span class="built_in">print</span>(v2)		<span class="comment"># [11,22,33]</span></span><br></pre></td></tr></table></figure>
+
+<p>上述代码的执行过程：</p>
+<ul>
+<li>执行func函数</li>
+<li><code>data = [11,22,33]</code> 创建一块内存区域，内部存储 [11, 22, 33]，data变量指向这块内存地址 10000001110。</li>
+<li><code>return data</code> 返回data指向的内存地址</li>
+<li>v1接收返回值，所以v1和data都指向<code>[11,22,33]</code>的内存地址（两个变量质量此内存，引用计数器为2）</li>
+<li>由函数执行完毕后，函数内部的变量都会被释放。（即：删除data变量，内存地址的引用计数器-1）</li>
+</ul>
+<p>所以，最终v1只想的函数内部创建的那块内存地址。（v1指向的1000001110内存地址）</p>
+<ul>
+<li>执行func函数</li>
+<li><code>data = [11,22,33]</code> 创建一块内存区域，内部存储 [11, 22, 33]，data变量指向这块内存地址 11111001110。</li>
+<li><code>return data</code> 返回data指向的内存地址</li>
+<li>v2接收返回值，所以v1和data都指向<code>[11,22,33]</code>的内存地址（两个变量质量此内存，引用计数器为2）</li>
+<li>由函数执行完毕后，函数内部的变量都会被释放。（即：删除data变量，内存地址的引用计数器-1）</li>
+</ul>
+<p>所以，最终v1指向的函数内部创建的那块内存地址。（v1指向的 11111001110）</p>
+<h4 id="参数的默认值【面试题】"><a href="#参数的默认值【面试题】" class="headerlink" title="参数的默认值【面试题】"></a>参数的默认值【面试题】</h4><p>这个知识点在面试题中出现的概率比较高，但真正实际开发中用的比较少</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">a1,a2=<span class="number">18</span></span>):</span></span><br><span class="line">  <span class="built_in">print</span>(a1,a2)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原理：Python在创建函数（未执行）时，如果发现函数的参数中有默认值，则在函数内部会创建一块区域并维护这个值</p>
+<ul>
+<li><p>执行函数未传值时，则让a2指向函数维护的那个值的地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func(<span class="string">&quot;root&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>执行函数传值时，则让a2指向新传入的值的地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func(<span class="string">&quot;admin&quot;</span>,<span class="number">20</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+<p>在特定情况<font color="orange">【默认参数的值是可变类型】&amp;【函数内部会修改这个值】</font></p>
+<ul>
+<li><p>坑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在函数内存中会维护一块区域存储 [1,2,666] 100010001</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">a1,a2=[<span class="number">1</span>,<span class="number">2</span>]</span>):</span></span><br><span class="line">  a2.append(<span class="number">666</span>)</span><br><span class="line">  <span class="built_in">print</span>(a1,a2)</span><br><span class="line">  </span><br><span class="line"><span class="comment"># a1 = 100</span></span><br><span class="line"><span class="comment"># a2 -&gt; 100010001</span></span><br><span class="line">func(<span class="number">100</span>)		<span class="comment"># 100 [1,2,666]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># a1 = 200</span></span><br><span class="line"><span class="comment"># a2 -&gt; 100010001</span></span><br><span class="line">func(<span class="number">200</span>)		<span class="comment"># 200 [1,2,666,666]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># a1 = 99</span></span><br><span class="line"><span class="comment"># a2 -&gt; 111111101</span></span><br><span class="line">func(<span class="number">99</span>,[<span class="number">77</span>,<span class="number">99</span>])	<span class="comment"># 99 [77,99,666]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># a1 = 300</span></span><br><span class="line"><span class="comment"># a2 -&gt; 100010001</span></span><br><span class="line">func(<span class="number">300</span>)		<span class="comment"># 300 [1,2,666,666,666]</span></span><br></pre></td></tr></table></figure></li>
+<li><p>大坑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在内部会维护一块区域存储[1,2],内存地址 1010101010</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">a1,a2=[<span class="number">1</span>,<span class="number">2</span>]</span>):</span></span><br><span class="line">  a2.append(a1)</span><br><span class="line">  <span class="keyword">return</span> a2</span><br><span class="line"></span><br><span class="line">v1 = func(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(v1)		<span class="comment"># [1,2,10]</span></span><br><span class="line"></span><br><span class="line">v2 = func(<span class="number">20</span>)</span><br><span class="line"><span class="built_in">print</span>(v2)		<span class="comment"># [1,2,10,20]</span></span><br><span class="line"></span><br><span class="line">v3 = func(<span class="number">30</span>,[<span class="number">11</span>,<span class="number">22</span>])</span><br><span class="line"><span class="built_in">print</span>(v3)		<span class="comment"># [11,22,30]</span></span><br><span class="line"></span><br><span class="line">v4 = func(<span class="number">40</span>)</span><br><span class="line"><span class="built_in">print</span>(v4)		<span class="comment"># [1,2,10,20,40]</span></span><br></pre></td></tr></table></figure></li>
+<li><p>深坑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">a1,a2=[<span class="number">1</span>,<span class="number">2</span>]</span>):</span></span><br><span class="line">  a2.append(al)</span><br><span class="line">  <span class="keyword">return</span> a2</span><br><span class="line"></span><br><span class="line">v1 = func(<span class="number">10</span>)</span><br><span class="line">v2 = func(<span class="number">20</span>)</span><br><span class="line">v3 = func(<span class="number">30</span>,[<span class="number">11</span>,<span class="number">22</span>])</span><br><span class="line">v4 = func(<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(v1)		<span class="comment"># [1,2,10,20,40]</span></span><br><span class="line"><span class="built_in">print</span>(v2)		<span class="comment"># [1,2,10,20,40]</span></span><br><span class="line"><span class="built_in">print</span>(v3)		<span class="comment"># [11,22,30]</span></span><br><span class="line"><span class="built_in">print</span>(v4)		<span class="comment"># [1,2,10,20,40]</span></span><br></pre></td></tr></table></figure>
+
+<p>V1,V2,V4用的都是同一块内存</p>
+</li>
+</ul>
+<h4 id="动态参数补充"><a href="#动态参数补充" class="headerlink" title="动态参数补充"></a>动态参数补充</h4><p>实参使用*，即在执行函数时也可以用*</p>
+<ul>
+<li><p>形参固定，实参用<code>*和**</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">a1,a2</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(a1,a2)</span><br><span class="line">  </span><br><span class="line">func(<span class="number">11</span>,<span class="number">22</span>)				<span class="comment"># 11 22</span></span><br><span class="line">func(a1=<span class="number">1</span>,a2=<span class="number">2</span>)		<span class="comment"># 1 2</span></span><br><span class="line"></span><br><span class="line">func(*[<span class="number">11</span>,<span class="number">22</span>])		<span class="comment"># 11 22</span></span><br><span class="line">func(**&#123;<span class="string">&quot;a1&quot;</span>:<span class="number">11</span>,<span class="string">&quot;a2&quot;</span>:<span class="number">22</span>&#125;)		<span class="comment"># 11 22</span></span><br></pre></td></tr></table></figure></li>
+<li><p>形参用<code>*和** </code>，实参也用<code>*和**</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">*args,**kwargs</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(args,kwargs)</span><br><span class="line">  </span><br><span class="line">func(<span class="number">11</span>,<span class="number">22</span>)</span><br><span class="line">func(<span class="number">11</span>,<span class="number">22</span>,name=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">func([<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>],&#123;<span class="string">&quot;k1&quot;</span>:<span class="number">1</span>,<span class="string">&quot;k2&quot;</span>:<span class="number">2</span>&#125;)			<span class="comment"># ([11, 22, 33], &#123;&#x27;k1&#x27;: 1, &#x27;k2&#x27;: 2&#125;) &#123;&#125;</span></span><br><span class="line">func(*[<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>],**&#123;<span class="string">&quot;k1&quot;</span>:<span class="number">1</span>,<span class="string">&quot;k2&quot;</span>:<span class="number">2</span>&#125;)		<span class="comment"># (11, 22, 33) &#123;&#x27;k1&#x27;: 1, &#x27;k2&#x27;: 2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 值得注意：按照这个方式将数据传给args和kwargs时，数据是会重新拷贝的（可以理解为内部循环每个元素并设置到args和kwargs中）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>所以，在使用format字符串格式化时，可以这样使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">v1 = <span class="string">&quot;我是&#123;&#125;,年龄：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;蒙珣&quot;</span>,<span class="number">18</span>)</span><br><span class="line">v2 = <span class="string">&quot;我是&#123;name&#125;,年龄：&#123;age&#125;&quot;</span>.<span class="built_in">format</span>(name=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">v3 = <span class="string">&quot;我是&#123;&#125;,年龄：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(*[<span class="string">&quot;蒙珣&quot;</span>,<span class="number">18</span>])</span><br><span class="line">v4 = <span class="string">&quot;我是&#123;name&#125;,年龄：&#123;age&#125;&quot;</span>.<span class="built_in">format</span>(**&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;蒙珣&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">18</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="函数做元素"><a href="#函数做元素" class="headerlink" title="函数做元素"></a>函数做元素</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line"></span><br><span class="line">data_list = [<span class="string">&quot;mengxun&quot;</span>,<span class="string">&quot;蒙珣&quot;</span>,func,func()]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(data_list[<span class="number">0</span>])	<span class="comment"># mengxun</span></span><br><span class="line"><span class="built_in">print</span>(data_list[<span class="number">1</span>])	<span class="comment"># 蒙珣</span></span><br><span class="line"><span class="built_in">print</span>(data_list[<span class="number">2</span>])	<span class="comment"># func函数</span></span><br><span class="line"><span class="built_in">print</span>(data_list[<span class="number">3</span>])	<span class="comment"># 123</span></span><br><span class="line"></span><br><span class="line">res = data_list[<span class="number">2</span>]()</span><br><span class="line"><span class="built_in">print</span>(res)					<span class="comment"># 123</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(data_list[<span class="number">2</span>]())	<span class="comment"># 123</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：函数同时也可以被哈希，所以函数名通常也可以当做集合的元素、字典的键</strong></p>
+<p>掌握这个知识后，对后续的项目开发有很大的帮助，例如，在项目中遇到根据选择不同操作时：</p>
+<ul>
+<li><p>情景1，例如：开发一个类似微信的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送信息&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_image</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送图片&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_emoji</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送表情&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_file</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送文件&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;欢迎使用xx系统&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;请选择：1.发送消息；2.发送图片；3.发送表情；4.发送文件&quot;</span>)</span><br><span class="line">choice = <span class="built_in">input</span>(<span class="string">&quot;输入选择的序号&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> choice == <span class="string">&quot;1&quot;</span>:</span><br><span class="line">  send_message()</span><br><span class="line"><span class="keyword">elif</span> choice == <span class="string">&quot;2&quot;</span>:</span><br><span class="line">  send_image()</span><br><span class="line"><span class="keyword">elif</span> choice == <span class="string">&quot;3&quot;</span>:</span><br><span class="line">  send_emoji()</span><br><span class="line"><span class="keyword">elif</span> choice == <span class="string">&quot;4&quot;</span>:</span><br><span class="line">  send_file()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;输入错误&quot;</span>)</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<p>其实这种大量使用 if 判断不是一个很好的方式，我们可以将其放入字典中再使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送信息&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_image</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送图片&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_emoji</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送表情&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_file</span>():</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送文件&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">function_dict = &#123;</span><br><span class="line">  <span class="string">&#x27;1&#x27;</span>: send_message,</span><br><span class="line">  <span class="string">&#x27;2&#x27;</span>: send_image,</span><br><span class="line">  <span class="string">&#x27;3&#x27;</span>: send_emoji,</span><br><span class="line">  <span class="string">&#x27;4&#x27;</span>: send_file</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;欢迎使用xx系统&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;请选择：1.发送消息；2.发送图片；3.发送表情；4.发送文件&quot;</span>)</span><br><span class="line">choice = <span class="built_in">input</span>(<span class="string">&quot;输入选择的序号&quot;</span>)</span><br><span class="line"></span><br><span class="line">func = function_dict.get(choice)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> func:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;输入错误&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="comment"># 执行函数</span></span><br><span class="line">  func()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>上述情况，在参数相同时才可用，如果参数不一致，会出错。</p>
+<ul>
+<li><p>情景2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_message</span>(<span class="params">phone,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送信息&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_image</span>(<span class="params">img_path,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送图片&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_emoji</span>(<span class="params">emoji</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送表情&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_file</span>(<span class="params">path</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送文件&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数名和参数</span></span><br><span class="line">function_dict = &#123;</span><br><span class="line">  <span class="string">&quot;1&quot;</span>:[send_message,[<span class="string">&#x27;1513121255089&#x27;</span>,<span class="string">&#x27;你好&#x27;</span>]],</span><br><span class="line">  <span class="string">&quot;2&quot;</span>:[send_image,[<span class="string">&#x27;xxx/xxx/xx.png&#x27;</span>,<span class="string">&#x27;消息内容&#x27;</span>]],</span><br><span class="line">  <span class="string">&quot;3&quot;</span>:[send_emoji,[<span class="string">&quot;😊&quot;</span>]],</span><br><span class="line">  <span class="string">&quot;4&quot;</span>:[send_file,[<span class="string">&#x27;xx.zip&#x27;</span>]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;欢迎使用xx系统&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;请选择：1.发送消息；2.发送图片；3.发送表情；4.发送文件&quot;</span>)</span><br><span class="line">choice = <span class="built_in">input</span>(<span class="string">&quot;输入选择的序号&quot;</span>)</span><br><span class="line"></span><br><span class="line">item = function_dict.get(choice)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> item:</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;输入错误&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="comment"># 执行函数</span></span><br><span class="line">  func = item[<span class="number">0</span>]</span><br><span class="line">  param_list = item[<span class="number">1</span>]</span><br><span class="line">  func(*param_list)</span><br></pre></td></tr></table></figure></li>
+<li><p>情景2：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_msg</span>(<span class="params">mobile,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送信息&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_email</span>(<span class="params">to_email,subject,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送图片&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_wechat</span>(<span class="params">user_id,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送微信&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">func_list = [</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>: send_msg, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&#x27;mobile&#x27;</span>: <span class="string">&quot;17610837191&quot;</span>, <span class="string">&quot;content&quot;</span>:<span class="string">&quot;您有新短息&quot;</span>&#125;&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>: send_email, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&#x27;to_emial&#x27;</span>: <span class="string">&quot;mengxu@117.com&quot;</span>, <span class="string">&quot;subject&quot;</span>: <span class="string">&quot;报警消息&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;硬盘容量不够用了&quot;</span>&#125;&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>: send_wechat, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&#x27;user_id&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;content&#x27;</span>: <span class="string">&quot;出去玩吗&quot;</span>&#125;&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> func_list:</span><br><span class="line">  func = item[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">  param_dict = item[<span class="string">&#x27;params&#x27;</span>]</span><br><span class="line">  func(**param_dict)</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/23/%E6%92%92%E5%93%88%E6%8B%89%E7%9A%84%E6%95%85%E4%BA%8B/" rel="prev" title="撒哈拉的故事">
+      <i class="fa fa-chevron-left"></i> 撒哈拉的故事
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">动态参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">参数内存地址相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">函数的返回值是内存地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91"><span class="nav-number">4.</span> <span class="nav-text">参数的默认值【面试题】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E8%A1%A5%E5%85%85"><span class="nav-number">5.</span> <span class="nav-text">动态参数补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%81%9A%E5%85%83%E7%B4%A0"><span class="nav-number">6.</span> <span class="nav-text">函数做元素</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/logo.JPG">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">607k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">9:12</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>
