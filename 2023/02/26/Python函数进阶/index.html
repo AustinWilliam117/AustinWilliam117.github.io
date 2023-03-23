@@ -29,10 +29,13 @@
 <meta property="og:site_name" content="蒙珣的博客">
 <meta property="og:description" content="动态参数 *args  12345678def func(*args):  print(args)		# 元组类型 (22,)(22,33,99)()   # 只能按照位置传参func(22)func(22,33)func(22,33,99)func()   **kwargs  12345678def func(**kwargs):  print(kwargs)		# 字典类型 &amp;#123;&amp;qu">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%88%86%E6%9E%901.png">
+<meta property="og:image" content="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%88%86%E6%9E%902.png">
 <meta property="article:published_time" content="2023-02-26T05:52:05.000Z">
-<meta property="article:modified_time" content="2023-02-26T12:43:27.549Z">
+<meta property="article:modified_time" content="2023-02-28T15:26:56.168Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%88%86%E6%9E%901.png">
 
 <link rel="canonical" href="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/">
 
@@ -139,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">170</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">171</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -219,10 +222,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-02-26 13:52:05 / Modified: 20:43:27" itemprop="dateCreated datePublished" datetime="2023-02-26T13:52:05+08:00">2023-02-26</time>
+              <time title="Created: 2023-02-26 13:52:05" itemprop="dateCreated datePublished" datetime="2023-02-26T13:52:05+08:00">2023-02-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-28 23:26:56" itemprop="dateModified" datetime="2023-02-28T23:26:56+08:00">2023-02-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -246,14 +255,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>8.1k</span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>7 mins.</span>
+              <span>9 mins.</span>
             </span>
 
         </div>
@@ -387,7 +396,59 @@
 <li><p>情景2：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_msg</span>(<span class="params">mobile,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送信息&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_email</span>(<span class="params">to_email,subject,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送图片&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_wechat</span>(<span class="params">user_id,content</span>):</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;发送微信&quot;&quot;&quot;</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">func_list = [</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>: send_msg, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&#x27;mobile&#x27;</span>: <span class="string">&quot;17610837191&quot;</span>, <span class="string">&quot;content&quot;</span>:<span class="string">&quot;您有新短息&quot;</span>&#125;&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>: send_email, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&#x27;to_emial&#x27;</span>: <span class="string">&quot;mengxu@117.com&quot;</span>, <span class="string">&quot;subject&quot;</span>: <span class="string">&quot;报警消息&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;硬盘容量不够用了&quot;</span>&#125;&#125;,</span><br><span class="line">  &#123;<span class="string">&quot;name&quot;</span>: send_wechat, <span class="string">&quot;params&quot;</span>: &#123;<span class="string">&#x27;user_id&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;content&#x27;</span>: <span class="string">&quot;出去玩吗&quot;</span>&#125;&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> func_list:</span><br><span class="line">  func = item[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">  param_dict = item[<span class="string">&#x27;params&#x27;</span>]</span><br><span class="line">  func(**param_dict)</span><br></pre></td></tr></table></figure></li>
 </ul>
+<h4 id="函数嵌套"><a href="#函数嵌套" class="headerlink" title="函数嵌套"></a>函数嵌套</h4><p>上述示例中的函数均定义在全局作用域，其实函数也可以定义在局部作用域，这样函数呗局部作用域和其子作用域中调用（函数的嵌套）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;AAAA&quot;</span>)</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handler</span>():</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;BBBB&quot;</span>)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">inner</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;CCCC&quot;</span>)</span><br><span class="line">    inner()</span><br><span class="line">    func()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;DDDD&quot;</span>)</span><br><span class="line">    </span><br><span class="line">handler()</span><br><span class="line">-------------------</span><br><span class="line">BBBB</span><br></pre></td></tr></table></figure>
 
+<p>到现在你会发现，只要理解数据定义时所存在的作用域，并根据从上到下代码执行过程进行分析，再怎么嵌套都可以搞定</p>
+<p>现在的你可能有疑问：为什么要这么嵌套定义？把函数都定义在全局不好吗？</p>
+<p>其实，大多数情况下我们都会将函数定义在全局，不会嵌套着定义函数。不过，当我们定义一个函数去实现某功能，想要将内部功能拆分成N个函数，又担心这个N个函数放在全局会与其他函数名冲突时（尤其多人协同开发）可以选择使用函数的嵌套</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span>():</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span>():</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">  f1()</span><br><span class="line">  f2()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">f1</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">f2</span>():</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">  </span><br><span class="line">  f1()</span><br><span class="line">  f2()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>![image-20230227222215296](/Users/william/Library/Application Support/typora-user-images/image-20230227222215296.png)</p>
+<p>![image-20230227222321268](/Users/william/Library/Application Support/typora-user-images/image-20230227222321268.png)</p>
+<p>![image-20230227222345169](/Users/william/Library/Application Support/typora-user-images/image-20230227222345169.png)</p>
+<h4 id="嵌套引发作用域问题"><a href="#嵌套引发作用域问题" class="headerlink" title="嵌套引发作用域问题"></a>嵌套引发作用域问题</h4><p><strong>函数作用域分析1</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&quot;蒙珣&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span>():</span></span><br><span class="line">  name = <span class="string">&quot;mengxun&quot;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">inner</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(name)</span><br><span class="line">  inner()</span><br><span class="line">  </span><br><span class="line">run()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>函数在执行过程中，先创建了一个全局作用域 <code>name = 蒙珣</code> ，然后创建了一个全局作用域<code>run函数</code>。</p>
+</li>
+<li><p>之后在我们调用<code>函数run()</code>时，该函数在内部声明了一个局部作用域 <code>name = mengxun</code>，而后又声明了一个局部作用域的函数为<code>inner函数</code>。</p>
+</li>
+<li><p>在函数内部中，他自己调用 <code>inner()</code>，先从函数内部寻找，是否有 <code>inner</code> 函数。如果有则调用内部函数，如果没有则调用外部函数。</p>
+</li>
+<li><p>最后执行 inner函数，结果为<code>mengxun</code></p>
+</li>
+</ul>
+<p><img src="%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%88%86%E6%9E%901.png" alt="函数作用域分析1"></p>
+<p><strong>函数作用域分析2</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&quot;蒙珣&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span>():</span></span><br><span class="line">  name = <span class="string">&quot;mengxun&quot;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">inner</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(name)</span><br><span class="line">  <span class="keyword">return</span> inner</span><br><span class="line">  </span><br><span class="line">v1 = run()</span><br><span class="line">v1()</span><br><span class="line"></span><br><span class="line">v2 = run()</span><br><span class="line">v2()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数在执行过程中，先创建了一个全局作用域 <code>name = 蒙珣</code>，然后创建了一个全局作用域 <code>run函数</code></li>
+<li>之后我们调用<code>函数run()</code>，并将其声明成全局变量 v1</li>
+<li>此时，<code>函数run()</code>内部，开始声明局部变量<code>name = mengxun</code>，并返回<code>局部函数inner()</code>的内存地址</li>
+<li>接着，我们调用<code>全局变量v1</code>，于是开始执行<code>run函数</code>内部的<code>inner函数</code></li>
+<li><code>inner函数</code>先从内部找<code>name</code>变量，如果内部没有<code>name</code>变量，就开始在上一级函数中寻找<code>name</code>变量，并使用。</li>
+<li>最后打印 mengxun</li>
+<li>声明全局变量v2，同上。不同的是，v2是创建的不同于v1的另一个调用栈。</li>
+</ul>
+<p><img src="%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%88%86%E6%9E%902.png" alt="函数作用域分析2"></p>
+<p><strong>函数作用域分析3</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&quot;蒙珣&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span>():</span></span><br><span class="line">  name = <span class="string">&quot;mengxun&quot;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">inner</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(name)</span><br><span class="line">  <span class="keyword">return</span> [inner,inner,inner]</span><br><span class="line"></span><br><span class="line">func_list = run()</span><br><span class="line">func_list[<span class="number">2</span>]()</span><br><span class="line">func_list[<span class="number">1</span>]()</span><br><span class="line"></span><br><span class="line">funcs = run()</span><br><span class="line">funcs[<span class="number">2</span>]()</span><br><span class="line">funcs[<span class="number">1</span>]()</span><br></pre></td></tr></table></figure>
+
+<p>三句话搞定作用域：</p>
+<ul>
+<li>优先在自己的作用域找，自己没有就去上级作用域</li>
+<li>在作用域中寻找值时，要确保此次此刻值是什么</li>
+<li>分析函数的执行，并确定函数<strong>作用域链</strong>（函数嵌套）</li>
+</ul>
+<p>![image-20230227224253973](/Users/william/Library/Application Support/typora-user-images/image-20230227224253973.png)</p>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4>
     </div>
 
     
@@ -405,7 +466,10 @@
     <a href="/2023/02/23/%E6%92%92%E5%93%88%E6%8B%89%E7%9A%84%E6%95%85%E4%BA%8B/" rel="prev" title="撒哈拉的故事">
       <i class="fa fa-chevron-left"></i> 撒哈拉的故事
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/22/Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BC%8F/" rel="next" title="Python内置函数和推导式">
+      Python内置函数和推导式 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -464,7 +528,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">动态参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">参数内存地址相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">函数的返回值是内存地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91"><span class="nav-number">4.</span> <span class="nav-text">参数的默认值【面试题】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E8%A1%A5%E5%85%85"><span class="nav-number">5.</span> <span class="nav-text">动态参数补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%81%9A%E5%85%83%E7%B4%A0"><span class="nav-number">6.</span> <span class="nav-text">函数做元素</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">动态参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">参数内存地址相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">函数的返回值是内存地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC%E3%80%90%E9%9D%A2%E8%AF%95%E9%A2%98%E3%80%91"><span class="nav-number">4.</span> <span class="nav-text">参数的默认值【面试题】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0%E8%A1%A5%E5%85%85"><span class="nav-number">5.</span> <span class="nav-text">动态参数补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%81%9A%E5%85%83%E7%B4%A0"><span class="nav-number">6.</span> <span class="nav-text">函数做元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%B5%8C%E5%A5%97"><span class="nav-number">7.</span> <span class="nav-text">函数嵌套</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E5%BC%95%E5%8F%91%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">嵌套引发作用域问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-number">9.</span> <span class="nav-text">闭包</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -480,7 +544,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -544,13 +608,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">607k</span>
+    <span title="Symbols count total">619k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">9:12</span>
+    <span title="Reading time total">9:23</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
