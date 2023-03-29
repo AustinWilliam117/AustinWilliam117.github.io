@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Nginx是什么nginx是一个开源的，支持高性能，高并发的www服务和代理服务软件。它是一个俄罗斯人lgor sysoev开发的，作者将源代码开源出来供全球使用。 nginx比它大哥apache性能改进许多，nginx占用的系统资源更少，支持更高的并发连接，有更高的访问效率。 nginx不但是一个优秀的web服务软件，还可以作为反向代理，负载均衡，以及缓存服务使用。安装更为简单，方便，灵活。 n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx部署">
+<meta property="og:url" content="http://example.com/2023/03/29/Nginx%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="Nginx是什么nginx是一个开源的，支持高性能，高并发的www服务和代理服务软件。它是一个俄罗斯人lgor sysoev开发的，作者将源代码开源出来供全球使用。 nginx比它大哥apache性能改进许多，nginx占用的系统资源更少，支持更高的并发连接，有更高的访问效率。 nginx不但是一个优秀的web服务软件，还可以作为反向代理，负载均衡，以及缓存服务使用。安装更为简单，方便，灵活。 n">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/03/29/Nginx%E9%83%A8%E7%BD%B2/1.png">
+<meta property="og:image" content="http://example.com/2023/03/29/Nginx%E9%83%A8%E7%BD%B2/2.png">
+<meta property="article:published_time" content="2023-03-29T12:54:31.000Z">
+<meta property="article:modified_time" content="2023-03-29T15:01:22.146Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="Nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/03/29/Nginx%E9%83%A8%E7%BD%B2/1.png">
+
+<link rel="canonical" href="http://example.com/2023/03/29/Nginx%E9%83%A8%E7%BD%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Nginx部署 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">未来很长，当有勇气面对，当与自己和解。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">36</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">172</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/29/Nginx%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Nginx部署
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-03-29 20:54:31 / Modified: 23:01:22" itemprop="dateCreated datePublished" datetime="2023-03-29T20:54:31+08:00">2023-03-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Nginx是什么"><a href="#Nginx是什么" class="headerlink" title="Nginx是什么"></a>Nginx是什么</h2><p>nginx是一个开源的，支持高性能，高并发的www服务和代理服务软件。它是一个俄罗斯人lgor sysoev开发的，作者将源代码开源出来供全球使用。</p>
+<p>nginx比它大哥apache性能改进许多，nginx占用的系统资源更少，支持更高的并发连接，有更高的访问效率。</p>
+<p>nginx不但是一个优秀的web服务软件，还可以作为反向代理，负载均衡，以及缓存服务使用。<br>安装更为简单，方便，灵活。</p>
+<p>nginx可以说是非常nb了</p>
+<h4 id="面试回答nginx技巧"><a href="#面试回答nginx技巧" class="headerlink" title="面试回答nginx技巧"></a>面试回答nginx技巧</h4><ul>
+<li>支持高并发，能支持几万并发连接</li>
+<li>资源消耗少，在3万并发连接下开启10个nginx线程消耗的内存不到200M</li>
+<li>可以做http反向代理和负载均衡</li>
+<li>支持异步网络i/o事件模型epoll</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="1-gcc-安装"><a href="#1-gcc-安装" class="headerlink" title="1. gcc 安装"></a>1. gcc 安装</h3><p>安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装</p>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="2-PCRE-pcre-devel-安装"><a href="#2-PCRE-pcre-devel-安装" class="headerlink" title="2. PCRE pcre-devel 安装"></a>2. PCRE pcre-devel 安装</h3><p>PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。</p>
+<p>nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库。nginx也需要此库。命令：</p>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="3-zlib-安装"><a href="#3-zlib-安装" class="headerlink" title="3. zlib 安装"></a>3. zlib 安装</h3><p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。</p>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib zlib-devel</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="4-OpenSSL-安装"><a href="#4-OpenSSL-安装" class="headerlink" title="4. OpenSSL 安装"></a>4. OpenSSL 安装</h3><p>OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。</p>
+<p>nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库。</p>
+<h3 id="5-安装环境代码集合"><a href="#5-安装环境代码集合" class="headerlink" title="5. 安装环境代码集合"></a>5. 安装环境代码集合</h3><blockquote>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;yum <span class="keyword">install </span>gcc patch libffi-devel python-devel  zlib-devel <span class="keyword">bzip2-devel </span>openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel openssl openssl-devel -y</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="安装、启动-Nginx"><a href="#安装、启动-Nginx" class="headerlink" title="安装、启动 Nginx"></a>安装、启动 Nginx</h3><h4 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1. 下载源码包"></a>1. 下载源码包</h4><blockquote>
+<p>wget -c <a target="_blank" rel="noopener" href="https://nginx.org/download/nginx-1.12.0.tar.gz">https://nginx.org/download/nginx-1.12.0.tar.gz</a></p>
+</blockquote>
+<h4 id="2-解压缩源码"><a href="#2-解压缩源码" class="headerlink" title="2. 解压缩源码"></a>2. 解压缩源码</h4><blockquote>
+<p>tar -zxvf nginx-1.12.0.tar.gz</p>
+</blockquote>
+<h4 id="3-配置，编译安装-开启-Nginx-状态监测功能"><a href="#3-配置，编译安装-开启-Nginx-状态监测功能" class="headerlink" title="3. 配置，编译安装 开启 Nginx 状态监测功能"></a>3. 配置，编译安装 开启 Nginx 状态监测功能</h4><p>编译安装支持开启很多第三方的功能</p>
+<blockquote>
+<p>./configure –prefix=/opt/nginx1-12/ –with-http_ssl_module –with-http_stub_status_module</p>
+</blockquote>
+<blockquote>
+<p> make &amp;&amp; make install</p>
+</blockquote>
+<ul>
+<li>–prefix  指定将 nginx 装到哪里</li>
+<li>–with-http_ssl_module  使 Nginx 支持 https 协议</li>
+<li>–with-http_stub_status_module 性能统计模块</li>
+</ul>
+<h4 id="4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令"><a href="#4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令" class="headerlink" title="4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令"></a>4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</h4><blockquote>
+<p>cd sbin<br>./nginx                        #启动<br>./nginx -s stop            #关闭<br>./nginx -s reload        #重新加载</p>
+</blockquote>
+<h3 id="安装完成后的检测"><a href="#安装完成后的检测" class="headerlink" title="安装完成后的检测"></a>安装完成后的检测</h3><p><code>netstat -tunlp | grep 80</code><br><code>curl -I 127.0.0.1</code><br>#如果访问不了，检查selinux，iptables</p>
+<h2 id="Nginx-实战学习"><a href="#Nginx-实战学习" class="headerlink" title="Nginx 实战学习"></a>Nginx 实战学习</h2><ul>
+<li>部署一个静态网站</li>
+<li>基于端口的多虚拟主机</li>
+<li>访问日志</li>
+<li>错误日志</li>
+<li>代理服务</li>
+</ul>
+<h3 id="静态网站配置"><a href="#静态网站配置" class="headerlink" title="静态网站配置"></a>静态网站配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">user root;    <span class="comment"># ngxin的工作用户，必须和启动用户一致</span></span><br><span class="line">    </span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">        		<span class="comment"># nginx 通过root指令，确定ngxin的网页文件放在哪里</span></span><br><span class="line">        		<span class="comment"># 这个html指的是nginx安装目录下加一个html文件夹</span></span><br><span class="line">            root   /home/wiliiam/web/;</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># index参数指的是，首页文件的名字(从/home/wiliiam/web/目录下找index.html文件)</span></span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改配置文件后，需要重启 Nginx 程序，才能更新配置</li>
+</ul>
+<p><strong>关于Nginx配置文件第一行：user root的问题</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(ll_env) [root@VM-4-8-centos blog]<span class="comment"># ps -aux | grep nginx</span></span><br><span class="line">nobody     342  0.0  0.1  48600  2328 ?        S    22:29   0:00 nginx: worker process</span><br><span class="line">root       633  0.0  0.2 149360  5124 pts/1    S+   22:30   0:00 vim nginx.conf</span><br><span class="line">root      5110  0.0  0.0 112816   980 pts/0    S+   22:49   0:00 grep --color=auto nginx</span><br><span class="line">root     13835  0.0  0.0  46084  1904 ?        Ss   21:11   0:00 nginx: master process ./nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>worker process Nginx 的工作用户没有指定，就是nobody</p>
+</li>
+<li><p>启动nginx的是root用户，而工作用户是nginx，两个不一致就会导致403错误</p>
+<p>我们修改工作用户和启动用户一致</p>
+</li>
+</ul>
+<p><strong>重启 Nginx</strong></p>
+<ul>
+<li><p>先验证配置文件语法是否正确</p>
+<p><code>/opt/nginx1-12/sbin/nginx -t</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-4-8-centos conf]<span class="comment"># /opt/nginx1-12/sbin/nginx -t</span></span><br><span class="line"></span><br><span class="line">nginx: the configuration file /opt/nginx1-12//conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /opt/nginx1-12//conf/nginx.conf <span class="built_in">test</span> is successful</span><br></pre></td></tr></table></figure></li>
+<li><p><font color="orange">指定路径，再重启（否则可能会重启其他的 Nginx）</font></p>
+</li>
+</ul>
+<blockquote>
+<p>/opt/nginx1-12/sbin/nginx -s reload</p>
+</blockquote>
+<h3 id="基于端口的多虚拟主机"><a href="#基于端口的多虚拟主机" class="headerlink" title="基于端口的多虚拟主机"></a>基于端口的多虚拟主机</h3><p>如果每台linux服务器只运行了一个小网站，那么人气低，流量小的草根站长需要承担高额的服务器租赁费，也造成了硬件资源浪费。</p>
+<p>虚拟主机就是将一台服务器分割成多个“虚拟服务器”，每个站点使用各自的硬盘空间，由于省资源，省钱，众多网站都使用虚拟主机来部署网站。</p>
+<p><img src="1.png"></p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虚拟主机的概念就是在web服务里的一个独立的网站站点，这个站点对应独立的域名（IP），具有独立的程序和资源目录，可以独立的对外提供服务。</span><br><span class="line">这个独立的站点配置是在nginx.conf中使用<span class="keyword">server</span>&#123;&#125;代码块标签来表示一个虚拟主机。</span><br><span class="line">Nginx支持多个<span class="keyword">server</span>&#123;&#125;标签，即支持多个虚拟主机站点。</span><br></pre></td></tr></table></figure>
+
+<p>虚拟主机的类型</p>
+<ul>
+<li><p>基于域名的虚拟主机</p>
+<p>通过不同的域名区分不同的虚拟主机，是企业应用最广的虚拟主机。</p>
+</li>
+<li><p>基于端口的虚拟主机</p>
+<p>通过不同的端口来区分不同的虚拟主机，一般用作企业内部网站，不对外直接提供服务的后台，例如<a target="_blank" rel="noopener" href="http://www.pythonav.cn:9000/">www.pythonav.cn:9000</a></p>
+</li>
+<li><p>基于IP的虚拟主机</p>
+<p>通过不同的IP区分不同的虚拟主机，此类比较少见，一般业务需要多IP的常见都会在负载均衡中绑定VIP</p>
+</li>
+</ul>
+<p><img src="2.png"></p>
+<blockquote>
+<p>转载自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pyyu/p/9468680.html">https://www.cnblogs.com/pyyu/p/9468680.html</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/22/Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E5%92%8C%E6%8E%A8%E5%AF%BC%E5%BC%8F/" rel="prev" title="Python内置函数和推导式">
+      <i class="fa fa-chevron-left"></i> Python内置函数和推导式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Nginx是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%9B%9E%E7%AD%94nginx%E6%8A%80%E5%B7%A7"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试回答nginx技巧</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-gcc-%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">1. gcc 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PCRE-pcre-devel-%E5%AE%89%E8%A3%85"><span class="nav-number">2.2.</span> <span class="nav-text">2. PCRE pcre-devel 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-zlib-%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text">3. zlib 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-OpenSSL-%E5%AE%89%E8%A3%85"><span class="nav-number">2.4.</span> <span class="nav-text">4. OpenSSL 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E4%BB%A3%E7%A0%81%E9%9B%86%E5%90%88"><span class="nav-number">2.5.</span> <span class="nav-text">5. 安装环境代码集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E3%80%81%E5%90%AF%E5%8A%A8-Nginx"><span class="nav-number">2.6.</span> <span class="nav-text">安装、启动 Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81%E5%8C%85"><span class="nav-number">2.6.1.</span> <span class="nav-text">1. 下载源码包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%BA%90%E7%A0%81"><span class="nav-number">2.6.2.</span> <span class="nav-text">2. 解压缩源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%EF%BC%8C%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-%E5%BC%80%E5%90%AF-Nginx-%E7%8A%B6%E6%80%81%E7%9B%91%E6%B5%8B%E5%8A%9F%E8%83%BD"><span class="nav-number">2.6.3.</span> <span class="nav-text">3. 配置，编译安装 开启 Nginx 状态监测功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%90%AF%E5%8A%A8-Nginx%EF%BC%8C%E8%BF%9B%E5%85%A5-sbin-%E7%9B%AE%E5%BD%95%EF%BC%8C%E6%89%BE%E5%88%B0-Nginx-%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.6.4.</span> <span class="nav-text">4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="nav-number">2.7.</span> <span class="nav-text">安装完成后的检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">Nginx 实战学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">静态网站配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%A4%9A%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="nav-number">3.2.</span> <span class="nav-text">基于端口的多虚拟主机</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/logo.JPG">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">623k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">9:26</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":225,"height":450},"mobile":{"show":false},"log":false});</script></body>
+</html>
