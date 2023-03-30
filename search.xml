@@ -17256,49 +17256,34 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li>支持高并发，能支持几万并发连接</li>
 <li>资源消耗少，在3万并发连接下开启10个nginx线程消耗的内存不到200M</li>
 <li>可以做http反向代理和负载均衡</li>
-<li>支持异步网络i/o事件模型epoll</li>
+<li>支持异步网络i/o事件模型epol</li>
 </ul>
 <span id="more"></span>
 
 <h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="1-gcc-安装"><a href="#1-gcc-安装" class="headerlink" title="1. gcc 安装"></a>1. gcc 安装</h3><p>安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install gcc-c++</span><br></pre></td></tr></table></figure>
-</blockquote>
+<p><code>yum install gcc-c++</code></p>
 <h3 id="2-PCRE-pcre-devel-安装"><a href="#2-PCRE-pcre-devel-安装" class="headerlink" title="2. PCRE pcre-devel 安装"></a>2. PCRE pcre-devel 安装</h3><p>PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。</p>
 <p>nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库。nginx也需要此库。命令：</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure>
-</blockquote>
+<p><code>yum install -y pcre pcre-devel</code></p>
 <h3 id="3-zlib-安装"><a href="#3-zlib-安装" class="headerlink" title="3. zlib 安装"></a>3. zlib 安装</h3><p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install -y zlib zlib-devel</span><br></pre></td></tr></table></figure>
-</blockquote>
+<p><code>yum install -y zlib zlib-devel</code></p>
 <h3 id="4-OpenSSL-安装"><a href="#4-OpenSSL-安装" class="headerlink" title="4. OpenSSL 安装"></a>4. OpenSSL 安装</h3><p>OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。</p>
 <p>nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库。</p>
-<h3 id="5-安装环境代码集合"><a href="#5-安装环境代码集合" class="headerlink" title="5. 安装环境代码集合"></a>5. 安装环境代码集合</h3><blockquote>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">&gt;yum <span class="keyword">install </span>gcc patch libffi-devel python-devel  zlib-devel <span class="keyword">bzip2-devel </span>openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel openssl openssl-devel -y</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="安装、启动-Nginx"><a href="#安装、启动-Nginx" class="headerlink" title="安装、启动 Nginx"></a>安装、启动 Nginx</h3><h4 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1. 下载源码包"></a>1. 下载源码包</h4><blockquote>
-<p>wget -c <a href="https://nginx.org/download/nginx-1.12.0.tar.gz">https://nginx.org/download/nginx-1.12.0.tar.gz</a></p>
-</blockquote>
-<h4 id="2-解压缩源码"><a href="#2-解压缩源码" class="headerlink" title="2. 解压缩源码"></a>2. 解压缩源码</h4><blockquote>
-<p>tar -zxvf nginx-1.12.0.tar.gz</p>
-</blockquote>
+<h3 id="5-安装环境代码集合"><a href="#5-安装环境代码集合" class="headerlink" title="5. 安装环境代码集合"></a>5. 安装环境代码集合</h3><p><code>yum install gcc patch libffi-devel python-devel  zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel openssl openssl-devel -y</code></p>
+<h3 id="安装、启动-Nginx"><a href="#安装、启动-Nginx" class="headerlink" title="安装、启动 Nginx"></a>安装、启动 Nginx</h3><h4 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1. 下载源码包"></a>1. 下载源码包</h4><p><code>wget -c https://nginx.org/download/nginx-1.12.0.tar.gz</code></p>
+<h4 id="2-解压缩源码"><a href="#2-解压缩源码" class="headerlink" title="2. 解压缩源码"></a>2. 解压缩源码</h4><p><code>tar -zxvf nginx-1.12.0.tar.gz</code></p>
 <h4 id="3-配置，编译安装-开启-Nginx-状态监测功能"><a href="#3-配置，编译安装-开启-Nginx-状态监测功能" class="headerlink" title="3. 配置，编译安装 开启 Nginx 状态监测功能"></a>3. 配置，编译安装 开启 Nginx 状态监测功能</h4><p>编译安装支持开启很多第三方的功能</p>
-<blockquote>
-<p>./configure –prefix=/opt/nginx1-12/ –with-http_ssl_module –with-http_stub_status_module</p>
-</blockquote>
-<blockquote>
-<p> make &amp;&amp; make install</p>
-</blockquote>
+<p><code>./configure --prefix=/opt/nginx1-12/ --with-http_ssl_module --with-http_stub_status_module</code></p>
+<p><code>make &amp;&amp; make install</code></p>
 <ul>
 <li>–prefix  指定将 nginx 装到哪里</li>
 <li>–with-http_ssl_module  使 Nginx 支持 https 协议</li>
 <li>–with-http_stub_status_module 性能统计模块</li>
 </ul>
-<h4 id="4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令"><a href="#4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令" class="headerlink" title="4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令"></a>4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</h4><blockquote>
-<p>cd sbin<br>./nginx                        #启动<br>./nginx -s stop            #关闭<br>./nginx -s reload        #重新加载</p>
-</blockquote>
+<h4 id="4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令"><a href="#4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令" class="headerlink" title="4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令"></a>4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</h4><p><code>cd sbin</code></p>
+<p><code>./nginx</code>                        #启动</p>
+<p><code>./nginx -s stop</code>            #关闭</p>
+<p><code>./nginx -s reload</code>        #重新加载</p>
 <h3 id="安装完成后的检测"><a href="#安装完成后的检测" class="headerlink" title="安装完成后的检测"></a>安装完成后的检测</h3><p><code>netstat -tunlp | grep 80</code><br><code>curl -I 127.0.0.1</code><br>#如果访问不了，检查selinux，iptables</p>
 <h2 id="Nginx-实战学习"><a href="#Nginx-实战学习" class="headerlink" title="Nginx 实战学习"></a>Nginx 实战学习</h2><ul>
 <li>部署一个静态网站</li>
@@ -17330,14 +17315,15 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li><p><font color="orange">指定路径，再重启（否则可能会重启其他的 Nginx）</font></p>
 </li>
 </ul>
-<blockquote>
-<p>/opt/nginx1-12/sbin/nginx -s reload</p>
-</blockquote>
+<p><code>/opt/nginx1-12/sbin/nginx -s reload</code></p>
 <h3 id="基于端口的多虚拟主机"><a href="#基于端口的多虚拟主机" class="headerlink" title="基于端口的多虚拟主机"></a>基于端口的多虚拟主机</h3><p>如果每台linux服务器只运行了一个小网站，那么人气低，流量小的草根站长需要承担高额的服务器租赁费，也造成了硬件资源浪费。</p>
 <p>虚拟主机就是将一台服务器分割成多个“虚拟服务器”，每个站点使用各自的硬盘空间，由于省资源，省钱，众多网站都使用虚拟主机来部署网站。</p>
+<p><em>也就是指定不同的端口</em></p>
 <p><img src="1.png"></p>
-<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">虚拟主机的概念就是在web服务里的一个独立的网站站点，这个站点对应独立的域名（IP），具有独立的程序和资源目录，可以独立的对外提供服务。</span><br><span class="line">这个独立的站点配置是在nginx.conf中使用<span class="keyword">server</span>&#123;&#125;代码块标签来表示一个虚拟主机。</span><br><span class="line">Nginx支持多个<span class="keyword">server</span>&#123;&#125;标签，即支持多个虚拟主机站点。</span><br></pre></td></tr></table></figure>
-
+<ol>
+<li>虚拟主机的概念就是在web服务里的一个独立的网站站点，这个站点对应独立的域名（IP），具有独立的程序和资源目录，可以独立的对外提供服务。</li>
+<li>这个独立的站点配置是在nginx.conf中使用server{}代码块标签来表示一个虚拟主机。<br>Nginx支持多个server{}标签，即支持多个虚拟主机站点。</li>
+</ol>
 <p>虚拟主机的类型</p>
 <ul>
 <li><p>基于域名的虚拟主机</p>
@@ -17351,6 +17337,70 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 </li>
 </ul>
 <p><img src="2.png"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">  <span class="comment"># 第一个虚拟主机网站</span></span><br><span class="line">  server &#123;</span><br><span class="line">      listen       80;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          root   /root/web1/blogproject/templates/blog/;</span><br><span class="line">          index  index.html index.htm;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">      <span class="comment">#</span></span><br><span class="line">      error_page   500 502 503 504  /50x.html;</span><br><span class="line">      location = /50x.html &#123;</span><br><span class="line">          root   html;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二个虚拟主机网站</span></span><br><span class="line">  server &#123;</span><br><span class="line">      listen       81;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          root  /root/web2/blogproject/templates/blog/;</span><br><span class="line">          index  index.html;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">      <span class="comment">#</span></span><br><span class="line">      error_page   500 502 503 504  /50x.html;</span><br><span class="line">      location = /50x.html &#123;</span><br><span class="line">          root   html;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><p>Nginx 能够记录用户的每一次访问请求</p>
+<ul>
+<li><p>对于该日志的记录，分析，可以更清晰的掌握服务器的动态信息，比如安全性</p>
+</li>
+<li><p>对于用户行为进行检测，分析</p>
+<ul>
+<li>能够记录出用户访问的时间、次数、频率</li>
+</ul>
+</li>
+</ul>
+<p>我们需要去掉 http 中的 log_format 和 access_log 的注释，即为两个虚拟主机服务开启日志监控</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改nginx的配置如下</span></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    access_log  logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    <span class="comment">#tcp_nopush     on;</span></span><br><span class="line"> </span><br><span class="line"> 		<span class="comment"># 我是网站1</span></span><br><span class="line"> 		server&#123;</span><br><span class="line"> 		</span><br><span class="line"> 		&#125;</span><br><span class="line"> 		</span><br><span class="line"> 		<span class="comment"># 我是网站2</span></span><br><span class="line"> 		server&#123;</span><br><span class="line"> 		</span><br><span class="line"> 		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以通过以下命令持续检测</p>
+<p><code>tail -f /opt/nginx1-12/logs/access.log</code></p>
+<p>通过该 access.log 日志，即可进行更多的日志分析</p>
+<h4 id="http-中对应参数解析"><a href="#http-中对应参数解析" class="headerlink" title="http 中对应参数解析"></a>http 中对应参数解析</h4><ul>
+<li>log_format是日志关键字参数，不能变</li>
+<li>main是日志格式指定的标签，记录日志时通过main标签选择指定的格式。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="variable">$remote_addr</span>    记录客户端ip</span><br><span class="line"><span class="variable">$remote_user</span>    远程用户，没有就是 “-”</span><br><span class="line"><span class="variable">$time_local</span> 　　 对应[14/Aug/2018:18:46:52 +0800]</span><br><span class="line"><span class="variable">$request</span>　　　 　对应请求信息<span class="string">&quot;GET /favicon.ico HTTP/1.1&quot;</span></span><br><span class="line"><span class="variable">$status</span>　　　  　状态码</span><br><span class="line"><span class="variable">$body_bytes_sent</span>　　571字节 请求体的大小</span><br><span class="line"><span class="variable">$http_referer</span>　　对应“-”　　由于是直接输入浏览器就是 -</span><br><span class="line"><span class="variable">$http_user_agent</span>　　客户端身份信息</span><br><span class="line"><span class="variable">$http_x_forwarded_for</span>　　记录客户端的来源真实ip 97.64.34.118</span><br></pre></td></tr></table></figure>
+
+<p>日志效果如下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">66.102.6.6 - - [14/Aug/2018:18:46:52 +0800] <span class="string">&quot;GET /favicon.ico HTTP/1.1&quot;</span> 404 571 <span class="string">&quot;-&quot;</span> <span class="string">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 Google Favicon&quot;</span> <span class="string">&quot;97.64.34.118&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Nginx-限制网站来源IP访问"><a href="#Nginx-限制网站来源IP访问" class="headerlink" title="Nginx 限制网站来源IP访问"></a>Nginx 限制网站来源IP访问</h4><p>如果哪天发现你的nginx很慢，或者检查access.log时候，有一人疯狂请求你的nginx server，那么可以禁止这个IP访问</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 限制 ip 或 ip 段访问</span></span><br><span class="line"><span class="comment"># 禁止访问/blog/底下的资源</span></span><br><span class="line"></span><br><span class="line">location /blog &#123;</span><br><span class="line">  deny 122.71.240.254</span><br><span class="line"></span><br><span class="line">  <span class="comment"># alias /opt/nginx1-12/html/blog;</span></span><br><span class="line">  allow 10.1.1.0/16;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Nginx-错误页面优化"><a href="#Nginx-错误页面优化" class="headerlink" title="Nginx 错误页面优化"></a>Nginx 错误页面优化</h4><p>在网站运行过程中，可能因为页面不存在等原因，导致网站无法正常响应请求，此时web服务会返回系统的错误码，但是默认的错误页面很不友好。</p>
+<p>因此我们可以将404，403等页面的错误信息重定向到网站首页或者其他指定的页面，提升用户访问体验。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        </span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /root/web/blogproject/templates/blog/;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">				<span class="comment"># 在 /root/web/blogproject/templates/blog/ 路径下的 40x.html 错误页面</span></span><br><span class="line">        error_page  404 403 404 405 /40x.html;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 40x.html</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">style</span>=<span class="string">&#x27;width:100%;height:100%;&#x27;</span> <span class="attr">src</span>=<span class="string">https://pic1.zhimg.com/80/v2-77a9281a2bebc7a2ea5e02577af266a8_hd.png</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="3.png"></p>
+<h3 id="Nginx-代理服务"><a href="#Nginx-代理服务" class="headerlink" title="Nginx 代理服务"></a>Nginx 代理服务</h3><ul>
+<li>当你访问你的个人 linux </li>
+</ul>
+<h4 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h4><p><strong>正向代理，也就是传说中的代理,他的工作原理就像一个跳板（VPN），简单的说：</strong></p>
+<p><strong>我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器呢，他能访问那个我不能访问的网站，于是我先连上代理服务器，告诉他我需要那个无法访问网站的内容，代理服务器去取回来，然后返回给我。</strong></p>
+<p><img src="4.png"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        <span class="comment"># root   /root/web1/blogproject/templates/blog/;</span></span><br><span class="line">        <span class="comment"># index  index.html index.htm;</span></span><br><span class="line">        <span class="comment"># 代理地址</span></span><br><span class="line">        proxy_pass https://baidu.com</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h4><p><strong>对于客户端而言，代理服务器就像是原始服务器</strong></p>
+<p><img src="5.png"></p>
+<p>Nginx 实现负载均衡的组件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ngx_http_proxy_module    proxy代理模块，用于把请求抛给服务器节点或者upstream服务器池</span><br></pre></td></tr></table></figure>
+
+
+
+<p>实现一个简单的反向代理</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 机器准备，两台服务器</span></span><br><span class="line"></span><br><span class="line">master 192.168.11.63  <span class="comment"># 主负载</span></span><br><span class="line">slave	 192.168.11.64	<span class="comment"># web1</span></span><br></pre></td></tr></table></figure>
+
+<p>主负载均衡节点的配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line">error_log  logs/error.log;</span><br><span class="line">pid        logs/nginx.pid;</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    log_format  main  <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line">    access_log  logs/access.log  main;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">        upstream slave_pools&#123;</span><br><span class="line">    server 192.168.11.64:80 weight=1;</span><br><span class="line">&#125;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        location / &#123;</span><br><span class="line">        proxy_pass  http://slave_pools;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>此时访问master的服务器 192.168.11.63:80 地址，已经会将请求转发给slave的80端口</p>
+<p>除了页面效果的展示以外，还可以通过log(access.log)查看代理效果</p>
 <blockquote>
 <p>转载自：<a href="https://www.cnblogs.com/pyyu/p/9468680.html">https://www.cnblogs.com/pyyu/p/9468680.html</a></p>
 </blockquote>
