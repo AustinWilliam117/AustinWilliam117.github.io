@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="575. 分糖果Alice 有 n 枚糖，其中第 i 枚糖的类型为 candyType[i] 。Alice 注意到她的体重正在增长，所以前去拜访了一位医生。 医生建议 Alice 要少摄入糖分，只吃掉她所有糖的 n &#x2F; 2 即可（n 是一个偶数）。Alice 非常喜欢这些糖，她想要在遵循医生建议的情况下，尽可能吃到最多不同种类的糖。 给你一个长度为 n 的整数数组 candyType ，返回： A">
+  <meta name="description" content="一、安装前必读在安装 Docker 之前，先说一下配置，我这里是Centos7 Linux 内核：官方建议 3.10 以上，3.8以上貌似也可。 注意：本文的命令使用的是 root 用户登录执行，不是 root 的话所有命令前面要加 sudo 1.查看当前的内核版本 uanme -r 12345[root@VM-4-8-centos ~]# uname -aLinux VM-4-8-centos">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode 分糖果">
-<meta property="og:url" content="http://example.com/2021/11/11/leetcode-%E5%88%86%E7%B3%96%E6%9E%9C/index.html">
+<meta property="og:title" content="Centos7安装Docker">
+<meta property="og:url" content="http://example.com/2023/03/31/Centos7%E5%AE%89%E8%A3%85Docker/index.html">
 <meta property="og:site_name" content="蒙珣的博客">
-<meta property="og:description" content="575. 分糖果Alice 有 n 枚糖，其中第 i 枚糖的类型为 candyType[i] 。Alice 注意到她的体重正在增长，所以前去拜访了一位医生。 医生建议 Alice 要少摄入糖分，只吃掉她所有糖的 n &#x2F; 2 即可（n 是一个偶数）。Alice 非常喜欢这些糖，她想要在遵循医生建议的情况下，尽可能吃到最多不同种类的糖。 给你一个长度为 n 的整数数组 candyType ，返回： A">
+<meta property="og:description" content="一、安装前必读在安装 Docker 之前，先说一下配置，我这里是Centos7 Linux 内核：官方建议 3.10 以上，3.8以上貌似也可。 注意：本文的命令使用的是 root 用户登录执行，不是 root 的话所有命令前面要加 sudo 1.查看当前的内核版本 uanme -r 12345[root@VM-4-8-centos ~]# uname -aLinux VM-4-8-centos">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-11T14:03:06.000Z">
-<meta property="article:modified_time" content="2021-11-11T14:08:04.000Z">
+<meta property="article:published_time" content="2023-03-31T12:55:59.000Z">
+<meta property="article:modified_time" content="2023-03-31T13:10:20.907Z">
 <meta property="article:author" content="蒙珣">
-<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/11/11/leetcode-%E5%88%86%E7%B3%96%E6%9E%9C/">
+<link rel="canonical" href="http://example.com/2023/03/31/Centos7%E5%AE%89%E8%A3%85Docker/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>leetcode 分糖果 | 蒙珣的博客</title>
+  <title>Centos7安装Docker | 蒙珣的博客</title>
   
 
 
@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/11/leetcode-%E5%88%86%E7%B3%96%E6%9E%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/31/Centos7%E5%AE%89%E8%A3%85Docker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/logo.JPG">
@@ -211,7 +211,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode 分糖果
+          Centos7安装Docker
         </h1>
 
         <div class="post-meta">
@@ -222,7 +222,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-11-11 22:03:06 / Modified: 22:08:04" itemprop="dateCreated datePublished" datetime="2021-11-11T22:03:06+08:00">2021-11-11</time>
+              <time title="Created: 2023-03-31 20:55:59 / Modified: 21:10:20" itemprop="dateCreated datePublished" datetime="2023-03-31T20:55:59+08:00">2023-03-31</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +230,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
                 </span>
             </span>
 
@@ -247,14 +247,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>751</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>2 mins.</span>
             </span>
 
         </div>
@@ -266,34 +266,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="575-分糖果"><a href="#575-分糖果" class="headerlink" title="575. 分糖果"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/distribute-candies/">575. 分糖果</a></h4><p>Alice 有 n 枚糖，其中第 i 枚糖的类型为 candyType[i] 。Alice 注意到她的体重正在增长，所以前去拜访了一位医生。</p>
-<p>医生建议 Alice 要少摄入糖分，只吃掉她所有糖的 n / 2 即可（n 是一个偶数）。Alice 非常喜欢这些糖，她想要在遵循医生建议的情况下，尽可能吃到最多不同种类的糖。</p>
-<p>给你一个长度为 n 的整数数组 candyType ，返回： Alice 在仅吃掉 n / 2 枚糖的情况下，可以吃到糖的最多种类数。</p>
+        <h2 id="一、安装前必读"><a href="#一、安装前必读" class="headerlink" title="一、安装前必读"></a>一、安装前必读</h2><p>在安装 Docker 之前，先说一下配置，我这里是Centos7 Linux 内核：官方建议 3.10 以上，3.8以上貌似也可。</p>
+<p>注意：本文的命令使用的是 root 用户登录执行，不是 root 的话所有命令前面要加 <code>sudo</code></p>
+<p><strong>1.查看当前的内核版本</strong></p>
+<p><code>uanme -r</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-4-8-centos ~]<span class="comment"># uname -a</span></span><br><span class="line">Linux VM-4-8-centos 3.10.0-1160.71.1.el7.x86_64 <span class="comment">#1 SMP Tue Jun 28 15:37:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">[root@VM-4-8-centos ~]<span class="comment"># uname -r</span></span><br><span class="line">3.10.0-1160.71.1.el7.x86_64</span><br><span class="line">[root@VM-4-8-centos ~]<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
 <span id="more"></span>
 
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：candyType = [1,1,2,2,3,3]</span><br><span class="line">输出：3</span><br><span class="line">解释：Alice 只能吃 6 / 2 = 3 枚糖，由于只有 3 种糖，她可以每种吃一枚。</span><br></pre></td></tr></table></figure>
+<p>2.使用 root 权限更新 yum 包（生产环境中此步操作需慎重，看自己情况，学习的话随便搞)</p>
+<p><code>yum -y update</code></p>
+<p>这个命令不是必须执行的，看个人情况，后面出现不兼容的情况的话就必须update了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意 </span></span><br><span class="line">yum -y update：升级所有包同时也升级软件和系统内核； </span><br><span class="line">yum -y upgrade：只升级所有包，不升级软件和系统内核</span><br></pre></td></tr></table></figure>
 
+<p>3.卸载旧版本（如果之前安装过的话）</p>
+<p><code>yum remove docker  docker-common docker-selinux docker-engine</code></p>
+<h2 id="二、安装Docker的详细步骤"><a href="#二、安装Docker的详细步骤" class="headerlink" title="二、安装Docker的详细步骤"></a>二、安装Docker的详细步骤</h2><p><strong>1.安装需要的软件包， yum-util 提供 yum-config-manager 功能，另两个是 devicemapper 驱动依赖</strong></p>
+<p><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code></p>
+<p><strong>2.设置 yum 源</strong></p>
+<p>设置一个yum源，下面两个都可用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo（中央仓库）</span><br><span class="line"></span><br><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo（阿里仓库）</span><br></pre></td></tr></table></figure>
 
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：candyType = [1,1,2,3]</span><br><span class="line">输出：2</span><br><span class="line">解释：Alice 只能吃 4 / 2 = 2 枚糖，不管她选择吃的种类是 [1,2]、[1,3] 还是 [2,3]，她只能吃到两种不同类的糖。</span><br></pre></td></tr></table></figure>
-
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：candyType = [6,6,6,6]</span><br><span class="line">输出：1</span><br><span class="line">解释：Alice 只能吃 4 / 2 = 2 枚糖，尽管她能吃 2 枚，但只能吃到 1 种糖。</span><br></pre></td></tr></table></figure>
-
-<p>提示：</p>
+<p>3.选择docker版本并安装</p>
 <ul>
-<li>n == candyType.length</li>
-<li>2 &lt;= n &lt;= 104</li>
-<li>n 是一个偶数</li>
-<li>-105 &lt;= candyType[i] &lt;= 105</li>
+<li>查看可用版本有哪些</li>
 </ul>
-<p>设糖果数为N，由于妹妹只能分到一半的糖果，所以答案不会超过n/2；另一方面，一共有M种，答案也不会超过M</p>
-<p>若M &lt;= n/2，则每种糖果至少可分一颗给妹妹，此时最多能分M个糖果</p>
-<p>若M &gt; n/2，只能分到n/2种糖果，每种糖果分一颗，此时最多能分n/2个糖果</p>
-<p>贪心算法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">distrubuteCandies</span>(<span class="params">self,candyType</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">min</span>(<span class="built_in">len</span>(<span class="built_in">set</span>(candyType)),<span class="built_in">len</span>(candyType)//<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p><code>yum list docker-ce --showduplicates | sort -r</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-4-8-centos ~]<span class="comment"># yum list docker-ce --showduplicates | sort -r</span></span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">docker-ce.x86_64            3:23.0.2-1.el7                      docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:23.0.1-1.el7                      docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:23.0.0-1.el7                      docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.9-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.8-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.7-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.6-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.5-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.4-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.3-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.2-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.23-3.el7                    docker-ce-stable</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>选择一个版本并安装：<code>yum install docker-ce-版本号</code></li>
+</ul>
+<p><code>yum -y install docker-ce-18.03.1.ce</code></p>
+<p>4.启动 Docker 并设置开机自启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+
+<p>5.查看 Docker 版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-4-8-centos ~]<span class="comment"># docker version</span></span><br><span class="line">Client:</span><br><span class="line"> Version:      18.03.1-ce</span><br><span class="line"> API version:  1.37</span><br><span class="line"> Go version:   go1.9.5</span><br><span class="line"> Git commit:   9ee9f40</span><br><span class="line"> Built:        Thu Apr 26 07:20:16 2018</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"> Experimental: <span class="literal">false</span></span><br><span class="line"> Orchestrator: swarm</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Engine:</span><br><span class="line">  Version:      18.03.1-ce</span><br><span class="line">  API version:  1.37 (minimum version 1.12)</span><br><span class="line">  Go version:   go1.9.5</span><br><span class="line">  Git commit:   9ee9f40</span><br><span class="line">  Built:        Thu Apr 26 07:23:58 2018</span><br><span class="line">  OS/Arch:      linux/amd64</span><br><span class="line">  Experimental: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -302,7 +313,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
           </div>
 
         
@@ -311,13 +322,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/11/07/2021-11%E7%9A%84%E9%9B%AA/" rel="prev" title="2021.11的雪">
-      <i class="fa fa-chevron-left"></i> 2021.11的雪
+    <a href="/2023/03/29/Nginx%E9%83%A8%E7%BD%B2/" rel="prev" title="Nginx部署">
+      <i class="fa fa-chevron-left"></i> Nginx部署
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/11/21/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E4%BA%9B%E6%9C%8B%E5%8F%8B%EF%BC%8C%E8%B5%B0%E7%9D%80%E8%B5%B0%E7%9D%80%E5%B0%B1%E6%95%A3%E4%BA%86/" rel="next" title="为什么有些朋友，走着走着就散了">
-      为什么有些朋友，走着走着就散了 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -376,7 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#575-%E5%88%86%E7%B3%96%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">575. 分糖果</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85%E5%89%8D%E5%BF%85%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">一、安装前必读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85Docker%E7%9A%84%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">二、安装Docker的详细步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

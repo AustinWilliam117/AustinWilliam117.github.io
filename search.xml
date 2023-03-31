@@ -16400,6 +16400,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <h4 id="装载32位立即数到寄存器"><a href="#装载32位立即数到寄存器" class="headerlink" title="装载32位立即数到寄存器"></a>装载32位立即数到寄存器</h4><p>我们说可以用addi指令向寄存器装载立即数：<code>addi $s2, $zero, 10</code></p>
 <p>但是，addi指令中的立即数10只能占用32位指令中的一部分（16位，稍后介绍指令格式）</p>
 <p>16位只能表示2E16，即六万多个数，寄存器却能容纳2E32即40多亿个数</p>
+<p><font color="orange">addi 指令只能作用于 -2^15 ~ 2^15-1 个立即数中（即-32768 ~ 32767）</font></p>
 </br>
 
 <p>二进制与十六进制的转化在此不作介绍</p>
@@ -17410,6 +17411,55 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
       </categories>
       <tags>
         <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Centos7安装Docker</title>
+    <url>/2023/03/31/Centos7%E5%AE%89%E8%A3%85Docker/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h2 id="一、安装前必读"><a href="#一、安装前必读" class="headerlink" title="一、安装前必读"></a>一、安装前必读</h2><p>在安装 Docker 之前，先说一下配置，我这里是Centos7 Linux 内核：官方建议 3.10 以上，3.8以上貌似也可。</p>
+<p>注意：本文的命令使用的是 root 用户登录执行，不是 root 的话所有命令前面要加 <code>sudo</code></p>
+<p><strong>1.查看当前的内核版本</strong></p>
+<p><code>uanme -r</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@VM-4-8-centos ~]<span class="comment"># uname -a</span></span><br><span class="line">Linux VM-4-8-centos 3.10.0-1160.71.1.el7.x86_64 <span class="comment">#1 SMP Tue Jun 28 15:37:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">[root@VM-4-8-centos ~]<span class="comment"># uname -r</span></span><br><span class="line">3.10.0-1160.71.1.el7.x86_64</span><br><span class="line">[root@VM-4-8-centos ~]<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>2.使用 root 权限更新 yum 包（生产环境中此步操作需慎重，看自己情况，学习的话随便搞)</p>
+<p><code>yum -y update</code></p>
+<p>这个命令不是必须执行的，看个人情况，后面出现不兼容的情况的话就必须update了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 注意 </span></span><br><span class="line">yum -y update：升级所有包同时也升级软件和系统内核； </span><br><span class="line">yum -y upgrade：只升级所有包，不升级软件和系统内核</span><br></pre></td></tr></table></figure>
+
+<p>3.卸载旧版本（如果之前安装过的话）</p>
+<p><code>yum remove docker  docker-common docker-selinux docker-engine</code></p>
+<h2 id="二、安装Docker的详细步骤"><a href="#二、安装Docker的详细步骤" class="headerlink" title="二、安装Docker的详细步骤"></a>二、安装Docker的详细步骤</h2><p><strong>1.安装需要的软件包， yum-util 提供 yum-config-manager 功能，另两个是 devicemapper 驱动依赖</strong></p>
+<p><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code></p>
+<p><strong>2.设置 yum 源</strong></p>
+<p>设置一个yum源，下面两个都可用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo（中央仓库）</span><br><span class="line"></span><br><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo（阿里仓库）</span><br></pre></td></tr></table></figure>
+
+<p>3.选择docker版本并安装</p>
+<ul>
+<li>查看可用版本有哪些</li>
+</ul>
+<p><code>yum list docker-ce --showduplicates | sort -r</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@VM-4-8-centos ~]<span class="comment"># yum list docker-ce --showduplicates | sort -r</span></span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">docker-ce.x86_64            3:23.0.2-1.el7                      docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:23.0.1-1.el7                      docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:23.0.0-1.el7                      docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.9-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.8-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.7-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.6-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.5-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.4-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.3-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.2-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:20.10.23-3.el7                    docker-ce-stable</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>选择一个版本并安装：<code>yum install docker-ce-版本号</code></li>
+</ul>
+<p><code>yum -y install docker-ce-18.03.1.ce</code></p>
+<p>4.启动 Docker 并设置开机自启</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+
+<p>5.查看 Docker 版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@VM-4-8-centos ~]<span class="comment"># docker version</span></span><br><span class="line">Client:</span><br><span class="line"> Version:      18.03.1-ce</span><br><span class="line"> API version:  1.37</span><br><span class="line"> Go version:   go1.9.5</span><br><span class="line"> Git commit:   9ee9f40</span><br><span class="line"> Built:        Thu Apr 26 07:20:16 2018</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"> Experimental: <span class="literal">false</span></span><br><span class="line"> Orchestrator: swarm</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Engine:</span><br><span class="line">  Version:      18.03.1-ce</span><br><span class="line">  API version:  1.37 (minimum version 1.12)</span><br><span class="line">  Go version:   go1.9.5</span><br><span class="line">  Git commit:   9ee9f40</span><br><span class="line">  Built:        Thu Apr 26 07:23:58 2018</span><br><span class="line">  OS/Arch:      linux/amd64</span><br><span class="line">  Experimental: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
       </tags>
   </entry>
 </search>
