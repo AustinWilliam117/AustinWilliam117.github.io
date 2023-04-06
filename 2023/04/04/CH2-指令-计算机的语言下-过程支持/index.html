@@ -30,8 +30,9 @@
 <meta property="og:description" content="过程支持过程（procedure）或函数是程序员进行结构化编程的工具，两者均有助于提高程序的可理解性和代码的可重用性。过程允许程序员每次只需将精力集中在任务的一部分，由于参数能传递数值并返回结果，因此参数承担过程与其他程序、数据之间接口的角色。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/04/04/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8B-%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81/%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81.png">
+<meta property="og:image" content="http://example.com/2023/04/04/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8B-%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81/%E6%A0%88%E6%8C%87%E9%92%88.png">
 <meta property="article:published_time" content="2023-04-04T14:48:36.000Z">
-<meta property="article:modified_time" content="2023-04-05T14:10:28.453Z">
+<meta property="article:modified_time" content="2023-04-06T15:31:28.421Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/04/04/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8B-%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81/%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81.png">
@@ -229,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-05 22:10:28" itemprop="dateModified" datetime="2023-04-05T22:10:28+08:00">2023-04-05</time>
+                <time title="Modified: 2023-04-06 23:31:28" itemprop="dateModified" datetime="2023-04-06T23:31:28+08:00">2023-04-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,7 +255,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.8k</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -345,11 +346,26 @@
 <p>（应该是被调用者过程使用）</p>
 <br>
 
-<h4 id="综合练习5：数组清零函数（叶过程）"><a href="#综合练习5：数组清零函数（叶过程）" class="headerlink" title="综合练习5：数组清零函数（叶过程）"></a>综合练习5：数组清零函数（叶过程）</h4><p>将下列C语言转换成MIPS-32。为简化难度，没有在for循环中定义 i</p>
+<h4 id="综合练习5：数组清零函数（叶过程）"><a href="#综合练习5：数组清零函数（叶过程）" class="headerlink" title="综合练习5：数组清零函数（叶过程）"></a>综合练习5：数组清零函数（叶过程）</h4><p>（叶子过程就是不调用其他过程）</p>
+<p>将下列C语言转换成MIPS-32。为简化难度，没有在for循环中定义 i</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> size)</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; size; i++) a[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">clear:</span> <span class="keyword">add </span>$<span class="built_in">t0</span>, $<span class="built_in">zero</span>, $<span class="built_in">zero</span>  <span class="comment"># i = 0</span></span><br><span class="line"><span class="symbol">Loop:</span>  <span class="keyword">sll </span>$<span class="built_in">t1</span>, $<span class="built_in">t0</span>, <span class="number">2</span></span><br><span class="line">       <span class="keyword">add </span>$<span class="built_in">t2</span>, $<span class="built_in">t1</span>, $<span class="built_in">a0</span></span><br><span class="line">       <span class="keyword">sw </span>$<span class="built_in">zero</span>, <span class="number">0</span>($<span class="built_in">t2</span>)       <span class="comment"># 将a[i]置为0</span></span><br><span class="line">       <span class="keyword">addi </span>$<span class="built_in">t0</span>, $<span class="built_in">t0</span>, <span class="number">1</span>       <span class="comment"># i++</span></span><br><span class="line">       <span class="keyword">slt </span>$<span class="built_in">t3</span>, $<span class="built_in">t0</span>, $<span class="built_in">a1</span>      <span class="comment"># i &lt; size</span></span><br><span class="line">       <span class="keyword">beq </span>$<span class="built_in">t3</span>, $<span class="built_in">zero</span>, Exit</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">j </span>Loop</span><br><span class="line"><span class="symbol">Exit:</span>  <span class="keyword">jr </span>$<span class="built_in">ra</span>                 <span class="comment"># 跳转到由主程序保存的下一条指令地址</span></span><br></pre></td></tr></table></figure>
 
+
+
+<h4 id="保存寄存器的压栈和出栈-栈指针-sp"><a href="#保存寄存器的压栈和出栈-栈指针-sp" class="headerlink" title="保存寄存器的压栈和出栈 栈指针 $sp"></a>保存寄存器的压栈和出栈 栈指针 $sp</h4><p><img src="%E6%A0%88%E6%8C%87%E9%92%88.png"></p>
+<p>在过程调用前，主程序往往已经将自己要用的标量放在了保存寄存器中</p>
+<p>如果过程要使用保存寄存器，要把主程序已经使用的保存寄存器入栈</p>
+<p>栈在内存中以<font color="orange">高地址为栈底，低地址为栈顶</font>，即栈从高地址向低地址“生长”</p>
+<p><font color="orange">栈指针（stack pointer）永远指向栈顶</font></p>
+<p>入栈时，先把$sp减去待保存的寄存器个数的4倍，<u>为什么是4倍？</u></p>
+<p><em>一个栈指针4个字节。一个寄存器是32位，1个字为4个字节，8个字节一位。</em></p>
+<p>再用sw将保存寄存器存入栈中（方向从栈底到栈顶）</p>
+<p>过程结束时把这些数据出栈、放回保存寄存器，供主程序继续使用，步骤正好相反</p>
+<h4 id="综合练习6：运算函数（叶过程）"><a href="#综合练习6：运算函数（叶过程）" class="headerlink" title="综合练习6：运算函数（叶过程）"></a>综合练习6：运算函数（叶过程）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> g, <span class="keyword">int</span> h, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> f;</span><br><span class="line">  f = (g+h) - (i+j);</span><br><span class="line">  <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假设 f 存储在 $s0 中</p>
 
     </div>
 
@@ -427,7 +443,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81"><span class="nav-number">1.</span> <span class="nav-text">过程支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%EF%BC%88%E5%87%BD%E6%95%B0%EF%BC%89%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">过程（函数）的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">支持过程的三大寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jal-jr-%E6%8C%87%E4%BB%A4%E5%AF%B9-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">jal - jr 指令对 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A05%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B8%85%E9%9B%B6%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">综合练习5：数组清零函数（叶过程）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81"><span class="nav-number">1.</span> <span class="nav-text">过程支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%EF%BC%88%E5%87%BD%E6%95%B0%EF%BC%89%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">过程（函数）的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">支持过程的三大寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jal-jr-%E6%8C%87%E4%BB%A4%E5%AF%B9-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">jal - jr 指令对 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A05%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B8%85%E9%9B%B6%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">综合练习5：数组清零函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%8E%8B%E6%A0%88%E5%92%8C%E5%87%BA%E6%A0%88-%E6%A0%88%E6%8C%87%E9%92%88-sp"><span class="nav-number">1.5.</span> <span class="nav-text">保存寄存器的压栈和出栈 栈指针 $sp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A06%EF%BC%9A%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">综合练习6：运算函数（叶过程）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

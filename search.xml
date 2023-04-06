@@ -17837,11 +17837,26 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p>（应该是被调用者过程使用）</p>
 <br>
 
-<h4 id="综合练习5：数组清零函数（叶过程）"><a href="#综合练习5：数组清零函数（叶过程）" class="headerlink" title="综合练习5：数组清零函数（叶过程）"></a>综合练习5：数组清零函数（叶过程）</h4><p>将下列C语言转换成MIPS-32。为简化难度，没有在for循环中定义 i</p>
+<h4 id="综合练习5：数组清零函数（叶过程）"><a href="#综合练习5：数组清零函数（叶过程）" class="headerlink" title="综合练习5：数组清零函数（叶过程）"></a>综合练习5：数组清零函数（叶过程）</h4><p>（叶子过程就是不调用其他过程）</p>
+<p>将下列C语言转换成MIPS-32。为简化难度，没有在for循环中定义 i</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> size)</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; size; i++) a[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">clear:</span> <span class="keyword">add </span>$<span class="built_in">t0</span>, $<span class="built_in">zero</span>, $<span class="built_in">zero</span>  <span class="comment"># i = 0</span></span><br><span class="line"><span class="symbol">Loop:</span>  <span class="keyword">sll </span>$<span class="built_in">t1</span>, $<span class="built_in">t0</span>, <span class="number">2</span></span><br><span class="line">       <span class="keyword">add </span>$<span class="built_in">t2</span>, $<span class="built_in">t1</span>, $<span class="built_in">a0</span></span><br><span class="line">       <span class="keyword">sw </span>$<span class="built_in">zero</span>, <span class="number">0</span>($<span class="built_in">t2</span>)       <span class="comment"># 将a[i]置为0</span></span><br><span class="line">       <span class="keyword">addi </span>$<span class="built_in">t0</span>, $<span class="built_in">t0</span>, <span class="number">1</span>       <span class="comment"># i++</span></span><br><span class="line">       <span class="keyword">slt </span>$<span class="built_in">t3</span>, $<span class="built_in">t0</span>, $<span class="built_in">a1</span>      <span class="comment"># i &lt; size</span></span><br><span class="line">       <span class="keyword">beq </span>$<span class="built_in">t3</span>, $<span class="built_in">zero</span>, Exit</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">j </span>Loop</span><br><span class="line"><span class="symbol">Exit:</span>  <span class="keyword">jr </span>$<span class="built_in">ra</span>                 <span class="comment"># 跳转到由主程序保存的下一条指令地址</span></span><br></pre></td></tr></table></figure>
 
+
+
+<h4 id="保存寄存器的压栈和出栈-栈指针-sp"><a href="#保存寄存器的压栈和出栈-栈指针-sp" class="headerlink" title="保存寄存器的压栈和出栈 栈指针 $sp"></a>保存寄存器的压栈和出栈 栈指针 $sp</h4><p><img src="%E6%A0%88%E6%8C%87%E9%92%88.png"></p>
+<p>在过程调用前，主程序往往已经将自己要用的标量放在了保存寄存器中</p>
+<p>如果过程要使用保存寄存器，要把主程序已经使用的保存寄存器入栈</p>
+<p>栈在内存中以<font color="orange">高地址为栈底，低地址为栈顶</font>，即栈从高地址向低地址“生长”</p>
+<p><font color="orange">栈指针（stack pointer）永远指向栈顶</font></p>
+<p>入栈时，先把$sp减去待保存的寄存器个数的4倍，<u>为什么是4倍？</u></p>
+<p><em>一个栈指针4个字节。一个寄存器是32位，1个字为4个字节，8个字节一位。</em></p>
+<p>再用sw将保存寄存器存入栈中（方向从栈底到栈顶）</p>
+<p>过程结束时把这些数据出栈、放回保存寄存器，供主程序继续使用，步骤正好相反</p>
+<h4 id="综合练习6：运算函数（叶过程）"><a href="#综合练习6：运算函数（叶过程）" class="headerlink" title="综合练习6：运算函数（叶过程）"></a>综合练习6：运算函数（叶过程）</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> g, <span class="keyword">int</span> h, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> f;</span><br><span class="line">  f = (g+h) - (i+j);</span><br><span class="line">  <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假设 f 存储在 $s0 中</p>
 ]]></content>
       <categories>
         <category>计算机组成与设计</category>
