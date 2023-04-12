@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">174</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">176</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,186 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/12/%E5%90%AF%E5%8A%A8docker%E5%AE%B9%E5%99%A8%E5%90%8E%E7%BD%91%E7%BB%9C%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/12/%E5%90%AF%E5%8A%A8docker%E5%AE%B9%E5%99%A8%E5%90%8E%E7%BD%91%E7%BB%9C%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="post-title-link" itemprop="url">启动docker容器后网络冲突的解决办法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-04-12 23:44:16 / Modified: 23:45:09" itemprop="dateCreated datePublished" datetime="2023-04-12T23:44:16+08:00">2023-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="查看启动容器的镜像源数据"><a href="#查看启动容器的镜像源数据" class="headerlink" title="查看启动容器的镜像源数据"></a>查看启动容器的镜像源数据</h3><p><code>docker inspect classify_service</code></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Networks&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;docker-cluster-yml_default&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;IPAMConfig&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">&quot;Links&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">&quot;Aliases&quot;</span>: [</span><br><span class="line">                        <span class="string">&quot;classify_service&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;classify_service&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;3e4da4c588e0&quot;</span></span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;NetworkID&quot;</span>: <span class="string">&quot;1e720d1e75de556314b9bf0f81eae19f4fdb4b3e403d628632aa0ca73045087d&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;EndpointID&quot;</span>: <span class="string">&quot;f8eab1e55b3ca4437510c6fbc53fb92e57b63091f3bca329fc7db97f23ff91d0&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;Gateway&quot;</span>: <span class="string">&quot;172.21.0.1&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;IPAddress&quot;</span>: <span class="string">&quot;172.21.0.2&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;IPPrefixLen&quot;</span>: <span class="number">16</span>,</span><br><span class="line">                    <span class="string">&quot;IPv6Gateway&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;GlobalIPv6Address&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;GlobalIPv6PrefixLen&quot;</span>: <span class="number">0</span>,</span><br><span class="line">                    <span class="string">&quot;MacAddress&quot;</span>: <span class="string">&quot;02:42:ac:15:00:02&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;DriverOpts&quot;</span>: <span class="literal">null</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/12/%E5%90%AF%E5%8A%A8docker%E5%AE%B9%E5%99%A8%E5%90%8E%E7%BD%91%E7%BB%9C%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/12/%E4%BD%BF%E7%94%A8docker-compose-%E5%AE%89%E8%A3%85mysql8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/12/%E4%BD%BF%E7%94%A8docker-compose-%E5%AE%89%E8%A3%85mysql8/" class="post-title-link" itemprop="url">使用docker compose 安装mysql8</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-04-12 23:40:47 / Modified: 23:43:48" itemprop="dateCreated datePublished" datetime="2023-04-12T23:40:47+08:00">2023-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><p><code>docker pull mysql:8.0.18</code></p>
+<h4 id="编写docker-compose"><a href="#编写docker-compose" class="headerlink" title="编写docker compose"></a>编写docker compose</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot; </span><br><span class="line">services:</span><br><span class="line">  mysql:</span><br><span class="line">    # 使用的镜像和TAG</span><br><span class="line">    image: mysql:8.0.18</span><br><span class="line">    # docker重启后，是否重启</span><br><span class="line">    restart: always</span><br><span class="line">    # 创建的容器名称</span><br><span class="line">    container_name: mysql8</span><br><span class="line">    # 指定端口号</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;33060:3306&quot;</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: admin</span><br><span class="line">    # 挂载卷</span><br><span class="line">    volumes:</span><br><span class="line">      - /data/docker/mysql/conf:/etc/mysql/conf.d</span><br><span class="line">      - /data/docker/mysql/log:/var/log/mysql</span><br><span class="line">      - /data/docker/mysql/data:/var/lib/mysql</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/12/%E4%BD%BF%E7%94%A8docker-compose-%E5%AE%89%E8%A3%85mysql8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -978,171 +1158,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/29/Shell-Python%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/29/Shell-Python%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">Shell+Python监控脚本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-01-29 15:33:54 / Modified: 15:45:19" itemprop="dateCreated datePublished" datetime="2023-01-29T15:33:54+08:00">2023-01-29</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>18k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>16 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Shell + Python 的监控脚本，以后还会出一些，写在这里用来拓宽监控思路和计算思路</p>
-<p>因为每个监控脚本虽然大同小异，但是每个脚本之中都有特殊内容，是这个脚本的灵魂所在</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/29/Shell-Python%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/20/Zabbix-API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/20/Zabbix-API/" class="post-title-link" itemprop="url">Zabbix API</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-01-20 10:27:25 / Modified: 10:29:32" itemprop="dateCreated datePublished" datetime="2023-01-20T10:27:25+08:00">2023-01-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Zabbix API 半成品，可能会后续更新</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ZabbixAPI</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, host, user, password</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        self.host = <span class="string">&quot;http://&quot;</span> + host + <span class="string">&quot;/zabbix/api_jsonrpc.php&quot;</span></span><br><span class="line">        self.user = user</span><br><span class="line">        self.password = password</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">apiCall</span>(<span class="params">self,data</span>):</span></span><br><span class="line">        headers = &#123;<span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>&#125;</span><br><span class="line">        data = json.dumps(data)</span><br><span class="line">        response = requests.post(self.host, data, headers=headers)</span><br><span class="line">        responseResult = json.loads(response.text)</span><br><span class="line">        <span class="keyword">return</span> responseResult</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">login</span>(<span class="params">self</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;jsonrpc&quot;</span>: <span class="string">&quot;2.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;method&quot;</span>: <span class="string">&quot;user.login&quot;</span>,</span><br><span class="line">            <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;user&quot;</span>: self.user,</span><br><span class="line">                <span class="string">&quot;password&quot;</span>: self.password</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        response = self.apiCall(data)</span><br><span class="line">        <span class="keyword">return</span> response[<span class="string">&#x27;result&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addZabbixHost</span>(<span class="params">self,host,port</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;jsonrpc&quot;</span>: <span class="string">&quot;2.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;method&quot;</span>: <span class="string">&quot;host.create&quot;</span>,</span><br><span class="line">            <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;host&quot;</span>: host,</span><br><span class="line">                <span class="string">&quot;interfaces&quot;</span>: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="string">&quot;type&quot;</span>: <span class="number">1</span>,</span><br><span class="line">                        <span class="string">&quot;main&quot;</span>: <span class="number">1</span>,</span><br><span class="line">                        <span class="string">&quot;useip&quot;</span>: <span class="number">1</span>,</span><br><span class="line">                        <span class="string">&quot;ip&quot;</span>: host,</span><br><span class="line">                        <span class="string">&quot;dns&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;port&quot;</span>: port</span><br><span class="line">                    &#125;</span><br><span class="line">                ],</span><br><span class="line">                <span class="string">&quot;groups&quot;</span>: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="string">&quot;groupid&quot;</span>: <span class="string">&quot;4&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                ],</span><br><span class="line">                <span class="string">&quot;templates&quot;</span>: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="string">&quot;templateid&quot;</span>: <span class="string">&quot;10001&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;auth&quot;</span>: self.login(),</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        response = self.apiCall(data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;error&#x27;</span> <span class="keyword">in</span> response:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;ERROR：addZabbixHost()报错 &quot;</span> + response[<span class="string">&#x27;error&#x27;</span>][<span class="string">&#x27;data&#x27;</span>])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;添加监控主机成功：&quot;</span> + <span class="built_in">str</span>(response[<span class="string">&#x27;result&#x27;</span>][<span class="string">&#x27;hostids&#x27;</span>]))</span><br><span class="line">            <span class="comment"># 返回主机列表</span></span><br><span class="line">            <span class="keyword">return</span> response[<span class="string">&#x27;result&#x27;</span>][<span class="string">&#x27;hostids&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getItems</span>(<span class="params">self,host</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;jsonrpc&quot;</span>: <span class="string">&quot;2.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;method&quot;</span>: <span class="string">&quot;item.get&quot;</span>,</span><br><span class="line">            <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;output&quot;</span>: <span class="string">&quot;extend&quot;</span>,</span><br><span class="line">                <span class="string">&quot;host&quot;</span>: host,  <span class="comment"># 需要监控的主机</span></span><br><span class="line">                <span class="string">&quot;search&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;key_&quot;</span>: <span class="string">&quot;system.cpu.util[,idle]&quot;</span>  <span class="comment"># 监控项类型为&quot;系统监控&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;auth&quot;</span>: self.login(),</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="number">1</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        response = self.apiCall(data)</span><br><span class="line">        <span class="built_in">print</span>(response)</span><br><span class="line">        <span class="comment">#return response[&quot;result&quot;]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检查已经添加的主机，并返回hostid列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkHost</span>(<span class="params">self</span>):</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;jsonrpc&quot;</span>: <span class="string">&quot;2.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;method&quot;</span>: <span class="string">&quot;host.get&quot;</span>,</span><br><span class="line">            <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;output&quot;</span>: [<span class="string">&quot;host&quot;</span>]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;auth&quot;</span>: self.login(),</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        response = self.apiCall(data)</span><br><span class="line">        hostidList = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> response[<span class="string">&#x27;result&#x27;</span>]:</span><br><span class="line">            hostidList.append(i[<span class="string">&#x27;hostid&#x27;</span>])</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;已经添加的主机有：&quot;</span> + <span class="built_in">str</span>(i[<span class="string">&#x27;hostid&#x27;</span>]))</span><br><span class="line">        <span class="comment"># 返回查询到的主机hostid列表    </span></span><br><span class="line">        <span class="keyword">return</span> hostidList</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 导出配置</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exportConf</span>(<span class="params">self,hostidList=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="keyword">if</span> hostidList <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            hostidList = self.checkHost()</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&quot;jsonrpc&quot;</span>: <span class="string">&quot;2.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;method&quot;</span>: <span class="string">&quot;configuration.export&quot;</span>,</span><br><span class="line">            <span class="string">&quot;params&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;options&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;hosts&quot;</span>: hostidList</span><br><span class="line">                &#125;,</span><br><span class="line">            <span class="string">&quot;format&quot;</span>: <span class="string">&quot;xml&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">&quot;auth&quot;</span>: self.login(),</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        response = self.apiCall(data)</span><br><span class="line">        <span class="comment"># 暂时不知道要干嘛，只是打印出来</span></span><br><span class="line">        <span class="built_in">print</span>(response)</span><br><span class="line"></span><br><span class="line">p = ZabbixAPI(<span class="string">&#x27;172.22.144.81&#x27;</span>, <span class="string">&#x27;Admin&#x27;</span>, <span class="string">&#x27;zabbix&#x27;</span>)</span><br><span class="line">p.getItems(<span class="string">&#x27;172.22.144.81&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1214,7 +1229,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-count">176</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1278,13 +1293,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">634k</span>
+    <span title="Symbols count total">639k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">9:36</span>
+    <span title="Reading time total">9:40</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
