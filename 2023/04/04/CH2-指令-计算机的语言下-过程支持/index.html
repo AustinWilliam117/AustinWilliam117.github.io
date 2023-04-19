@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2023/04/04/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8B-%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81/%E5%9C%A8%E5%A0%86%E4%B8%AD%E4%B8%BA%E6%96%B0%E6%95%B0%E6%8D%AE%E5%88%86%E9%85%8D%E7%A9%BA%E9%97%B4.png">
 <meta property="og:image" content="http://example.com/2023/04/04/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8B-%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81/%E4%BA%94%E7%A7%8D%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F.png">
 <meta property="article:published_time" content="2023-04-04T14:48:36.000Z">
-<meta property="article:modified_time" content="2023-04-14T14:23:00.537Z">
+<meta property="article:modified_time" content="2023-04-18T14:54:57.549Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/04/04/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8B-%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81/%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81.png">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-14 22:23:00" itemprop="dateModified" datetime="2023-04-14T22:23:00+08:00">2023-04-14</time>
+                <time title="Modified: 2023-04-18 22:54:57" itemprop="dateModified" datetime="2023-04-18T22:54:57+08:00">2023-04-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,14 +258,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.2k</span>
+              <span>5.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>4 mins.</span>
+              <span>5 mins.</span>
             </span>
 
         </div>
@@ -384,6 +384,7 @@
 <p>这个练习也可以减少指令条数</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">暂时不写了</span><br></pre></td></tr></table></figure>
 
+<p><strong>如果参数多于4个该怎么办呢？MIPS 约定将额外的参数放在栈中帧指针的上方。这样，过程从寄存器 $a0 到 $a3 中获得前4个参数，通过帧指针在内存中寻址获得其余参数</strong></p>
 <h4 id="需要压栈保存的寄存器"><a href="#需要压栈保存的寄存器" class="headerlink" title="需要压栈保存的寄存器"></a>需要压栈保存的寄存器</h4><p>【综合练习6】我们默认<font color="orange">保存寄存器 $s0 ~ $s7</font> 存放到了主程序的变量，需要由过程开始时压栈保存，结束时出栈恢复</p>
 <p>【综合练习7】如果一个过程（外层函数）嵌套了其他过程（内层函数）外层函数通过 jal 修改了 <font color="orange">返回地址寄存器 $ra </font></p>
 <p>$ra 指向外层函数 jal 的下一条指令，不再是外层函数的返回地址了。</p>
@@ -391,9 +392,26 @@
 <p><font color="orange">栈指针寄存器 $sp</font>、栈中的内容（即<font color="orange">栈指针以上的栈</font>）也需要由过程保留，在addi栈指针、sw入栈、lw出栈的过程中即可保存</p>
 <p><font color="orange">结论：任何过程须显式地压栈保存即将使用的保存寄存器 $s0 ~ $s7（用那几个存那几个）外层嵌套过程须显式地压栈保存返回地址寄存器 $ra</font></p>
 <h4 id="进阶内容：复杂-MIPS-程序示例"><a href="#进阶内容：复杂-MIPS-程序示例" class="headerlink" title="进阶内容：复杂 MIPS 程序示例"></a>进阶内容：复杂 MIPS 程序示例</h4><p>2.8节（68页）提供了一个递归嵌套调用过程计算阶乘的MIPS程序</p>
-<p>2.13节（90页）提供了一个冒泡排序过程嵌套交换过程的MIPS程序</p>
+<p>2.13节（91页）提供了一个冒泡排序过程嵌套交换过程的MIPS程序</p>
 <p>习题2.27（114页）考察双层for循环的翻译</p>
-<p>习题2.23（115页）考察自嵌套调用的多参数过程的翻译</p>
+<p>习题2.34（115页）考察自嵌套调用的多参数过程的翻译</p>
+<p><strong>例题1. 编译一个递归C过程，演示嵌套过程的链接</strong></p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> <span class="built_in">fact</span>(<span class="built_in">int</span> <span class="built_in">n</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">if</span> (<span class="built_in">n</span> &lt; <span class="number">1</span>) return (<span class="number">1</span>);</span><br><span class="line">	else return (<span class="built_in">n</span> * <span class="built_in">fact</span>(<span class="built_in">n</span> - <span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>例题2. 冒泡排序</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> sort(<span class="type">int</span> v[], <span class="type">int</span> n)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i, j;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i += <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; v[j] &gt; v[j + <span class="number">1</span>]; j = <span class="number">1</span>)&#123;</span><br><span class="line">			swap(v,j);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> swap(<span class="type">int</span> v[], <span class="type">int</span> k)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> <span class="keyword">temp</span>;</span><br><span class="line">	<span class="keyword">temp</span> = v[k];</span><br><span class="line">	v[k] = v[k+<span class="number">1</span>];</span><br><span class="line">	v[k+<span class="number">1</span>] = <span class="keyword">temp</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>例题3. 双层for循环</strong></p>
+<p>将下面C代码翻译为MIPS汇编代码。<strong>要求使用的指令数目最少。</strong>假设 a、b、i、j 分别存放在寄存器 $s0、$s1、$t0、$t1 中。另外假设寄存器 $s2 中存放着数组D的基地址</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(i=<span class="number">0</span><span class="comment">; i&lt;a; i++)</span></span><br><span class="line">	for(<span class="keyword">j=0; </span><span class="keyword">j&lt;b; </span><span class="keyword">j++)</span></span><br><span class="line"><span class="keyword"></span>		D[<span class="number">4</span>*<span class="keyword">j] </span>= i + <span class="keyword">j;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>例题4. 考察自嵌套调用的多参数过程的翻译</strong></p>
+<p>如果需要使用寄存器 $t0 ~ $t7，请从编号小的寄存器开始使用。</p>
+<p>假设函数 func 声明为 s<code>int f (int a, int b);</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> f(<span class="keyword">int</span> a, <span class="keyword">int</span> b, intc, <span class="keyword">int</span> d)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">func</span>(a,b)</span>, <span class="title">c</span>+<span class="title">d</span>)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="过程帧与帧指针-fp"><a href="#过程帧与帧指针-fp" class="headerlink" title="过程帧与帧指针 $fp"></a>过程帧与帧指针 $fp</h4><p>为了标记运行中过程建立的栈，除了栈顶的栈指针 $sp</p>
 <p>还可以加一个 <font color="orange">帧指针（frame pointer）$fp</font> 指向栈底</p>
 <p>即过程帧的第一个字</p>
@@ -415,7 +433,78 @@
 </ol>
 <p><img src="%E5%9C%A8%E5%A0%86%E4%B8%AD%E4%B8%BA%E6%96%B0%E6%95%B0%E6%8D%AE%E5%88%86%E9%85%8D%E7%A9%BA%E9%97%B4.png"></p>
 <p>栈和堆此消彼长，实现了内存空间的高效利用</p>
+<p>补充：堆必须是一个完全二叉树，堆里的数据可以任意顺序的存入和移除。</p>
 <h3 id="五种寻址方式"><a href="#五种寻址方式" class="headerlink" title="五种寻址方式"></a>五种寻址方式</h3><p><img src="%E4%BA%94%E7%A7%8D%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F.png"></p>
+<h4 id="32个通用寄存器及其编号"><a href="#32个通用寄存器及其编号" class="headerlink" title="32个通用寄存器及其编号"></a>32个通用寄存器及其编号</h4><table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>名称</th>
+<th>编号</th>
+<th>调用时是否保存</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$zero</td>
+<td>零寄存器</td>
+<td>0</td>
+<td>不适用</td>
+</tr>
+<tr>
+<td>$v0~$v1</td>
+<td>返回值寄存器</td>
+<td>2~3</td>
+<td>否</td>
+</tr>
+<tr>
+<td>$a0~$a3</td>
+<td>参数寄存器</td>
+<td>4~7</td>
+<td>否</td>
+</tr>
+<tr>
+<td>$t0~$t7</td>
+<td>临时寄存器</td>
+<td>8~15</td>
+<td>否</td>
+</tr>
+<tr>
+<td>$s0~$s7</td>
+<td>保存寄存器</td>
+<td>16~23</td>
+<td>是</td>
+</tr>
+<tr>
+<td>$t8~t9</td>
+<td>额外的临时寄存器</td>
+<td>24~25</td>
+<td>否</td>
+</tr>
+<tr>
+<td>$gp</td>
+<td>全局指针</td>
+<td>28</td>
+<td>是</td>
+</tr>
+<tr>
+<td>$sp</td>
+<td>栈指针</td>
+<td>29</td>
+<td>是</td>
+</tr>
+<tr>
+<td>$fp</td>
+<td>帧指针</td>
+<td>30</td>
+<td>是</td>
+</tr>
+<tr>
+<td>$ra</td>
+<td>返回地址</td>
+<td>31</td>
+<td>是</td>
+</tr>
+</tbody></table>
 <blockquote>
 <p>转自：B站 翼云图灵</p>
 <p>参考：计算机组成与设计·硬件/软件接口 原书第5版</p>
@@ -500,7 +589,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81"><span class="nav-number">1.</span> <span class="nav-text">过程支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%EF%BC%88%E5%87%BD%E6%95%B0%EF%BC%89%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">过程（函数）的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">支持过程的三大寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jal-jr-%E6%8C%87%E4%BB%A4%E5%AF%B9-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">jal - jr 指令对 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A05%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B8%85%E9%9B%B6%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">综合练习5：数组清零函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%8E%8B%E6%A0%88%E5%92%8C%E5%87%BA%E6%A0%88-%E6%A0%88%E6%8C%87%E9%92%88-sp"><span class="nav-number">1.5.</span> <span class="nav-text">保存寄存器的压栈和出栈 栈指针 $sp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A06%EF%BC%9A%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">综合练习6：运算函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A06%E6%94%B9%E8%BF%9B%EF%BC%9A%E5%87%8F%E5%B0%91%E6%8C%87%E4%BB%A4%E6%9D%A1%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">综合练习6改进：减少指令条数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8-%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A07%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B1%82%E5%B9%B3%E6%96%B9%E5%92%8C%EF%BC%88%E5%B5%8C%E5%A5%97%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.8.</span> <span class="nav-text">嵌套过程调用 综合练习7：数组求平方和（嵌套过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%8E%8B%E6%A0%88%E4%BF%9D%E5%AD%98%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.9.</span> <span class="nav-text">需要压栈保存的寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E5%86%85%E5%AE%B9%EF%BC%9A%E5%A4%8D%E6%9D%82-MIPS-%E7%A8%8B%E5%BA%8F%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.10.</span> <span class="nav-text">进阶内容：复杂 MIPS 程序示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%B8%A7%E4%B8%8E%E5%B8%A7%E6%8C%87%E9%92%88-fp"><span class="nav-number">1.11.</span> <span class="nav-text">过程帧与帧指针 $fp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8C%87%E9%92%88-gp-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.12.</span> <span class="nav-text">全局指针 $gp 程序的内存分配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E7%A7%8D%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">五种寻址方式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81"><span class="nav-number">1.</span> <span class="nav-text">过程支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%EF%BC%88%E5%87%BD%E6%95%B0%EF%BC%89%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">过程（函数）的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">支持过程的三大寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jal-jr-%E6%8C%87%E4%BB%A4%E5%AF%B9-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">jal - jr 指令对 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A05%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B8%85%E9%9B%B6%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">综合练习5：数组清零函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%8E%8B%E6%A0%88%E5%92%8C%E5%87%BA%E6%A0%88-%E6%A0%88%E6%8C%87%E9%92%88-sp"><span class="nav-number">1.5.</span> <span class="nav-text">保存寄存器的压栈和出栈 栈指针 $sp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A06%EF%BC%9A%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">综合练习6：运算函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A06%E6%94%B9%E8%BF%9B%EF%BC%9A%E5%87%8F%E5%B0%91%E6%8C%87%E4%BB%A4%E6%9D%A1%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">综合练习6改进：减少指令条数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8-%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A07%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B1%82%E5%B9%B3%E6%96%B9%E5%92%8C%EF%BC%88%E5%B5%8C%E5%A5%97%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.8.</span> <span class="nav-text">嵌套过程调用 综合练习7：数组求平方和（嵌套过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%8E%8B%E6%A0%88%E4%BF%9D%E5%AD%98%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.9.</span> <span class="nav-text">需要压栈保存的寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E5%86%85%E5%AE%B9%EF%BC%9A%E5%A4%8D%E6%9D%82-MIPS-%E7%A8%8B%E5%BA%8F%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.10.</span> <span class="nav-text">进阶内容：复杂 MIPS 程序示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%B8%A7%E4%B8%8E%E5%B8%A7%E6%8C%87%E9%92%88-fp"><span class="nav-number">1.11.</span> <span class="nav-text">过程帧与帧指针 $fp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8C%87%E9%92%88-gp-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.12.</span> <span class="nav-text">全局指针 $gp 程序的内存分配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E7%A7%8D%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">五种寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#32%E4%B8%AA%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8%E5%8F%8A%E5%85%B6%E7%BC%96%E5%8F%B7"><span class="nav-number">2.1.</span> <span class="nav-text">32个通用寄存器及其编号</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -586,7 +675,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">9:42</span>
+    <span title="Reading time total">9:43</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
