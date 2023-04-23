@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8A-%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/%E4%B8%89%E7%B1%BB%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.png">
 <meta property="og:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8A-%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/MIPS%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93.png">
 <meta property="article:published_time" content="2023-01-12T15:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-04T15:37:18.384Z">
+<meta property="article:modified_time" content="2023-04-22T10:12:25.739Z">
 <meta property="article:author" content="蒙珣">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/01/12/CH2-%E6%8C%87%E4%BB%A4-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E8%AF%AD%E8%A8%80%E4%B8%8A-%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/MIPS%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%801.png">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-04 23:37:18" itemprop="dateModified" datetime="2023-04-04T23:37:18+08:00">2023-04-04</time>
+                <time title="Modified: 2023-04-22 18:12:25" itemprop="dateModified" datetime="2023-04-22T18:12:25+08:00">2023-04-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>8k</span>
+              <span>8.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -460,6 +460,12 @@
 <p><code>slt $t0,$s0,$s1</code></p>
 <p>源操作数1 &lt; 源操作数2 吗？No！</p>
 <p>此时把目的操作数寄存器$t0复位为0</p>
+<br>
+
+<p>在比较中经常使用常数操作数，所以有立即数版本的小于则置位指令。</p>
+<p><code>slti $t0, $s2, 10  # $t0 = 1 if $s2 &lt; 10</code></p>
+<br>
+
 <h4 id="6种条件判断及其伪指令"><a href="#6种条件判断及其伪指令" class="headerlink" title="6种条件判断及其伪指令"></a>6种条件判断及其伪指令</h4><p>通过slt、beq、bne（严格来说还有小于立即数则置位slti指令，不作讨论）指令的各种组合，我们就能够实现全部六种<font color="orange">比较指令</font>，即六种值为真或假的<font color="orange">布尔表达式</font></p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &lt; j) <span class="attr">f</span> = g + h;</span><br><span class="line"><span class="keyword">else</span> <span class="attr">f</span> = g - h;</span><br></pre></td></tr></table></figure>
 
@@ -1008,13 +1014,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">641k</span>
+    <span title="Symbols count total">644k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">9:43</span>
+    <span title="Reading time total">9:45</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

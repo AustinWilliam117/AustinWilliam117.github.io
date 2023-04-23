@@ -17369,6 +17369,12 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p><code>slt $t0,$s0,$s1</code></p>
 <p>源操作数1 &lt; 源操作数2 吗？No！</p>
 <p>此时把目的操作数寄存器$t0复位为0</p>
+<br>
+
+<p>在比较中经常使用常数操作数，所以有立即数版本的小于则置位指令。</p>
+<p><code>slti $t0, $s2, 10  # $t0 = 1 if $s2 &lt; 10</code></p>
+<br>
+
 <h4 id="6种条件判断及其伪指令"><a href="#6种条件判断及其伪指令" class="headerlink" title="6种条件判断及其伪指令"></a>6种条件判断及其伪指令</h4><p>通过slt、beq、bne（严格来说还有小于立即数则置位slti指令，不作讨论）指令的各种组合，我们就能够实现全部六种<font color="orange">比较指令</font>，即六种值为真或假的<font color="orange">布尔表达式</font></p>
 <figure class="highlight nix"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &lt; j) <span class="attr">f</span> = g + h;</span><br><span class="line"><span class="keyword">else</span> <span class="attr">f</span> = g - h;</span><br></pre></td></tr></table></figure>
 
@@ -17886,6 +17892,14 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p><strong>例题1. 编译一个递归C过程，演示嵌套过程的链接</strong></p>
 <figure class="highlight excel"><table><tr><td class="code"><pre><span class="line"><span class="built_in">int</span> <span class="built_in">fact</span>(<span class="built_in">int</span> <span class="built_in">n</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">if</span> (<span class="built_in">n</span> &lt; <span class="number">1</span>) return (<span class="number">1</span>);</span><br><span class="line">	else return (<span class="built_in">n</span> * <span class="built_in">fact</span>(<span class="built_in">n</span> - <span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p><strong>嵌套过程</strong></p>
+<p>不调用其他过程的时候称为<strong>叶过程（leaf procedure）</strong>。如果所有过程都是叶过程，那么情况就很简单，但实际并非如此。就像一个侦探， 其任务的一部分是雇用其他侦探，被雇用的侦探进而雇用更多的侦探，某个过程调用其他过程呈也是这样。更进一步的是，递归过程甚至调用的是自身的“克隆”。就像在过程中使用寄存器需要十分小心一样，在调用非叶过程时需要更加小心。</p>
+<p>例如，假设主程序将参数3存入寄存器 $a0，然后使用 jal A 调用过程 A。再假设过程A通过 jal B 调用过程B，参数为7，同样存入$ a0。由于A尚未结束任务，所以在寄存器$a0的使用上存在冲突。同样，在寄存器 $ra 保存自的返回地址上也存在冲突，因为它现在保存着B的返回地址。除非我们采取措施阻止这类问题发发生，否则这个冲突将导致过程A无法返回其调用者。</p>
+<p>一个解决方法是将其他所有必须保留的寄存器压栈，就像将保存寄存器压栈一样。调用者将所有调用后还需要的参数寄存器 ($a0 ~ $a3) 或临时寄存器($t0 ~ $t9)压栈。被调用者将返回地址寄存器 $ra 和被调用者使用的保存寄存器 ($s0 ~ $s7) 都压栈。栈指针 $sp 随着栈中寄存器个数调整。到返回时，寄存器会从存储器中恢复，栈指针也随着重新调整。</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">fact:</span></span><br><span class="line">    <span class="keyword">addi </span>$<span class="built_in">sp</span>, $<span class="built_in">sp</span>, -<span class="number">8</span></span><br><span class="line">    <span class="keyword">sw </span>$<span class="built_in">ra</span>, <span class="number">4</span>($<span class="built_in">sp</span>)</span><br><span class="line">    <span class="keyword">sw </span>$<span class="built_in">a0</span>, <span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">slti </span>$<span class="built_in">t0</span>, $<span class="built_in">a0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">beq </span>$<span class="built_in">t0</span>, $<span class="built_in">zero</span>, Lable1</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">addi </span>$<span class="built_in">sp</span>, $<span class="built_in">sp</span>, <span class="number">8</span></span><br><span class="line">    <span class="keyword">addi </span>$<span class="built_in">v0</span>, $<span class="built_in">zero</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">jr </span>$<span class="built_in">ra</span></span><br><span class="line"><span class="symbol">    </span></span><br><span class="line"><span class="symbol">Lable1:</span></span><br><span class="line">    <span class="keyword">addi </span>$<span class="built_in">a0</span>, $<span class="built_in">a0</span>, -<span class="number">1</span></span><br><span class="line">    <span class="keyword">jal </span>fact</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">lw </span>$<span class="built_in">a0</span>, <span class="number">0</span>($<span class="built_in">sp</span>)</span><br><span class="line">    <span class="keyword">lw </span>$<span class="built_in">ra</span>, <span class="number">4</span>($<span class="built_in">sp</span>)</span><br><span class="line">    <span class="keyword">addi </span>$<span class="built_in">sp</span>, $<span class="built_in">sp</span>, <span class="number">8</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">mul </span>$<span class="built_in">v0</span>, $<span class="built_in">a0</span>, $<span class="built_in">v0</span></span><br><span class="line">    <span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
+
+
+
 <p><strong>例题2. 冒泡排序</strong></p>
 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> sort(<span class="type">int</span> v[], <span class="type">int</span> n)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> i, j;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n; i += <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; v[j] &gt; v[j + <span class="number">1</span>]; j = <span class="number">1</span>)&#123;</span><br><span class="line">			swap(v,j);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> swap(<span class="type">int</span> v[], <span class="type">int</span> k)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> <span class="keyword">temp</span>;</span><br><span class="line">	<span class="keyword">temp</span> = v[k];</span><br><span class="line">	v[k] = v[k+<span class="number">1</span>];</span><br><span class="line">	v[k+<span class="number">1</span>] = <span class="keyword">temp</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -17993,7 +18007,122 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <td>是</td>
 </tr>
 </tbody></table>
+<h4 id="R型：寄存器寻址"><a href="#R型：寄存器寻址" class="headerlink" title="R型：寄存器寻址"></a>R型：寄存器寻址</h4><p>所有操作数都是寄存器的指令采用<font color="orange">寄存器寻址（register addressing）</font></p>
+<p>操作数个数从一个到三个不等</p>
+<p>R型指令 &lt;–&gt; 寄存器寻址</p>
+<p>第二部分已经提到过的R型指令有：</p>
+<p>1、运算指令：add，sub，and，or，nor 5条三寄存器操作数指令</p>
+<p>2、运算指令：sll、srl 2条双寄存器操作数指令（rs不使用置为0，使用shamt）</p>
+<p>3、决策指令：slt 1条三寄存器操作数指令</p>
+<p>第三部分新增R型指令：</p>
+<p>4、决策指令：jr 1条单寄存器操作数指令</p>
+<table>
+<thead>
+<tr>
+<th>op</th>
+<th>rs</th>
+<th>rt</th>
+<th>rd</th>
+<th>shamt</th>
+<th>funct</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6位</td>
+<td>5位</td>
+<td>5位</td>
+<td>5位</td>
+<td>5位</td>
+<td>6位</td>
+</tr>
+</tbody></table>
+<h4 id="I型：立即数寻址和基址偏移寻址"><a href="#I型：立即数寻址和基址偏移寻址" class="headerlink" title="I型：立即数寻址和基址偏移寻址"></a>I型：立即数寻址和基址偏移寻址</h4><p>第三个操作数（第二个源操作数）是常数的指令采用立即数寻址（immediate addressing）具体包裹addi，ori两条指令</p>
+<p><font color="grey">其实还包括lui指令，课本没有着重强调其指令格式</font></p>
+<p><img src="%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80%E5%92%8C%E5%9F%BA%E5%9D%80%E5%AF%BB%E5%9D%80.png"></p>
+<p>两条数据传送指令lw、sw</p>
+<p>将基址寄存器和偏移量相加的内存寻址方式称为<font color="orange">基址偏移寻址</font></p>
+<p>可单独称为基址寻址（base addressing）和偏移寻址（displacement addressing）</p>
+<table>
+<thead>
+<tr>
+<th align="center">op</th>
+<th align="center">rs</th>
+<th align="center">rt</th>
+<th align="center">constant or address</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">6位</td>
+<td align="center">5位</td>
+<td align="center">5位</td>
+<td align="center">16位</td>
+</tr>
+</tbody></table>
+<h4 id="I型：PC相对寻址-字地址和字节地址"><a href="#I型：PC相对寻址-字地址和字节地址" class="headerlink" title="I型：PC相对寻址 字地址和字节地址"></a>I型：PC相对寻址 字地址和字节地址</h4><p>两条条件分支指令beq、bne</p>
+<p>在汇编语言中使用标签来表示分支的目标地址，标签翻译机器语言其实是个整数</p>
+<p>告诉计算机从当前指令的地址出发，到达分支目标地址的距离是多少</p>
+<p><font color="orange">程序计数器（program counter，PC）</font>中保存了执行中指令的地址</p>
+<p>分支指令中的16位分支地址是一个二进制补码，可正可负</p>
+<p>表示以PC+4为基准相加的字地址数目，叫做<font color="orange">PC相对寻址（PC-relative addressing）</font></p>
 <blockquote>
+<p>分支32为地址 = PC + 4 + 字地址偏移量</p>
+</blockquote>
+<p><img src="PC%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80.png"></p>
+<h4 id="J型：伪直接寻址"><a href="#J型：伪直接寻址" class="headerlink" title="J型：伪直接寻址"></a>J型：伪直接寻址</h4><p><font color="orange">J 型指令</font>只需要操作码和目的地址两个字段，形式上最为简单</p>
+<table>
+<thead>
+<tr>
+<th align="center">2</th>
+<th align="center">10000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">6位</td>
+<td align="center">26位</td>
+</tr>
+</tbody></table>
+<p>J 型指令 &lt;–&gt; 伪直接寻址，包含 j, jal 两条</p>
+<p><code>*寄存器跳转 jr 指令是R型指令</code></p>
+<p>直接寻址指的是指令中直接给出32位内存地址，但 J 型指令地址字段只有26位</p>
+<p>因此，执行 J 型指令时，先将26位字地址左移两位（右侧补0）形成28位字节地址</p>
+<p>再和 PC 的高四位拼接成32为地址</p>
+<p>这就是<font color="orange">伪直接寻址（pseudodirect addressing）</font></p>
+<p><img src="%E4%BC%AA%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80.png"></p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Loop:</span></span><br><span class="line">    <span class="keyword">sll </span>$<span class="built_in">t1</span>, $<span class="built_in">s3</span>, <span class="number">2</span></span><br><span class="line">    <span class="keyword">add </span>$<span class="built_in">t1</span>, $<span class="built_in">t1</span>, $<span class="built_in">s6</span></span><br><span class="line">    <span class="keyword">lw</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="扩大分支与跳转的范围"><a href="#扩大分支与跳转的范围" class="headerlink" title="扩大分支与跳转的范围"></a>扩大分支与跳转的范围</h4><p>PC相对寻址以 PC + 4 为基准，加上一个可正可负的16位补码字地址，寻址范围为</p>
+<p><img src="%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B41.png"></p>
+<p>伪直接寻址用PC中当前指令地址的高四位<font color="orange">拼接</font>指令中的26位字地址，寻址范围为</p>
+<p><img src="%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B42.png"></p>
+<p><font color="grey">在相近的内存地址中寻址利用了加速大概率事件这一设计思想</font></p>
+<p>要分支到更远距离，可以将 beq/bne取反，下接一条可能绕过的 j 指令</p>
+<p>要跳转到更远距离，可以先将32位地址装载到某临时寄存器，再用 jr 指令</p>
+<p><img src="%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B43.png"></p>
+<h4 id="寻址方式小结"><a href="#寻址方式小结" class="headerlink" title="寻址方式小结"></a>寻址方式小结</h4><ol>
+<li><p>R 型的<font>寄存器寻址</font>：操作数为1个/2个/3个寄存器的数据</p>
+</li>
+<li><p>I 型的立即数寻址：addi、lui、ori 三条立即数指令，其中一个操作数是指令字段中的常数</p>
+</li>
+<li><p>I 型的基址偏移寻址：lw、sw两条访存指令</p>
+<p>将 rs 中的基地址和偏移量直接相加，得到偏移地址<u>以 lw $t0, 12($s0) 为例</u></p>
+</li>
+<li><p>I 型的PC相对寻址：beq、bne两条条件分支指令</p>
+<p>分支指令中的PC相对地址（可正可负的字偏移量）</p>
+<p>左移两位（x4）形成字节偏移量</p>
+<p>再和 PC + 4 中的字节地址相加，形成分支目标地址</p>
+<p><u>以地址为1000（十进制）的 beq reg1, reg2, 4 为例</u></p>
+</li>
+<li><p>J 型的伪直接寻址：将26位字地址左移两位（x4）形成28位字节地址</p>
+<p>再和PC（实际上也是 PC + 4）的高四位拼接成32位跳转目标地址</p>
+<p>以PC高四位为1010的 j 0000 0000 0000 0000 0000 0000 01 为例</p>
+</li>
+</ol>
+<h4 id="MIPS汇编指令小结"><a href="#MIPS汇编指令小结" class="headerlink" title="MIPS汇编指令小结"></a>MIPS汇编指令小结</h4><p><img src="MIPS%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93.png"></p>
+<h3 id="第五部分-C-程序执行过程"><a href="#第五部分-C-程序执行过程" class="headerlink" title="第五部分 C 程序执行过程"></a>第五部分 C 程序执行过程</h3><blockquote>
 <p>转自：B站 翼云图灵</p>
 <p>参考：计算机组成与设计·硬件/软件接口 原书第5版</p>
 </blockquote>
