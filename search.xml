@@ -18096,33 +18096,100 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 <h4 id="扩大分支与跳转的范围"><a href="#扩大分支与跳转的范围" class="headerlink" title="扩大分支与跳转的范围"></a>扩大分支与跳转的范围</h4><p>PC相对寻址以 PC + 4 为基准，加上一个可正可负的16位补码字地址，寻址范围为</p>
 <p><img src="%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B41.png"></p>
+<p><strong>解释说明</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>op</th>
+<th>rt</th>
+<th>rd</th>
+<th>addres</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>6位</td>
+<td>5位</td>
+<td>5位</td>
+<td>16位</td>
+</tr>
+</tbody></table>
+<p>条件分支的地址为16个字地址，所以可跳转至2^16次方个</p>
+<p>且该地址补码可正可负16位补码字地址，即可跳转上下范围2^15次方个</p>
+<p>又因为还有一个0需要考虑，所以范围是 [-2^15, 0, 2^15-1]</p>
+<p>再将其偏移 2 位，即乘4，转为字节。所以范围是 [-2^17 ~ 2^17-4]</p>
+<br>
+
 <p>伪直接寻址用PC中当前指令地址的高四位<font color="orange">拼接</font>指令中的26位字地址，寻址范围为</p>
 <p><img src="%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B42.png"></p>
 <p><font color="grey">在相近的内存地址中寻址利用了加速大概率事件这一设计思想</font></p>
 <p>要分支到更远距离，可以将 beq/bne取反，下接一条可能绕过的 j 指令</p>
 <p>要跳转到更远距离，可以先将32位地址装载到某临时寄存器，再用 jr 指令</p>
 <p><img src="%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B43.png"></p>
+<p><strong>分支跳转更远距离</strong></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line">   <span class="attribute">bne</span> $s<span class="number">0</span>, $s<span class="number">1</span>, L<span class="number">2</span></span><br><span class="line">   <span class="attribute">j</span> L<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">L2</span>:</span><br></pre></td></tr></table></figure>
+
+<p>这样就相当于使用伪直接寻址方式，可以得到一个256MB的地址块，比之前128KB地址块扩大很多</p>
+<p><strong>跳转更远的距离</strong></p>
+<p>如果我们要跳转的地址，不在这256MB地址块中呢</p>
+<p>我们可以先将32位地址装载到临时寄存器中，再使用 jr 指令就可以了</p>
+<p><strong>解题思路：</strong></p>
+<p>比如说我们现在这条指令的地址是 0000 0000 0000 0000 0000 0000 0000 0000 32个零</p>
+<p>写成16进制就是8个零，即 0000 0000(16)。如果我们要跳转到 1000 0001(16) </p>
+<p>我们使用 j 指令跳转是需要高四位是相同的值才行，但是这个显然不同。</p>
+<p>我们先将 1000 0001(16) 32位地址转换成10进制，使用 lui 、ori 转载进寄存器 $t0 中</p>
+<p>然后我们使用 jr $t0 就能跳转至任意地点了</p>
 <h4 id="寻址方式小结"><a href="#寻址方式小结" class="headerlink" title="寻址方式小结"></a>寻址方式小结</h4><ol>
-<li><p>R 型的<font>寄存器寻址</font>：操作数为1个/2个/3个寄存器的数据</p>
+<li><p>R 型的<font color="orange"><font>寄存器寻址</font></font>：操作数为1个/2个/3个寄存器的数据</p>
 </li>
-<li><p>I 型的立即数寻址：addi、lui、ori 三条立即数指令，其中一个操作数是指令字段中的常数</p>
+<li><p>I 型的<font color="orange">立即数寻址</font>：addi、lui、ori 三条立即数指令，其中一个操作数是指令字段中的常数</p>
 </li>
-<li><p>I 型的基址偏移寻址：lw、sw两条访存指令</p>
+<li><p>I 型的<font color="orange">基址偏移寻址</font>：lw、sw两条访存指令</p>
 <p>将 rs 中的基地址和偏移量直接相加，得到偏移地址<u>以 lw $t0, 12($s0) 为例</u></p>
 </li>
-<li><p>I 型的PC相对寻址：beq、bne两条条件分支指令</p>
-<p>分支指令中的PC相对地址（可正可负的字偏移量）</p>
+<li><p>I 型的<font color="orange">PC相对寻址</font>：beq、bne两条条件分支指令</p>
+<p>分支指令中的<font color="orange">PC相对地址</font>（可正可负的字偏移量）</p>
 <p>左移两位（x4）形成字节偏移量</p>
-<p>再和 PC + 4 中的字节地址相加，形成分支目标地址</p>
+<p>再和 PC + 4 中的字节地址相加，形成<font color="orange">分支目标地址</font></p>
 <p><u>以地址为1000（十进制）的 beq reg1, reg2, 4 为例</u></p>
 </li>
-<li><p>J 型的伪直接寻址：将26位字地址左移两位（x4）形成28位字节地址</p>
-<p>再和PC（实际上也是 PC + 4）的高四位拼接成32位跳转目标地址</p>
+<li><p>J 型的<font color="orange">伪直接寻址</font>：将26位字地址左移两位（x4）形成28位字节地址</p>
+<p>再和PC（实际上也是 PC + 4）的高四位拼接成32位<font color="orange">跳转目标地址</font></p>
 <p>以PC高四位为1010的 j 0000 0000 0000 0000 0000 0000 01 为例</p>
 </li>
 </ol>
 <h4 id="MIPS汇编指令小结"><a href="#MIPS汇编指令小结" class="headerlink" title="MIPS汇编指令小结"></a>MIPS汇编指令小结</h4><p><img src="MIPS%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93.png"></p>
-<h3 id="第五部分-C-程序执行过程"><a href="#第五部分-C-程序执行过程" class="headerlink" title="第五部分 C 程序执行过程"></a>第五部分 C 程序执行过程</h3><blockquote>
+<h3 id="第五部分-C-程序执行过程"><a href="#第五部分-C-程序执行过程" class="headerlink" title="第五部分 C 程序执行过程"></a>第五部分 C 程序执行过程</h3><h4 id="C语言的4个翻译层次"><a href="#C语言的4个翻译层次" class="headerlink" title="C语言的4个翻译层次"></a>C语言的4个翻译层次</h4><p><font color="orange">编译器</font>将高级语言文件（.c）</p>
+<p>翻译成汇编语言文件（.asm）</p>
+<br>
+
+<p><font color="orange">汇编器</font>首先把伪指令替换为等价的真正指令</p>
+<p>再将汇编语言翻译成机器语言目标文件（.obj）</p>
+<br>
+
+<p><font color="orange">链接器</font>把目标文件和静态链接库（.lib）、动态链接库（.dll）</p>
+<p>拼接成可执行文件（.exe）</p>
+<br>
+
+<p><font color="orange">加载器</font>可将执行文件放入内存，装载执行</p>
+<h4 id="字符支持-同步指令对-II-sc-ARM-和-x86-简介"><a href="#字符支持-同步指令对-II-sc-ARM-和-x86-简介" class="headerlink" title="字符支持 同步指令对 II-sc ARM 和 x86 简介"></a>字符支持 同步指令对 II-sc ARM 和 x86 简介</h4><p>为了让计算机能够处理C的8位的ASCII字符，MIPS提供<font color="orange">字节传送指令</font>lb，sb 字符通常理解为无符号数，故取字节常使用取无符号字节lbu指令 同理，为了支持Java的16位Unicode字符，MIPS提供<font color="orange">半字传送指令</font>lh，sh，lhu</p>
+<p>当两个程序访问同一个内存单元，且其中存在写操作时，两程序操作的顺序就尤为重要 MIPS提供<font color="orange">链接取数ll指令</font>和<font color="orange">条件存数sc指令</font>，让程序员能够指定程序操作数据的顺序</p>
+<p><font color="orange">ARM</font>和MIPS同为RISC架构，具有优秀的能耗表现，广泛应用于移动端和嵌入式平台 同MIPS相比，ARM的主要区别是通用寄存器更少(16个)、寻址方式更多(9种) Intel和AMD主导的<font color="orange">x86</font>是一种CISC架构，指令集十分庞大(2018年约1400条) x86是一种本质非常糟糕的架构，最典型的表现是，指令长度从1B到15B不等 由于问世时间恰逢IBM进军PC领域，x86取得了巨大的商业成功，至今占据很大的份额</p>
+<p>Intel将x86移动化的尝试屡屡碰壁，苹果将ARM电脑化的实践却高歌猛进</p>
+<h3 id="复习题"><a href="#复习题" class="headerlink" title="复习题"></a>复习题</h3><p>1、为了实现过程调用，我们引入了哪三类寄存器和哪个指令对? </p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">为了实现过程调用，我们引用了</span><br><span class="line">参数寄存器 $<span class="built_in">a0</span> ~ $<span class="built_in">a3</span>, 返回值寄存器 $<span class="built_in">v0</span>, 返回地址寄存器 $<span class="built_in">ra</span></span><br><span class="line">指令对是 <span class="keyword">jal（调用者主程序使用） </span>- <span class="keyword">jr（被调用者函数使用）</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2、三类寄存器分别存放什么?指令对中的两条指令分别由谁使用，完成什么功能?</p>
+<p> 3、当过程要使用保存寄存器时，要进行什么操作? </p>
+<p>4、为什么过程内部的变量优先使用临时寄存器?</p>
+<p> 5、复习综合练习5~7，熟悉for循环、清零、函数调用等常见的C语句翻译</p>
+<p>6、R型指令和J型指令分别采用什么寻址方式?I型有哪三种寻址方式?</p>
+<p> 7、PC相对寻址和伪直接寻址为了扩大寻址范围，其地址代表什么单位?</p>
+<p>8、PC相对寻址和伪直接寻址分别怎样获得标签的真实地址?</p>
+<p>9、复习MIPS汇编指令，对应上每条指令的指令格式和寻址方式</p>
+<p>10、运行C程序要经过哪四个步骤?</p>
+<h3 id="全章复习"><a href="#全章复习" class="headerlink" title="全章复习"></a>全章复习</h3><blockquote>
 <p>转自：B站 翼云图灵</p>
 <p>参考：计算机组成与设计·硬件/软件接口 原书第5版</p>
 </blockquote>
