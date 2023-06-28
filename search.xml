@@ -17123,6 +17123,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 <p>此时访问master的服务器 192.168.11.63:80 地址，已经会将请求转发给slave的80端口</p>
 <p>除了页面效果的展示以外，还可以通过log(access.log)查看代理效果</p>
+<h3 id="Nginx-配置文件"><a href="#Nginx-配置文件" class="headerlink" title="Nginx 配置文件"></a>Nginx 配置文件</h3><p><a href="/download/conf/nginx.conf">Nginx 配置文件.cof</a></p>
 <blockquote>
 <p>转载自：<a href="https://www.cnblogs.com/pyyu/p/9468680.html">https://www.cnblogs.com/pyyu/p/9468680.html</a></p>
 </blockquote>
@@ -18181,14 +18182,44 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 <p>2、三类寄存器分别存放什么?指令对中的两条指令分别由谁使用，完成什么功能?</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">参数寄存器$a：存放参数</span><br><span class="line">值寄存器$v：存放返回值</span><br><span class="line">返回地址寄存器$ra：存放过程调用中的返回地址</span><br><span class="line">$jar: 首先需要完成jump（跳转）的功能，其次要完成<span class="keyword">link</span>（将$jar下一条指令的地址，存放到$ra返回地址寄存器当中）的功能</span><br><span class="line">$jr: 跳转到一个寄存器所指定的地址当中</span><br></pre></td></tr></table></figure>
+
+
+
 <p> 3、当过程要使用保存寄存器时，要进行什么操作? </p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">需要压栈保存</span><br><span class="line"><span class="number">1</span>、需要使用<span class="keyword">addi指令，使栈指针往下偏移几个寄存器的空间（即个数*4）</span></span><br><span class="line"><span class="keyword"></span><span class="number">2</span>、使用<span class="keyword">sw，使寄存器数据进入栈当中</span></span><br></pre></td></tr></table></figure>
+
+
+
 <p>4、为什么过程内部的变量优先使用临时寄存器?</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">过程也是用保存寄存器，会使主程序去争抢保存寄存器。且主程序已经使用了保存寄存器去存放变量或者数组的基址。</span><br><span class="line">如果过程要使用保存寄存器，一定要入栈保存和出栈恢复的过程</span><br><span class="line">为了减少对内存的操作，优先使用临时寄存器，能不用就不用</span><br></pre></td></tr></table></figure>
+
+
+
 <p>5、复习综合练习5~7，熟悉for循环、清零、函数调用等常见的C语句翻译</p>
 <p>6、R型指令和J型指令分别采用什么寻址方式?I型有哪三种寻址方式?</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line">R型是寄存器寻址的充要条件</span><br><span class="line">J型是伪直接寻址的充要条件</span><br><span class="line">I型有立即数、基址偏移、<span class="built_in">PC</span>相对寻址这三种寻址方式</span><br></pre></td></tr></table></figure>
+
+
+
 <p>7、PC相对寻址和伪直接寻址为了扩大寻址范围，其地址代表什么单位?</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">PC相对寻址中的字偏移，字偏移量总共是用16位立即数字段来表示。既然采用了字地址偏移量，也就能用16位字地址去表示18位字节地址。</span><br><span class="line">所以地址代表着字这个单位，我们就可以节省2位空间，获得更大的寻址范围</span><br></pre></td></tr></table></figure>
+
+
+
 <p>8、PC相对寻址和伪直接寻址分别怎样获得标签的真实地址?</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">PC</span>相对寻址是（<span class="built_in">PC</span>+<span class="number">4</span>）这样一个基础，再加上一个数，或者减去一个数，就得到了标签的相对地址。</span><br><span class="line">伪直接寻址是通过<span class="built_in">PC</span>的高<span class="number">4</span>位，和一个<span class="number">26</span>位的字地址拼接起来，就构成了一个<span class="number">32</span>位的字节地址。（<span class="number">26</span>位的字地址，实际上是对应<span class="number">28</span>位的字节地址的，所以<span class="number">4</span>+<span class="number">28</span>位就能够拼接成<span class="number">32</span>位字节地址了）</span><br></pre></td></tr></table></figure>
+
+
+
 <p>9、复习MIPS汇编指令，对应上每条指令的指令格式和寻址方式</p>
 <p>10、运行C程序要经过哪四个步骤?</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">编译-&gt;汇编-&gt;链接-&gt;加载</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h3 id="全章复习"><a href="#全章复习" class="headerlink" title="全章复习"></a>全章复习</h3><blockquote>
 <p>转自：B站 翼云图灵</p>
 <p>参考：计算机组成与设计·硬件/软件接口 原书第5版</p>
