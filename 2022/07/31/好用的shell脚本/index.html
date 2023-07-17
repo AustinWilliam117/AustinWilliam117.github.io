@@ -30,7 +30,7 @@
 <meta property="og:description" content="批量修改文件名原始文件名 1file_1_finished.jpg  file_2_finished.jpg  file_3_finished.jpg  批量修改文件名 将所有文件名的 _finished 去掉 123456789#!&#x2F;bin&#x2F;bashfor file in &#96;ls *.jpg&#96;do    # echo $file|sed &amp;#x27;s&#x2F;_finished&#x2F;&#x2F;g&amp;#x27;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-31T12:46:10.000Z">
-<meta property="article:modified_time" content="2022-07-31T13:05:41.086Z">
+<meta property="article:modified_time" content="2023-07-17T14:03:31.278Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">36</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">37</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">178</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">179</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -220,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-07-31 20:46:10 / Modified: 21:05:41" itemprop="dateCreated datePublished" datetime="2022-07-31T20:46:10+08:00">2022-07-31</time>
+              <time title="Created: 2022-07-31 20:46:10" itemprop="dateCreated datePublished" datetime="2022-07-31T20:46:10+08:00">2022-07-31</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-17 22:03:31" itemprop="dateModified" datetime="2023-07-17T22:03:31+08:00">2023-07-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -247,14 +253,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>5.4k</span>
+              <span>7.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>5 mins.</span>
+              <span>6 mins.</span>
             </span>
 
         </div>
@@ -358,6 +364,42 @@
 <li><p><code>-C ..</code>                输出路径，这里是父路径</p>
 </li>
 </ul>
+<h3 id="监控每个核使用情况"><a href="#监控每个核使用情况" class="headerlink" title="监控每个核使用情况"></a>监控每个核使用情况</h3><p><strong>mpstat</strong></p>
+<p><code>mpstat</code>是一个用于监视多处理器系统的命令行工具，它可以提供关于每个处理器或处理器组件的详细统计数据。是工具包的一部分，在大多数Linux发行版中都可以<code>mpstat</code>找到<code>sysstat</code>。</p>
+<p><code>mpstat</code>命令的常见用法是查看CPU的使用情况，包括各个核心的使用率。以下是<code>mpstat</code>命令的基本用法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpstat [options] [interval [count]]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>options</code> ：<code>mpstat</code> 支持多个选项来控制输出的内容和格式。常用的选项包括：</p>
+<ul>
+<li><code>-P</code>：指定要显示的处理器编号或者<code>ALL</code>用于显示所有处理器的统计数据。</li>
+<li><code>-u</code>：显示CPU使用率相关的统计信息。</li>
+<li><code>-I</code>：显示退货相关的统计信息。</li>
+<li><code>-P ALL</code>：显示所有处理器的统计信息。</li>
+</ul>
+</li>
+<li><p><code>interval</code>：指定统计数据刷新的时间间隔，单位为秒。</p>
+</li>
+<li><p><code>count</code>：指定刷新统计数据的次数。</p>
+</li>
+</ul>
+<p>以下是<code>mpstat</code>命令的示例用法：</p>
+<p><code>mpstat -P ALL 1 3</code></p>
+<p>此命令将按 1 秒的间隔刷新 3 次所有处理器的统计数据，包括每个处理器的 CPU 使用率、中断等信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mpstat -P ALL 1 3</span><br><span class="line">Linux 5.15.0-50-generic (william-ARM-Ubuntu) 	2023年07月17日 	_aarch64_	(2 CPU)</span><br><span class="line"></span><br><span class="line">22时02分39秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">22时02分40秒  all    0.00    0.00    1.00    0.50    0.00    0.00    0.00    0.00    0.00   98.50</span><br><span class="line">22时02分40秒    0    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00</span><br><span class="line">22时02分40秒    1    0.00    0.00    1.00    1.00    0.00    0.00    0.00    0.00    0.00   98.00</span><br><span class="line"></span><br><span class="line">22时02分40秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">22时02分41秒  all    2.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   97.00</span><br><span class="line">22时02分41秒    0    0.99    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00   99.01</span><br><span class="line">22时02分41秒    1    3.03    0.00    2.02    0.00    0.00    0.00    0.00    0.00    0.00   94.95</span><br><span class="line"></span><br><span class="line">22时02分41秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">22时02分42秒  all    1.55    0.00    0.52    0.00    0.00    0.52    0.00    0.00    0.00   97.42</span><br><span class="line">22时02分42秒    0    2.04    0.00    1.02    0.00    0.00    0.00    0.00    0.00    0.00   96.94</span><br><span class="line">22时02分42秒    1    1.04    0.00    0.00    0.00    0.00    1.04    0.00    0.00    0.00   97.92</span><br><span class="line"></span><br><span class="line">Average:     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">Average:     all    1.18    0.00    0.84    0.17    0.00    0.17    0.00    0.00    0.00   97.64</span><br><span class="line">Average:       0    1.00    0.00    0.67    0.00    0.00    0.00    0.00    0.00    0.00   98.33</span><br><span class="line">Average:       1    1.36    0.00    1.02    0.34    0.00    0.34    0.00    0.00    0.00   96.95</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>%usr</code>：使用用户空间进程所占用的CPU率。</li>
+<li><code>%nice</code>：很好修改过优先级的进程所占用的CPU使用率。</li>
+<li><code>%sys</code>：使用内核空间进程所占用的CPU率。</li>
+<li><code>%iowait</code>：等待I/O完成而空闲的CPU使用率。</li>
+<li><code>%irq</code>：处理硬件中断的CPU使用率。</li>
+<li><code>%soft</code>：处理软中断的CPU使用率。</li>
+<li><code>%steal</code>：被其他虚拟机（如果有的话）或物理服务器窃取的CPU使用率。</li>
+<li><code>%guest</code>：运行虚拟机占用的CPU使用率。</li>
+<li><code>%gnice</code>：很好修改过优先级的虚拟机底层的CPU使用率。</li>
+<li><code>%idle</code>：空闲CPU的使用率。</li>
+</ul>
 
     </div>
 
@@ -441,7 +483,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">1.</span> <span class="nav-text">批量修改文件名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4find%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">删除find后的文件名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E6%AF%8F%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90list%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">3.</span> <span class="nav-text">为每个文件夹下的文件生成list绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E7%A3%81%E7%9B%98IO"><span class="nav-number">4.</span> <span class="nav-text">检测磁盘IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%AA%E5%8F%96%E6%97%A5%E5%BF%97%E4%B8%AD%E9%97%B4%E5%87%A0%E8%A1%8C%E5%88%B0%E5%87%A0%E8%A1%8C"><span class="nav-number">5.</span> <span class="nav-text">截取日志中间几行到几行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E6%98%BE%E7%A4%BA%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E6%88%96%E5%8F%AA%E6%98%BE%E7%A4%BA%E7%AC%AC%E4%B8%80%E8%A1%8C"><span class="nav-number">6.</span> <span class="nav-text">只显示文件最后一行或只显示第一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E7%9B%91%E6%8E%A7"><span class="nav-number">7.</span> <span class="nav-text">日志监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8dd%E5%91%BD%E4%BB%A4%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90%E5%A4%A7%E6%96%87%E4%BB%B6%E6%88%96%E8%80%85%E5%B0%8F%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">使用dd命令快速生成大文件或者小文件的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%B7%AF%E5%BE%84%E4%B8%8B%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">查看当前路径下的进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E8%BF%9B%E7%A8%8B%E5%8F%B7%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%A8%8B%E5%BA%8F%E8%B7%AF%E5%BE%84"><span class="nav-number">10.</span> <span class="nav-text">根据进程号查看当前程序路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E6%AF%8F%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8D%95%E7%8B%AC%E6%89%93%E5%8C%85"><span class="nav-number">11.</span> <span class="nav-text">为每个文件单独打包</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">1.</span> <span class="nav-text">批量修改文件名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4find%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">删除find后的文件名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E6%AF%8F%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90list%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">3.</span> <span class="nav-text">为每个文件夹下的文件生成list绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E7%A3%81%E7%9B%98IO"><span class="nav-number">4.</span> <span class="nav-text">检测磁盘IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%AA%E5%8F%96%E6%97%A5%E5%BF%97%E4%B8%AD%E9%97%B4%E5%87%A0%E8%A1%8C%E5%88%B0%E5%87%A0%E8%A1%8C"><span class="nav-number">5.</span> <span class="nav-text">截取日志中间几行到几行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E6%98%BE%E7%A4%BA%E6%96%87%E4%BB%B6%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E6%88%96%E5%8F%AA%E6%98%BE%E7%A4%BA%E7%AC%AC%E4%B8%80%E8%A1%8C"><span class="nav-number">6.</span> <span class="nav-text">只显示文件最后一行或只显示第一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E7%9B%91%E6%8E%A7"><span class="nav-number">7.</span> <span class="nav-text">日志监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8dd%E5%91%BD%E4%BB%A4%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90%E5%A4%A7%E6%96%87%E4%BB%B6%E6%88%96%E8%80%85%E5%B0%8F%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">使用dd命令快速生成大文件或者小文件的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%B7%AF%E5%BE%84%E4%B8%8B%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">查看当前路径下的进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E8%BF%9B%E7%A8%8B%E5%8F%B7%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%A8%8B%E5%BA%8F%E8%B7%AF%E5%BE%84"><span class="nav-number">10.</span> <span class="nav-text">根据进程号查看当前程序路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E6%AF%8F%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8D%95%E7%8B%AC%E6%89%93%E5%8C%85"><span class="nav-number">11.</span> <span class="nav-text">为每个文件单独打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%E6%AF%8F%E4%B8%AA%E6%A0%B8%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">12.</span> <span class="nav-text">监控每个核使用情况</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -457,7 +499,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">178</span>
+          <span class="site-state-item-count">179</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -470,7 +512,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -521,13 +563,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">652k</span>
+    <span title="Symbols count total">655k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">9:53</span>
+    <span title="Reading time total">9:55</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

@@ -9193,6 +9193,42 @@
 <li><p><code>-C ..</code>                输出路径，这里是父路径</p>
 </li>
 </ul>
+<h3 id="监控每个核使用情况"><a href="#监控每个核使用情况" class="headerlink" title="监控每个核使用情况"></a>监控每个核使用情况</h3><p><strong>mpstat</strong></p>
+<p><code>mpstat</code>是一个用于监视多处理器系统的命令行工具，它可以提供关于每个处理器或处理器组件的详细统计数据。是工具包的一部分，在大多数Linux发行版中都可以<code>mpstat</code>找到<code>sysstat</code>。</p>
+<p><code>mpstat</code>命令的常见用法是查看CPU的使用情况，包括各个核心的使用率。以下是<code>mpstat</code>命令的基本用法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mpstat [options] [interval [count]]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>options</code> ：<code>mpstat</code> 支持多个选项来控制输出的内容和格式。常用的选项包括：</p>
+<ul>
+<li><code>-P</code>：指定要显示的处理器编号或者<code>ALL</code>用于显示所有处理器的统计数据。</li>
+<li><code>-u</code>：显示CPU使用率相关的统计信息。</li>
+<li><code>-I</code>：显示退货相关的统计信息。</li>
+<li><code>-P ALL</code>：显示所有处理器的统计信息。</li>
+</ul>
+</li>
+<li><p><code>interval</code>：指定统计数据刷新的时间间隔，单位为秒。</p>
+</li>
+<li><p><code>count</code>：指定刷新统计数据的次数。</p>
+</li>
+</ul>
+<p>以下是<code>mpstat</code>命令的示例用法：</p>
+<p><code>mpstat -P ALL 1 3</code></p>
+<p>此命令将按 1 秒的间隔刷新 3 次所有处理器的统计数据，包括每个处理器的 CPU 使用率、中断等信息。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">➜  ~ mpstat -P ALL 1 3</span><br><span class="line">Linux 5.15.0-50-generic (william-ARM-Ubuntu) 	2023年07月17日 	_aarch64_	(2 CPU)</span><br><span class="line"></span><br><span class="line">22时02分39秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">22时02分40秒  all    0.00    0.00    1.00    0.50    0.00    0.00    0.00    0.00    0.00   98.50</span><br><span class="line">22时02分40秒    0    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00</span><br><span class="line">22时02分40秒    1    0.00    0.00    1.00    1.00    0.00    0.00    0.00    0.00    0.00   98.00</span><br><span class="line"></span><br><span class="line">22时02分40秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">22时02分41秒  all    2.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00    0.00   97.00</span><br><span class="line">22时02分41秒    0    0.99    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00   99.01</span><br><span class="line">22时02分41秒    1    3.03    0.00    2.02    0.00    0.00    0.00    0.00    0.00    0.00   94.95</span><br><span class="line"></span><br><span class="line">22时02分41秒  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">22时02分42秒  all    1.55    0.00    0.52    0.00    0.00    0.52    0.00    0.00    0.00   97.42</span><br><span class="line">22时02分42秒    0    2.04    0.00    1.02    0.00    0.00    0.00    0.00    0.00    0.00   96.94</span><br><span class="line">22时02分42秒    1    1.04    0.00    0.00    0.00    0.00    1.04    0.00    0.00    0.00   97.92</span><br><span class="line"></span><br><span class="line">Average:     CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">Average:     all    1.18    0.00    0.84    0.17    0.00    0.17    0.00    0.00    0.00   97.64</span><br><span class="line">Average:       0    1.00    0.00    0.67    0.00    0.00    0.00    0.00    0.00    0.00   98.33</span><br><span class="line">Average:       1    1.36    0.00    1.02    0.34    0.00    0.34    0.00    0.00    0.00   96.95</span><br><span class="line">➜  ~</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>%usr</code>：使用用户空间进程所占用的CPU率。</li>
+<li><code>%nice</code>：很好修改过优先级的进程所占用的CPU使用率。</li>
+<li><code>%sys</code>：使用内核空间进程所占用的CPU率。</li>
+<li><code>%iowait</code>：等待I/O完成而空闲的CPU使用率。</li>
+<li><code>%irq</code>：处理硬件中断的CPU使用率。</li>
+<li><code>%soft</code>：处理软中断的CPU使用率。</li>
+<li><code>%steal</code>：被其他虚拟机（如果有的话）或物理服务器窃取的CPU使用率。</li>
+<li><code>%guest</code>：运行虚拟机占用的CPU使用率。</li>
+<li><code>%gnice</code>：很好修改过优先级的虚拟机底层的CPU使用率。</li>
+<li><code>%idle</code>：空闲CPU的使用率。</li>
+</ul>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -18394,5 +18430,75 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <p>我时常想，如果苏轼能够提前预知他人生的终点，能够提前预知他所经历的一切，他是不是有勇气重来一遍。</p>
 <p><strong>我真心祝福各位同学，能够找到内心的宁静，一生平安。</strong></p>
 ]]></content>
+      <tags>
+        <tag>2023</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我与地坛</title>
+    <url>/2023/07/09/%E6%88%91%E4%B8%8E%E5%9C%B0%E5%9D%9B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>但是太阳，它每时每刻都是夕阳也都是旭日。当他熄灭着走下山去收尽苍凉残照之际，正式它在另一面燃烧着走下山去，扶着我的拐杖。有一天，在某一处山洼里，势必会跑上来一个欢蹦的孩子，抱着他的玩具。</p>
+<p>当然，那不是我。</p>
+<p>但是，那不是我吗？</p>
+<span id="more"></span>
+
+<br>
+
+
+
+<p>命运中有一种错误是只能犯一次的，并且没有改正的机会，命运中有一种并非是错误的错误，它却是不被原谅的。</p>
+<br>
+
+
+
+<p>宇宙以其不息的欲望将一个歌舞炼为永恒。这欲望有怎样一个人间的姓名，大可忽略不计。</p>
+<br>
+
+
+
+<p>我常以为是丑女造就了美人。我常以为是愚氓举出了智者。</p>
+<p>我常以为是懦夫衬照了英雄。我常以为是众生度化了佛祖。</p>
+<br>
+
+<p>要是有些事我没说，地坛，你别以为是我忘了，我什么也没忘。但是有些事只适合收藏，不能说，也不能想，却又不能忘。</p>
+<br>
+
+
+
+<p>先别去死，再试着活一活看。</p>
+<br>
+
+
+
+<p>就命运而言，休伦公道。</p>
+<br>
+
+
+
+<p>一个人，出生了，这就不再是一个可以辩论的问题，而只是上帝交给他的一个事实。上帝在交给我们这件事实的时候，已经顺便保证了它的结果，所以死是一件不必急于求成的事，死是一个人必然会降临的节日。</p>
+<br>
+
+
+
+<p>在人生的每个阶段，我们都对慢慢前程抱着一份激动的希望，以为奇迹就在前方。然而， 人生只是一个个梦想不断破灭的过程。而当我们走出所有曲折的日子时才发现，真正的美好与神奇，已经永远地留在了背后。</p>
+<br>
+
+<p>梦是什么？回忆，是怎么一回事？</p>
+<p>倘若在五十光年之外有一架倍数足够大的望远镜，有一个观察点，料必那些情景便依然如故，那条小街，小街上空的鸽群，</p>
+<p>….</p>
+<p><strong>因而我盼望夜晚，盼望黑夜，盼望寂静中自由的到来。</strong></p>
+<p><strong>甚至盼望站到死中，去看生。</strong></p>
+<p><strong>我的躯体早已被固定在床上，固定在轮椅中，但我的心魂常在黑夜出行，脱离开残废的躯壳，脱离白昼的魔法，脱离实际，在尘嚣稍息的夜的世界里游逛，听所有的梦者诉说，看所有放弃了尘世角色的游魂在野的天空和旷野中解开另一种戏剧。风，四处游走，串联起夜的消息，从沉睡的窗口到沉睡的窗口，去探望被白昼忽略了的心情。另一种世界，蓬蓬勃勃，夜的声音无比辽阔。</strong>《记忆与印象1——轻轻地走与轻轻地来》</p>
+<br>
+
+
+
+]]></content>
+      <categories>
+        <category>书评</category>
+      </categories>
+      <tags>
+        <tag>2023</tag>
+      </tags>
   </entry>
 </search>
