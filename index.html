@@ -137,7 +137,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">179</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">180</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -190,6 +190,93 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/24/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%A7%E9%87%8F%E5%87%BA%E7%8E%B0TIME-WAIT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/24/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%A7%E9%87%8F%E5%87%BA%E7%8E%B0TIME-WAIT/" class="post-title-link" itemprop="url">服务器为什么大量出现TIME_WAIT</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-07-24 15:13:17 / Modified: 15:17:57" itemprop="dateCreated datePublished" datetime="2023-07-24T15:13:17+08:00">2023-07-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>写在开头，大概 4 年前，听到运维同学提到 TIME_WAIT 状态的 TCP 连接过多的问题，但是当时没有去细琢磨；最近又听人说起，是一个新手进行压测过程中，遇到的问题，因此，花点时间，细深究一下。</p>
+<p>从这几个方面着手：</p>
+<p>问题描述：什么现象？什么影响？</p>
+<ol>
+<li>问题分析</li>
+<li>解决方案</li>
+<li>底层原理</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/07/24/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%A7%E9%87%8F%E5%87%BA%E7%8E%B0TIME-WAIT/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1049,117 +1136,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/" class="post-title-link" itemprop="url">Python函数进阶</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-02-26 13:52:05" itemprop="dateCreated datePublished" datetime="2023-02-26T13:52:05+08:00">2023-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-28 23:26:56" itemprop="dateModified" datetime="2023-02-28T23:26:56+08:00">2023-02-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>10k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>9 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="动态参数"><a href="#动态参数" class="headerlink" title="动态参数"></a>动态参数</h4><ul>
-<li>*args</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">*args</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(args)		<span class="comment"># 元组类型 (22,)(22,33,99)()</span></span><br><span class="line">  </span><br><span class="line"> <span class="comment"># 只能按照位置传参</span></span><br><span class="line">func(<span class="number">22</span>)</span><br><span class="line">func(<span class="number">22</span>,<span class="number">33</span>)</span><br><span class="line">func(<span class="number">22</span>,<span class="number">33</span>,<span class="number">99</span>)</span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>**kwargs</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">**kwargs</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(kwargs)		<span class="comment"># 字典类型 &#123;&quot;n1&quot;:&quot;蒙珣&quot;&#125; &#123;&#x27;n1&#x27;:&#x27;蒙珣&#x27;,&#x27;age&#x27;:18,&#x27;email&#x27;:&#x27;mengxun@11.com&#x27;&#125; &#123;&#125;</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 只能按关键字传参</span></span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>)</span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>,email=<span class="string">&quot;mengxun@11.com&quot;</span>)</span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>*args,**kwargs</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">*args,**kwargs</span>):</span></span><br><span class="line">  <span class="built_in">print</span>(args,kwargs)		<span class="comment"># (22,33,99) (22,)&#123;&#x27;n1&#x27;:&#x27;蒙珣&#x27;,&#x27;age&#x27;:18&#125; ()&#123;&#125;</span></span><br><span class="line">  </span><br><span class="line">func(<span class="number">22</span>,<span class="number">33</span>,<span class="number">99</span>)</span><br><span class="line">func(n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line">func(<span class="number">22</span>,n1=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
-
-<p>提示：是否还记得字符串格式化时的format功能</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">v1 = <span class="string">&quot;我叫&#123;&#125;,今年&#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;蒙珣&quot;</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">v2 = <span class="string">&quot;我叫&#123;name&#125;,今年&#123;age&#125;&quot;</span>.<span class="built_in">format</span>(name=<span class="string">&quot;蒙珣&quot;</span>,age=<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># def format(*args,**kwargs):</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/02/26/Python%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1231,7 +1207,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-count">180</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1295,13 +1271,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">655k</span>
+    <span title="Symbols count total">658k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">9:55</span>
+    <span title="Reading time total">9:59</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
