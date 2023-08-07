@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">180</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">182</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,181 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/31/python-%E6%96%87%E4%BB%B6%E5%8E%BB%E9%87%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/31/python-%E6%96%87%E4%BB%B6%E5%8E%BB%E9%87%8D/" class="post-title-link" itemprop="url">python 文件去重</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-31 20:39:00 / Modified: 20:42:37" itemprop="dateCreated datePublished" datetime="2022-07-31T20:39:00+08:00">2022-07-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@File    :   txt_deduplication.py    </span></span><br><span class="line"><span class="string">@Contact :   wangweiqing@pachiratech.com</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@Modify Time      @Author    @Version    @Description</span></span><br><span class="line"><span class="string">------------      -------    --------    -----------</span></span><br><span class="line"><span class="string">2020/11/16 17:54   wangwq      1.0         None</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">SOURCE_FILE = <span class="string">&#x27;//User//william//Desktop//allname.txt&#x27;</span></span><br><span class="line">TARGET_FILE = SOURCE_FILE + <span class="string">&#x27;.new&#x27;</span></span><br><span class="line">RM_FILE = SOURCE_FILE + <span class="string">&#x27;.remove&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distinct_txt</span>():</span></span><br><span class="line">    repetition_dict = &#123;&#125;</span><br><span class="line">    content_set = <span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line">    row = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(SOURCE_FILE, <span class="string">&#x27;r&#x27;</span>,encoding = <span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(TARGET_FILE, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> g:</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">                <span class="keyword">if</span> line <span class="keyword">in</span> content_set:</span><br><span class="line">                    repetition_dict[row + <span class="number">1</span>] = line</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    g.write(line)</span><br><span class="line">                    content_set.add(line)</span><br><span class="line">                row += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    length = <span class="built_in">len</span>(<span class="built_in">str</span>(row + <span class="number">1</span>))</span><br><span class="line">    length = length <span class="keyword">if</span> length &gt; <span class="number">2</span> <span class="keyword">else</span> <span class="number">3</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(RM_FILE, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(<span class="string">&quot;此文件记录了重复行消息。\nrow | content \n&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> row, content <span class="keyword">in</span> repetition_dict.items():</span><br><span class="line">            f.write(<span class="string">&quot;&#123;0:&gt;&#123;1&#125;&#125; | &#123;2&#125;&quot;</span>.<span class="built_in">format</span>(row, length, content))</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;去重开始。。。&#x27;</span>)</span><br><span class="line">        distinct_txt()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;去重结束。success&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;请查看如下文件，原文件：%s，去重后的文件：%s, 删除行的文件：%s&#x27;</span> %(SOURCE_FILE, TARGET_FILE, RM_FILE))</span><br><span class="line">    <span class="keyword">except</span> FileNotFoundError <span class="keyword">as</span> e:</span><br><span class="line">        logging.error(<span class="string">&quot;去重失败，原因：%s&quot;</span>, e)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        logging.error(<span class="string">&quot;去重失败，原因：%s&quot;</span>, e)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/20/%E5%91%BC%E5%85%B0%E6%B2%B3%E4%BC%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/20/%E5%91%BC%E5%85%B0%E6%B2%B3%E4%BC%A0/" class="post-title-link" itemprop="url">呼兰河传</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-20 22:31:29 / Modified: 22:46:02" itemprop="dateCreated datePublished" datetime="2022-07-20T22:31:29+08:00">2022-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B9%A6%E8%AF%84/" itemprop="url" rel="index"><span itemprop="name">书评</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>摘抄自矛盾</p>
+</blockquote>
+<p><code>   呼兰河这小城里边，以前住着我的祖父，现在埋着我的祖父。      我生的时候，祖父已经六十多岁了，我长到四五岁，祖父就快七十了，我还没有长到二十岁，祖父就七八十岁了。祖父一过了八十，祖父就死了。      从前那后花园的主人，而今不见了。老主人死了，小主人逃荒去了。      那园里的蝴蝶，蚂蚱，蜻蜓，也许还是年年仍旧，也许现在完全荒凉了。      小黄瓜，大倭瓜，也许还是年年地种着，也许现在根本没有了。      那早晨的露珠是不是还落在花盆架上。那午间的太阳是不是还照着那大向日葵，那黄昏时候的红霞是不是还会一会工夫会变出来一匹马来，一会工夫会变出来一匹狗来，那么变着。      这一些不能想像了。      听说有二伯死了。      老厨子就是活着年纪也不小了。      东邻西舍也都不知怎样了。      至于那磨坊里的磨官，至今究竟如何，则完全不晓得了。      以上我所写的并没有什么优美的故事，只因他们充满我幼年的记忆，忘却不了，难以忘却，就记在这里了。</code></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/07/20/%E5%91%BC%E5%85%B0%E6%B2%B3%E4%BC%A0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -941,203 +1116,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/13/%E5%A5%BD%E5%A5%BD%E6%B4%BB%E4%B8%8B%E5%8E%BB%EF%BC%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/13/%E5%A5%BD%E5%A5%BD%E6%B4%BB%E4%B8%8B%E5%8E%BB%EF%BC%81/" class="post-title-link" itemprop="url">好好活下去！</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-13 21:02:18 / Modified: 23:11:50" itemprop="dateCreated datePublished" datetime="2022-02-13T21:02:18+08:00">2022-02-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>208</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div id="aplayer-GnyCqtmx" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="1856336348" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div>
-</br>
-
-<p>情感真的是太复杂的东西了，唯一能做的就是好好活下去了吧。</p>
-<p>所有的行程都排在了春天以后，等待着一个期许。</p>
-<p>我想待在家中，却不想因为风雪而被困住。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/13/%E5%A5%BD%E5%A5%BD%E6%B4%BB%E4%B8%8B%E5%8E%BB%EF%BC%81/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/06/Linux%E4%B8%8BGBK%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%89%B9%E9%87%8F%E8%BD%AC%E6%8D%A2UTF-8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/06/Linux%E4%B8%8BGBK%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%89%B9%E9%87%8F%E8%BD%AC%E6%8D%A2UTF-8/" class="post-title-link" itemprop="url">Linux下GBK文件编码批量转换UTF-8</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-06 18:47:15 / Modified: 18:48:27" itemprop="dateCreated datePublished" datetime="2022-02-06T18:47:15+08:00">2022-02-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>537</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="使用iconv转换"><a href="#使用iconv转换" class="headerlink" title="使用iconv转换"></a>使用iconv转换</h4><hr>
-<p><strong>iconv语法</strong></p>
-<p><code>$ iconv -f encoding -t encoding inputfile</code></p>
-<p><strong>单个文件转换示例</strong></p>
-<p><code>$ iconv -f GBK -t UTF-8 file1 -o file2</code></p>
-<p><strong>批量转换</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> find default -<span class="built_in">type</span> d -<span class="built_in">exec</span> mkdir -p utf/&#123;&#125; \;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> find default -<span class="built_in">type</span> f -<span class="built_in">exec</span> iconv -f GBK -t UTF-8 &#123;&#125; -o utf/&#123;&#125; \;</span></span><br></pre></td></tr></table></figure>
-
-<p>两行命令将default目录下的文件由GBK编码转换为UTF-8编码，目录结构不变，转码后的文件保存在utf/default目录下</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/06/Linux%E4%B8%8BGBK%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%E6%89%B9%E9%87%8F%E8%BD%AC%E6%8D%A2UTF-8/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1205,7 +1187,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">180</span>
+          <span class="site-state-item-count">182</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1269,13 +1251,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">659k</span>
+    <span title="Symbols count total">664k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">9:59</span>
+    <span title="Reading time total">10:04</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
