@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="我们知道：  平均负载是指单位时间内，处在可执行状态和不可中断睡眠状态的进程的平均数。也就是说，它包括了处在执行态，阻塞态和就绪态的进程。 CPU使用率是指在单位时间内CPU处于非空闲状态的时间比，反映了CPU的繁忙程度。例如：单核CPU单位时间内非空闲态运行时间为0.8s，那么他的CPU使用率为80%；双核CPU单位时间内非空闲态运行时间分别为0.4s和0.6s，那么它的CPU使用率为（0.4+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="平均负载和CPU使用率">
+<meta property="og:url" content="http://example.com/2023/11/09/%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%E5%92%8CCPU%E4%BD%BF%E7%94%A8%E7%8E%87/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="我们知道：  平均负载是指单位时间内，处在可执行状态和不可中断睡眠状态的进程的平均数。也就是说，它包括了处在执行态，阻塞态和就绪态的进程。 CPU使用率是指在单位时间内CPU处于非空闲状态的时间比，反映了CPU的繁忙程度。例如：单核CPU单位时间内非空闲态运行时间为0.8s，那么他的CPU使用率为80%；双核CPU单位时间内非空闲态运行时间分别为0.4s和0.6s，那么它的CPU使用率为（0.4+">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ba61b5707d5016d2581582f217ddf0aa_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-28d3850c09ebb6f24f4a1f827980b0fd_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-df0efca4d3e8ada0aa19e8adb9f3e5fe_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-1447431512f59dccfbe44ce0138bb396_1440w.webp">
+<meta property="article:published_time" content="2023-11-09T08:53:35.000Z">
+<meta property="article:modified_time" content="2023-11-09T08:55:28.362Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-ba61b5707d5016d2581582f217ddf0aa_1440w.webp">
+
+<link rel="canonical" href="http://example.com/2023/11/09/%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%E5%92%8CCPU%E4%BD%BF%E7%94%A8%E7%8E%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>平均负载和CPU使用率 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">未来很长，当有勇气面对，当与自己和解。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">38</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">185</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/09/%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%E5%92%8CCPU%E4%BD%BF%E7%94%A8%E7%8E%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          平均负载和CPU使用率
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-09 16:53:35 / Modified: 16:55:28" itemprop="dateCreated datePublished" datetime="2023-11-09T16:53:35+08:00">2023-11-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>我们知道：</p>
+<ul>
+<li>平均负载是指单位时间内，处在可执行状态和不可中断睡眠状态的进程的平均数。也就是说，它包括了处在执行态，阻塞态和就绪态的进程。</li>
+<li>CPU使用率是指在单位时间内CPU处于非空闲状态的时间比，反映了CPU的繁忙程度。例如：单核CPU单位时间内非空闲态运行时间为0.8s，那么他的CPU使用率为80%；双核CPU单位时间内非空闲态运行时间分别为0.4s和0.6s，那么它的CPU使用率为（0.4+0.6）/2*100%=50%</li>
+</ul>
+<span id="more"></span>
+
+<p>我们再举个更生动的例子： 有一家银行，他只有一个业务窗口，每次只能接待一个人（单核CPU）。有一天一共有五个人来了，那么就会出现一人在办理手续，其余四人在等待的情况（CPU负载为5） 我们约定在业务窗口的那个人只有真正在办理业务才算是真正使用（CPU使用率）如下图</p>
+<p><img src="https://pic3.zhimg.com/80/v2-ba61b5707d5016d2581582f217ddf0aa_1440w.webp" alt="img"></p>
+<p>了解了负载与CPU使用率的关系之后，我们来聊聊什么情况下会导致负载上升以及平均负载和CPU使用率的关系</p>
+<ul>
+<li>CPU 密集型进程，使用大量 CPU 会导致平均负载升高，此时这两者是一致的；</li>
+<li>I/O 密集型进程，等待 I/O 也会导致平均负载升高，但 CPU 使用率不一定很高；</li>
+<li>大量等待 CPU 的进程调度也会导致平均负载升高，此时的 CPU 使用率也会比较高。</li>
+</ul>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a><strong>案例</strong></h2><p>本次案例，我会再现三种让平均负载升高的情况。这次案例运用到的工具有stress工具和sysstat工具，关于这两个工具的一些说明，在我的这篇文章里已经提到过，我就不再赘述了 <a href="https://link.zhihu.com/?target=https://blog.csdn.net/s_alted/article/details/117412021">Linux 系统性能分析命令和工具</a></p>
+<p>本次案例的虚拟机配置</p>
+<p><img src="https://pic2.zhimg.com/80/v2-28d3850c09ebb6f24f4a1f827980b0fd_1440w.webp" alt="img"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载相关工具包</span></span><br><span class="line"> yum install -y stsstat stress</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>场景1：CPU密集型进程（CPU使用率高）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#模拟cpu使用率为100%，持续时间为600s</span></span><br><span class="line">stress --cpu 1 --timeout 600</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看平均负载变化情况</span></span><br><span class="line">uptime</span><br><span class="line">... load average: 1.11, 0.59, 0.29</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，在过去1分钟内，CPU的平均负载高达1.11，这说明cpu占有率已经超过100% 使用sysstat工具包中的mpstat查看cpu性能情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpstat -P ALL 5</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic3.zhimg.com/80/v2-df0efca4d3e8ada0aa19e8adb9f3e5fe_1440w.webp" alt="img"></p>
+<p>可以看到，CPU的使用率已经为100%，而且他的iowait只有0. 这说明：<strong>平均负载的升高是由于CPU使用率为100%，也就是说CPU使用率的升高导致了平均负载的升高</strong> 我们用pidstat命令查看一下进程的性能情况，看看是哪个进程造成了如此高的CPU使用率</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pidstat -u 5 1</span><br><span class="line">UID  PID  %usr  %system  %guest  %<span class="built_in">wait</span>  %CPU  CPU  Command</span><br><span class="line"> 0   2962  100.00  0.00   0.00   0.00   100.00  1   stress</span><br></pre></td></tr></table></figure>
+
+<p>就是刚开始我们所用的stress命令导致了这么一个情况的发生</p>
+<p><strong>场景二：I/O 密集型进程</strong> 我们首先使用stress工具来模拟IO压力，有时候大量的等待I/O线程也会导致负载升高，即不停的执行sync</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-i： 产生n个进程 每个进程反复调用sync()，sync()用于将内存上的内容写到硬盘上</span><br><span class="line">stress -i 1 --timeout 300</span><br><span class="line">uptime</span><br><span class="line">load average: 1.09, 0.54, 0.36</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，过去1min之内的平均负载高达1.09 看一下CPU性能情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpstat -P  ALL 5</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://pic3.zhimg.com/80/v2-1447431512f59dccfbe44ce0138bb396_1440w.webp" alt="img"></p>
+<p>我们看到，图中的 iowait 为0，并没有出现我们认为的 Iowait 升高情况，但是sys升高了，这是为什么呢？ 因为对于部分人（包括我）的虚拟机而言，使用的是 stress 中的sync()系统调用，作用是刷新缓冲区内存到磁盘中。而我们的虚拟机缓冲区可能比较小无法产生大的IO压力。这样大部分就都是系统调用的消耗了。</p>
+<p>由此可见，<strong>大量的等待IO也会导致平均负载的升高，但是CPU使用率不一定升高</strong></p>
+<p><strong>场景三：大量进程的场景</strong> 在这个场景中，我们模拟同时有8个进程。但是我们的CPU只有一个，剩下7个进程就会在等待CPU，与此同时我们的CPU处于严重过载的状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">产生8个进程 每个进程都反复不停的计算随机数的平方根</span><br><span class="line">stress -c 8 --timeout 600</span><br><span class="line">uptime</span><br><span class="line"> load average: 7.44, 3.34, 1.47</span><br></pre></td></tr></table></figure>
+
+<p>由此可见，<strong>大量处在就绪态的进程也会导致平均负载的升高</strong></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="什么是CPU密集型"><a href="#什么是CPU密集型" class="headerlink" title="什么是CPU密集型"></a>什么是CPU密集型</h3><p>CPU密集型是指一类计算任务或应用程序，其执行过程主要依赖于中央处理器（CPU）的处理能力，而不是其他系统组件（如内存、硬盘等）。在这种类型的任务中，CPU的计算能力是整个系统性能的瓶颈。</p>
+<p>CPU密集型任务通常涉及大量的数值计算、逻辑运算、数据处理和算法执行。一些典型的CPU密集型应用包括：</p>
+<ol>
+<li>科学计算：包括数学模型求解、数值模拟、天气预测、物理仿真等。</li>
+<li>图像和视频处理：如图像编辑、视频渲染、视频编解码等。</li>
+<li>数据分析：涉及大规模数据的处理、排序、搜索、数据挖掘等。</li>
+<li>人工智能和机器学习：训练深度神经网络时，涉及大量的矩阵运算和向量计算，因此通常是CPU密集型的。</li>
+<li>加密和解密：加密和解密算法的执行需要大量的数学运算，因此也是CPU密集型的应用。</li>
+</ol>
+<p>在处理CPU密集型任务时，性能取决于CPU的速度、核心数量和架构。有时候，可以通过在多个核心上并行执行任务来提高性能，但并不是所有的任务都能充分利用多核处理器的优势。此外，对于某些特定的CPU密集型任务，使用专门的硬件加速器（如GPU、TPU等）可能会显著提高性能。</p>
+<h3 id="什么是IO密集型"><a href="#什么是IO密集型" class="headerlink" title="什么是IO密集型"></a>什么是IO密集型</h3><p>IO密集型是另一类计算任务或应用程序，其执行过程主要受限于输入输出（I/O）操作的速度，而不是CPU的处理能力。在这种类型的任务中，CPU通常需要等待来自外部设备（如硬盘、网络等）的数据读取或写入，从而使CPU的计算能力得不到充分利用。</p>
+<p>IO密集型任务通常涉及大量的文件读写、网络通信、数据库查询等操作。一些典型的IO密集型应用包括：</p>
+<ol>
+<li>文件操作：涉及大规模的文件读取和写入，例如文件复制、数据备份等。</li>
+<li>网络通信：涉及网络数据传输的应用，例如网页服务器、视频流服务等。</li>
+<li>数据库操作：涉及频繁的数据库查询和写入操作，例如在线交易系统、数据存储服务等。</li>
+<li>大规模数据处理：需要频繁地读取和写入大量数据，例如日志分析、大数据处理等。</li>
+</ol>
+<p>在处理IO密集型任务时，CPU的速度和计算能力通常不是性能的瓶颈，而是IO设备的速度和响应时间决定了整体系统性能。因此，针对IO密集型任务，优化IO操作、使用高速IO设备（如SSD）、采用异步IO等技术可以显著提高系统性能。</p>
+<p>值得注意的是，某些应用程序可能同时具有CPU密集型和IO密集型的特点，这时候需要综合考虑CPU和IO设备的性能，进行合理的系统优化。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag"># 测试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/09/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6/" rel="prev" title="批量修改目录下所有文件">
+      <i class="fa fa-chevron-left"></i> 批量修改目录下所有文件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/09/Linux%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/" rel="next" title="Linux获取系统版本信息">
+      Linux获取系统版本信息 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCPU%E5%AF%86%E9%9B%86%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">什么是CPU密集型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFIO%E5%AF%86%E9%9B%86%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">什么是IO密集型</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/logo.JPG">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">669k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">10:09</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
