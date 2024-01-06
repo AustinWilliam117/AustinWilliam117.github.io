@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">38</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">39</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">185</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">186</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,104 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/" class="post-title-link" itemprop="url">Docker高级篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-08-08 22:13:15" itemprop="dateCreated datePublished" datetime="2022-08-08T22:13:15+08:00">2022-08-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-04-12 23:42:44" itemprop="dateModified" datetime="2023-04-12T23:42:44+08:00">2023-04-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>30k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>28 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Docker-复杂安装详说"><a href="#Docker-复杂安装详说" class="headerlink" title="Docker 复杂安装详说"></a>Docker 复杂安装详说</h2><h3 id="安装MySQL主从复制"><a href="#安装MySQL主从复制" class="headerlink" title="安装MySQL主从复制"></a>安装MySQL主从复制</h3><h4 id="主从复制的简介"><a href="#主从复制的简介" class="headerlink" title="主从复制的简介"></a>主从复制的简介</h4><p>在实际的生产中，为了解决Mysql的单点故障已经提高MySQL的整体服务性能，一般都会采用<strong>「主从复制」</strong>。</p>
+<p>比如：在复杂的业务系统中，有一句sql执行后导致锁表，并且这条sql的的执行时间有比较长，那么此sql执行的期间导致服务不可用，这样就会严重影响用户的体验度。</p>
+<p>主从复制中分为<strong>「主服务器（master）「和」从服务器（slave）」</strong>，<strong>「主服务器负责写，而从服务器负责读」</strong>，Mysql的主从复制的过程是一个<strong>「异步的过程」</strong>。</p>
+<p>这样读写分离的过程能够是整体的服务性能提高，即使写操作时间比较长，也不影响读操作的进行。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/08/08/Docker%E9%AB%98%E7%BA%A7%E7%AF%87/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1049,99 +1147,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-title-link" itemprop="url">ADB命令大全</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-03-11 23:29:59 / Modified: 23:31:59" itemprop="dateCreated datePublished" datetime="2022-03-11T23:29:59+08:00">2022-03-11</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>10k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>9 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>转载自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89060003">知乎：木头人</a></p>
-</blockquote>
-<p>常用命令用于速查，都是经常需要用到的，没有接触过adb命令从第二节开始看，对每个命令有详细解释。</p>
-<h2 id="1-常用命令："><a href="#1-常用命令：" class="headerlink" title="1. 常用命令："></a>1. 常用命令：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">adb devices #查看连接设备</span><br><span class="line"></span><br><span class="line">adb -s cf27456f shell # 指定连接设备使用命令</span><br><span class="line"></span><br><span class="line">adb install test.apk # 安装应用</span><br><span class="line"></span><br><span class="line">adb install -r demo.apk #重新安装现有应用，保留其数据。</span><br><span class="line"></span><br><span class="line">adb uninstall cn.com.test.mobile #卸载应用，需要指定包</span><br><span class="line"></span><br><span class="line">adb uninstall -k cn.com.test.mobile #卸载app 但保留数据和缓存文件</span><br><span class="line"></span><br><span class="line">adb shell pm list packages #列出手机装的所有app 的包名</span><br><span class="line"></span><br><span class="line">adb shell pm list packages -3 #列出除了系统应用的第三方应用包名</span><br><span class="line"></span><br><span class="line">adb shell pm clear cn.com.test.mobile #清除应用数据与缓存</span><br><span class="line"></span><br><span class="line">adb shell am start -ncn.com.test.mobile/.ui.SplashActivity #启动应用</span><br><span class="line"></span><br><span class="line">adb shell dumpsys package #包信息Package Information</span><br><span class="line"></span><br><span class="line">adb shell dumpsys meminfo #内存使用情况Memory Usage</span><br><span class="line"></span><br><span class="line">adb shell am force-stop cn.com.test.mobile #强制停止应用</span><br><span class="line"></span><br><span class="line">adb logcat #查看日志</span><br><span class="line"></span><br><span class="line">adb logcat -c #清除log 缓存</span><br><span class="line"></span><br><span class="line">adb reboot #重启</span><br><span class="line"></span><br><span class="line">adb get-serialno #获取序列号</span><br><span class="line"></span><br><span class="line">adb shell getprop ro.build.version.release #查看Android 系统版本</span><br><span class="line"></span><br><span class="line">adb shell top -s 10 #查看占用内存前10 的app</span><br><span class="line"></span><br><span class="line">adb push &lt;local&gt; &lt;remote&gt; #从本地复制文件到设备</span><br><span class="line"></span><br><span class="line">adb pull &lt;remote&gt; &lt;local&gt; #从设备复制文件到本地</span><br><span class="line"></span><br><span class="line">adb bugreport #查看bug 报告</span><br><span class="line"></span><br><span class="line">adb help #查看ADB 帮助</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1213,7 +1218,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1226,7 +1231,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1277,13 +1282,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">673k</span>
+    <span title="Symbols count total">684k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">10:12</span>
+    <span title="Reading time total">10:22</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

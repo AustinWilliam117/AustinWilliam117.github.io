@@ -19019,4 +19019,185 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <tag>shell</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Kafka集群搭建</title>
+    <url>/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li><a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE">环境搭建机器配置</a></li>
+<li>[xsync 与 rsync 文件分发](#xsync 与 rsync 文件分发)</li>
+<li>[ZooKeeper 环境搭建](#ZooKeeper 环境搭建)</li>
+<li>[Kafka 环境搭建](#Kafka 环境搭建)</li>
+<li>[Hadoop 环境搭建](#Hadoop 环境搭建)</li>
+</ul>
+<h3 id="环境搭建机器配置"><a href="#环境搭建机器配置" class="headerlink" title="环境搭建机器配置"></a>环境搭建机器配置</h3><ol>
+<li><p>3台机器默认都是 java 1.8.0_321</p>
+</li>
+<li><p>3台服务器配置如下：( 练手不需要这么高的配置，我只是刚好有 : )</p>
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>系统</th>
+<th>CPU</th>
+<th>MEM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>192.168.128.93</td>
+<td>CentOS 7.9</td>
+<td>8C/8T Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz 虚拟机</td>
+<td>16G</td>
+</tr>
+<tr>
+<td>10.54.0.28</td>
+<td>CentOS 7.9</td>
+<td>32C/64T Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz 物理机</td>
+<td>256G</td>
+</tr>
+<tr>
+<td>10.54.0.32</td>
+<td>CentOS 7.9</td>
+<td>32C/64T Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz 物理机</td>
+<td>256G</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h3 id="xsync-与-rsync-文件分发"><a href="#xsync-与-rsync-文件分发" class="headerlink" title="xsync 与 rsync 文件分发"></a>xsync 与 rsync 文件分发</h3><h4 id="rsync-简介"><a href="#rsync-简介" class="headerlink" title="rsync 简介"></a>rsync 简介</h4><p>rsync 是一个常用的 Linux 应用程序，用于文件同步。</p>
+<p>它可以在本地计算机与远程计算机之间，或者两个本地目录之间同步文件（但不支持两台远程计算机之间的同步）。它也可以当作文件复制工具，替代<code>cp</code>和<code>mv</code>命令。</p>
+<p>它名称里面的<code>r</code>指的是 remote，rsync 其实就是”远程同步”（remote sync）的意思。与其他文件传输工具（如 FTP 或 scp）不同，rsync 的最大特点是会检查发送方和接收方已有的文件，仅传输有变动的部分（默认规则是文件大小或修改时间有变动）。</p>
+<p><em>rsync的基本用法详见 附录 [1. rsync 基本用法](#1. rsync 基本用法)</em></p>
+<h4 id="rsync-安装"><a href="#rsync-安装" class="headerlink" title="rsync 安装"></a>rsync 安装</h4><p>在使用 xsync 之前，需要先安装 rsync，因为 xsync 是对 rsync 的二次封装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Debian</span></span><br><span class="line">$ sudo apt-get install rsync</span><br><span class="line"></span><br><span class="line"><span class="comment"># Red Hat</span></span><br><span class="line">$ sudo yum install rsync</span><br><span class="line"></span><br><span class="line"><span class="comment"># Arch Linux</span></span><br><span class="line">$ sudo pacman -S rsync</span><br></pre></td></tr></table></figure>
+
+<h4 id="xsync-简介"><a href="#xsync-简介" class="headerlink" title="xsync 简介"></a>xsync 简介</h4><p>在集群机器配置时，经常需要将一个文件或目录copy到同样的多台集群上，如果一个一个机器去复制，比较麻烦。如果有一个办法，通过一条命令就可以实现这个目的，就简单多了。xsync就是这样一个同步脚本。xsync其实是对<a href="https://so.csdn.net/so/search?q=rsync&spm=1001.2101.3001.7020">rsync</a>脚本的二次封装，脚本内容可以根据自己需要进行修改。</p>
+<h4 id="xsync-基本使用"><a href="#xsync-基本使用" class="headerlink" title="xsync 基本使用"></a>xsync 基本使用</h4><ol>
+<li><p>配置集群 hostname</p>
+<p><strong>1.1 修改主机名称，配置 hostname 文件</strong></p>
+<p><strong>我们需要将这3台机器依次修改服务器名称</strong></p>
+<p>方法1：（需要 reboot 重启）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> hostname1 &gt; /etc/hostname</span><br></pre></td></tr></table></figure>
+
+<p>方法2：（ reboot 重启后会失效）个人使用的是方法2，因为懒。但推荐永久修改方案</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改192.168.128.93</span></span><br><span class="line">[root@kafka93 data]<span class="comment"># hostnamectl hostname kafka93</span></span><br><span class="line">[root@kafka93 data]<span class="comment"># bash</span></span><br><span class="line"><span class="comment"># 修改10.54.0.28</span></span><br><span class="line">[root@kafka28 data]<span class="comment"># hostnamectl hostname kafka28</span></span><br><span class="line">[root@kafka28 data]<span class="comment"># bash</span></span><br><span class="line"><span class="comment"># 修改10.54.0.32</span></span><br><span class="line">[root@kafka29 data]<span class="comment"># hostnamectl hostname kafka29</span></span><br><span class="line">[root@kafka29 data]<span class="comment"># bash</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>1.2 配置 hosts 文件</strong></p>
+<p>修改完 hostname后，将集群名称写入到 192.168.128.93 /etc/hosts 文件中（我将使用93这台机器做文件分发），以后登录不同机器，直接使用 hostname 而不用 IP。</p>
+<p><code>vim /etc/hosts</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.168.128.93 kafka93</span><br><span class="line">10.54.0.28 kafka28</span><br><span class="line">10.54.0.32 kafka29</span><br></pre></td></tr></table></figure></li>
+<li><p>配置免密登录</p>
+<p><strong>2.1 生成 rsa 密钥</strong></p>
+<p>使用命令<code>ssh-keygen</code> 生成rsa密钥，配置信息直接回车即可, 生成的密钥默认在当前用户主目录的.ssh目录下</p>
+<p>密钥文件有两个：</p>
+<ul>
+<li>id_rsa 存放着私钥</li>
+<li>id_rsa.pub 存放着公钥</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@kafka28 ~]<span class="comment"># ssh-keygen</span></span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/root/.ssh/id_rsa):</span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved <span class="keyword">in</span> /root/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /root/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:kXclvgbcNBCbW9Z88eP1brP1TtPOc+YAuWTw0xi4QrU root@zkos1</span><br><span class="line">The key’s randomart image is:</span><br><span class="line">±–[RSA 2048]----+</span><br><span class="line">| +o+ … |</span><br><span class="line">| + O * o|</span><br><span class="line">| + E B o.+|</span><br><span class="line">| . o X …+|</span><br><span class="line">| S o @ …|</span><br><span class="line">| . + + …|</span><br><span class="line">| . .o|</span><br><span class="line">| BO|</span><br><span class="line">| =O|</span><br><span class="line">±—[SHA256]-----+</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.2 copy 机器自身公钥到目标机器</strong></p>
+<p>在本地先将<code>id_rsa_pub</code> 一份名为 <code>authorized_keys</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cp id_rsa.pub authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>使用rsync 命令同步到对方目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rsync authorized_keys root@kafka28:/root/.ssh/</span><br><span class="line">rsync authorized_keys root@kafka29:/root/.ssh/</span><br></pre></td></tr></table></figure>
+
+<p>备注：该方法需要本地暂时没有<code>authorized_keys</code>，有的话先改名也可以，并且本地机器安装有rsync脚本。操作完记得删除本地的<code>authorized_keys</code>。</p>
+</li>
+<li><p>xsync 脚本使用</p>
+<p><strong>3.1 xsync 是对 rsync 脚本的二次封装，所以需要先下载rsync命令</strong></p>
+<blockquote>
+<p>yum install -y rsync</p>
+</blockquote>
+<p><strong>3.2 添加 xsync 脚本</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取输入参数个数，如果没有参数，直接退出</span></span><br><span class="line">pcount=$#</span><br><span class="line">if((pcount!=4)); then</span><br><span class="line">    echo Usage: $0 filename servername startno endno</span><br><span class="line">    exit;</span><br><span class="line">fi</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取文件名称</span></span><br><span class="line">p1=$1</span><br><span class="line">fname=`basename $p1`</span><br><span class="line">echo fname=$fname</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取上级目录到绝对路径</span></span><br><span class="line">pdir=`cd -P $(dirname $p1); pwd`</span><br><span class="line">echo pdir=$pdir</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取当前用户名称</span></span><br><span class="line">user=`whoami`</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取hostname及起止号</span></span><br><span class="line">slave=$2</span><br><span class="line">startline=$3</span><br><span class="line">endline=$4</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 循环</span></span><br><span class="line">for((host=$startline; host&lt;=$endline; host++)); do</span><br><span class="line">    echo $pdir/$fname $user@$slave$host:$pdir</span><br><span class="line">    echo ==================$slave$host==================</span><br><span class="line">    rsync -rvl $pdir/$fname $user@$slave$host:$pdir</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>该脚本经过修改，需要携带4个参数，分别是</p>
+<ul>
+<li><p>filename 待发送的文件或目录名</p>
+</li>
+<li><p>servername 服务器前缀名</p>
+</li>
+<li><p>startno 服务器编号起始编号</p>
+</li>
+<li><p>endno 服务器编号终止编号</p>
+</li>
+</ul>
+<p><strong>3.3 将 xsync 设置执行权限并加入环境变量</strong></p>
+<p>i. 将脚本复制到系统的可执行目录下。</p>
+<p>首先，找到系统的可执行目录之一，例如 <code>/usr/local/bin</code>、<code>/usr/bin</code> 或 <code>~/bin</code> （如果不存在可以创建）。然后将你的脚本复制到这个目录下。这个目录通常在系统的环境变量 <code>PATH</code> 中，这样系统就可以在这些目录下找到可执行文件。</p>
+<blockquote>
+<p>cp ./xsync /bin/</p>
+</blockquote>
+<p>ii. 赋予执行权限</p>
+<blockquote>
+<p>chmod +x /bin/xsync</p>
+</blockquote>
+<p>iii. 添加到 PATH 环境变量</p>
+<p>你可以通过修改 <code>~/.bashrc</code>（或 <code>~/.bash_profile</code>、<code>~/.zshrc</code> 等，具体文件根据你的 shell 而定）文件来永久性地添加路径。打开这个文件并在其中添加一行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /root/.bashrc</span><br><span class="line"><span class="comment"># 在最后一行添加该命令</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/bin/xsync&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存并退出 .bashrc 文件后，更新环境变量</span></span><br><span class="line"><span class="built_in">source</span> /root/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.4 测试</strong></p>
+<p>将 1.txt 文件同步到 hostname 是 kafka 的主机，编号是 28 到 29。同步的路径为该文件的所在路径</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建一个文件 1.txt</span></span><br><span class="line">[root@kafka93 data]<span class="comment"># touch 1.txt</span></span><br><span class="line"><span class="comment"># 将 1.txt 文件同步到 hostname 是 kafka 的主机，编号是 28 到 29。同步的路径为该文件的所在路径</span></span><br><span class="line">[root@kafka93 data]<span class="comment"># xsync 1.txt kafka 28 29</span></span><br><span class="line">fname=1.txt</span><br><span class="line">pdir=/data</span><br><span class="line">/data/1.txt root@kafka28:/data</span><br><span class="line">==================kafka28==================</span><br><span class="line">sending incremental file list</span><br><span class="line">1.txt</span><br><span class="line"></span><br><span class="line">sent 85 bytes  received 35 bytes  240.00 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">/data/1.txt root@kafka29:/data</span><br><span class="line">==================kafka29==================</span><br><span class="line"></span><br><span class="line">Authorized users only. All activities may be monitored and reported.</span><br><span class="line">sending incremental file list</span><br><span class="line">1.txt</span><br><span class="line"></span><br><span class="line">sent 85 bytes  received 35 bytes  240.00 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="ZooKeeper-环境搭建"><a href="#ZooKeeper-环境搭建" class="headerlink" title="ZooKeeper 环境搭建"></a>ZooKeeper 环境搭建</h3><h4 id="ZooKeeper-简介"><a href="#ZooKeeper-简介" class="headerlink" title="ZooKeeper 简介"></a>ZooKeeper 简介</h4><p>顾名思义 zookeeper 就是动物园管理员，他是用来管 hadoop（大象）、Hive(蜜蜂)、pig(小 猪)的管理员， Apache Hbase 和 Apache Solr 的分布式集群都用到了 zookeeper；Zookeeper: 是一个分布式的、开源的程序协调服务，是 hadoop 项目下的一个子项目。他提供的主要功能包括：配置管理、名字服务、分布式锁、集群管理。</p>
+<h4 id="ZooKeeper-作用"><a href="#ZooKeeper-作用" class="headerlink" title="ZooKeeper 作用"></a>ZooKeeper 作用</h4><p>1.1 配置管理</p>
+<p>在我们的应用中除了代码外，还有一些就是各种配置。比如数据库连接等。一般我们都 是使用配置文件的方式，在代码中引入这些配置文件。当我们只有一种配置，只有一台服务 器，并且不经常修改的时候，使用配置文件是一个很好的做法，但是如果我们配置非常多， 有很多服务器都需要这个配置，这时使用配置文件就不是个好主意了。这个时候往往需要寻 找一种集中管理配置的方法，我们在这个集中的地方修改了配置，所有对这个配置感兴趣的 都可以获得变更。Zookeeper 就是这种服务，它使用 Zab 这种一致性协议来提供一致性。现 在有很多开源项目使用 Zookeeper 来维护配置，比如在 HBase 中，客户端就是连接一个 Zookeeper，获得必要的 HBase 集群的配置信息，然后才可以进一步操作。还有在开源的消 息队列 Kafka 中，也使用 Zookeeper来维护broker的信息。在 Alibaba开源的 SOA 框架Dubbo 中也广泛的使用 Zookeeper 管理一些配置来实现服务治理。</p>
+<p>1.2 名字服务</p>
+<p>名字服务这个就很好理解了。比如为了通过网络访问一个系统，我们得知道对方的 IP 地址，但是 IP 地址对人非常不友好，这个时候我们就需要使用域名来访问。但是计算机是 不能是域名的。怎么办呢？如果我们每台机器里都备有一份域名到 IP 地址的映射，这个倒 是能解决一部分问题，但是如果域名对应的 IP 发生变化了又该怎么办呢？于是我们有了 DNS 这个东西。我们只需要访问一个大家熟知的(known)的点，它就会告诉你这个域名对应 的 IP 是什么。在我们的应用中也会存在很多这类问题，特别是在我们的服务特别多的时候， 如果我们在本地保存服务的地址的时候将非常不方便，但是如果我们只需要访问一个大家都 熟知的访问点，这里提供统一的入口，那么维护起来将方便得多了。</p>
+<p>1.3 分布式锁</p>
+<p>其实在第一篇文章中已经介绍了 Zookeeper 是一个分布式协调服务。这样我们就可以利 用 Zookeeper 来协调多个分布式进程之间的活动。比如在一个分布式环境中，为了提高可靠 性，我们的集群的每台服务器上都部署着同样的服务。但是，一件事情如果集群中的每个服 务器都进行的话，那相互之间就要协调，编程起来将非常复杂。而如果我们只让一个服务进 行操作，那又存在单点。通常还有一种做法就是使用分布式锁，在某个时刻只让一个服务去</p>
+<p>干活，当这台服务出问题的时候锁释放，立即 fail over 到另外的服务。这在很多分布式系统 中都是这么做，这种设计有一个更好听的名字叫 Leader Election(leader 选举)。比如 HBase 的 Master 就是采用这种机制。但要注意的是分布式锁跟同一个进程的锁还是有区别的，所 以使用的时候要比同一个进程里的锁更谨慎的使用。</p>
+<p>1.4 集群管理</p>
+<p>在分布式的集群中，经常会由于各种原因，比如硬件故障，软件故障，网络问题，有些 节点会进进出出。有新的节点加入进来，也有老的节点退出集群。这个时候，集群中其他机 器需要感知到这种变化，然后根据这种变化做出对应的决策。比如我们是一个分布式存储系 统，有一个中央控制节点负责存储的分配，当有新的存储进来的时候我们要根据现在集群目 前的状态来分配存储节点。这个时候我们就需要动态感知到集群目前的状态。还有，比如一 个分布式的 SOA 架构中，服务是一个集群提供的，当消费者访问某个服务时，就需要采用 某种机制发现现在有哪些节点可以提供该服务(这也称之为服务发现，比如 Alibaba 开源的 SOA 框架 Dubbo 就采用了 Zookeeper 作为服务发现的底层机制)。还有开源的 Kafka 队列就 采用了 Zookeeper 作为 Cosnumer 的上下线管理。</p>
+<h4 id="ZooKeeper-目录结构"><a href="#ZooKeeper-目录结构" class="headerlink" title="ZooKeeper 目录结构"></a>ZooKeeper 目录结构</h4><ol>
+<li>bin：放置运行脚本和工具脚本，如果是 Linux 环境还会有有 zookeeper 的运 行日志 zookeeper.out</li>
+<li>conf：zookeeper 默认读取配置的目录，里面会有默认的配置文件</li>
+<li>contrib：zookeeper 的拓展功能</li>
+<li>dist-maven：zookeeper的 maven 打包目录</li>
+<li>docs：zookeeper 相关的文档</li>
+<li>lib：zookeeper 核心的 jar</li>
+<li>recipes：zookeeper 分布式相关的 jar 包</li>
+<li>src：zookeeper 源码</li>
+</ol>
+<h4 id="修改-ZooKeeper-配置文件-单机版"><a href="#修改-ZooKeeper-配置文件-单机版" class="headerlink" title="修改 ZooKeeper 配置文件(单机版)"></a>修改 ZooKeeper 配置文件(单机版)</h4><p><code>cd /data/apache-zookeeper-3.7.2/conf</code></p>
+<p>复制一个 zoo_sample.cfg 重命名为 zoo.cfg</p>
+<p><code>cp zoo_sample.cfg ./zoo.cfg</code></p>
+<p>zookeeper 默认会读 zoo.cfg 的配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> zookeeper集群互相通信的心跳时间</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> The number of milliseconds of each tick</span></span><br><span class="line">tickTime=2000</span><br><span class="line"><span class="meta">#</span><span class="bash"> 10个心跳时间,节点之间用于数据同步的周期时间</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> The number of ticks that the initial</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> synchronization phase can take</span></span><br><span class="line">initLimit=10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 接收请求和获取响应的5个周期</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> The number of ticks that can pass between</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> sending a request and getting an acknowledgement</span></span><br><span class="line">syncLimit=5</span><br><span class="line"><span class="meta">#</span><span class="bash"> zookeeper数据保存目录</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> the directory <span class="built_in">where</span> the snapshot is stored.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">do</span> not use /tmp <span class="keyword">for</span> storage, /tmp here is just</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> example sakes.</span></span><br><span class="line">dataDir=/data/apache-zookeeper-3.7.2/data</span><br><span class="line"><span class="meta">#</span><span class="bash"> the port at <span class="built_in">which</span> the clients will connect</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> zookeeper端口</span></span><br><span class="line">clientPort=2181</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="ZooKeeper-命令"><a href="#ZooKeeper-命令" class="headerlink" title="ZooKeeper 命令"></a>ZooKeeper 命令</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动 zookeeper</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># cd /data/apache-zookeeper-3.7.2/bin</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./zkServer.sh start</span></span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /data/apache-zookeeper-3.7.2/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 zookeeper 状态</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./zkServer.sh status</span></span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /data/apache-zookeeper-3.7.2/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost. Client SSL: <span class="literal">false</span>.</span><br><span class="line">Mode: standalone</span><br><span class="line"></span><br><span class="line">standalone 说明启动的是单机版的 zookeeper</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 zookeeper</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./zkServer.sh stop</span></span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /data/apache-zookeeper-3.7.2/bin/../conf/zoo.cfg</span><br><span class="line">Stopping zookeeper ... STOPPED</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改-ZooKeeper-配置文件-集群版"><a href="#修改-ZooKeeper-配置文件-集群版" class="headerlink" title="修改 ZooKeeper 配置文件(集群版)"></a>修改 ZooKeeper 配置文件(集群版)</h4><p>修改 zookeeper conf/zoo.cfg</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># zookeeper集群互相通信的心跳时间</span></span><br><span class="line"><span class="comment"># The number of milliseconds of each tick</span></span><br><span class="line">tickTime=2000</span><br><span class="line"><span class="comment"># 10个心跳时间,节点之间用于数据同步的周期时间</span></span><br><span class="line"><span class="comment"># The number of ticks that the initial </span></span><br><span class="line"><span class="comment"># synchronization phase can take</span></span><br><span class="line">initLimit=10</span><br><span class="line"><span class="comment"># 接收请求和获取响应的5个周期</span></span><br><span class="line"><span class="comment"># The number of ticks that can pass between </span></span><br><span class="line"><span class="comment"># sending a request and getting an acknowledgement</span></span><br><span class="line">syncLimit=5</span><br><span class="line"><span class="comment"># zookeeper数据保存目录</span></span><br><span class="line"><span class="comment"># the directory where the snapshot is stored.</span></span><br><span class="line"><span class="comment"># do not use /tmp for storage, /tmp here is just </span></span><br><span class="line"><span class="comment"># example sakes.</span></span><br><span class="line">dataDir=/data/apache-zookeeper-3.7.2/data</span><br><span class="line"><span class="comment"># the port at which the clients will connect</span></span><br><span class="line">clientPort=2181</span><br><span class="line"><span class="comment"># the maximum number of client connections.</span></span><br><span class="line"><span class="comment"># increase this if you need to handle more clients</span></span><br><span class="line"><span class="comment">#maxClientCnxns=60</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Be sure to read the maintenance section of the </span></span><br><span class="line"><span class="comment"># administrator guide before turning on autopurge.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The number of snapshots to retain in dataDir</span></span><br><span class="line"><span class="comment">#autopurge.snapRetainCount=3</span></span><br><span class="line"><span class="comment"># Purge task interval in hours</span></span><br><span class="line"><span class="comment"># Set to &quot;0&quot; to disable auto purge feature</span></span><br><span class="line"><span class="comment">#autopurge.purgeInterval=1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Metrics Providers</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># https://prometheus.io Metrics Exporter</span></span><br><span class="line"><span class="comment">#metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider</span></span><br><span class="line"><span class="comment">#metricsProvider.httpPort=7000</span></span><br><span class="line"><span class="comment">#metricsProvider.exportJvmInfo=true</span></span><br><span class="line"><span class="comment"># 选举端口2888,投票端口3888</span></span><br><span class="line">server.1=kafka93:2888:3888</span><br><span class="line">server.2=kafka28:2888:3888</span><br><span class="line">server.3=kafka29:2888:3888</span><br></pre></td></tr></table></figure>
+
+<p>为创建的 <code>/data/apache-zookeeper-3.7.2/data</code> 添加 <code>myid</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /data/apache-zookeeper-3.7.2/data</span><br><span class="line"><span class="built_in">echo</span> 1 &gt; myid</span><br></pre></td></tr></table></figure>
+
+<p>将 zookeeper 分发至另外两台服务器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /data</span><br><span class="line">xsync apache-zookeeper-3.7.2 kafka 28 29</span><br></pre></td></tr></table></figure>
+
+<p><strong>接着修改另外两台机器的 myid，分别为2、3</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在kafka28上，即10.54.0.28机器上修改 /data/apache-zookeeper-3.7.2/data 的 myid</span></span><br><span class="line"><span class="built_in">echo</span> 2 &gt; myid</span><br><span class="line"><span class="comment"># 在kafka29上，即10.54.0.32机器上修改 /data/apache-zookeeper-3.7.2/data 的 myid</span></span><br><span class="line"><span class="built_in">echo</span> 3 &gt; myid</span><br></pre></td></tr></table></figure>
+
+<p>分别启动三台机器的 zookeeper</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kafka93, 192.168.128.93</span></span><br><span class="line">[root@kafka93 apache-zookeeper-3.7.2]<span class="comment"># cd /data/apache-zookeeper-3.7.2/bin</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./zkServer.sh start</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># jps</span></span><br><span class="line">2163 QuorumPeerMain</span><br><span class="line">2216 Jps</span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./zkServer.sh status</span></span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /data/apache-zookeeper-3.7.2/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost. Client SSL: <span class="literal">false</span>.</span><br><span class="line">Mode: follower（从）</span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka28, 10.54.0.28</span></span><br><span class="line">[root@kafka28 apache-zookeeper-3.7.2]<span class="comment"># cd /data/apache-zookeeper-3.7.2/bin</span></span><br><span class="line">[root@kafka28 bin]<span class="comment"># ./zkServer.sh start</span></span><br><span class="line">[root@kafka28 bin]<span class="comment"># jps</span></span><br><span class="line">6550 Jps</span><br><span class="line">919 QuorumPeerMain</span><br><span class="line">2221 Bootstrap</span><br><span class="line">You have new mail <span class="keyword">in</span> /var/spool/mail/root</span><br><span class="line">[root@kafka28 bin]<span class="comment"># ./zkServer.sh status</span></span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /data/apache-zookeeper-3.7.2/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost. Client SSL: <span class="literal">false</span>.</span><br><span class="line">Mode: leader (主，自动选举) </span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka29, 10.54.0.32</span></span><br><span class="line">[root@kafka29 apache-zookeeper-3.7.2]<span class="comment"># cd /data/apache-zookeeper-3.7.2/bin</span></span><br><span class="line">[root@kafka29 bin]<span class="comment"># ./zkServer.sh start</span></span><br><span class="line">[root@kafka29 bin]<span class="comment"># ./zkServer.sh status</span></span><br><span class="line">/usr/bin/java</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /data/apache-zookeeper-3.7.2/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost. Client SSL: <span class="literal">false</span>.</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Kafka-环境搭建"><a href="#Kafka-环境搭建" class="headerlink" title="Kafka 环境搭建"></a>Kafka 环境搭建</h3><h3 id="Hadoop-环境搭建"><a href="#Hadoop-环境搭建" class="headerlink" title="Hadoop 环境搭建"></a>Hadoop 环境搭建</h3><h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="1-rsync-基本用法"><a href="#1-rsync-基本用法" class="headerlink" title="1. rsync 基本用法"></a>1. rsync 基本用法</h4><p>目前没有使用到，先贴一个地址吧…</p>
+<p><a href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
+<blockquote>
+<p>rsync 引用：<a href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
+<p>xsync 引用：<a href="https://blog.csdn.net/nalw2012/article/details/98322637">https://blog.csdn.net/nalw2012/article/details/98322637</a></p>
+<p>ZooKeeper 简介、作用、结构引用：<a href="https://zhuanlan.zhihu.com/p/72902467">https://zhuanlan.zhihu.com/p/72902467</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>kafka</tag>
+      </tags>
+  </entry>
 </search>
