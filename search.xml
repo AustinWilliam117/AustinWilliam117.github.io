@@ -19200,7 +19200,17 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h3 id="Kafka环境搭建"><a href="#Kafka环境搭建" class="headerlink" title="Kafka环境搭建"></a>Kafka环境搭建</h3><h3 id="Hadoop环境搭建"><a href="#Hadoop环境搭建" class="headerlink" title="Hadoop环境搭建"></a>Hadoop环境搭建</h3><h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="1-rsync基本用法"><a href="#1-rsync基本用法" class="headerlink" title="1.rsync基本用法"></a>1.rsync基本用法</h4><p>目前没有使用到，先贴一个地址吧…</p>
+<h3 id="Kafka环境搭建"><a href="#Kafka环境搭建" class="headerlink" title="Kafka环境搭建"></a>Kafka环境搭建</h3><h4 id="创建-topic-目录"><a href="#创建-topic-目录" class="headerlink" title="创建 topic 目录"></a>创建 topic 目录</h4><p>创建 topic 目录命令为：<code>bin/kafka-topics.sh --create --topic my_topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3</code></p>
+<p>查看 topic 目录命令为：<code>bin/kafka-topics.sh --list --bootstrap-server kafka93:9092</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@kafka93 /]<span class="comment"># cd /data/kafka_2.12-3.0.0/</span></span><br><span class="line"></span><br><span class="line">[root@kafka93 kafka_2.12-3.0.0]<span class="comment"># ./kafka-topics.sh --create --topic audiolistening_push --bootstrap-server kafka93:9092 --replication-factor 1 --partitions 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 kafka93 机器的 topic 目录</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka93:9092</span></span><br><span class="line">audiolistening_push</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看其他机器的 topic 目录</span></span><br><span class="line">[root@kafka28 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka28:9092</span></span><br><span class="line">audiolistening_push</span><br><span class="line">[root@kafka29 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka29:9092</span></span><br><span class="line">audiolistening_push</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>kafka93:9092，写成 192.168.128.93:9092 也是一样的</p>
+</li>
+<li><p>集群中一个创建了 topic 目录，其他集群也就都有了该 topic</p>
+</li>
+</ul>
+<h3 id="Hadoop环境搭建"><a href="#Hadoop环境搭建" class="headerlink" title="Hadoop环境搭建"></a>Hadoop环境搭建</h3><h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="1-rsync基本用法"><a href="#1-rsync基本用法" class="headerlink" title="1.rsync基本用法"></a>1.rsync基本用法</h4><p>目前没有使用到，先贴一个地址吧…</p>
 <p><a href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
 <blockquote>
 <p>rsync 引用：<a href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>

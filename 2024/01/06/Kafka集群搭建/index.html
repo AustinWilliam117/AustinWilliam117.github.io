@@ -30,7 +30,7 @@
 <meta property="og:description" content="目录 环境搭建机器配置 xsync与rsync文件分发 ZooKeeper环境搭建 Kafka环境搭建 Hadoop环境搭建  环境搭建机器配置 3台机器默认都是 java 1.8.0_321  3台服务器配置如下：( 练手不需要这么高的配置，我只是刚好有 : )    IP OS CPU MEM    192.168.128.93 CentOS 7.9 8C&#x2F;8T Intel(R) Xeon(R">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-06T13:10:42.000Z">
-<meta property="article:modified_time" content="2024-01-08T14:09:29.844Z">
+<meta property="article:modified_time" content="2024-01-10T14:15:17.332Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-08 22:09:29" itemprop="dateModified" datetime="2024-01-08T22:09:29+08:00">2024-01-08</time>
+                <time title="Modified: 2024-01-10 22:15:17" itemprop="dateModified" datetime="2024-01-10T22:15:17+08:00">2024-01-10</time>
               </span>
 
           
@@ -244,7 +244,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>10k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -431,7 +431,17 @@
 
 
 
-<h3 id="Kafka环境搭建"><a href="#Kafka环境搭建" class="headerlink" title="Kafka环境搭建"></a>Kafka环境搭建</h3><h3 id="Hadoop环境搭建"><a href="#Hadoop环境搭建" class="headerlink" title="Hadoop环境搭建"></a>Hadoop环境搭建</h3><h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="1-rsync基本用法"><a href="#1-rsync基本用法" class="headerlink" title="1.rsync基本用法"></a>1.rsync基本用法</h4><p>目前没有使用到，先贴一个地址吧…</p>
+<h3 id="Kafka环境搭建"><a href="#Kafka环境搭建" class="headerlink" title="Kafka环境搭建"></a>Kafka环境搭建</h3><h4 id="创建-topic-目录"><a href="#创建-topic-目录" class="headerlink" title="创建 topic 目录"></a>创建 topic 目录</h4><p>创建 topic 目录命令为：<code>bin/kafka-topics.sh --create --topic my_topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3</code></p>
+<p>查看 topic 目录命令为：<code>bin/kafka-topics.sh --list --bootstrap-server kafka93:9092</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@kafka93 /]<span class="comment"># cd /data/kafka_2.12-3.0.0/</span></span><br><span class="line"></span><br><span class="line">[root@kafka93 kafka_2.12-3.0.0]<span class="comment"># ./kafka-topics.sh --create --topic audiolistening_push --bootstrap-server kafka93:9092 --replication-factor 1 --partitions 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 kafka93 机器的 topic 目录</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka93:9092</span></span><br><span class="line">audiolistening_push</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看其他机器的 topic 目录</span></span><br><span class="line">[root@kafka28 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka28:9092</span></span><br><span class="line">audiolistening_push</span><br><span class="line">[root@kafka29 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka29:9092</span></span><br><span class="line">audiolistening_push</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>kafka93:9092，写成 192.168.128.93:9092 也是一样的</p>
+</li>
+<li><p>集群中一个创建了 topic 目录，其他集群也就都有了该 topic</p>
+</li>
+</ul>
+<h3 id="Hadoop环境搭建"><a href="#Hadoop环境搭建" class="headerlink" title="Hadoop环境搭建"></a>Hadoop环境搭建</h3><h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="1-rsync基本用法"><a href="#1-rsync基本用法" class="headerlink" title="1.rsync基本用法"></a>1.rsync基本用法</h4><p>目前没有使用到，先贴一个地址吧…</p>
 <p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
 <blockquote>
 <p>rsync 引用：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
@@ -518,7 +528,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">环境搭建机器配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xsync%E4%B8%8Ersync%E6%96%87%E4%BB%B6%E5%88%86%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">xsync与rsync文件分发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">rsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">rsync 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.3.</span> <span class="nav-text">xsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.4.</span> <span class="nav-text">xsync 基本使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">ZooKeeper环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%AE%80%E4%BB%8B"><span class="nav-number">4.1.</span> <span class="nav-text">ZooKeeper 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">ZooKeeper 作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.3.</span> <span class="nav-text">ZooKeeper 目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E5%8D%95%E6%9C%BA%E7%89%88"><span class="nav-number">4.4.</span> <span class="nav-text">修改 ZooKeeper 配置文件(单机版)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.5.</span> <span class="nav-text">ZooKeeper 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E9%9B%86%E7%BE%A4%E7%89%88"><span class="nav-number">4.6.</span> <span class="nav-text">修改 ZooKeeper 配置文件(集群版)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">Kafka环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">6.</span> <span class="nav-text">Hadoop环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-rsync%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">1.rsync基本用法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">环境搭建机器配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xsync%E4%B8%8Ersync%E6%96%87%E4%BB%B6%E5%88%86%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">xsync与rsync文件分发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">rsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">rsync 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.3.</span> <span class="nav-text">xsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.4.</span> <span class="nav-text">xsync 基本使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">ZooKeeper环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%AE%80%E4%BB%8B"><span class="nav-number">4.1.</span> <span class="nav-text">ZooKeeper 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">ZooKeeper 作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.3.</span> <span class="nav-text">ZooKeeper 目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E5%8D%95%E6%9C%BA%E7%89%88"><span class="nav-number">4.4.</span> <span class="nav-text">修改 ZooKeeper 配置文件(单机版)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.5.</span> <span class="nav-text">ZooKeeper 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E9%9B%86%E7%BE%A4%E7%89%88"><span class="nav-number">4.6.</span> <span class="nav-text">修改 ZooKeeper 配置文件(集群版)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">Kafka环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-topic-%E7%9B%AE%E5%BD%95"><span class="nav-number">5.1.</span> <span class="nav-text">创建 topic 目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">6.</span> <span class="nav-text">Hadoop环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-rsync%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">1.rsync基本用法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -598,13 +608,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">684k</span>
+    <span title="Symbols count total">685k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">10:22</span>
+    <span title="Reading time total">10:23</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
