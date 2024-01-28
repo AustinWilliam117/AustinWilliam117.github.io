@@ -29,11 +29,17 @@
 <meta property="og:site_name" content="蒙珣的博客">
 <meta property="og:description" content="目录 环境搭建机器配置 xsync与rsync文件分发 ZooKeeper环境搭建 Kafka环境搭建 Hadoop环境搭建  环境搭建机器配置 3台机器默认都是 java 1.8.0_321  3台服务器配置如下：( 练手不需要这么高的配置，我只是刚好有 : )    IP OS CPU MEM    192.168.128.93 CentOS 7.9 8C&#x2F;8T Intel(R) Xeon(R">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85.png">
+<meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/%E4%B8%BB%E9%A2%98%E4%B8%8E%E5%88%86%E5%8C%BA.png">
+<meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/broker%E5%92%8C%E9%9B%86%E7%BE%A4.png">
+<meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/kafka-bin%E7%9B%AE%E5%BD%95.png">
+<meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/kafka-config%E7%9B%AE%E5%BD%95.png">
 <meta property="article:published_time" content="2024-01-06T13:10:42.000Z">
-<meta property="article:modified_time" content="2024-01-10T14:15:17.332Z">
+<meta property="article:modified_time" content="2024-01-28T13:05:55.908Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85.png">
 
 <link rel="canonical" href="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
 
@@ -228,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-10 22:15:17" itemprop="dateModified" datetime="2024-01-10T22:15:17+08:00">2024-01-10</time>
+                <time title="Modified: 2024-01-28 21:05:55" itemprop="dateModified" datetime="2024-01-28T21:05:55+08:00">2024-01-28</time>
               </span>
 
           
@@ -244,14 +250,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>11k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>10 mins.</span>
+              <span>14 mins.</span>
             </span>
 
         </div>
@@ -431,7 +437,49 @@
 
 
 
-<h3 id="Kafka环境搭建"><a href="#Kafka环境搭建" class="headerlink" title="Kafka环境搭建"></a>Kafka环境搭建</h3><h4 id="创建-topic-目录"><a href="#创建-topic-目录" class="headerlink" title="创建 topic 目录"></a>创建 topic 目录</h4><p>创建 topic 目录命令为：<code>bin/kafka-topics.sh --create --topic my_topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3</code></p>
+<h3 id="Kafka环境搭建"><a href="#Kafka环境搭建" class="headerlink" title="Kafka环境搭建"></a>Kafka环境搭建</h3><h4 id="kafka-简介"><a href="#kafka-简介" class="headerlink" title="kafka 简介"></a>kafka 简介</h4><p>Kafka 是一种分布式的，基于发布 / 订阅的消息系统。主要设计目标如下：</p>
+<ul>
+<li>以时间复杂度为 O(1) 的方式提供消息持久化能力，即使对 TB 级以上数据也能保证常数时间复杂度的访问性能。</li>
+<li>高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒 100K 条以上消息的传输。</li>
+<li>支持 Kafka Server 间的消息分区，及分布式消费，同时保证每个 Partition 内的消息顺序传输。</li>
+<li>同时支持离线数据处理和实时数据处理。</li>
+<li>Scale out：支持在线水平扩展。</li>
+</ul>
+<h4 id="kafka-概念"><a href="#kafka-概念" class="headerlink" title="kafka 概念"></a>kafka 概念</h4><p><strong>概念一：生产者与消费者</strong></p>
+<p><img src="%E7%94%9F%E4%BA%A7%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85.png" alt="生产者与消费者.png"></p>
+<p>对于 Kafka 来说客户端有两种基本类型：<strong>生产者（Producer）</strong>和<strong>消费者（Consumer）</strong>。除此之外，还有用来做数据集成的 Kafka Connect API 和流式处理的 Kafka Streams 等高阶客户端，但这些高阶客户端底层仍然是生产者和消费者API，它们只不过是在上层做了封装。</p>
+<p>这很容易理解，生产者（也称为发布者）创建消息，而消费者（也称为订阅者）负责消费or读取消息。</p>
+<p><strong>概念二：主题（Topic）与分区（Partition）</strong></p>
+<p><img src="%E4%B8%BB%E9%A2%98%E4%B8%8E%E5%88%86%E5%8C%BA.png" alt="主题与分区.png"></p>
+<p>在 Kafka 中，消息以<strong>主题（Topic）</strong>来分类，每一个主题都对应一个「消息队列」，这有点儿类似于数据库中的表。但是如果我们把所有同类的消息都塞入到一个“中心”队列中，势必缺少可伸缩性，无论是生产者/消费者数目的增加，还是消息数量的增加，都可能耗尽系统的性能或存储。</p>
+<p>我们使用一个生活中的例子来说明：现在 A 城市生产的某商品需要运输到 B 城市，走的是公路，那么单通道的高速公路不论是在「A 城市商品增多」还是「现在 C 城市也要往 B 城市运输东西」这样的情况下都会出现「吞吐量不足」的问题。所以我们现在引入<strong>分区（Partition）</strong>的概念，类似“允许多修几条道”的方式对我们的主题完成了水平扩展。</p>
+<p><strong>概念三：Broker 和集群（Cluster）</strong></p>
+<p>一个 Kafka 服务器也称为 Broker，它接受生产者发送的消息并存入磁盘；Broker 同时服务消费者拉取分区消息的请求，返回目前已经提交的消息。使用特定的机器硬件，一个 Broker 每秒可以处理成千上万的分区和百万量级的消息。（现在动不动就百万量级..我特地去查了一把，好像确实集群的情况下吞吐量挺高的..摁..）</p>
+<p>若干个 Broker 组成一个集群（Cluster），其中集群内某个 Broker 会成为集群控制器（Cluster Controller），它负责管理集群，包括分配分区到 Broker、监控 Broker 故障等。在集群内，一个分区由一个 Broker 负责，这个 Broker 也称为这个分区的 Leader；当然一个分区可以被复制到多个 Broker 上来实现冗余，这样当存在 Broker 故障时可以将其分区重新分配到其他 Broker 来负责。下图是一个样例：</p>
+<p><img src="broker%E5%92%8C%E9%9B%86%E7%BE%A4.png"></p>
+<p>Kafka 的一个关键性质是日志保留（retention），我们可以配置主题的消息保留策略，譬如只保留一段时间的日志或者只保留特定大小的日志。当超过这些限制时，老的消息会被删除。我们也可以针对某个主题单独设置消息过期策略，这样对于不同应用可以实现个性化。</p>
+<p><strong>概念四：多集群</strong></p>
+<p>随着业务发展，我们往往需要多集群，通常处于下面几个原因：</p>
+<ul>
+<li>基于数据的隔离；</li>
+<li>基于安全的隔离；</li>
+<li>多数据中心（容灾）</li>
+</ul>
+<p>当构建多个数据中心时，往往需要实现消息互通。举个例子，假如用户修改了个人资料，那么后续的请求无论被哪个数据中心处理，这个更新需要反映出来。又或者，多个数据中心的数据需要汇总到一个总控中心来做数据分析。</p>
+<p>上面说的分区复制冗余机制只适用于同一个 Kafka 集群内部，对于多个 Kafka 集群消息同步可以使用 Kafka 提供的 MirrorMaker 工具。本质上来说，MirrorMaker 只是一个 Kafka 消费者和生产者，并使用一个队列连接起来而已。它从一个集群中消费消息，然后往另一个集群生产消息。</p>
+<h4 id="kakfa-集群环境搭建"><a href="#kakfa-集群环境搭建" class="headerlink" title="kakfa 集群环境搭建"></a>kakfa 集群环境搭建</h4><p><strong><font color='red'>注：三台机器记得关闭防火墙</font></strong></p>
+<p>kafka 下载地址：<a target="_blank" rel="noopener" href="https://kafka.apache.org/downloads">https://kafka.apache.org/downloads</a></p>
+<p><img src="kafka-bin%E7%9B%AE%E5%BD%95.png" alt="kafka bin目录.png"></p>
+<p><img src="kafka-config%E7%9B%AE%E5%BD%95.png" alt="kafka config目录.png"></p>
+<ol>
+<li><p>修改192.168.128.93机器 Kafka <code>server.properties</code> 配置\</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kafka 集群唯一标识，不能重复。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 1 和 2</span></span><br><span class="line"><span class="meta">broker.id</span>=<span class="string">0</span></span><br><span class="line"><span class="comment"># kafka 暴漏的IP:POST。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 PLAINTEXT://10.54.0.28:9092 和 PLAINTEXT://10.54.0.32:9092</span></span><br><span class="line"><span class="meta">advertised.listeners</span>=<span class="string">PLAINTEXT://192.168.128.93:9092</span></span><br><span class="line"><span class="comment"># 修改kafka存储数据的路径，默认放在/tmp目录会被定时清理</span></span><br><span class="line"><span class="meta">log.dirs</span>=<span class="string">/opt/kafka/datas</span></span><br><span class="line"><span class="comment"># 修改默认的本地连接，改为集群。在集群后面加/kafka，在根目录下创建kafka文件夹存储数据，而非直接把所有数据全部存储在根目录下，利于后续管理</span></span><br><span class="line"><span class="meta">zookeeper.connect</span>=<span class="string">kafka93:2181,kafka28:2181,kafka29:2181/kafka</span></span><br></pre></td></tr></table></figure></li>
+<li><p>分发kafka到其他两台机器上，并按步骤1修改28、29两台机器的 kafka server.properties</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@kafka93 data]<span class="comment"># xsync kafka_2.12-3.0.0 kafka 28 29</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka28</span></span><br><span class="line">[root@kafka28 ~]<span class="comment"># vim /data/kafka_2.12-3.0.0/config/server.properties</span></span><br><span class="line"><span class="comment"># kafka 集群唯一标识，不能重复。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 1 和 2</span></span><br><span class="line">broker.id=1</span><br><span class="line"><span class="comment"># kafka 暴漏的IP:POST。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 PLAINTEXT://10.54.0.28:9092 和 PLAINTEXT://10.54.0.32:9092</span></span><br><span class="line">advertised.listeners=PLAINTEXT://10.54.0.28:9092</span><br><span class="line"><span class="comment"># 修改kafka存储数据的路径，默认放在/tmp目录会被定时清理</span></span><br><span class="line">log.dirs=/opt/kafka/datas</span><br><span class="line"><span class="comment"># 修改默认的本地连接，改为集群。在集群后面加/kafka，在根目录下创建kafka文件夹存储数据，而非直接把所有数据全部存储在根目录下，利于后续管理</span></span><br><span class="line">zookeeper.connect=kafka93:2181,kafka28:2181,kafka29:2181/kafka</span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka29</span></span><br><span class="line">[root@kafka29 ~]<span class="comment"># vim /data/kafka_2.12-3.0.0/config/server.properties</span></span><br><span class="line"><span class="comment"># kafka 集群唯一标识，不能重复。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 1 和 2</span></span><br><span class="line">broker.id=1</span><br><span class="line"><span class="comment"># kafka 暴漏的IP:POST。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 PLAINTEXT://10.54.0.28:9092 和 PLAINTEXT://10.54.0.32:9092</span></span><br><span class="line">advertised.listeners=PLAINTEXT://10.54.0.32:9092</span><br><span class="line"><span class="comment"># 修改kafka存储数据的路径，默认放在/tmp目录会被定时清理</span></span><br><span class="line">log.dirs=/opt/kafka/datas</span><br><span class="line"><span class="comment"># 修改默认的本地连接，改为集群。在集群后面加/kafka，在根目录下创建kafka文件夹存储数据，而非直接把所有数据全部存储在根目录下，利于后续管理</span></span><br><span class="line">zookeeper.connect=kafka93:2181,kafka28:2181,kafka29:2181/kafka</span><br></pre></td></tr></table></figure></li>
+<li><p>启动 kafka 集群，并查看启动状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@kafka93 kafka_2.12-3.0.0]<span class="comment"># ./bin/kafka-server-start.sh -daemon ./config/server.properties</span></span><br><span class="line">[root@kafka93 kafka_2.12-3.0.0]<span class="comment"># jps</span></span><br><span class="line">2163 QuorumPeerMain</span><br><span class="line">30692 Jps</span><br><span class="line">26348 Kafka</span><br><span class="line"></span><br><span class="line">[root@kafka28 kafka_2.12-3.0.0]<span class="comment"># ./bin/kafka-server-start.sh -daemon ./config/server.properties</span></span><br><span class="line">[root@kafka28 kafka_2.12-3.0.0]<span class="comment"># jps</span></span><br><span class="line">7488 Kafka</span><br><span class="line">41990 Jps</span><br><span class="line">919 QuorumPeerMain</span><br><span class="line">2221 Bootstrap</span><br><span class="line"></span><br><span class="line">[root@kafka29 kafka_2.12-3.0.0]<span class="comment"># ./bin/kafka-server-start.sh -daemon ./config/server.properties</span></span><br><span class="line">[root@kafka29 ~]<span class="comment"># jps</span></span><br><span class="line">259024 QuorumPeerMain</span><br><span class="line">265692 Kafka</span><br><span class="line">271389 Jps</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="创建-topic-目录"><a href="#创建-topic-目录" class="headerlink" title="创建 topic 目录"></a>创建 topic 目录</h4><p>创建 topic 目录命令为：<code>bin/kafka-topics.sh --create --topic my_topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3</code></p>
 <p>查看 topic 目录命令为：<code>bin/kafka-topics.sh --list --bootstrap-server kafka93:9092</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@kafka93 /]<span class="comment"># cd /data/kafka_2.12-3.0.0/</span></span><br><span class="line"></span><br><span class="line">[root@kafka93 kafka_2.12-3.0.0]<span class="comment"># ./kafka-topics.sh --create --topic audiolistening_push --bootstrap-server kafka93:9092 --replication-factor 1 --partitions 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 kafka93 机器的 topic 目录</span></span><br><span class="line">[root@kafka93 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka93:9092</span></span><br><span class="line">audiolistening_push</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看其他机器的 topic 目录</span></span><br><span class="line">[root@kafka28 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka28:9092</span></span><br><span class="line">audiolistening_push</span><br><span class="line">[root@kafka29 bin]<span class="comment"># ./kafka-topics.sh --list --bootstrap-server kafka29:9092</span></span><br><span class="line">audiolistening_push</span><br></pre></td></tr></table></figure>
 
@@ -441,12 +489,13 @@
 <li><p>集群中一个创建了 topic 目录，其他集群也就都有了该 topic</p>
 </li>
 </ul>
-<h3 id="Hadoop环境搭建"><a href="#Hadoop环境搭建" class="headerlink" title="Hadoop环境搭建"></a>Hadoop环境搭建</h3><h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="1-rsync基本用法"><a href="#1-rsync基本用法" class="headerlink" title="1.rsync基本用法"></a>1.rsync基本用法</h4><p>目前没有使用到，先贴一个地址吧…</p>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><h4 id="1-rsync基本用法"><a href="#1-rsync基本用法" class="headerlink" title="1.rsync基本用法"></a>1.rsync基本用法</h4><p>目前没有使用到，先贴一个地址吧…</p>
 <p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
 <blockquote>
 <p>rsync 引用：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">https://www.ruanyifeng.com/blog/2020/08/rsync.html</a></p>
 <p>xsync 引用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/nalw2012/article/details/98322637">https://blog.csdn.net/nalw2012/article/details/98322637</a></p>
 <p>ZooKeeper 简介、作用、结构引用：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/72902467">https://zhuanlan.zhihu.com/p/72902467</a></p>
+<p>kafka引用：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/74063251">https://zhuanlan.zhihu.com/p/74063251</a></p>
 </blockquote>
 
     </div>
@@ -528,7 +577,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">环境搭建机器配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xsync%E4%B8%8Ersync%E6%96%87%E4%BB%B6%E5%88%86%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">xsync与rsync文件分发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">rsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">rsync 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.3.</span> <span class="nav-text">xsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.4.</span> <span class="nav-text">xsync 基本使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">ZooKeeper环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%AE%80%E4%BB%8B"><span class="nav-number">4.1.</span> <span class="nav-text">ZooKeeper 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">ZooKeeper 作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.3.</span> <span class="nav-text">ZooKeeper 目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E5%8D%95%E6%9C%BA%E7%89%88"><span class="nav-number">4.4.</span> <span class="nav-text">修改 ZooKeeper 配置文件(单机版)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.5.</span> <span class="nav-text">ZooKeeper 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E9%9B%86%E7%BE%A4%E7%89%88"><span class="nav-number">4.6.</span> <span class="nav-text">修改 ZooKeeper 配置文件(集群版)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">Kafka环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-topic-%E7%9B%AE%E5%BD%95"><span class="nav-number">5.1.</span> <span class="nav-text">创建 topic 目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">6.</span> <span class="nav-text">Hadoop环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">7.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-rsync%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">1.rsync基本用法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">环境搭建机器配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xsync%E4%B8%8Ersync%E6%96%87%E4%BB%B6%E5%88%86%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">xsync与rsync文件分发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">rsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">rsync 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.3.</span> <span class="nav-text">xsync 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xsync-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.4.</span> <span class="nav-text">xsync 基本使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZooKeeper%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">ZooKeeper环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%AE%80%E4%BB%8B"><span class="nav-number">4.1.</span> <span class="nav-text">ZooKeeper 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E4%BD%9C%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">ZooKeeper 作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.3.</span> <span class="nav-text">ZooKeeper 目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E5%8D%95%E6%9C%BA%E7%89%88"><span class="nav-number">4.4.</span> <span class="nav-text">修改 ZooKeeper 配置文件(单机版)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.5.</span> <span class="nav-text">ZooKeeper 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-ZooKeeper-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-%E9%9B%86%E7%BE%A4%E7%89%88"><span class="nav-number">4.6.</span> <span class="nav-text">修改 ZooKeeper 配置文件(集群版)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">Kafka环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kafka-%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">kafka 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kafka-%E6%A6%82%E5%BF%B5"><span class="nav-number">5.2.</span> <span class="nav-text">kafka 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kakfa-%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">5.3.</span> <span class="nav-text">kakfa 集群环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-topic-%E7%9B%AE%E5%BD%95"><span class="nav-number">5.4.</span> <span class="nav-text">创建 topic 目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-rsync%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">1.rsync基本用法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -608,13 +657,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">685k</span>
+    <span title="Symbols count total">689k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">10:23</span>
+    <span title="Reading time total">10:26</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
