@@ -19366,12 +19366,106 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 </ol>
 <p><img src="./allure2.png"></p>
 <p><img src="./allure1.png"></p>
+<h3 id="pytest-mark-parametrize数据驱动"><a href="#pytest-mark-parametrize数据驱动" class="headerlink" title="@pytest.mark.parametrize数据驱动"></a>@pytest.mark.parametrize数据驱动</h3><p>@pytest.mark.parametrize(args_name, args_value)</p>
+<ul>
+<li><p><code>args_name:</code> 参数名</p>
+</li>
+<li><p><code>args_value:</code> 参数值，有多少值就会执行多少次用例。（可以为：列表，元组，字典列表，字典元组）</p>
+</li>
+<li><p>第一种方式</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestApi</span>():</span></span><br><span class="line"><span class="meta">	@pytest.mark.parametrize(<span class="params"><span class="string">&quot;args&quot;</span>, [<span class="string">&quot;mengxun1&quot;</span>, <span class="string">&quot;mengxun2&quot;</span>, <span class="string">&quot;mengxun3&quot;</span>]</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_02</span>(<span class="params">self, args</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(args)</span><br><span class="line">                                                                      </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    pytest.main()  </span><br></pre></td></tr></table></figure></li>
+<li><p>第二种方式：跟unittest的ddt里面的@unpack解包一样</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestApi</span>():</span></span><br><span class="line"><span class="meta">    @pytest.mark.parametrize(<span class="params"><span class="string">&quot;name,age&quot;</span>, [[<span class="string">&quot;mengxun1&quot;</span>, <span class="string">&quot;25&quot;</span>], [<span class="string">&quot;mengxun2&quot;</span>, <span class="string">&quot;26&quot;</span>]]</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_01</span>(<span class="params">self, name, age</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(name, age)</span><br><span class="line">                                                              </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    pytest.main()   </span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>测试自动化</category>
       </categories>
       <tags>
         <tag>pytest</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>YAML语法</title>
+    <url>/2024/03/06/YAML%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>YAML 是 “YAML Ain’t a Markup Language”（YAML 不是一种标记语言）的递归缩写[^1]</p>
+<p>YAML 的配置文件后缀为 <strong>.yml</strong>，如：<strong>runoob.yml</strong> 。</p>
+<h4 id="YAML基本语法"><a href="#YAML基本语法" class="headerlink" title="YAML基本语法"></a>YAML基本语法</h4><ul>
+<li><p>大小写敏感</p>
+</li>
+<li><p>使用缩进表示层级关系</p>
+</li>
+<li><p>缩进不允许使用tab，只允许空格</p>
+</li>
+<li><p>缩进的空格数不重要，只要相同层级的元素左对齐即可</p>
+</li>
+<li><p>‘#’表示注释</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p>YAML 支持以下几种数据类型：</p>
+<ul>
+<li>对象：键值对的集合</li>
+<li>数组：一组按次序排列的值，又称为序列（sequence） / 列表（list）</li>
+<li>纯量（scalars）：单个的、不可再分的值</li>
+</ul>
+<h4 id="YAML-对象"><a href="#YAML-对象" class="headerlink" title="YAML 对象"></a>YAML 对象</h4><p>对象键值对使用冒号结构表示 <strong>key: value</strong>，冒号后面要加一个空格。</p>
+<p>也可以使用 **key:{key1: value1, key2: value2, …}**。</p>
+<p>还可以使用缩进表示层级关系；</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">key:</span> </span><br><span class="line">    <span class="attr">child-key:</span> <span class="string">value</span></span><br><span class="line">    <span class="attr">child-key2:</span> <span class="string">value2</span></span><br></pre></td></tr></table></figure>
+
+<p>较为复杂的对象格式，可以使用问号加一个空格代表一个复杂的 key，配合一个冒号加一个空格代表一个 value：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">?</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexkey1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexkey2</span></span><br><span class="line"><span class="string">:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexvalue1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexvalue2</span></span><br></pre></td></tr></table></figure>
+
+<p>意思即对象的属性是一个数组 [complexkey1,complexkey2]，对应的值也是一个数组 [complexvalue1,complexvalue2]</p>
+<h4 id="YAML-数组"><a href="#YAML-数组" class="headerlink" title="YAML 数组"></a>YAML 数组</h4><p>以 <strong>-</strong> 开头的行表示构成一个数组：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">A</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">B</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">C</span></span><br></pre></td></tr></table></figure>
+
+<p>YAML 支持多维数组，可以使用行内表示：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">key:</span> [<span class="string">value1</span>, <span class="string">value2</span>, <span class="string">...</span>]</span><br></pre></td></tr></table></figure>
+
+<p>数据结构的子成员是一个数组，则可以在该项下面缩进一个空格。</p>
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">-<span class="ruby"></span></span><br><span class="line"><span class="ruby"></span> -<span class="ruby"> A</span></span><br><span class="line"><span class="ruby"></span> -<span class="ruby"> B</span></span><br><span class="line"><span class="ruby"></span> -<span class="ruby"> C</span></span><br></pre></td></tr></table></figure>
+
+<p>一个相对复杂的例子：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">companies:</span></span><br><span class="line">    <span class="bullet">-</span></span><br><span class="line">        <span class="attr">id:</span> <span class="number">1</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">company1</span></span><br><span class="line">        <span class="attr">price:</span> <span class="string">200W</span></span><br><span class="line">    <span class="bullet">-</span></span><br><span class="line">        <span class="attr">id:</span> <span class="number">2</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">company2</span></span><br><span class="line">        <span class="attr">price:</span> <span class="string">500W</span></span><br></pre></td></tr></table></figure>
+
+<p>意思是 companies 属性是一个数组，每一个数组元素又是由 id、name、price 三个属性构成。</p>
+<p>数组也可以使用流式(flow)的方式表示：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">companies:</span> [&#123;<span class="attr">id:</span> <span class="number">1</span>,<span class="attr">name:</span> <span class="string">company1</span>,<span class="attr">price:</span> <span class="string">200W</span>&#125;,&#123;<span class="attr">id:</span> <span class="number">2</span>,<span class="attr">name:</span> <span class="string">company2</span>,<span class="attr">price:</span> <span class="string">500W</span>&#125;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="复合结构"><a href="#复合结构" class="headerlink" title="复合结构"></a>复合结构</h4><p>数组和对象可以构成复合结构，例：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">languages:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ruby</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Perl</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Python</span> </span><br><span class="line"><span class="attr">websites:</span></span><br><span class="line">  <span class="attr">YAML:</span> <span class="string">yaml.org</span> </span><br><span class="line">  <span class="attr">Ruby:</span> <span class="string">ruby-lang.org</span> </span><br><span class="line">  <span class="attr">Python:</span> <span class="string">python.org</span> </span><br><span class="line">  <span class="attr">Perl:</span> <span class="string">use.perl.org</span></span><br></pre></td></tr></table></figure>
+
+<p>转换为 json 为：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">&#123; </span><br><span class="line">  <span class="attr">languages:</span> [ <span class="string">&#x27;Ruby&#x27;</span>, <span class="string">&#x27;Perl&#x27;</span>, <span class="string">&#x27;Python&#x27;</span>],</span><br><span class="line">  <span class="attr">websites:</span> &#123;</span><br><span class="line">    <span class="attr">YAML:</span> <span class="string">&#x27;yaml.org&#x27;</span>,</span><br><span class="line">    <span class="attr">Ruby:</span> <span class="string">&#x27;ruby-lang.org&#x27;</span>,</span><br><span class="line">    <span class="attr">Python:</span> <span class="string">&#x27;python.org&#x27;</span>,</span><br><span class="line">    <span class="attr">Perl:</span> <span class="string">&#x27;use.perl.org&#x27;</span> </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="纯量"><a href="#纯量" class="headerlink" title="纯量"></a>纯量</h4><p>纯量是最基本的，不可再分的值，包括：</p>
+<ul>
+<li>字符串</li>
+<li>布尔值</li>
+<li>整数</li>
+<li>浮点数</li>
+<li>Null</li>
+<li>时间</li>
+<li>日期</li>
+</ul>
+<p>使用一个例子来快速了解纯量的基本使用：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">boolean:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="literal">TRUE</span>  <span class="comment">#true,True都可以</span></span><br><span class="line">    <span class="bullet">-</span> <span class="literal">FALSE</span>  <span class="comment">#false，False都可以</span></span><br><span class="line"><span class="attr">float:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">3.14</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">6.8523015e+5</span>  <span class="comment">#可以使用科学计数法</span></span><br><span class="line"><span class="attr">int:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">123</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">0b1010_0111_0100_1010_1110</span>    <span class="comment">#二进制表示</span></span><br><span class="line"><span class="attr">null:</span></span><br><span class="line">    <span class="attr">nodeName:</span> <span class="string">&#x27;node&#x27;</span></span><br><span class="line">    <span class="attr">parent:</span> <span class="string">~</span>  <span class="comment">#使用~表示null</span></span><br><span class="line"><span class="attr">string:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">哈哈</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;Hello world&#x27;</span>  <span class="comment">#可以使用双引号或者单引号包裹特殊字符</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">newline</span></span><br><span class="line">      <span class="string">newline2</span>    <span class="comment">#字符串可以拆成多行，每一行会被转化成一个空格</span></span><br><span class="line"><span class="attr">date:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">2018-02-17</span>    <span class="comment">#日期必须使用ISO 8601格式，即yyyy-MM-dd</span></span><br><span class="line"><span class="attr">datetime:</span> </span><br><span class="line">    <span class="bullet">-</span>  <span class="number">2018-02-17T15:02:31+08:00</span>    <span class="comment">#时间使用ISO 8601格式，时间和日期之间使用T连接，最后使用+代表时区</span></span><br></pre></td></tr></table></figure>
+
+<p>yaml_until.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">msxy:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">mengxun</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">age:</span> <span class="number">25</span></span><br></pre></td></tr></table></figure>
+
+<p>yaml_until.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">YamlUtil</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,yaml_file</span>):</span></span><br><span class="line">        self.yaml_file = yaml_file</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取yaml文件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read_yaml</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(self.yaml_file,encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            value = yaml.load(f,Loader=yaml.FullLoader)</span><br><span class="line">            <span class="built_in">print</span>(value)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    YamlUtil(<span class="string">&#x27;test_api.yaml&#x27;</span>).read_yaml()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><blockquote>
+<p>[1] <a href="https://www.runoob.com/w3cnote/yaml-intro.html">runoob YAML 入门教程</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>YAML</tag>
       </tags>
   </entry>
 </search>
