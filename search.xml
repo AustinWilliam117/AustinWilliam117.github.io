@@ -19303,7 +19303,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 </li>
 </ol>
 <p>requirements.txt文档</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pytest==<span class="number">7.2</span><span class="number">.0</span></span><br><span class="line">pytest-html==<span class="number">4.1</span><span class="number">.1</span></span><br><span class="line">pytest-xdist=<span class="number">3.5</span><span class="number">.0</span></span><br><span class="line">pytest-ordering=<span class="number">0.6</span></span><br><span class="line">pytest-rerunfailures=<span class="number">13.0</span></span><br><span class="line">allure-pytest=<span class="number">2.13</span><span class="number">.2</span></span><br><span class="line">pyyaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pytest==<span class="number">7.2</span><span class="number">.0</span></span><br><span class="line">pytest-html==<span class="number">4.1</span><span class="number">.1</span></span><br><span class="line">pytest-xdist==<span class="number">3.5</span><span class="number">.0</span></span><br><span class="line">pytest-ordering==<span class="number">0.6</span></span><br><span class="line">pytest-rerunfailures==<span class="number">13.0</span></span><br><span class="line">allure-pytest==<span class="number">2.13</span><span class="number">.2</span></span><br><span class="line">pyyaml</span><br></pre></td></tr></table></figure>
 
 <p><code>pip install -r requirements.txt</code></p>
 <h3 id="pytest的最基本的测试用例规则"><a href="#pytest的最基本的测试用例规则" class="headerlink" title="pytest的最基本的测试用例规则"></a>pytest的最基本的测试用例规则</h3><ol>
@@ -19671,5 +19671,92 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
       <categories>
         <category>Python</category>
       </categories>
+  </entry>
+  <entry>
+    <title>pytest-Allure</title>
+    <url>/2024/03/12/pytest-Allure/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="Allure报告结构"><a href="#Allure报告结构" class="headerlink" title="Allure报告结构"></a>Allure报告结构</h3><ul>
+<li><p>Overview:整体数据显示。</p>
+</li>
+<li><p>Suites:用例集合,按照套件和类分组的已执行测试的标准结构表示形式。</p>
+</li>
+<li><p>Behaviors：对于行为驱动的方法，此选项卡根据Epic、Feature和Story标记对测试结果进行分组。</p>
+</li>
+<li><p>Categories：“类别”选项卡提供了创建自定义缺陷分类以应用测试结果的方法。</p>
+</li>
+<li><p>Graphs：用图表显示测试数据中收集的不同统计数据，状态分解或严重性和持续时间图。</p>
+</li>
+<li><p>Packages：软件包选项卡表示测试结果的树状布局，按不同的包名分组。</p>
+</li>
+<li><p>Timeline：时间轴选项卡可视化测试执行的回顾，allure适配器收集测试的精确时间，在这个选项卡上，它们相应地按照顺序或并行的时间结构排列。</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="Allure安装"><a href="#Allure安装" class="headerlink" title="Allure安装"></a>Allure安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install allure-pytest</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>下载 allure ZIP包 <code>https://github.com/allure-framework/allure2/releases</code></li>
+<li><code>pip install pytest-allure</code></li>
+<li><code>vim ~/.zshrc</code> 并在最后一行添加环境变量 <code>export PATH=&quot;/Users/william/DYJ/Tools/allure-2.7.0/bin:$PATH&quot;</code></li>
+<li>使环境变量生效 <code>source ~/.zshrc</code></li>
+<li>验证 <code>allure --version</code></li>
+</ol>
+<h3 id="Allure基本用法"><a href="#Allure基本用法" class="headerlink" title="Allure基本用法"></a>Allure基本用法</h3><ul>
+<li><code>@allure.epic():</code> 项目名称</li>
+<li><code>@allure.feature():</code> 模块名称，功能点描述</li>
+<li><code>@allure.story():</code> 接口名称</li>
+<li><code>@allure.title():</code> 测试用例标题（适用于一个方法对应一个用例）</li>
+<li><code>allure.dynamic.title:</code> 测试用例标题（适用于一个方法对应多个用例，用于数据驱动情况）</li>
+<li><code>@allure.testcase():</code> 关联测试用例系统里面的用例</li>
+<li><code>@allure.issue():</code> 关联缺陷管理系统里面的链接</li>
+<li><code>@allure.description:</code> 测试用例的描述</li>
+<li><code>@allure.step():</code> 测试用例的步骤</li>
+<li><code>@allure.severity():</code> 用例的等级（block、critical、normal、minor、trivial）</li>
+<li><code>@allure.link():</code> 定义一个链接，在测试报告中展现</li>
+<li><code>@allure.attachment():</code> 为测试报告添加附件</li>
+</ul>
+<h3 id="Allure-epic-feature-story-title"><a href="#Allure-epic-feature-story-title" class="headerlink" title="Allure epic/feature/story/title"></a>Allure epic/feature/story/title</h3><ol>
+<li><p>编辑<code>./testcase/alluredemo/test_allure.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> allure</span><br><span class="line"></span><br><span class="line"><span class="meta">@allure.epic(<span class="params"><span class="string">&quot;接口项目名称：xx在线接口测试&quot;</span></span>)</span></span><br><span class="line"><span class="meta">@allure.feature(<span class="params"><span class="string">&quot;接口模块名称：IVR接口&quot;</span></span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestApi</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.story(<span class="params"><span class="string">&quot;接口名称：常规请求&quot;</span></span>)</span></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例1&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_01</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_01&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例2&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_02</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_02&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>修改<code>pytest.ini</code>文件中的<code>addopts</code>参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[pytest]</span><br><span class="line"><span class="comment">#--html ./report/report.html，reruns 失败重跑次数</span></span><br><span class="line"><span class="comment"># addopts = -vs -n=2 -reruns 2 --html ./report/report.html</span></span><br><span class="line"><span class="comment"># 生成json格式的allure报告，并删除上一次的报告</span></span><br><span class="line">addopts = -vs --alluredir=reports/temps --clean-alluredir</span><br><span class="line"><span class="comment"># 指定 pytest 搜索测试文件的路径。pytest 将在 ./interfaceCase 目录下搜索可执行文件</span></span><br><span class="line">testpaths =</span><br><span class="line">    ./testcase/alluredemo</span><br><span class="line"><span class="comment"># 指定 pytest 应该匹配的测试文件模式。pytest 将会运行所有以 test_ 为开头的 python 文件</span></span><br><span class="line">python_files = test_*.py</span><br><span class="line"><span class="comment"># 指定 pytest 应该匹配的测试类名模式。pytest 将会运行所有以 Test 开头的类</span></span><br><span class="line">python_classes = Test</span><br><span class="line"><span class="comment"># 指定 pytest 应该匹配的测试函数模式。pytest 将会运行所有以 Test 开头的函数</span></span><br><span class="line">python_functions = test</span><br><span class="line"><span class="comment"># 用于为测试用例添加标记。使用方法: @pytest.mark.smoke  pytest -m &quot;smoke [or usermanage]&quot;</span></span><br><span class="line">markers =</span><br><span class="line">    smoke : Smoke Testing Module</span><br><span class="line">    userManage : User Management Module</span><br><span class="line">    productManage : 商品管理</span><br></pre></td></tr></table></figure></li>
+<li><p><code>main.py</code>文件</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    pytest.main()</span><br><span class="line">    time.sleep(<span class="number">3</span>) <span class="comment"># 生成报告需要一点时间</span></span><br><span class="line">    os.system(<span class="string">&#x27;allure generate ./reports/temps -o ./reports/allures --clean&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>allure generate</code> 固定写法</li>
+<li><code>./reports/temps</code>: 临时的 json 格式报告的路径</li>
+<li><code>-o</code>: 输出 output</li>
+<li><code>./reports/allure</code>: 生成的 allure 报告的路径</li>
+<li><code>--clean</code>: 清空<code>./report</code> 路径原来的报告</li>
+</ul>
+</li>
+<li><p>结果</p>
+<p><img src="./allure1.jpg"></p>
+</li>
+</ol>
+<h4 id="Allure-severity-description"><a href="#Allure-severity-description" class="headerlink" title="Allure severity/description"></a>Allure severity/description</h4><ul>
+<li>Blocker</li>
+<li>Critical</li>
+<li>Normal</li>
+<li>Minor</li>
+<li>Trivial</li>
+</ul>
+<p><code>@allure.severity(allure.serverity_level.BLOCKER)</code></p>
+<p><font color='orange'>这个装饰器既可以修饰方法，也可以修饰类</font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> allure</span><br><span class="line"></span><br><span class="line"><span class="meta">@allure.epic(<span class="params"><span class="string">&quot;接口项目名称：xx在线接口测试&quot;</span></span>)</span></span><br><span class="line"><span class="meta">@allure.feature(<span class="params"><span class="string">&quot;接口模块名称：IVR接口&quot;</span></span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestApi</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.story(<span class="params"><span class="string">&quot;接口名称：常规请求&quot;</span></span>)</span></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例1&quot;</span></span>) </span><span class="comment"># 单次的用例标题</span></span><br><span class="line"><span class="meta">    @allure.description(<span class="params"><span class="string">&quot;@allure.description: 测试用例描述&quot;</span></span>) </span><span class="comment"># 单次的用例描述</span></span><br><span class="line"><span class="meta">    @allure.severity(<span class="params">allure.severity_level.BLOCKER</span>) </span><span class="comment"># 单次的用例优先级</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_01</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_01&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例2&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_02</span>(<span class="params">self</span>):</span></span><br><span class="line">        allure.dynamic.title(<span class="string">&quot;allure.dynamic.title&quot;</span>) <span class="comment"># 用于数据驱动的标题</span></span><br><span class="line">        allure.dynamic.description(<span class="string">&quot;allure.dynamic.description&quot;</span>) <span class="comment"># 用于数据驱动的用例描述</span></span><br><span class="line">        allure.dynamic.severity(allure.severity_level.BLOCKER) <span class="comment"># 用于数据驱动的用例优先级</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_02&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="./severity.jpg"></p>
+<h3 id="Refence"><a href="#Refence" class="headerlink" title="Refence"></a>Refence</h3><p>[1] <a href="https://allurereport.org/docs/">https://allurereport.org/docs/</a></p>
+<p>[2] <a href="https://zhuanlan.zhihu.com/p/555114726">https://zhuanlan.zhihu.com/p/555114726</a></p>
+]]></content>
+      <categories>
+        <category>自动化测试</category>
+      </categories>
+      <tags>
+        <tag>pytest</tag>
+      </tags>
   </entry>
 </search>
