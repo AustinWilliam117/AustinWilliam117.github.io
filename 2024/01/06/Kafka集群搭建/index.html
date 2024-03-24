@@ -34,8 +34,9 @@
 <meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/broker%E5%92%8C%E9%9B%86%E7%BE%A4.png">
 <meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/kafka-bin%E7%9B%AE%E5%BD%95.png">
 <meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/kafka-config%E7%9B%AE%E5%BD%95.png">
+<meta property="og:image" content="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/xmx.jpg">
 <meta property="article:published_time" content="2024-01-06T13:10:42.000Z">
-<meta property="article:modified_time" content="2024-01-28T13:05:55.908Z">
+<meta property="article:modified_time" content="2024-03-18T09:54:12.114Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
@@ -136,7 +137,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">43</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -146,7 +147,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">191</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">192</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -234,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-28 21:05:55" itemprop="dateModified" datetime="2024-01-28T21:05:55+08:00">2024-01-28</time>
+                <time title="Modified: 2024-03-18 17:54:12" itemprop="dateModified" datetime="2024-03-18T17:54:12+08:00">2024-03-18</time>
               </span>
 
           
@@ -476,6 +477,10 @@
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kafka 集群唯一标识，不能重复。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 1 和 2</span></span><br><span class="line"><span class="meta">broker.id</span>=<span class="string">0</span></span><br><span class="line"><span class="comment"># kafka 暴漏的IP:POST。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 PLAINTEXT://10.54.0.28:9092 和 PLAINTEXT://10.54.0.32:9092</span></span><br><span class="line"><span class="meta">advertised.listeners</span>=<span class="string">PLAINTEXT://192.168.128.93:9092</span></span><br><span class="line"><span class="comment"># 修改kafka存储数据的路径，默认放在/tmp目录会被定时清理</span></span><br><span class="line"><span class="meta">log.dirs</span>=<span class="string">/opt/kafka/datas</span></span><br><span class="line"><span class="comment"># 修改默认的本地连接，改为集群。在集群后面加/kafka，在根目录下创建kafka文件夹存储数据，而非直接把所有数据全部存储在根目录下，利于后续管理</span></span><br><span class="line"><span class="meta">zookeeper.connect</span>=<span class="string">kafka93:2181,kafka28:2181,kafka29:2181/kafka</span></span><br></pre></td></tr></table></figure></li>
 <li><p>分发kafka到其他两台机器上，并按步骤1修改28、29两台机器的 kafka server.properties</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@kafka93 data]<span class="comment"># xsync kafka_2.12-3.0.0 kafka 28 29</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka28</span></span><br><span class="line">[root@kafka28 ~]<span class="comment"># vim /data/kafka_2.12-3.0.0/config/server.properties</span></span><br><span class="line"><span class="comment"># kafka 集群唯一标识，不能重复。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 1 和 2</span></span><br><span class="line">broker.id=1</span><br><span class="line"><span class="comment"># kafka 暴漏的IP:POST。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 PLAINTEXT://10.54.0.28:9092 和 PLAINTEXT://10.54.0.32:9092</span></span><br><span class="line">advertised.listeners=PLAINTEXT://10.54.0.28:9092</span><br><span class="line"><span class="comment"># 修改kafka存储数据的路径，默认放在/tmp目录会被定时清理</span></span><br><span class="line">log.dirs=/opt/kafka/datas</span><br><span class="line"><span class="comment"># 修改默认的本地连接，改为集群。在集群后面加/kafka，在根目录下创建kafka文件夹存储数据，而非直接把所有数据全部存储在根目录下，利于后续管理</span></span><br><span class="line">zookeeper.connect=kafka93:2181,kafka28:2181,kafka29:2181/kafka</span><br><span class="line"></span><br><span class="line"><span class="comment"># kafka29</span></span><br><span class="line">[root@kafka29 ~]<span class="comment"># vim /data/kafka_2.12-3.0.0/config/server.properties</span></span><br><span class="line"><span class="comment"># kafka 集群唯一标识，不能重复。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 1 和 2</span></span><br><span class="line">broker.id=1</span><br><span class="line"><span class="comment"># kafka 暴漏的IP:POST。10.54.0.28 和 10.54.0.32 两台机器此处分别改成 PLAINTEXT://10.54.0.28:9092 和 PLAINTEXT://10.54.0.32:9092</span></span><br><span class="line">advertised.listeners=PLAINTEXT://10.54.0.32:9092</span><br><span class="line"><span class="comment"># 修改kafka存储数据的路径，默认放在/tmp目录会被定时清理</span></span><br><span class="line">log.dirs=/opt/kafka/datas</span><br><span class="line"><span class="comment"># 修改默认的本地连接，改为集群。在集群后面加/kafka，在根目录下创建kafka文件夹存储数据，而非直接把所有数据全部存储在根目录下，利于后续管理</span></span><br><span class="line">zookeeper.connect=kafka93:2181,kafka28:2181,kafka29:2181/kafka</span><br></pre></td></tr></table></figure></li>
+<li><p>修改kafka运行内存(可跳过)</p>
+<p>在执行大并发的时候，可以适当的修改运行的内存（当然是在你机器内存条件允许的情况下）</p>
+<p><img src="./xmx.jpg"></p>
+</li>
 <li><p>启动 kafka 集群，并查看启动状态</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@kafka93 kafka_2.12-3.0.0]<span class="comment"># ./bin/kafka-server-start.sh -daemon ./config/server.properties</span></span><br><span class="line">[root@kafka93 kafka_2.12-3.0.0]<span class="comment"># jps</span></span><br><span class="line">2163 QuorumPeerMain</span><br><span class="line">30692 Jps</span><br><span class="line">26348 Kafka</span><br><span class="line"></span><br><span class="line">[root@kafka28 kafka_2.12-3.0.0]<span class="comment"># ./bin/kafka-server-start.sh -daemon ./config/server.properties</span></span><br><span class="line">[root@kafka28 kafka_2.12-3.0.0]<span class="comment"># jps</span></span><br><span class="line">7488 Kafka</span><br><span class="line">41990 Jps</span><br><span class="line">919 QuorumPeerMain</span><br><span class="line">2221 Bootstrap</span><br><span class="line"></span><br><span class="line">[root@kafka29 kafka_2.12-3.0.0]<span class="comment"># ./bin/kafka-server-start.sh -daemon ./config/server.properties</span></span><br><span class="line">[root@kafka29 ~]<span class="comment"># jps</span></span><br><span class="line">259024 QuorumPeerMain</span><br><span class="line">265692 Kafka</span><br><span class="line">271389 Jps</span><br></pre></td></tr></table></figure></li>
 </ol>
@@ -596,7 +601,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -609,7 +614,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -660,13 +665,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">718k</span>
+    <span title="Symbols count total">729k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">10:52</span>
+    <span title="Reading time total">11:03</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
