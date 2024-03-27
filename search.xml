@@ -20057,7 +20057,8 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <li>要用在异步IO编程中，依赖的库必须支持异步IO特性</li>
 <li>爬虫引用中：<code>requests</code> 不支持异步，需要用 <code>aiohttp</code></li>
 </ol>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf">Understanding GIL</a></p>
+<p><a href="https://www.bilibili.com/video/BV1bK411A7tV?p=12&vd_source=7edae3cd790e850cc7836ab5c5d9ac4b">https://www.bilibili.com/video/BV1bK411A7tV?p=12&amp;vd_source=7edae3cd790e850cc7836ab5c5d9ac4b</a></p>
+<p><a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf">Understanding GIL</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/354358309">https://zhuanlan.zhihu.com/p/354358309</a></p>
 ]]></content>
       <categories>
