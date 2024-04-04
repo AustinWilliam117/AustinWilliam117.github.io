@@ -20342,6 +20342,18 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <td>O(1)</td>
 </tr>
 </tbody></table>
+<p>使用编程语言中已实现的双向队列类：</p>
+<p><code>deque.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化双向队列</span></span><br><span class="line">my_deque: deque[<span class="built_in">int</span>] = deque()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 元素入队</span></span><br><span class="line">my_deque.append(<span class="number">2</span>)  <span class="comment"># 添加至队尾</span></span><br><span class="line">my_deque.append(<span class="number">5</span>)</span><br><span class="line">my_deque.append(<span class="number">1</span>)</span><br><span class="line">my_deque.append(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">my_deque.appendleft(<span class="number">9</span>)  <span class="comment"># 添加至队首</span></span><br><span class="line">my_deque.appendleft(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问元素</span></span><br><span class="line">front: <span class="built_in">int</span> = my_deque[<span class="number">0</span>]  <span class="comment"># 访问队首元素</span></span><br><span class="line">rear: <span class="built_in">int</span> = my_deque[-<span class="number">1</span>]  <span class="comment"># 访问队尾元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 元素出队</span></span><br><span class="line">pop_front: <span class="built_in">int</span> = my_deque.popleft()  <span class="comment"># 队首元素出队</span></span><br><span class="line">pop_rear: <span class="built_in">int</span> = my_deque.pop()  <span class="comment"># 队尾元素出队</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取双向队列的长度</span></span><br><span class="line">size: <span class="built_in">int</span> = <span class="built_in">len</span>(my_deque)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断双向队列是否为空</span></span><br><span class="line">is_empty: <span class="built_in">bool</span> = <span class="built_in">len</span>(my_deque) == <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用方法：<code>from collections import deque</code></li>
+<li>创建队列：<code>queue = deque()</code></li>
+<li>双向队列队尾进队：<code>append()</code></li>
+<li>双向队列队首出队：<code>popleft()</code></li>
+<li>双向队列队首进队：<code>appendleft()</code></li>
+<li>双向队列队尾出队：<code>pop()</code></li>
+</ul>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://www.hello-algo.com/chapter_hello_algo/">hello-algo</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/81018602">算法一看就懂之「 队列 」</a></p>
 ]]></content>
