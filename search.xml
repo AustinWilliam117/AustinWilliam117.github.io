@@ -20364,4 +20364,414 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
         <tag>数据结构</tag>
       </tags>
   </entry>
+  <entry>
+    <title>logging日志模块</title>
+    <url>/2024/04/11/logging%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="Logging库日志级别"><a href="#Logging库日志级别" class="headerlink" title="Logging库日志级别"></a>Logging库日志级别</h3><table>
+<thead>
+<tr>
+<th>级别</th>
+<th>级别数值</th>
+<th>使用时机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DEBUG</td>
+<td>10</td>
+<td>详细信息，常用于调试</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>20</td>
+<td>程序正常运行过程中产生的一些信息</td>
+</tr>
+<tr>
+<td>WARNNING</td>
+<td>30</td>
+<td>警告用户，虽然程序还在正常工作，但有可能发生错误</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>40</td>
+<td>由于更严重的问题，程序已不能执行一些功能了</td>
+</tr>
+<tr>
+<td>CRITICAL</td>
+<td>50</td>
+<td>严重错误，程序已不能继续运行</td>
+</tr>
+</tbody></table>
+<p><strong>默认的日志级别是warning</strong></p>
+<span id="more"></span>
+
+<p>我们来看一下代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认的日志输出级别为Warning</span></span><br><span class="line"></span><br><span class="line">logging.debug(<span class="string">&quot;This is a debug message&quot;</span>)</span><br><span class="line">logging.info(<span class="string">&quot;This is an info&quot;</span>)</span><br><span class="line">logging.warning(<span class="string">&quot;This is an warning&quot;</span>)</span><br><span class="line">logging.error(<span class="string">&quot;This is an error&quot;</span>)</span><br><span class="line">logging.critical(<span class="string">&quot;This is an critical&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">WARNING:root:This is an warning</span><br><span class="line">ERROR:root:This is an error</span><br><span class="line">CRITICAL:root:This is an critical</span><br></pre></td></tr></table></figure>
+
+<p>正常不会打印出debug和info日志。现在我们更改下日志输出的级别，将日志的输出级别改成DEBUG</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认的日志输出级别为Warning</span></span><br><span class="line"><span class="comment"># 使用baseConfig()来指定日志输出级别</span></span><br><span class="line">logging.basicConfig(level=logging.DEBUG)</span><br><span class="line">logging.debug(<span class="string">&quot;This is a debug message&quot;</span>)</span><br><span class="line">logging.info(<span class="string">&quot;This is an info&quot;</span>)</span><br><span class="line">logging.warning(<span class="string">&quot;This is an warning&quot;</span>)</span><br><span class="line">logging.error(<span class="string">&quot;This is an error&quot;</span>)</span><br><span class="line">logging.critical(<span class="string">&quot;This is an critical&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DEBUG:root:This is a debug message</span><br><span class="line">INFO:root:This is an info</span><br><span class="line">WARNING:root:This is an warning</span><br><span class="line">ERROR:root:This is an error</span><br><span class="line">CRITICAL:root:This is an critical</span><br></pre></td></tr></table></figure>
+
+<p>现在打印出了所有的日志了</p>
+<h3 id="Logging-basicConfig"><a href="#Logging-basicConfig" class="headerlink" title="Logging.basicConfig()"></a>Logging.basicConfig()</h3><p><strong>logging.basicConfig()</strong> 的参数除了日志等级的这个参数可以设置以外，还可以设置其他的参数，比如：</p>
+<table>
+<thead>
+<tr>
+<th align="left">格式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><em>filename</em></td>
+<td align="left">使用指定的文件名创建一个 <a href="https://docs.python.org/zh-cn/3/library/logging.handlers.html#logging.FileHandler"><code>FileHandler</code></a>，而不是 <a href="https://docs.python.org/zh-cn/3/library/logging.handlers.html#logging.StreamHandler"><code>StreamHandler</code></a>。</td>
+</tr>
+<tr>
+<td align="left"><em>filemode</em></td>
+<td align="left">如果指定了 <em>filename</em>，则用此 <a href="https://docs.python.org/zh-cn/3/library/functions.html#filemodes">模式</a> 打开该文件。 默认模式为 <code>&#39;a&#39;</code>。</td>
+</tr>
+<tr>
+<td align="left"><em>format</em></td>
+<td align="left">使用指定的格式字符串作为处理器。 默认为属性以冒号分隔的 <code>levelname</code>, <code>name</code> 和 <code>message</code>。</td>
+</tr>
+<tr>
+<td align="left"><em>datefmt</em></td>
+<td align="left">使用指定的日期/时间格式，与 <a href="https://docs.python.org/zh-cn/3/library/time.html#time.strftime"><code>time.strftime()</code></a> 所接受的格式相同。</td>
+</tr>
+<tr>
+<td align="left"><em>style</em></td>
+<td align="left">如果指定了 <em>format</em>，将为格式字符串使用此风格。 <code>&#39;%&#39;</code>, <code>&#39;&#123;&#39;</code> 或 <code>&#39;$&#39;</code> 分别对应于 <a href="https://docs.python.org/zh-cn/3/library/stdtypes.html#old-string-formatting">printf 风格</a>, <a href="https://docs.python.org/zh-cn/3/library/stdtypes.html#str.format"><code>str.format()</code></a> 或 <a href="https://docs.python.org/zh-cn/3/library/string.html#string.Template"><code>string.Template</code></a>。 默认为 <code>&#39;%&#39;</code>。</td>
+</tr>
+<tr>
+<td align="left"><em>level</em></td>
+<td align="left">设置根记录器级别为指定的 <a href="https://docs.python.org/zh-cn/3/library/logging.html#levels">level</a>.</td>
+</tr>
+<tr>
+<td align="left"><em>stream</em></td>
+<td align="left">使用指定的流初始化 <a href="https://docs.python.org/zh-cn/3/library/logging.handlers.html#logging.StreamHandler"><code>StreamHandler</code></a>。 请注意此参数与 <em>filename</em> 不兼容 —— 如果两者同时存在，则会引发 <code>ValueError</code>。</td>
+</tr>
+<tr>
+<td align="left"><em>handlers</em></td>
+<td align="left">如果指定，这应为一个包含要加入根日志记录器的已创建处理器的可迭代对象。 任何尚未设置格式描述符的处理器将被设置为在此函数中创建的默认格式描述符。 请注意此参数与 <em>filename</em> 或 <em>stream</em> 不兼容 —— 如果两者同时存在，则会引发 <code>ValueError</code>。</td>
+</tr>
+<tr>
+<td align="left"><em>force</em></td>
+<td align="left">如果将此关键字参数指定为 true，则在执行其他参数指定的配置之前，将移除并关闭附加到根记录器的所有现有处理器。</td>
+</tr>
+<tr>
+<td align="left"><em>encoding</em></td>
+<td align="left">如果此关键字参数与 <em>filename</em> 一同被指定，则其值会在创建 <a href="https://docs.python.org/zh-cn/3/library/logging.handlers.html#logging.FileHandler"><code>FileHandler</code></a> 时被使用，因而也会在打开输出文件时被使用。</td>
+</tr>
+<tr>
+<td align="left"><em>errors</em></td>
+<td align="left">如果此关键字参数与 <em>filename</em> 一同被指定，则其值会在创建 <a href="https://docs.python.org/zh-cn/3/library/logging.handlers.html#logging.FileHandler"><code>FileHandler</code></a> 时被使用，因而也会在打开输出文件时被使用。 如果未指定，则会使用值 ‘backslashreplace’。 请注意如果指定为 <code>None</code>，它将被原样传给 <a href="https://docs.python.org/zh-cn/3/library/functions.html#open"><code>open()</code></a>，这意味着它将会当作传入 ‘errors’ 一样处理。</td>
+</tr>
+</tbody></table>
+<p>上表提到的日志的输出格式参数format，其控制着日志输出的一些格式：</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名称</th>
+<th align="left">格式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">args</td>
+<td align="left">此属性不需要用户进行格式化。</td>
+<td align="left">合并到 <code>msg</code> 以产生 <code>message</code> 的包含参数的元组，或是其中的值将被用于合并的字典（当只有一个参数且其类型为字典时）。</td>
+</tr>
+<tr>
+<td align="left">asctime</td>
+<td align="left"><code>%(asctime)s</code></td>
+<td align="left">表示人类易读的 <a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.LogRecord"><code>LogRecord</code></a> 生成时间。 默认形式为 ‘2003-07-08 16:49:45,896’ （逗号之后的数字为时间的毫秒部分）。</td>
+</tr>
+<tr>
+<td align="left">created</td>
+<td align="left"><code>%(created)f</code></td>
+<td align="left"><a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.LogRecord"><code>LogRecord</code></a> 被创建的时间（即 <a href="https://docs.python.org/zh-cn/3/library/time.html#time.time"><code>time.time()</code></a> 的返回值）。</td>
+</tr>
+<tr>
+<td align="left">exc_info</td>
+<td align="left">此属性不需要用户进行格式化。</td>
+<td align="left">异常元组（例如 <code>sys.exc_info</code>）或者如未发生异常则为 <code>None</code>。</td>
+</tr>
+<tr>
+<td align="left">filename</td>
+<td align="left"><code>%(filename)s</code></td>
+<td align="left"><code>pathname</code> 的文件名部分。</td>
+</tr>
+<tr>
+<td align="left">funcName</td>
+<td align="left"><code>%(funcName)s</code></td>
+<td align="left">函数名包括调用日志记录.</td>
+</tr>
+<tr>
+<td align="left">levelname</td>
+<td align="left"><code>%(levelname)s</code></td>
+<td align="left">消息文本记录级别（<code>&#39;DEBUG&#39;</code>，<code>&#39;INFO&#39;</code>，<code>&#39;WARNING&#39;</code>，<code>&#39;ERROR&#39;</code>，<code>&#39;CRITICAL&#39;</code>）。</td>
+</tr>
+<tr>
+<td align="left">levelno</td>
+<td align="left"><code>%(levelno)s</code></td>
+<td align="left">消息数字的记录级别 (<a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.DEBUG"><code>DEBUG</code></a>, <a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.INFO"><code>INFO</code></a>, <a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.WARNING"><code>WARNING</code></a>, <a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.ERROR"><code>ERROR</code></a>, <a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.CRITICAL"><code>CRITICAL</code></a>).</td>
+</tr>
+<tr>
+<td align="left">lineno</td>
+<td align="left"><code>%(lineno)d</code></td>
+<td align="left">发出日志记录调用所在的源行号（如果可用）。</td>
+</tr>
+<tr>
+<td align="left">message</td>
+<td align="left"><code>%(message)s</code></td>
+<td align="left">记入日志的消息，即 <code>msg % args</code> 的结果。 这是在发起调用 <a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.Formatter.format"><code>Formatter.format()</code></a> 时设置的。</td>
+</tr>
+<tr>
+<td align="left">module</td>
+<td align="left"><code>%(module)s</code></td>
+<td align="left">模块 (<code>filename</code> 的名称部分)。</td>
+</tr>
+<tr>
+<td align="left">msecs</td>
+<td align="left"><code>%(msecs)d</code></td>
+<td align="left"><a href="https://docs.python.org/zh-cn/3/library/logging.html#logging.LogRecord"><code>LogRecord</code></a> 被创建的时间的毫秒部分。</td>
+</tr>
+<tr>
+<td align="left">msg</td>
+<td align="left">此属性不需要用户进行格式化。</td>
+<td align="left">在原始日志记录调用中传入的格式字符串。 与 <code>args</code> 合并以产生 <code>message</code>，或是一个任意对象 (参见 <a href="https://docs.python.org/zh-cn/3/howto/logging.html#arbitrary-object-messages">使用任意对象作为消息</a>)。</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="left"><code>%(name)s</code></td>
+<td align="left">用于记录调用的日志记录器名称。</td>
+</tr>
+<tr>
+<td align="left">pathname</td>
+<td align="left"><code>%(pathname)s</code></td>
+<td align="left">发出日志记录调用的源文件的完整路径名（如果可用）。</td>
+</tr>
+<tr>
+<td align="left">process</td>
+<td align="left"><code>%(process)d</code></td>
+<td align="left">进程ID（如果可用）</td>
+</tr>
+<tr>
+<td align="left">processName</td>
+<td align="left"><code>%(processName)s</code></td>
+<td align="left">进程名（如果可用）</td>
+</tr>
+<tr>
+<td align="left">relativeCreated</td>
+<td align="left"><code>%(relativeCreated)d</code></td>
+<td align="left">以毫秒数表示的 LogRecord 被创建的时间，即相对于 logging 模块被加载时间的差值。</td>
+</tr>
+<tr>
+<td align="left">stack_info</td>
+<td align="left">此属性不需要用户进行格式化。</td>
+<td align="left">当前线程中从堆栈底部起向上直到包括日志记录调用并引发创建当前记录堆栈帧创建的堆栈帧信息（如果可用）。</td>
+</tr>
+<tr>
+<td align="left">thread</td>
+<td align="left"><code>%(thread)d</code></td>
+<td align="left">线程ID（如果可用）</td>
+</tr>
+<tr>
+<td align="left">threadName</td>
+<td align="left"><code>%(threadName)s</code></td>
+<td align="left">线程名（如果可用）</td>
+</tr>
+</tbody></table>
+<p>我们来看看怎么使用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认的日志输出级别为Warning</span></span><br><span class="line"></span><br><span class="line">logging.basicConfig(filename=<span class="string">&#x27;message.log&#x27;</span>,</span><br><span class="line">                    <span class="built_in">format</span>=<span class="string">&#x27;%(asctime)s - %(name)s - %(filename)s:%(lineno)s - %(levelname)s - %(message)s&#x27;</span>,</span><br><span class="line">                    level=logging.DEBUG)</span><br><span class="line">logging.debug(<span class="string">&quot;This is a debug message&quot;</span>)</span><br><span class="line">logging.info(<span class="string">&quot;This is an info&quot;</span>)</span><br><span class="line">logging.warning(<span class="string">&quot;This is an warning&quot;</span>)</span><br><span class="line">logging.error(<span class="string">&quot;This is an error&quot;</span>)</span><br><span class="line">logging.critical(<span class="string">&quot;This is an critical&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>filemode也是一个常用的参数，不设的话默认为<code>&#39;a&#39;</code>，即追加模式；也可以设为<code>&#39;w&#39;</code>，那么每次写日志会覆盖之前的日志。</strong></p>
+<p>上述产生的日志文件<code>message.log</code>结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2024-04-10 22:35:26,490 - root - test.py:8 - DEBUG - This is a debug message</span><br><span class="line">2024-04-10 22:35:26,490 - root - test.py:9 - INFO - This is an info</span><br><span class="line">2024-04-10 22:35:26,491 - root - test.py:10 - WARNING - This is an warning</span><br><span class="line">2024-04-10 22:35:26,491 - root - test.py:11 - ERROR - This is an error</span><br><span class="line">2024-04-10 22:35:26,491 - root - test.py:12 - CRITICAL - This is an critical</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Logging组件"><a href="#Logging组件" class="headerlink" title="Logging组件"></a>Logging组件</h3><p>Logging中除了以上的一些设置之外，logging还提供了几个组件（类）供我们实现一些特殊的功能，它们主要是：</p>
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>对应类名</th>
+<th>对应描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>日志器</td>
+<td>Logger</td>
+<td>提供了应用程序可以一直使用的接口</td>
+</tr>
+<tr>
+<td>处理器</td>
+<td>Handler</td>
+<td>将创建的日志记录发送到合适的目的地输出</td>
+</tr>
+<tr>
+<td>过滤器</td>
+<td>Filter</td>
+<td>提供了更细颗粒度的控制工具来决定输出哪条日志记录，丢弃哪条日志记录</td>
+</tr>
+<tr>
+<td>格式器</td>
+<td>Formatter</td>
+<td>决定日志记录的最终输出格式</td>
+</tr>
+</tbody></table>
+<p>这些组件共同完成日志的配置和输出：</p>
+<ul>
+<li><code>Logger</code>需要通过<code>handler</code>将日志信息输出到目标位置，目标位置可以是<code>sys.stdout</code>和文件等。</li>
+<li>不同的Handler可以将日志输出到不同的位置(不同的日志文件)。</li>
+<li><code>Logger</code>可以设置多个<code>handler</code>将同一条日志记录输出到不同的位置。</li>
+<li>每个<code>Handler</code>都可以设置自己的<code>filter</code>从而实现日志过滤，保留实际项目中需要的日志。</li>
+<li><code>formatter</code>实现同一条日志以不同的格式输出到不同的地方。</li>
+</ul>
+<p><strong>简单的说就是：日志器作为入口，通过设置处理器的方式将日志输出，处理器再通过过滤器和格式器对日志进行相应的处理操作。</strong></p>
+<p>我们来简单的介绍一下这些组件中一些常用的方法：</p>
+<h4 id="Logger-日志器"><a href="#Logger-日志器" class="headerlink" title="Logger 日志器"></a>Logger 日志器</h4><ol>
+<li><p>提供应用程序的调用接口</p>
+<p><code>logger = logging.getLogger(__name__)</code></p>
+<p><code>logger</code>是单例的</p>
+</li>
+<li><p>决定日志记录的级别</p>
+<p><code>logger.setLevel()</code></p>
+</li>
+<li><p>将日志内容传递到相关联的<code>headlers</code>中</p>
+<p><code>logger.addHandler() 和 logger.removeHandler()</code></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>方法描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Logger.setLevel()</td>
+<td>设置日志器将会处理的日志消息级别</td>
+</tr>
+<tr>
+<td>Logger.addHander()</td>
+<td>添加一个<code>handler</code>对象</td>
+</tr>
+<tr>
+<td>Logger.addFilter()</td>
+<td>添加一个<code>filter</code>对象</td>
+</tr>
+<tr>
+<td>Logger.removeHander()</td>
+<td>移除一个<code>handler</code>对象</td>
+</tr>
+<tr>
+<td>Logger.removeFilter()</td>
+<td>移除一个<code>filter</code>对象</td>
+</tr>
+<tr>
+<td>Logger.debug()</td>
+<td>设置DEBUG级别的日志记录</td>
+</tr>
+<tr>
+<td>Logger.info()</td>
+<td>设置INFO级别的日志记录</td>
+</tr>
+<tr>
+<td>Logger.exception()</td>
+<td>输出堆栈追踪信息</td>
+</tr>
+<tr>
+<td>Logger.log()</td>
+<td>设置一个自定义的<code>lever</code>参数来创建一个日志记录</td>
+</tr>
+</tbody></table>
+<h4 id="Handler-处理器"><a href="#Handler-处理器" class="headerlink" title="Handler 处理器"></a>Handler 处理器</h4><p><code>Handler</code>将日志分发到不同的目的地。可以是文件、标准输出、邮件、或者通过<code>socke</code>、<code>http</code>等协议发送到任何地方</p>
+<p><font color='orange'><code>StreamHeadler</code></font></p>
+<p>标准输出<code>stdout</code>（如显示器）分发器</p>
+<p>创建方法：<code>sh = logging.StreamHandler(stream=None)</code></p>
+<p><font color='orange'><code>FileHandler</code></font></p>
+<p>将日志保存到磁盘文件的处理器</p>
+<p>创建方法：<code>fh = logging.FileHandler(filename, mode=&#39;a&#39;, encoding=None, delay=False)</code></p>
+<p><code>setFormatter():</code> 设置当前handler对象使用的消息格式</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>方法描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>logging.StreamHandler()</td>
+<td>它可将日志记录输出发送到数据流例如 <em>sys.stdout</em>, <em>sys.stderr</em> 或任何文件型对象（或者更精确地说，任何支持 <code>write()</code> 和 <code>flush()</code> 方法的对象）。</td>
+</tr>
+<tr>
+<td>logging.FileHandler()</td>
+<td>它可将日志记录输出到磁盘文件中</td>
+</tr>
+<tr>
+<td>RotatingFileHandler()</td>
+<td>将日志消息发送到磁盘文件，支持日志文件按大小切割</td>
+</tr>
+<tr>
+<td>BaseRotatingHandler()</td>
+<td>它是轮换文件处理程序类</td>
+</tr>
+<tr>
+<td>TimedRotatingFileHandler()</td>
+<td>将日志消息发送到磁盘文件，并支持日志文件按时间切割</td>
+</tr>
+</tbody></table>
+<h4 id="Fliter-过滤器"><a href="#Fliter-过滤器" class="headerlink" title="Fliter 过滤器"></a>Fliter 过滤器</h4><p>看名字大家就知道这是一个过滤类，那么过滤什么呢？</p>
+<p>Filter可以被Handler和Logger用来做比之前设置的日志等级level更为细粒度的、更复杂的相关过滤功能。</p>
+<p>简单的说Filter是一个过滤器基类，它只允许某个logger层级下的日志事件通过过滤，保存下来。该类定义如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">logging</span>.<span class="title">Filter</span>(<span class="title">name</span></span>=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    filter(record)</span><br></pre></td></tr></table></figure>
+
+<p>过滤举例：</p>
+<p>例如用 ‘A.B’ 初始化的 Filter，那么其允许Logger ‘A.B’, ‘A.B.C’, ‘A.B.C.D’, ‘A.B.D’ 等日志记录的事件，logger‘A.BB’, ‘B.A.B’ 等就不满足过滤的条件。</p>
+<p>如果用空字符串来对Filter初始化，所有日志记录的事件都将不会被过滤。</p>
+<h4 id="Formatter-格式器"><a href="#Formatter-格式器" class="headerlink" title="Formatter 格式器"></a>Formatter 格式器</h4><p><code>Formater</code>主要负责日志的格式化输出的</p>
+<p>构造方法：<code>ft = logging.Formatter.__init__(fmt=None, datefmt=None, style=&#39; %&#39;)</code></p>
+<p><code>datefmt</code>默认是<code>%Y-%m-%d %H:%M:%S</code>样式的</p>
+<p><code>style</code>参数默认为百分符%，这表示<code>%(&lt;dictionary key&gt;)s</code>格式的字符串</p>
+<p>如果使用<code>logging</code>的组件呢，来看下面的例子</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="comment"># logger 日志器</span></span><br><span class="line">logger = logging.getLogger(<span class="string">&#x27;applog&#x27;</span>)</span><br><span class="line">logger.setLevel(logging.DEBUG)	<span class="comment"># console 和 file 想要打印不同的日志级别，需要logger设置成DEBUG</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理器handler</span></span><br><span class="line">consoleHandler = logging.StreamHandler()</span><br><span class="line">consoleHandler.setLevel(logging.DEBUG)  <span class="comment"># console 打印的日志级别</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有给handler指定日志级别，将使用logger的级别</span></span><br><span class="line">fileHandler = logging.FileHandler(filename=<span class="string">&#x27;message.log&#x27;</span>)</span><br><span class="line">fileHandler.setLevel(logging.INFO)	<span class="comment"># file 打印日志级别</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># formatter 格式</span></span><br><span class="line">formatter = logging.Formatter(<span class="string">&#x27;%(asctime)s [%(levelname)s] [%(filename)s:%(lineno)s] [%(name)s] %(message)s&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给处理器设置格式</span></span><br><span class="line">consoleHandler.setFormatter(formatter)</span><br><span class="line">fileHandler.setFormatter(formatter)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录器设置处理器</span></span><br><span class="line">logger.addHandler(consoleHandler)</span><br><span class="line">logger.addHandler(fileHandler)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志打印</span></span><br><span class="line">logger.debug(<span class="string">&#x27;This is a debug message&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;This is an info message&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;This is an warning message&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;This is an error message&#x27;</span>)</span><br><span class="line">logger.critical(<span class="string">&#x27;This is an critical message&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2024-04-10 23:46:28,312 [DEBUG] [test1.py:26] [applog] This is a debug message</span><br><span class="line">2024-04-10 23:46:28,313 [INFO] [test1.py:27] [applog] This is an info message</span><br><span class="line">2024-04-10 23:46:28,313 [WARNING] [test1.py:28] [applog] This is an warning message</span><br><span class="line">2024-04-10 23:46:28,313 [ERROR] [test1.py:29] [applog] This is an error message</span><br><span class="line">2024-04-10 23:46:28,313 [CRITICAL] [test1.py:30] [applog] This is an critical message</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="conf形式配置文件"><a href="#conf形式配置文件" class="headerlink" title="conf形式配置文件"></a><code>conf</code>形式配置文件</h4><p>我们知道在**logging.basicConfig()**中，是进行一些日志的配置的，如果每次都去改动代码，那将变得十分的麻烦，特别是在程序发布或者上线的时候。所以我们可以使用一个什么好的方法来规避这个问题呢？有的，那就是配置文件。</p>
+<p>我们在文件<strong>logging.conf</strong>中写入相关的信息，内容如下：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[loggers]</span></span><br><span class="line"><span class="attr">keys</span>=root,appname</span><br><span class="line"></span><br><span class="line"><span class="section">[handlers]</span></span><br><span class="line"><span class="attr">keys</span>=fileHandler,consoleHandler</span><br><span class="line"></span><br><span class="line"><span class="section">[formatters]</span></span><br><span class="line"><span class="attr">keys</span>=simpleFormatter</span><br><span class="line"></span><br><span class="line"><span class="section">[logger_root]</span></span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="comment">; logger.addHandler(consoleHandler)</span></span><br><span class="line"><span class="attr">handlers</span>=consoleHandler</span><br><span class="line"></span><br><span class="line"><span class="section">[logger_appname]</span></span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="attr">handlers</span>=fileHandler,consoleHandler</span><br><span class="line"><span class="comment">; 别名 logging.getLogger(&#x27;appname&#x27;)</span></span><br><span class="line"><span class="attr">qualname</span>=appname</span><br><span class="line"><span class="comment">; 继承关系 0 不继承</span></span><br><span class="line"><span class="attr">propagate</span>=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="section">[handler_consoleHandler]</span></span><br><span class="line"><span class="comment">; consoleHandler = logging.StreamHandler()</span></span><br><span class="line"><span class="attr">class</span>=StreamHandler</span><br><span class="line"><span class="comment">; sys.stdout 标准输出，即 console 输出</span></span><br><span class="line"><span class="attr">args</span>=(sys.stdout,)</span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="attr">formatter</span>=simpleFormatter</span><br><span class="line"></span><br><span class="line"><span class="section">[handler_fileHandler]</span></span><br><span class="line"><span class="attr">class</span>=handlers.TimedRotatingFileHandler</span><br><span class="line"><span class="comment">; 日志滚动更新，每天24点分隔日志，1 代表 delay多少s，0 代表文件保留的时间，0即不删除</span></span><br><span class="line"><span class="attr">args</span>=(<span class="string">&#x27;appname.log&#x27;</span>, <span class="string">&#x27;midnight&#x27;</span>, <span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="attr">formatter</span>=simpleFormatter</span><br><span class="line"></span><br><span class="line"><span class="section">[formatter_simpleFormatter]</span></span><br><span class="line"><span class="attr">format</span>=%(asctime)s [%(levelname)s] [%(filename)s:%(line<span class="literal">no</span>)s] [%(name)s] %(message)s</span><br><span class="line"><span class="comment">;datefmt=%Y-%m-%d %H:%M:%S</span></span><br></pre></td></tr></table></figure>
+
+<p>使用配置文件的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging.config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 载入配置文件信息</span></span><br><span class="line">logging.config.fileConfig(<span class="string">&#x27;logging.conf&#x27;</span>)</span><br><span class="line"></span><br><span class="line">rootLogger = logging.getLogger()</span><br><span class="line">logger = logging.getLogger(<span class="string">&#x27;appname&#x27;</span>)</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;debug message&#x27;</span>)</span><br><span class="line">rootLogger.info(<span class="string">&#x27;info message&#x27;</span>)</span><br><span class="line"></span><br><span class="line">a = <span class="string">&#x27;abc&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">int</span>(a)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    logger.exception(e)	<span class="comment"># 使用logger.exception() 捕获异常，而非 logger.error()</span></span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">2024-04-11 00:28:56,077 [DEBUG] [test2.py:9] [appname] debug message</span><br><span class="line">2024-04-11 00:28:56,077 [INFO] [test2.py:10] [root] info message</span><br><span class="line">2024-04-11 00:28:56,077 [ERROR] [test2.py:17] [appname] invalid literal <span class="keyword">for</span> int() with base 10: <span class="string">&#x27;abc&#x27;</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;/Users/william/Desktop/tmp/logger_manager/test2.py&quot;</span>, line 15, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    int(a)</span><br><span class="line">ValueError: invalid literal <span class="keyword">for</span> int() with base 10: <span class="string">&#x27;abc&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="自定义logger日志输出文件"><a href="#自定义logger日志输出文件" class="headerlink" title="自定义logger日志输出文件"></a>自定义<code>logger</code>日志输出文件</h3><p>以上介绍的知识点，大家在平时或在实际的项目中使用基本上就足够了，下面我们简单的介绍一下怎么进行自定义logger进行日志的输出。</p>
+<p>我们写一个<strong>sel_def_logger.py</strong>文件，文件中的定义一个类，内容如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> strftime</span><br><span class="line"><span class="comment"># 输出日志路径</span></span><br><span class="line">PATH = os.path.abspath(<span class="string">&#x27;.&#x27;</span>) + <span class="string">&#x27;/logs/&#x27;</span></span><br><span class="line"><span class="comment"># 设置日志格式#和时间格式</span></span><br><span class="line">FMT = <span class="string">&#x27;%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s: %(message)s&#x27;</span></span><br><span class="line">DATEFMT = <span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLog</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.logger = logging.getLogger()</span><br><span class="line">        self.formatter = logging.Formatter(fmt=FMT, datefmt=DATEFMT)</span><br><span class="line">        self.log_filename = <span class="string">&#x27;&#123;0&#125;&#123;1&#125;.log&#x27;</span>.<span class="built_in">format</span>(PATH, strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>))</span><br><span class="line"></span><br><span class="line">        self.logger.addHandler(self.get_file_handler(self.log_filename))</span><br><span class="line">        self.logger.addHandler(self.get_console_handler())</span><br><span class="line">        <span class="comment"># 设置日志的默认级别</span></span><br><span class="line">        self.logger.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出到文件handler的函数定义</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_file_handler</span>(<span class="params">self, filename</span>):</span></span><br><span class="line">        filehandler = logging.FileHandler(filename, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">        filehandler.setFormatter(self.formatter)</span><br><span class="line">        <span class="keyword">return</span> filehandler</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出到控制台handler的函数定义</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_console_handler</span>(<span class="params">self</span>):</span></span><br><span class="line">        console_handler = logging.StreamHandler(sys.stdout)</span><br><span class="line">        console_handler.setFormatter(self.formatter)</span><br><span class="line">        <span class="keyword">return</span> console_handler</span><br></pre></td></tr></table></figure>
+
+<p>那么使用这个类的方法可以这样写：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> sef_def_logger <span class="keyword">import</span> MyLog</span><br><span class="line">my_logg = MyLog().logger</span><br><span class="line">my_logg.info(<span class="string">&quot;代码开始运行的时间&#123;&#125;&quot;</span>.<span class="built_in">format</span>(datetime.datetime.now()))</span><br><span class="line">my_logg.debug(<span class="string">&#x27;看看debug&#x27;</span>)</span><br><span class="line">my_logg.error(<span class="string">&#x27;This is a error&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://docs.python.org/zh-cn/3/library/logging.html#module-logging">logging — Python的日志记录工具</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/166671955">Python实用教程系列——Logging日志模块</a></p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+  </entry>
 </search>
