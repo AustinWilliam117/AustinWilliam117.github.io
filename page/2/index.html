@@ -127,17 +127,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">46</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">47</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">196</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">197</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -190,6 +190,132 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Kafka集群搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-06 21:10:42" itemprop="dateCreated datePublished" datetime="2024-01-06T21:10:42+08:00">2024-01-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-03-18 17:54:12" itemprop="dateModified" datetime="2024-03-18T17:54:12+08:00">2024-03-18</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>14 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li><a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE">环境搭建机器配置</a></li>
+<li><a href="#xsync%E4%B8%8Ersync%E6%96%87%E4%BB%B6%E5%88%86%E5%8F%91">xsync与rsync文件分发</a></li>
+<li><a href="#ZooKeeper%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">ZooKeeper环境搭建</a></li>
+<li><a href="#Kafka%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">Kafka环境搭建</a></li>
+<li><a href="#Hadoop%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">Hadoop环境搭建</a></li>
+</ul>
+<h3 id="环境搭建机器配置"><a href="#环境搭建机器配置" class="headerlink" title="环境搭建机器配置"></a>环境搭建机器配置</h3><ol>
+<li><p>3台机器默认都是 java 1.8.0_321</p>
+</li>
+<li><p>3台服务器配置如下：( 练手不需要这么高的配置，我只是刚好有 : )</p>
+<table>
+<thead>
+<tr>
+<th>IP</th>
+<th>OS</th>
+<th>CPU</th>
+<th>MEM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>192.168.128.93</td>
+<td>CentOS 7.9</td>
+<td>8C/8T Intel(R) Xeon(R) Silver 4110 CPU @ 2.10GHz 虚拟机</td>
+<td>16G</td>
+</tr>
+<tr>
+<td>10.54.0.28</td>
+<td>CentOS 7.9</td>
+<td>32C/64T Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz 物理机</td>
+<td>256G</td>
+</tr>
+<tr>
+<td>10.54.0.32</td>
+<td>CentOS 7.9</td>
+<td>32C/64T Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz 物理机</td>
+<td>256G</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/01/06/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1077,96 +1203,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/12/%E5%90%AF%E5%8A%A8docker%E5%AE%B9%E5%99%A8%E5%90%8E%E7%BD%91%E7%BB%9C%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/12/%E5%90%AF%E5%8A%A8docker%E5%AE%B9%E5%99%A8%E5%90%8E%E7%BD%91%E7%BB%9C%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="post-title-link" itemprop="url">启动docker容器后网络冲突的解决办法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-04-12 23:44:16 / Modified: 23:45:09" itemprop="dateCreated datePublished" datetime="2023-04-12T23:44:16+08:00">2023-04-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="查看启动容器的镜像源数据"><a href="#查看启动容器的镜像源数据" class="headerlink" title="查看启动容器的镜像源数据"></a>查看启动容器的镜像源数据</h3><p><code>docker inspect classify_service</code></p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Networks&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;docker-cluster-yml_default&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;IPAMConfig&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">&quot;Links&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">&quot;Aliases&quot;</span>: [</span><br><span class="line">                        <span class="string">&quot;classify_service&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;classify_service&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;3e4da4c588e0&quot;</span></span><br><span class="line">                    ],</span><br><span class="line">                    <span class="string">&quot;NetworkID&quot;</span>: <span class="string">&quot;1e720d1e75de556314b9bf0f81eae19f4fdb4b3e403d628632aa0ca73045087d&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;EndpointID&quot;</span>: <span class="string">&quot;f8eab1e55b3ca4437510c6fbc53fb92e57b63091f3bca329fc7db97f23ff91d0&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;Gateway&quot;</span>: <span class="string">&quot;172.21.0.1&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;IPAddress&quot;</span>: <span class="string">&quot;172.21.0.2&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;IPPrefixLen&quot;</span>: <span class="number">16</span>,</span><br><span class="line">                    <span class="string">&quot;IPv6Gateway&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;GlobalIPv6Address&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;GlobalIPv6PrefixLen&quot;</span>: <span class="number">0</span>,</span><br><span class="line">                    <span class="string">&quot;MacAddress&quot;</span>: <span class="string">&quot;02:42:ac:15:00:02&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;DriverOpts&quot;</span>: <span class="literal">null</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/12/%E5%90%AF%E5%8A%A8docker%E5%AE%B9%E5%99%A8%E5%90%8E%E7%BD%91%E7%BB%9C%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1238,20 +1274,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">196</span>
+          <span class="site-state-item-count">197</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1302,13 +1338,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">773k</span>
+    <span title="Symbols count total">775k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:43</span>
+    <span title="Reading time total">11:45</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

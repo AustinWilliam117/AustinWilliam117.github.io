@@ -20835,9 +20835,9 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 <h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p><a href="https://zhuanlan.zhihu.com/p/57893374">5张图彻底理解Python中的浅拷贝与深拷贝</a></p>
 <p><a href="https://www.runoob.com/w3cnote/python-understanding-dict-copy-shallow-or-deep.html">Python 直接赋值、浅拷贝和深度拷贝解析</a></p>
 ]]></content>
-      <tags>
-        <tag>Python</tag>
-      </tags>
+      <categories>
+        <category>Python</category>
+      </categories>
   </entry>
   <entry>
     <title>Python类的方法</title>
@@ -20952,9 +20952,9 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 <p>上述是通过Python标准库中abc模块实现了抽象基类，其实在Python中collections中也实现了抽象基类，numbers中也定义了有关数字对象的抽象基类，可见，抽象基类在Python中占据着至关重要的地位。</p>
 ]]></content>
-      <tags>
-        <tag>Python</tag>
-      </tags>
+      <categories>
+        <category>Python</category>
+      </categories>
   </entry>
   <entry>
     <title>Python魔法方法</title>
@@ -20962,14 +20962,14 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>在Python中，所有以双下划线<code>__</code>包起来的方法，统称为<strong>Magic Method（魔术方法）</strong>，它是一种的特殊方法，普通方法需要调用，而魔术方法不需要调用就可以自动执行。</p>
 <p>魔术方法在类或对象的某些事件出发后会自动执行，让类具有神奇的“魔力”。如果希望根据自己的程序定制自己特殊功能的类，那么就需要对这些方法进行重写。</p>
 <p>Python中常用的运算符、for循环、以及类操作等都是运行在魔术方法之上的。</p>
-<h3 id="doc"><a href="#doc" class="headerlink" title="_doc_"></a>_<em>doc</em>_</h3><ul>
+<h3 id="doc"><a href="#doc" class="headerlink" title="__doc__"></a>__doc__</h3><ul>
 <li>表示类的描述信息</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line">  <span class="string">&quot;&quot;&quot;描述类信息，这个是工具类&quot;&quot;&quot;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">  </span><br><span class="line"><span class="built_in">print</span>(Foo.__doc__)		<span class="comment"># 输出：类的描述信息</span></span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
 
-<h3 id="module-和-class"><a href="#module-和-class" class="headerlink" title="_module_ 和 __class__"></a>_<em>module</em>_ 和 __class__</h3><ul>
+<h3 id="module-和-class"><a href="#module-和-class" class="headerlink" title="__module__ 和 __class__"></a>__module__ 和 __class__</h3><ul>
 <li><code>__module__</code>表示当前操作的对象在那个模块</li>
 <li><code>__class__</code>表示当前操作的对象的类是什么</li>
 </ul>
@@ -20984,14 +20984,14 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h3 id="init"><a href="#init" class="headerlink" title="_init_"></a>_<em>init</em>_</h3><ul>
+<h3 id="init"><a href="#init" class="headerlink" title="__init__"></a>__init__</h3><ul>
 <li>初始化方法，通过类创建对象时，自动触发执行</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name</span>):</span></span><br><span class="line">    self.name = name</span><br><span class="line">    self.age = <span class="number">18</span></span><br><span class="line">    </span><br><span class="line">obj = Person(<span class="string">&#x27;william&#x27;</span>)		<span class="comment"># 自动执行类中的 __init__ 方法</span></span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="del"><a href="#del" class="headerlink" title="_del_"></a>_<em>del</em>_</h3><ul>
+<h3 id="del"><a href="#del" class="headerlink" title="__del__"></a>__del__</h3><ul>
 <li>当对象在内存中被释放时，自动触发执行</li>
 </ul>
 <p>此方法一般无需定义，<code>__del__</code>的调用是由解释器在进行垃圾回收时自动触发执行的</p>
@@ -20999,7 +20999,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h3 id="call"><a href="#call" class="headerlink" title="_call_"></a>_<em>call</em>_</h3><ul>
+<h3 id="call"><a href="#call" class="headerlink" title="__call__"></a>__call__</h3><ul>
 <li>对象后面加括号，触发执行</li>
 </ul>
 <p><code>__init__</code>方法的执行是由创建对象触发的，即：<code>对象 = 类名()</code>；而对于 <code>__call__</code>方法的执行是由对象后加括号触发的，即<code>对象()</code>或者<code>类()()</code></p>
@@ -21007,7 +21007,7 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h3 id="dict"><a href="#dict" class="headerlink" title="_dict_"></a>_<em>dict</em>_</h3><ul>
+<h3 id="dict"><a href="#dict" class="headerlink" title="__dict__"></a>__dict__</h3><ul>
 <li>类或对象中的所有属性</li>
 </ul>
 <p>类的实例属性属于对象；类中的类属性和方法属于类，即：</p>
@@ -21015,14 +21015,14 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 
 
 
-<h3 id="str"><a href="#str" class="headerlink" title="_str_"></a>_<em>str</em>_</h3><ul>
+<h3 id="str"><a href="#str" class="headerlink" title="__str__"></a>__str__</h3><ul>
 <li>如果一个类定义了<code>__str__</code>方法，那么打印对象时，默认输出该方法返回值</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__str__</span>(<span class="params">self</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;william&#x27;</span></span><br><span class="line">  </span><br><span class="line">obj = Foo()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;当前对象返回值为: %s&quot;</span> %obj)		<span class="comment"># 输出: william</span></span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="repr"><a href="#repr" class="headerlink" title="_repr_"></a>_<em>repr</em>_</h3><p>函数<code>__str__</code> 用于将值转化为适于人阅读的形式，而<code>__repr__</code>转化为供解释器读取的形式，某对象没有适于人阅读的解释形式的话，<code>__str__</code>会返回与<code>__repr__</code>，所以<code>print</code>展示的都是<code>__str__</code>的格式。</p>
+<h3 id="repr"><a href="#repr" class="headerlink" title="__repr__"></a>__repr__</h3><p>函数<code>__str__</code> 用于将值转化为适于人阅读的形式，而<code>__repr__</code>转化为供解释器读取的形式，某对象没有适于人阅读的解释形式的话，<code>__str__</code>会返回与<code>__repr__</code>，所以<code>print</code>展示的都是<code>__str__</code>的格式。</p>
 <p>默认情况下，<code>__repr__</code> 会返回和调用者有关的 <code>类名+object at+内存地址</code> (&lt;__main__.CLanguage object at 0x000001A7275221D0&gt;)信息。当然，我们还可以通过在类中重写这个方法，从而实现当输出实例化对象时，输出我们想要的信息。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CLanguage</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.name = <span class="string">&quot;C语言中文网&quot;</span></span><br><span class="line">        self.add = <span class="string">&quot;http://c.biancheng.net&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;CLanguage[name=&quot;</span>+ self.name +<span class="string">&quot;,add=&quot;</span> + self.add +<span class="string">&quot;]&quot;</span></span><br><span class="line">clangs = CLanguage()</span><br><span class="line"><span class="built_in">print</span>(clangs)</span><br></pre></td></tr></table></figure>
 
@@ -21058,6 +21058,61 @@ console.log("曾有一段感情挥之不去，梦境与回忆交织相融，亦�
 ]]></content>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python之常用设计模式</title>
+    <url>/2024/05/03/Python%E4%B9%8B%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h3 id="简单工厂设计模式"><a href="#简单工厂设计模式" class="headerlink" title="简单工厂设计模式"></a>简单工厂设计模式</h3><p>内容：不直接向客户端暴露对象创建的实现细节，而是通过一个工厂类来负责创建产品类的实例</p>
+<p>角色：</p>
+<ul>
+<li>抽象工厂角色（Creator）</li>
+<li>具体工厂角色（Concrete Creator）</li>
+<li>具体产品角色（Concrete Product）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Payment</span>(<span class="params">metaclass=ABCMeta</span>):</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Alipay</span>(<span class="params">Payment</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, use_huabei=<span class="literal">False</span></span>):</span></span><br><span class="line">        self.use_huabei = use_huabei</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.use_huabei:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;花呗支付%d元&quot;</span> % money)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;支付宝支付%d元&quot;</span> % money)</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WechatPay</span>(<span class="params">Payment</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;微信支付%d元&quot;</span> % money)</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BankPay</span>(<span class="params">Payment</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;银行卡支付%d元&quot;</span> % money)</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PaymentFactory</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_payment</span>(<span class="params">self, method</span>):</span></span><br><span class="line">        <span class="keyword">if</span> method == <span class="string">&#x27;alipay&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> Alipay(use_huabei=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">elif</span> method == <span class="string">&#x27;wechat&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> WechatPay()</span><br><span class="line">        <span class="keyword">elif</span> method == <span class="string">&#x27;bankpay&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> BankPay()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">&quot;No such payment named %s&quot;</span> % method)</span><br><span class="line">        </span><br><span class="line">pf = PaymentFactory()</span><br><span class="line">p = pf.create_payment(<span class="string">&#x27;alipay&#x27;</span>)</span><br><span class="line">p.pay(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>优点：</p>
+<ul>
+<li>隐藏了对象创建的实现细节</li>
+<li>客户端不需要修改代码</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>违反了单一职责原则，将创建逻辑几种到一个工厂类里</li>
+<li>当添加新产品时，需要修改工厂类代码，违反了开闭原则</li>
+</ul>
+<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>内容：定义一个用于创建对象的接口（工厂接口），让子类决定实例化那一个产品类</p>
+<p>角色：</p>
+<ul>
+<li>抽象工厂角色（Creator）</li>
+<li>具体工厂角色（Concrete Creator）</li>
+<li>抽象产品角色（Product）</li>
+<li>具体产品角色（Concrete Product）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义支付类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Payment</span>(<span class="params">metaclass=ABCMeta</span>):</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Alipay</span>(<span class="params">Payment</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, use_huabei=<span class="literal">False</span></span>):</span></span><br><span class="line">        self.use_huabei = use_huabei</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.use_huabei:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;花呗支付%d元&quot;</span> % money)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;支付宝支付%d元&quot;</span> % money)</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WechatPay</span>(<span class="params">Payment</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;微信支付%d元&quot;</span> % money)</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BankPay</span>(<span class="params">Payment</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pay</span>(<span class="params">self, money</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;银行卡支付%d元&quot;</span> % money)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义工厂类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PaymentFactory</span>(<span class="params">metaclass=ABCMeta</span>):</span></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_payment</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AliPayFactory</span>(<span class="params">PaymentFactory</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_payment</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> Alipay(use_huabei=<span class="literal">True</span>)</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WechatPayFactory</span>(<span class="params">PaymentFactory</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_payment</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> WechatPay()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BankPayFactory</span>(<span class="params">PaymentFactory</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">create_payment</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">        </span><br><span class="line">pf = AliPayFactory()</span><br><span class="line">p = pf.create_payment()</span><br><span class="line">p.pay(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<ul>
+<li>每个具体产品都对应一个具体工厂类，不需要修改工厂类代码</li>
+<li>隐藏了对象创建的实现细节</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>每增加一个具体产品类，就必须增加一个相对应的具体工厂类</li>
+</ul>
+<h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>内容：定义一个工厂类接口，让工厂子类来创建一系列相关或相互依赖的对象</p>
+<p>例如：生产一部手机，需要手机壳、CPU、操作系统三类对象进行组装，其中每类对象都有不同的种类。对每个具体工厂，分别生产一部手机所需要的三个对象</p>
+<p>相比工厂方法模式，抽象工厂模式中的每个具体工厂都生产一套产品</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
       </tags>
   </entry>
 </search>
