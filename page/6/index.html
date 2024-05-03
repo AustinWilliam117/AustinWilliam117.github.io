@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">195</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">196</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,99 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-title-link" itemprop="url">ADB命令大全</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-11 23:29:59 / Modified: 23:31:59" itemprop="dateCreated datePublished" datetime="2022-03-11T23:29:59+08:00">2022-03-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">软件测试</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>9 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转载自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89060003">知乎：木头人</a></p>
+</blockquote>
+<p>常用命令用于速查，都是经常需要用到的，没有接触过adb命令从第二节开始看，对每个命令有详细解释。</p>
+<h2 id="1-常用命令："><a href="#1-常用命令：" class="headerlink" title="1. 常用命令："></a>1. 常用命令：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">adb devices #查看连接设备</span><br><span class="line"></span><br><span class="line">adb -s cf27456f shell # 指定连接设备使用命令</span><br><span class="line"></span><br><span class="line">adb install test.apk # 安装应用</span><br><span class="line"></span><br><span class="line">adb install -r demo.apk #重新安装现有应用，保留其数据。</span><br><span class="line"></span><br><span class="line">adb uninstall cn.com.test.mobile #卸载应用，需要指定包</span><br><span class="line"></span><br><span class="line">adb uninstall -k cn.com.test.mobile #卸载app 但保留数据和缓存文件</span><br><span class="line"></span><br><span class="line">adb shell pm list packages #列出手机装的所有app 的包名</span><br><span class="line"></span><br><span class="line">adb shell pm list packages -3 #列出除了系统应用的第三方应用包名</span><br><span class="line"></span><br><span class="line">adb shell pm clear cn.com.test.mobile #清除应用数据与缓存</span><br><span class="line"></span><br><span class="line">adb shell am start -ncn.com.test.mobile/.ui.SplashActivity #启动应用</span><br><span class="line"></span><br><span class="line">adb shell dumpsys package #包信息Package Information</span><br><span class="line"></span><br><span class="line">adb shell dumpsys meminfo #内存使用情况Memory Usage</span><br><span class="line"></span><br><span class="line">adb shell am force-stop cn.com.test.mobile #强制停止应用</span><br><span class="line"></span><br><span class="line">adb logcat #查看日志</span><br><span class="line"></span><br><span class="line">adb logcat -c #清除log 缓存</span><br><span class="line"></span><br><span class="line">adb reboot #重启</span><br><span class="line"></span><br><span class="line">adb get-serialno #获取序列号</span><br><span class="line"></span><br><span class="line">adb shell getprop ro.build.version.release #查看Android 系统版本</span><br><span class="line"></span><br><span class="line">adb shell top -s 10 #查看占用内存前10 的app</span><br><span class="line"></span><br><span class="line">adb push &lt;local&gt; &lt;remote&gt; #从本地复制文件到设备</span><br><span class="line"></span><br><span class="line">adb pull &lt;remote&gt; &lt;local&gt; #从设备复制文件到本地</span><br><span class="line"></span><br><span class="line">adb bugreport #查看bug 报告</span><br><span class="line"></span><br><span class="line">adb help #查看ADB 帮助</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/11/ADB%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1056,104 +1149,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/16/%E6%88%91%E6%89%80%E5%AE%B3%E6%80%95%E5%92%8C%E9%9A%BE%E8%BF%87%E7%9A%84%E4%BA%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="过去就像攥在手中的一把干沙，自以为攥得很紧，其实早就从指缝中流光了。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/16/%E6%88%91%E6%89%80%E5%AE%B3%E6%80%95%E5%92%8C%E9%9A%BE%E8%BF%87%E7%9A%84%E4%BA%8B/" class="post-title-link" itemprop="url">我所害怕和难过的事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-16 06:04:23" itemprop="dateCreated datePublished" datetime="2022-01-16T06:04:23+08:00">2022-01-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-17 22:13:36" itemprop="dateModified" datetime="2022-01-17T22:13:36+08:00">2022-01-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>163</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-    <div id="aplayer-jLKseMxV" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="002IFZ9537O1Du" data-server="tencent" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div>
-</br>
-
-<p>梦见90年代花坛边看着爷爷奶奶们唱着那个年代的老歌，你一句我一句，甚是享乐。</p>
-<p>旁边的大爷却是暗自神伤，独自落泪，之后大家唱着唱着也都哭了起来。</p>
-<p><em>大浪里淘尽所有的往事，可是我会永远，珍藏那张不老的风帆。</em></p>
-<p>梦里他们明明是爷爷，奶奶，但我看他们却还是很年轻，没有比我大太多。</p>
-<p>或许感慨时光不待，青春再也追不回来了的人并不是他们，而是我自己。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1225,7 +1220,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-count">196</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1289,13 +1284,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">765k</span>
+    <span title="Symbols count total">773k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:36</span>
+    <span title="Reading time total">11:43</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
