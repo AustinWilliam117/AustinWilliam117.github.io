@@ -21357,4 +21357,80 @@ name ends
         <tag>2025</tag>
       </tags>
   </entry>
+  <entry>
+    <title>构建之法——00.概论</title>
+    <url>/2025/01/09/%E6%9E%84%E5%BB%BA%E4%B9%8B%E6%B3%95%E2%80%94%E2%80%9400-%E6%A6%82%E8%AE%BA/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>最近试读《构建之法—现代软件工程》这本书，不知道有没有时间能看完，也不知道有没有时间能写完这本书的笔记，先记录下来吧</p>
+<h3><span id="软件程序软件工程">软件=程序+软件工程</span></h3><p>作者通过一个很生动的实际需求例子，为我们引入了软件工程的概念。基于“<code>程序=数据结构+算法</code>”的这句名言，作者通过这个例子，给了我们两个推论：</p>
+<center><strong>软件 = 程序 + 软件工程</strong></center>
+
+<p>正式因为有了构建管理、源代码管理、软件设计、软件测试、项目管理这些软件工程的内容，才能把程序转化成一个可靠的软件。</p>
+<center><strong>软件企业 = 软件 + 商业模式</strong></center>
+
+<span id="more"></span>
+
+<h4><span id="软件开发的不同阶段">软件开发的不同阶段</span></h4><p>“软件工程”自1968年被首次提出后，经历了不同的发展阶段。</p>
+<p>作者用航空产业的阶段为我们做了一次类比：</p>
+<ol>
+<li>玩具阶段</li>
+<li>业余爱好者阶段</li>
+<li>探索阶段</li>
+<li>成熟的产业阶段</li>
+</ol>
+<p>在成熟的航空工业中，一个飞机发动机从构思到最后运行，不知道要经历多少人、多少工序、多少流程、多少相关知识的验证，其实一款大型软件的开发同样如此。</p>
+<h3><span id="软件工程是什么">软件工程是什么</span></h3><p>软件工程是把系统的、有序的、可量化的方法应用到软件的开发、运营和维护上的过程</p>
+<p>软件工程包括下列领域：软件需求分析、软件设计、软件构建、软件测试和软件维护</p>
+<p>软件工程和下列的学科相关：计算机科学、计算机工程、管理学、数学、项目管理学、质量管理、软件人体工学、系统工程、工业设计和用户体验设计</p>
+<h4><span id="软件开发的难点">软件开发的难点</span></h4><ol>
+<li><strong>复杂性（Complexity）</strong></li>
+<li><strong>不可见性（Invisibility）</strong>：软件如何运行，bug难以排查</li>
+<li><strong>易变性（Changeability）</strong>：用户需求不断变更，还要保证软件正常稳定运行</li>
+<li><strong>服从性（Conformity）</strong>：软件不仅要服从操作系统、硬件、还要考虑到用户需求以及行业系统要求</li>
+<li><strong>非连续性（Discontinuity）</strong>：软件的行为或结果对某些输入或环境条件的微小变化非常敏感，可能导致显著的输出变化或系统行为的重大改变</li>
+</ol>
+<h4><span id="软件工程与计算机科学的关系">软件工程与计算机科学的关系</span></h4><p>很多学校开设了软件工程专业以及计算机科学与技术专业，但他们的区别很多人都不太清楚。简单来说他们是理论与实践的关系</p>
+<p><img src="./00/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%BE%A7%E9%87%8D%E7%82%B9.png" alt="计算机科学与软件工程侧重点不同"></p>
+<h4><span id="软件工程的知识领域">软件工程的知识领域</span></h4><ol>
+<li><p><strong>Software Requirements</strong> - <strong>软件需求</strong></p>
+</li>
+<li><p><strong>Software Design</strong> - <strong>软件设计</strong></p>
+</li>
+<li><p><strong>Software Construction</strong> - <strong>软件构建</strong></p>
+</li>
+<li><p><strong>Software Testing</strong> - <strong>软件测试</strong></p>
+</li>
+<li><p><strong>Software Maintenance</strong> - <strong>软件维护</strong></p>
+</li>
+<li><p><strong>Software Configuration Management</strong> - <strong>软件配置管理</strong></p>
+</li>
+<li><p><strong>Software Engineering Management</strong> - <strong>软件工程管理</strong></p>
+</li>
+<li><p><strong>Software Engineering Process</strong> - <strong>软件工程过程</strong></p>
+</li>
+<li><p><strong>Software Engineering Models and Methods</strong> - <strong>软件工程模型与方法</strong></p>
+</li>
+<li><p><strong>Software Quality</strong> - <strong>软件质量</strong></p>
+</li>
+<li><p><strong>Software Engineering Professional Practice</strong> - <strong>软件工程职业实践</strong></p>
+</li>
+<li><p><strong>Software Engineering Economics</strong> - <strong>软件工程经济学</strong></p>
+</li>
+<li><p><strong>Computing Foundations</strong> - <strong>计算基础</strong></p>
+</li>
+<li><p><strong>Mathematical Foundations</strong> - <strong>数学基础</strong></p>
+</li>
+<li><p><strong>Engineering Foundations</strong> - <strong>工程基础</strong></p>
+</li>
+</ol>
+<h4><span id="软件工程的目标创建足够好的软件">软件工程的目标——创建“足够好”的软件</span></h4><ol>
+<li>用户满意度高</li>
+<li>可靠</li>
+<li>软件流程质量高</li>
+<li>可维护</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>构建之法</tag>
+      </tags>
+  </entry>
 </search>
