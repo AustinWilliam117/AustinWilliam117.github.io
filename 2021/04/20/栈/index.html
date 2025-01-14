@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -279,9 +279,9 @@
 
 <p><img src="1.png"></p>
 <p>栈允许进行插入和删除操作的一端称为栈顶(top)，另一端为栈底(bottom)；栈底固定，而栈顶浮动；栈中元素个数为零时称为空栈。插入一般称为进栈（PUSH），删除则称为退栈（POP）。</p>
-<h4 id="栈的演示"><a href="#栈的演示" class="headerlink" title="栈的演示"></a>栈的演示</h4><p><a target="_blank" rel="noopener" href="https://visualgo.net/zh/list">Visualgo</a>这个网站，我们可以看到整个数据结构的变化过程。可以通过左下角的按钮调慢演示过程。可能也自己动手 code 实现了过程，那么再在网站上演示一下元素的各种操作过程，会带来一些更直观的印象。</p>
-<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>栈属于常见的一种线性结构，对于进栈和退栈而言，时间复杂度都为 O(1)</p>
-<h4 id="基本功能介绍"><a href="#基本功能介绍" class="headerlink" title="基本功能介绍"></a>基本功能介绍</h4><p>在接下来的内容里，我们将逐步介绍栈的具体功能是如何实现的。</p>
+<h4><span id="栈的演示">栈的演示</span></h4><p><a target="_blank" rel="noopener" href="https://visualgo.net/zh/list">Visualgo</a>这个网站，我们可以看到整个数据结构的变化过程。可以通过左下角的按钮调慢演示过程。可能也自己动手 code 实现了过程，那么再在网站上演示一下元素的各种操作过程，会带来一些更直观的印象。</p>
+<h4><span id="复杂度分析">复杂度分析</span></h4><p>栈属于常见的一种线性结构，对于进栈和退栈而言，时间复杂度都为 O(1)</p>
+<h4><span id="基本功能介绍">基本功能介绍</span></h4><p>在接下来的内容里，我们将逐步介绍栈的具体功能是如何实现的。</p>
 <p><strong>1. 创建一个 Stack 的类</strong></p>
 <p>对栈进行初始化参数设计</p>
 <p>具体实现代码如下：</p>
@@ -313,13 +313,13 @@
 <p>完整代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, limit=<span class="number">10</span></span>):</span></span><br><span class="line">        self.stack = []  <span class="comment"># 存放元素</span></span><br><span class="line">        self.limit = limit  <span class="comment"># 栈容量极限</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span>(<span class="params">self, data</span>):</span></span><br><span class="line">        <span class="comment"># 判断栈是否溢出</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.stack) &gt;= self.limit:</span><br><span class="line">            <span class="keyword">raise</span> IndexError(<span class="string">&#x27;超出栈容量极限&#x27;</span>)</span><br><span class="line">        self.stack.append(data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.stack:</span><br><span class="line">            <span class="keyword">return</span> self.stack.pop()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 空栈不能被弹出元素</span></span><br><span class="line">            <span class="keyword">raise</span> IndexError(<span class="string">&#x27;pop from an empty stack&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 查看栈的栈顶元素（最上面的元素）</span></span><br><span class="line">        <span class="keyword">if</span> self.stack:</span><br><span class="line">            <span class="keyword">return</span> self.stack[-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_empty</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 查看堆栈的最上面的元素</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> <span class="built_in">bool</span>(self.stack判断栈是否溢)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 返回栈的大小</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.stack)</span><br></pre></td></tr></table></figure>
 
-<h4 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h4><p>Stack（栈）在教科书中有一些非常经典的应用，例如：</p>
+<h4><span id="栈的应用">栈的应用</span></h4><p>Stack（栈）在教科书中有一些非常经典的应用，例如：</p>
 <ul>
 <li>一些其他有趣的应用程序但没有用于教学目的</li>
 <li>括号匹配</li>
 <li>后缀计算器</li>
 </ul>
-<h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4><p>检查括号是否完全匹配</p>
+<h4><span id="作业">作业</span></h4><p>检查括号是否完全匹配</p>
 <p>在这个实验中，我们要求使用一个堆栈检查括号字符串是否平衡</p>
 <p>根据栈的结构特点，结合 stack 代码，完成以下功能的实现。</p>
 <p><strong>有效括号字符串</strong>需满足：</p>
@@ -451,7 +451,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E6%BC%94%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">栈的演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">复杂度分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">基本功能介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">栈的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9A"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">栈的演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">复杂度分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">基本功能介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">栈的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">作业</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -467,7 +467,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -531,13 +531,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

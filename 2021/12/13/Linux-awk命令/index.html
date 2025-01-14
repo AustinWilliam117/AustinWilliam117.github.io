@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -265,14 +265,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Linux-awk-命令"><a href="#Linux-awk-命令" class="headerlink" title="Linux awk 命令"></a>Linux awk 命令</h3><p>AWK 是一种处理文本文件的语言，是一个强大的文本分析工具</p>
+        <h3><span id="linux-awk-命令">Linux awk 命令</span></h3><p>AWK 是一种处理文本文件的语言，是一个强大的文本分析工具</p>
 <p>之所以叫 AWK 是因为其取了三位创始人 Alfred Aho，Peter Weinberger, 和 Brian Kernighan 的 Family Name 的首字符。</p>
 <span id="more"></span>
 
 <p><strong>语法</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk [选项参数] <span class="string">&#x27;script&#x27;</span> var=value file(s)</span><br><span class="line">或</span><br><span class="line">awk [选项参数] -f scriptfile var=value file(s)</span><br></pre></td></tr></table></figure>
 
-<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>log.txt文本内容如下：</p>
+<h4><span id="基本用法">基本用法</span></h4><p>log.txt文本内容如下：</p>
 <figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> this <span class="built_in">is</span> a test</span><br><span class="line"><span class="number">3</span> Are you <span class="built_in">like</span> awk</span><br><span class="line">This<span class="comment">&#x27;s a test</span></span><br><span class="line"><span class="number">10</span> There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
 
 <p>用法一：</p>
@@ -300,7 +300,7 @@
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> awk -f cal.awk <span class="built_in">log</span>.txt</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><table>
+<h2><span id="运算符">运算符</span></h2><table>
 <thead>
 <tr>
 <th align="left">运算符</th>
@@ -374,7 +374,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$1&gt;2 &amp;&amp; $2==&quot;Are&quot; &#123;print $1,$2,$3&#125;&#x27;</span> log.txt    <span class="comment">#命令</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">输出</span></span><br><span class="line">3 Are you</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="内建变量"><a href="#内建变量" class="headerlink" title="内建变量"></a>内建变量</h2><table>
+<h2><span id="内建变量">内建变量</span></h2><table>
 <thead>
 <tr>
 <th align="left">变量</th>
@@ -469,19 +469,19 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;BEGIN&#123;printf &quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;,&quot;FILENAME&quot;,&quot;ARGC&quot;,&quot;FNR&quot;,&quot;FS&quot;,&quot;NF&quot;,&quot;NR&quot;,&quot;OFS&quot;,&quot;ORS&quot;,&quot;RS&quot;;printf &quot;---------------------------------------------\n&quot;&#125; &#123;printf &quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;,FILENAME,ARGC,FNR,FS,NF,NR,OFS,ORS,RS&#125;&#x27;</span>  log.txt</span></span><br><span class="line">FILENAME ARGC  FNR   FS   NF   NR  OFS  ORS   RS</span><br><span class="line">---------------------------------------------</span><br><span class="line">log.txt    2    1         5    1</span><br><span class="line">log.txt    2    2         5    2</span><br><span class="line">log.txt    2    3         3    3</span><br><span class="line">log.txt    2    4         4    4</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk -F\<span class="string">&#x27; &#x27;</span>BEGIN&#123;<span class="built_in">printf</span> <span class="string">&quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;</span>,<span class="string">&quot;FILENAME&quot;</span>,<span class="string">&quot;ARGC&quot;</span>,<span class="string">&quot;FNR&quot;</span>,<span class="string">&quot;FS&quot;</span>,<span class="string">&quot;NF&quot;</span>,<span class="string">&quot;NR&quot;</span>,<span class="string">&quot;OFS&quot;</span>,<span class="string">&quot;ORS&quot;</span>,<span class="string">&quot;RS&quot;</span>;<span class="built_in">printf</span> <span class="string">&quot;---------------------------------------------\n&quot;</span>&#125; &#123;<span class="built_in">printf</span> <span class="string">&quot;%4s %4s %4s %4s %4s %4s %4s %4s %4s\n&quot;</span>,FILENAME,ARGC,FNR,FS,NF,NR,OFS,ORS,RS&#125;<span class="string">&#x27;  log.txt</span></span></span><br><span class="line">FILENAME ARGC  FNR   FS   NF   NR  OFS  ORS   RS</span><br><span class="line">---------------------------------------------</span><br><span class="line">log.txt    2    1    &#x27;    1    1</span><br><span class="line">log.txt    2    2    &#x27;    1    2</span><br><span class="line">log.txt    2    3    &#x27;    2    3</span><br><span class="line">log.txt    2    4    &#x27;    1    4</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> 输出顺序号 NR, 匹配文本行号</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"><span class="string"> awk &#x27;</span>&#123;<span class="built_in">print</span> NR,FNR,<span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$3</span>&#125;<span class="string">&#x27; log.txt</span></span></span><br><span class="line">---------------------------------------------</span><br><span class="line">1 1 2 this is</span><br><span class="line">2 2 3 Are you</span><br><span class="line">3 3 This&#x27;s a test</span><br><span class="line">4 4 10 There are</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> 指定输出分割符</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"><span class="string">  awk &#x27;</span>&#123;<span class="built_in">print</span> <span class="variable">$1</span>,<span class="variable">$2</span>,<span class="variable">$5</span>&#125;<span class="string">&#x27; OFS=&quot; $ &quot;  log.txt</span></span></span><br><span class="line">---------------------------------------------</span><br><span class="line">2 $ this $ test</span><br><span class="line">3 $ Are $ awk</span><br><span class="line">This&#x27;s $ a $</span><br><span class="line">10 $ There $</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="使用正则，字符串匹配"><a href="#使用正则，字符串匹配" class="headerlink" title="使用正则，字符串匹配"></a>使用正则，字符串匹配</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 输出第二列包含 <span class="string">&quot;th&quot;</span>，并打印第二列与第四列</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$2 ~ /th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">this a</span><br></pre></td></tr></table></figure>
+<h2><span id="使用正则字符串匹配">使用正则，字符串匹配</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 输出第二列包含 <span class="string">&quot;th&quot;</span>，并打印第二列与第四列</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$2 ~ /th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">this a</span><br></pre></td></tr></table></figure>
 
 <p><strong>~ 表示模式开始。// 中是模式。</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 输出包含 <span class="string">&quot;re&quot;</span> 的行</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;/re/ &#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">3 Are you like awk</span><br><span class="line">10 There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="忽略大小写"><a href="#忽略大小写" class="headerlink" title="忽略大小写"></a>忽略大小写</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;BEGIN&#123;IGNORECASE=1&#125; /this/&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">2 this is a test</span><br><span class="line">This&#x27;s a test</span><br></pre></td></tr></table></figure>
+<h2><span id="忽略大小写">忽略大小写</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;BEGIN&#123;IGNORECASE=1&#125; /this/&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">2 this is a test</span><br><span class="line">This&#x27;s a test</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="模式取反"><a href="#模式取反" class="headerlink" title="模式取反"></a>模式取反</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$2 !~ /th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;!/th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br></pre></td></tr></table></figure>
+<h2><span id="模式取反">模式取反</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;$2 !~ /th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">&#x27;!/th/ &#123;print $2,$4&#125;&#x27;</span> log.txt</span></span><br><span class="line">---------------------------------------------</span><br><span class="line">Are like</span><br><span class="line">a</span><br><span class="line">There orange,apple,mongo</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="awk脚本"><a href="#awk脚本" class="headerlink" title="awk脚本"></a>awk脚本</h2><p>关于 awk 脚本，我们需要注意两个关键词 BEGIN 和 END。</p>
+<h2><span id="awk脚本">awk脚本</span></h2><p>关于 awk 脚本，我们需要注意两个关键词 BEGIN 和 END。</p>
 <ul>
 <li>BEGIN{ 这里面放的是执行前的语句 }</li>
 <li>END {这里面放的是处理完所有的行后要执行的语句 }</li>
@@ -497,7 +497,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> awk -f cal.awk score.txt</span></span><br><span class="line">NAME    NO.   MATH  ENGLISH  COMPUTER   TOTAL</span><br><span class="line">---------------------------------------------</span><br><span class="line">Marry  2143     78       84       77      239</span><br><span class="line">Jack   2321     66       78       45      189</span><br><span class="line">Tom    2122     48       77       71      196</span><br><span class="line">Mike   2537     87       97       95      279</span><br><span class="line">Bob    2415     40       57       62      159</span><br><span class="line">---------------------------------------------</span><br><span class="line">  TOTAL:       319      393      350</span><br><span class="line">AVERAGE:     63.80    78.60    70.00</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="另外一些实例"><a href="#另外一些实例" class="headerlink" title="另外一些实例"></a>另外一些实例</h2><p>AWK 的 hello world 程序为：</p>
+<h2><span id="另外一些实例">另外一些实例</span></h2><p>AWK 的 hello world 程序为：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">BEGIN</span> &#123; <span class="attribute">print</span> <span class="string">&quot;Hello, world!&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
 
 <p>计算文件大小</p>
@@ -601,7 +601,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-awk-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">Linux awk 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">基本用法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number"></span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%BB%BA%E5%8F%98%E9%87%8F"><span class="nav-number"></span> <span class="nav-text">内建变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%EF%BC%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D"><span class="nav-number"></span> <span class="nav-text">使用正则，字符串匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="nav-number"></span> <span class="nav-text">忽略大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E5%8F%96%E5%8F%8D"><span class="nav-number"></span> <span class="nav-text">模式取反</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk%E8%84%9A%E6%9C%AC"><span class="nav-number"></span> <span class="nav-text">awk脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A6%E5%A4%96%E4%B8%80%E4%BA%9B%E5%AE%9E%E4%BE%8B"><span class="nav-number"></span> <span class="nav-text">另外一些实例</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Linux awk 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">基本用法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">内建变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">使用正则，字符串匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">忽略大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">模式取反</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">awk脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number"></span> <span class="nav-text">另外一些实例</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -617,7 +617,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -681,13 +681,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

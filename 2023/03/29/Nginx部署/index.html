@@ -146,7 +146,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -278,11 +278,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Nginx是什么"><a href="#Nginx是什么" class="headerlink" title="Nginx是什么"></a>Nginx是什么</h2><p>nginx是一个开源的，支持高性能，高并发的www服务和代理服务软件。它是一个俄罗斯人lgor sysoev开发的，作者将源代码开源出来供全球使用。</p>
+        <h2><span id="nginx是什么">Nginx是什么</span></h2><p>nginx是一个开源的，支持高性能，高并发的www服务和代理服务软件。它是一个俄罗斯人lgor sysoev开发的，作者将源代码开源出来供全球使用。</p>
 <p>nginx比它大哥apache性能改进许多，nginx占用的系统资源更少，支持更高的并发连接，有更高的访问效率。</p>
 <p>nginx不但是一个优秀的web服务软件，还可以作为反向代理，负载均衡，以及缓存服务使用。<br>安装更为简单，方便，灵活。</p>
 <p>nginx可以说是非常nb了</p>
-<h4 id="面试回答nginx技巧"><a href="#面试回答nginx技巧" class="headerlink" title="面试回答nginx技巧"></a>面试回答nginx技巧</h4><ul>
+<h4><span id="面试回答nginx技巧">面试回答nginx技巧</span></h4><ul>
 <li>支持高并发，能支持几万并发连接</li>
 <li>资源消耗少，在3万并发连接下开启10个nginx线程消耗的内存不到200M</li>
 <li>可以做http反向代理和负载均衡</li>
@@ -290,19 +290,19 @@
 </ul>
 <span id="more"></span>
 
-<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><h3 id="1-gcc-安装"><a href="#1-gcc-安装" class="headerlink" title="1. gcc 安装"></a>1. gcc 安装</h3><p>安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装</p>
+<h2><span id="安装环境">安装环境</span></h2><h3><span id="1-gcc-安装">1. gcc 安装</span></h3><p>安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装</p>
 <p><code>yum install gcc-c++</code></p>
-<h3 id="2-PCRE-pcre-devel-安装"><a href="#2-PCRE-pcre-devel-安装" class="headerlink" title="2. PCRE pcre-devel 安装"></a>2. PCRE pcre-devel 安装</h3><p>PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。</p>
+<h3><span id="2-pcre-pcre-devel-安装">2. PCRE pcre-devel 安装</span></h3><p>PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。</p>
 <p>nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库。nginx也需要此库。命令：</p>
 <p><code>yum install -y pcre pcre-devel</code></p>
-<h3 id="3-zlib-安装"><a href="#3-zlib-安装" class="headerlink" title="3. zlib 安装"></a>3. zlib 安装</h3><p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。</p>
+<h3><span id="3-zlib-安装">3. zlib 安装</span></h3><p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。</p>
 <p><code>yum install -y zlib zlib-devel</code></p>
-<h3 id="4-OpenSSL-安装"><a href="#4-OpenSSL-安装" class="headerlink" title="4. OpenSSL 安装"></a>4. OpenSSL 安装</h3><p>OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。</p>
+<h3><span id="4-openssl-安装">4. OpenSSL 安装</span></h3><p>OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。</p>
 <p>nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库。</p>
-<h3 id="5-安装环境代码集合"><a href="#5-安装环境代码集合" class="headerlink" title="5. 安装环境代码集合"></a>5. 安装环境代码集合</h3><p><code>yum install gcc patch libffi-devel python-devel  zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel openssl openssl-devel -y</code></p>
-<h3 id="安装、启动-Nginx"><a href="#安装、启动-Nginx" class="headerlink" title="安装、启动 Nginx"></a>安装、启动 Nginx</h3><h4 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1. 下载源码包"></a>1. 下载源码包</h4><p><code>wget -c https://nginx.org/download/nginx-1.12.0.tar.gz</code></p>
-<h4 id="2-解压缩源码"><a href="#2-解压缩源码" class="headerlink" title="2. 解压缩源码"></a>2. 解压缩源码</h4><p><code>tar -zxvf nginx-1.12.0.tar.gz</code></p>
-<h4 id="3-配置，编译安装-开启-Nginx-状态监测功能"><a href="#3-配置，编译安装-开启-Nginx-状态监测功能" class="headerlink" title="3. 配置，编译安装 开启 Nginx 状态监测功能"></a>3. 配置，编译安装 开启 Nginx 状态监测功能</h4><p>编译安装支持开启很多第三方的功能</p>
+<h3><span id="5-安装环境代码集合">5. 安装环境代码集合</span></h3><p><code>yum install gcc patch libffi-devel python-devel  zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel openssl openssl-devel -y</code></p>
+<h3><span id="安装-启动-nginx">安装、启动 Nginx</span></h3><h4><span id="1-下载源码包">1. 下载源码包</span></h4><p><code>wget -c https://nginx.org/download/nginx-1.12.0.tar.gz</code></p>
+<h4><span id="2-解压缩源码">2. 解压缩源码</span></h4><p><code>tar -zxvf nginx-1.12.0.tar.gz</code></p>
+<h4><span id="3-配置编译安装-开启-nginx-状态监测功能">3. 配置，编译安装 开启 Nginx 状态监测功能</span></h4><p>编译安装支持开启很多第三方的功能</p>
 <p><code>./configure --prefix=/opt/nginx1-12/ --with-http_ssl_module --with-http_stub_status_module</code></p>
 <p><code>make &amp;&amp; make install</code></p>
 <ul>
@@ -310,19 +310,19 @@
 <li>–with-http_ssl_module  使 Nginx 支持 https 协议</li>
 <li>–with-http_stub_status_module 性能统计模块</li>
 </ul>
-<h4 id="4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令"><a href="#4-启动-Nginx，进入-sbin-目录，找到-Nginx-启动命令" class="headerlink" title="4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令"></a>4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</h4><p><code>cd sbin</code></p>
+<h4><span id="4-启动-nginx进入-sbin-目录找到-nginx-启动命令">4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</span></h4><p><code>cd sbin</code></p>
 <p><code>./nginx</code>                        #启动</p>
 <p><code>./nginx -s stop</code>            #关闭</p>
 <p><code>./nginx -s reload</code>        #重新加载</p>
-<h3 id="安装完成后的检测"><a href="#安装完成后的检测" class="headerlink" title="安装完成后的检测"></a>安装完成后的检测</h3><p><code>netstat -tunlp | grep 80</code><br><code>curl -I 127.0.0.1</code><br>#如果访问不了，检查selinux，iptables</p>
-<h2 id="Nginx-实战学习"><a href="#Nginx-实战学习" class="headerlink" title="Nginx 实战学习"></a>Nginx 实战学习</h2><ul>
+<h3><span id="安装完成后的检测">安装完成后的检测</span></h3><p><code>netstat -tunlp | grep 80</code><br><code>curl -I 127.0.0.1</code><br>#如果访问不了，检查selinux，iptables</p>
+<h2><span id="nginx-实战学习">Nginx 实战学习</span></h2><ul>
 <li>部署一个静态网站</li>
 <li>基于端口的多虚拟主机</li>
 <li>访问日志</li>
 <li>错误日志</li>
 <li>代理服务</li>
 </ul>
-<h3 id="静态网站配置"><a href="#静态网站配置" class="headerlink" title="静态网站配置"></a>静态网站配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">user root;    <span class="comment"># ngxin的工作用户，必须和启动用户一致</span></span><br><span class="line">    </span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">        		<span class="comment"># nginx 通过root指令，确定ngxin的网页文件放在哪里</span></span><br><span class="line">        		<span class="comment"># 这个html指的是nginx安装目录下加一个html文件夹</span></span><br><span class="line">            root   /home/wiliiam/web/;</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># index参数指的是，首页文件的名字(从/home/wiliiam/web/目录下找index.html文件)</span></span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="静态网站配置">静态网站配置</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">user root;    <span class="comment"># ngxin的工作用户，必须和启动用户一致</span></span><br><span class="line">    </span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">        		<span class="comment"># nginx 通过root指令，确定ngxin的网页文件放在哪里</span></span><br><span class="line">        		<span class="comment"># 这个html指的是nginx安装目录下加一个html文件夹</span></span><br><span class="line">            root   /home/wiliiam/web/;</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># index参数指的是，首页文件的名字(从/home/wiliiam/web/目录下找index.html文件)</span></span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>修改配置文件后，需要重启 Nginx 程序，才能更新配置</li>
@@ -346,7 +346,7 @@
 </li>
 </ul>
 <p><code>/opt/nginx1-12/sbin/nginx -s reload</code></p>
-<h3 id="基于端口的多虚拟主机"><a href="#基于端口的多虚拟主机" class="headerlink" title="基于端口的多虚拟主机"></a>基于端口的多虚拟主机</h3><p>如果每台linux服务器只运行了一个小网站，那么人气低，流量小的草根站长需要承担高额的服务器租赁费，也造成了硬件资源浪费。</p>
+<h3><span id="基于端口的多虚拟主机">基于端口的多虚拟主机</span></h3><p>如果每台linux服务器只运行了一个小网站，那么人气低，流量小的草根站长需要承担高额的服务器租赁费，也造成了硬件资源浪费。</p>
 <p>虚拟主机就是将一台服务器分割成多个“虚拟服务器”，每个站点使用各自的硬盘空间，由于省资源，省钱，众多网站都使用虚拟主机来部署网站。</p>
 <p><em>也就是指定不同的端口</em></p>
 <p><img src="1.png"></p>
@@ -371,7 +371,7 @@
 
 
 
-<h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><p>Nginx 能够记录用户的每一次访问请求</p>
+<h3><span id="访问日志">访问日志</span></h3><p>Nginx 能够记录用户的每一次访问请求</p>
 <ul>
 <li><p>对于该日志的记录，分析，可以更清晰的掌握服务器的动态信息，比如安全性</p>
 </li>
@@ -387,7 +387,7 @@
 <p>可以通过以下命令持续检测</p>
 <p><code>tail -f /opt/nginx1-12/logs/access.log</code></p>
 <p>通过该 access.log 日志，即可进行更多的日志分析</p>
-<h4 id="http-中对应参数解析"><a href="#http-中对应参数解析" class="headerlink" title="http 中对应参数解析"></a>http 中对应参数解析</h4><ul>
+<h4><span id="http-中对应参数解析">http 中对应参数解析</span></h4><ul>
 <li>log_format是日志关键字参数，不能变</li>
 <li>main是日志格式指定的标签，记录日志时通过main标签选择指定的格式。</li>
 </ul>
@@ -396,27 +396,27 @@
 <p>日志效果如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">66.102.6.6 - - [14/Aug/2018:18:46:52 +0800] <span class="string">&quot;GET /favicon.ico HTTP/1.1&quot;</span> 404 571 <span class="string">&quot;-&quot;</span> <span class="string">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36 Google Favicon&quot;</span> <span class="string">&quot;97.64.34.118&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h4 id="Nginx-限制网站来源IP访问"><a href="#Nginx-限制网站来源IP访问" class="headerlink" title="Nginx 限制网站来源IP访问"></a>Nginx 限制网站来源IP访问</h4><p>如果哪天发现你的nginx很慢，或者检查access.log时候，有一人疯狂请求你的nginx server，那么可以禁止这个IP访问</p>
+<h4><span id="nginx-限制网站来源ip访问">Nginx 限制网站来源IP访问</span></h4><p>如果哪天发现你的nginx很慢，或者检查access.log时候，有一人疯狂请求你的nginx server，那么可以禁止这个IP访问</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制 ip 或 ip 段访问</span></span><br><span class="line"><span class="comment"># 禁止访问/blog/底下的资源</span></span><br><span class="line"></span><br><span class="line">location /blog &#123;</span><br><span class="line">  deny 122.71.240.254</span><br><span class="line"></span><br><span class="line">  <span class="comment"># alias /opt/nginx1-12/html/blog;</span></span><br><span class="line">  allow 10.1.1.0/16;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="Nginx-错误页面优化"><a href="#Nginx-错误页面优化" class="headerlink" title="Nginx 错误页面优化"></a>Nginx 错误页面优化</h4><p>在网站运行过程中，可能因为页面不存在等原因，导致网站无法正常响应请求，此时web服务会返回系统的错误码，但是默认的错误页面很不友好。</p>
+<h4><span id="nginx-错误页面优化">Nginx 错误页面优化</span></h4><p>在网站运行过程中，可能因为页面不存在等原因，导致网站无法正常响应请求，此时web服务会返回系统的错误码，但是默认的错误页面很不友好。</p>
 <p>因此我们可以将404，403等页面的错误信息重定向到网站首页或者其他指定的页面，提升用户访问体验。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        </span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /root/web/blogproject/templates/blog/;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">				<span class="comment"># 在 /root/web/blogproject/templates/blog/ 路径下的 40x.html 错误页面</span></span><br><span class="line">        error_page  404 403 404 405 /40x.html;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 40x.html</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">style</span>=<span class="string">&#x27;width:100%;height:100%;&#x27;</span> <span class="attr">src</span>=<span class="string">https://pic1.zhimg.com/80/v2-77a9281a2bebc7a2ea5e02577af266a8_hd.png</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="3.png"></p>
-<h3 id="Nginx-代理服务"><a href="#Nginx-代理服务" class="headerlink" title="Nginx 代理服务"></a>Nginx 代理服务</h3><ul>
+<h3><span id="nginx-代理服务">Nginx 代理服务</span></h3><ul>
 <li>当你访问你的个人 linux </li>
 </ul>
-<h4 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h4><p><strong>正向代理，也就是传说中的代理,他的工作原理就像一个跳板（VPN），简单的说：</strong></p>
+<h4><span id="正向代理">正向代理</span></h4><p><strong>正向代理，也就是传说中的代理,他的工作原理就像一个跳板（VPN），简单的说：</strong></p>
 <p><strong>我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器呢，他能访问那个我不能访问的网站，于是我先连上代理服务器，告诉他我需要那个无法访问网站的内容，代理服务器去取回来，然后返回给我。</strong></p>
 <p><img src="4.png"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        <span class="comment"># root   /root/web1/blogproject/templates/blog/;</span></span><br><span class="line">        <span class="comment"># index  index.html index.htm;</span></span><br><span class="line">        <span class="comment"># 代理地址</span></span><br><span class="line">        proxy_pass https://baidu.com</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h4><p><strong>对于客户端而言，代理服务器就像是原始服务器</strong></p>
+<h4><span id="反向代理">反向代理</span></h4><p><strong>对于客户端而言，代理服务器就像是原始服务器</strong></p>
 <p><img src="5.png"></p>
 <p>Nginx 实现负载均衡的组件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngx_http_proxy_module    proxy代理模块，用于把请求抛给服务器节点或者upstream服务器池</span><br></pre></td></tr></table></figure>
@@ -431,7 +431,7 @@
 
 <p>此时访问master的服务器 192.168.11.63:80 地址，已经会将请求转发给slave的80端口</p>
 <p>除了页面效果的展示以外，还可以通过log(access.log)查看代理效果</p>
-<h3 id="Nginx-配置文件"><a href="#Nginx-配置文件" class="headerlink" title="Nginx 配置文件"></a>Nginx 配置文件</h3><p><a href="/download/conf/nginx.conf">Nginx 配置文件.cof</a></p>
+<h3><span id="nginx-配置文件">Nginx 配置文件</span></h3><p><a href="/download/conf/nginx.conf">Nginx 配置文件.cof</a></p>
 <blockquote>
 <p>转载自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pyyu/p/9468680.html">https://www.cnblogs.com/pyyu/p/9468680.html</a></p>
 </blockquote>
@@ -518,7 +518,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Nginx是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%9B%9E%E7%AD%94nginx%E6%8A%80%E5%B7%A7"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试回答nginx技巧</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-gcc-%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">1. gcc 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-PCRE-pcre-devel-%E5%AE%89%E8%A3%85"><span class="nav-number">2.2.</span> <span class="nav-text">2. PCRE pcre-devel 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-zlib-%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text">3. zlib 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-OpenSSL-%E5%AE%89%E8%A3%85"><span class="nav-number">2.4.</span> <span class="nav-text">4. OpenSSL 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E4%BB%A3%E7%A0%81%E9%9B%86%E5%90%88"><span class="nav-number">2.5.</span> <span class="nav-text">5. 安装环境代码集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E3%80%81%E5%90%AF%E5%8A%A8-Nginx"><span class="nav-number">2.6.</span> <span class="nav-text">安装、启动 Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81%E5%8C%85"><span class="nav-number">2.6.1.</span> <span class="nav-text">1. 下载源码包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%BA%90%E7%A0%81"><span class="nav-number">2.6.2.</span> <span class="nav-text">2. 解压缩源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%EF%BC%8C%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-%E5%BC%80%E5%90%AF-Nginx-%E7%8A%B6%E6%80%81%E7%9B%91%E6%B5%8B%E5%8A%9F%E8%83%BD"><span class="nav-number">2.6.3.</span> <span class="nav-text">3. 配置，编译安装 开启 Nginx 状态监测功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%90%AF%E5%8A%A8-Nginx%EF%BC%8C%E8%BF%9B%E5%85%A5-sbin-%E7%9B%AE%E5%BD%95%EF%BC%8C%E6%89%BE%E5%88%B0-Nginx-%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.6.4.</span> <span class="nav-text">4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="nav-number">2.7.</span> <span class="nav-text">安装完成后的检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">Nginx 实战学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">静态网站配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%A4%9A%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="nav-number">3.2.</span> <span class="nav-text">基于端口的多虚拟主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97"><span class="nav-number">3.3.</span> <span class="nav-text">访问日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#http-%E4%B8%AD%E5%AF%B9%E5%BA%94%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="nav-number">3.3.1.</span> <span class="nav-text">http 中对应参数解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx-%E9%99%90%E5%88%B6%E7%BD%91%E7%AB%99%E6%9D%A5%E6%BA%90IP%E8%AE%BF%E9%97%AE"><span class="nav-number">3.3.2.</span> <span class="nav-text">Nginx 限制网站来源IP访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx-%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2%E4%BC%98%E5%8C%96"><span class="nav-number">3.3.3.</span> <span class="nav-text">Nginx 错误页面优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.4.</span> <span class="nav-text">Nginx 代理服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">3.4.1.</span> <span class="nav-text">正向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">3.4.2.</span> <span class="nav-text">反向代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.5.</span> <span class="nav-text">Nginx 配置文件</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Nginx是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.0.1.</span> <span class="nav-text">面试回答nginx技巧</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">安装环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">1. gcc 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">2. PCRE pcre-devel 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">3. zlib 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">4. OpenSSL 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.5.</span> <span class="nav-text">5. 安装环境代码集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.6.</span> <span class="nav-text">安装、启动 Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.6.1.</span> <span class="nav-text">1. 下载源码包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.6.2.</span> <span class="nav-text">2. 解压缩源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.6.3.</span> <span class="nav-text">3. 配置，编译安装 开启 Nginx 状态监测功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.6.4.</span> <span class="nav-text">4. 启动 Nginx，进入 sbin 目录，找到 Nginx 启动命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.7.</span> <span class="nav-text">安装完成后的检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Nginx 实战学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">静态网站配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">基于端口的多虚拟主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.3.</span> <span class="nav-text">访问日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.3.1.</span> <span class="nav-text">http 中对应参数解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.3.2.</span> <span class="nav-text">Nginx 限制网站来源IP访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.3.3.</span> <span class="nav-text">Nginx 错误页面优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.4.</span> <span class="nav-text">Nginx 代理服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.4.1.</span> <span class="nav-text">正向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.4.2.</span> <span class="nav-text">反向代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.5.</span> <span class="nav-text">Nginx 配置文件</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -534,7 +534,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -598,13 +598,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

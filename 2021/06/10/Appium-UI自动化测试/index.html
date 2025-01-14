@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -274,14 +274,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="App自动化测试背景"><a href="#App自动化测试背景" class="headerlink" title="App自动化测试背景"></a>App自动化测试背景</h3><p>随着移动终端的普及，手机应用越来越多，也越来越重要。App的回归测试用例数量也越来越多，全量回归也越来越消耗时间。另外移动端碎片化严重，尤其是Android端碎片化（不同的机型、不同的处理器架构、不同的系统版本、不同的厂商）严重性更为突出，市面上Android机型甚至有几万，几十万款，所以我们也需要通过这种自动化测试帮助我们减少兼容性的测试工作。总之为了减少这种重复的、大量回归到测试任务，我们迫切需要引进一些自动化测试来协助。</p>
+        <h3><span id="app自动化测试背景">App自动化测试背景</span></h3><p>随着移动终端的普及，手机应用越来越多，也越来越重要。App的回归测试用例数量也越来越多，全量回归也越来越消耗时间。另外移动端碎片化严重，尤其是Android端碎片化（不同的机型、不同的处理器架构、不同的系统版本、不同的厂商）严重性更为突出，市面上Android机型甚至有几万，几十万款，所以我们也需要通过这种自动化测试帮助我们减少兼容性的测试工作。总之为了减少这种重复的、大量回归到测试任务，我们迫切需要引进一些自动化测试来协助。</p>
 <span id="more"></span>
 
-<h3 id="Appium自动化测试简介"><a href="#Appium自动化测试简介" class="headerlink" title="Appium自动化测试简介"></a>Appium自动化测试简介</h3><p>Appium是一个开源（大量社区人员维护源码）的，适用于原生（native）（纯粹使用安卓自带的开发组件和应用，开发的产品）或混合（原生应用中嵌入html5页面）移动应用( hybrid mobile apps )的自动化测试框架。Appium应用 WebDriver （继承了WebDriver协议，在协议中封装和拓展）: JSON wire protocol 驱动安卓和iOS移动应用。</p>
+<h3><span id="appium自动化测试简介">Appium自动化测试简介</span></h3><p>Appium是一个开源（大量社区人员维护源码）的，适用于原生（native）（纯粹使用安卓自带的开发组件和应用，开发的产品）或混合（原生应用中嵌入html5页面）移动应用( hybrid mobile apps )的自动化测试框架。Appium应用 WebDriver （继承了WebDriver协议，在协议中封装和拓展）: JSON wire protocol 驱动安卓和iOS移动应用。</p>
 <p>纯原生应用时效性差，例如：开发好的应用上传到应用商店，需要商店的审核。审核可能1-3天左右，IOS需要2周左右。618前一天开发好，急着上线。</p>
 <p>混合移动应用：在应用中嵌入一些html5页面，在自己的应用中启用web端，嵌入html5。不需要对已有应用再次审核。但是体验性差，自适应差，响应时间久。</p>
 <p>混合移动应用运用场景：商城中活动页面（快的更新频率）</p>
-<h4 id="App自动化测试工具对比"><a href="#App自动化测试工具对比" class="headerlink" title="App自动化测试工具对比"></a>App自动化测试工具对比</h4><p><strong>iOS</strong></p>
+<h4><span id="app自动化测试工具对比">App自动化测试工具对比</span></h4><p><strong>iOS</strong></p>
 <p>官方:</p>
 <ul>
 <li>Uiautomation/XCUITest: 白盒, UI测试, JS<br>其他:</li>
@@ -315,14 +315,14 @@
 <li>Testin/腾讯云测等: 国内云平台, 收费</li>
 <li>OpenSTF: 开源手机集群管理平台, 免费</li>
 </ul>
-<h4 id="Appium的特点"><a href="#Appium的特点" class="headerlink" title="Appium的特点"></a>Appium的特点</h4><ul>
+<h4><span id="appium的特点">Appium的特点</span></h4><ul>
 <li>支持多平台(Android、 iOS等)</li>
 <li>支持多语言(python、 java、 ruby、 javascript、 c#等)</li>
 <li>Appium是跨平台的，可以用在OSX, Windows以及Linux 桌面系统上运行。（IOS应用只能在MAC上测试）</li>
 <li>Appium选择了Client/Server的设计模式。只要client能够发送http请求给server，那么的话client用什么语言来实现都是可以的，这就是如何做到支持多语言的原因:</li>
 <li>Appium扩 展了WebDriver的协议，没有自己重新去实现一套。这样的好处是以前的WebDriver API能够直接被继承过来，以前的Selenium (WebDriver) 各种语言的binding都可以拿来就用，省去了为每种语言开发一个client的工作量。</li>
 </ul>
-<h4 id="Appium底层处理流程"><a href="#Appium底层处理流程" class="headerlink" title="Appium底层处理流程"></a>Appium底层处理流程</h4><p><strong>Andorid(uiautomator)</strong></p>
+<h4><span id="appium底层处理流程">Appium底层处理流程</span></h4><p><strong>Andorid(uiautomator)</strong></p>
 <p>appium为C/S架构(C是指Client，S是指Server，C/S模式就是指客户端/服务器模式)，appium会暴露给我们一些API，我们调用API（Client）就会发起请求到Server端。Server会push一个bootstrap.jar包到手机里面。bootstrap.jar会分析、监听和转发，我们请求的命令，到底层调用我们Android底层的Uiautomator框架操作APP控件。</p>
 <p><img src="Appium%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.jpg"></p>
 <ol>
@@ -342,7 +342,7 @@
 <li>最后Bootstrap.js将执行的结果返回给appium server</li>
 <li>appium server再将结果返回给 appium client</li>
 </ol>
-<h4 id="Appium的哲学"><a href="#Appium的哲学" class="headerlink" title="Appium的哲学"></a>Appium的哲学</h4><ul>
+<h4><span id="appium的哲学">Appium的哲学</span></h4><ul>
 <li><p>开源免费（大量社区人员维护源码）</p>
 </li>
 <li><p>不需要重新编译或者修改应用：不需要修改app代码就可以做自动化测试</p>
@@ -370,7 +370,7 @@
 <li><p>不重复造轮子</p>
 </li>
 </ul>
-<h3 id="Appium自动化测试环境搭建-Appium-App自动化测试环境搭建http-www-bcbxhome-com-bcbxxy-forum-php-mod-viewthread-amp-tid-9"><a href="#Appium自动化测试环境搭建-Appium-App自动化测试环境搭建http-www-bcbxhome-com-bcbxxy-forum-php-mod-viewthread-amp-tid-9" class="headerlink" title="[Appium自动化测试环境搭建](Appium App自动化测试环境搭建http://www.bcbxhome.com/bcbxxy/forum.php?mod=viewthread&amp;tid=9)"></a>[Appium自动化测试环境搭建](Appium App自动化测试环境搭建<a target="_blank" rel="noopener" href="http://www.bcbxhome.com/bcbxxy/forum.php?mod=viewthread&amp;tid=9">http://www.bcbxhome.com/bcbxxy/forum.php?mod=viewthread&amp;tid=9</a>)</h3><ul>
+<h3><span id="appium自动化测试环境搭建appium-app自动化测试环境搭建httpwwwbcbxhomecombcbxxyforumphpmodviewthreadamptid9">[Appium自动化测试环境搭建](Appium App自动化测试环境搭建)</span></h3><ul>
 <li>Python环境搭建</li>
 <li>安装JDK, 配置环境变量<ul>
 <li>新建系统变量<ul>
@@ -405,7 +405,7 @@
 </li>
 <li>安装模拟器</li>
 </ul>
-<h3 id="连接设备"><a href="#连接设备" class="headerlink" title="连接设备"></a>连接设备</h3><p><strong>怎么校验手机连接上了</strong></p>
+<h3><span id="连接设备">连接设备</span></h3><p><strong>怎么校验手机连接上了</strong></p>
 <p>命令行输入 <code>adb devices</code> 显示127.0.0.1:21503 device即可</p>
 <p><strong>设备没连接上的几种情况</strong></p>
 <ul>
@@ -416,15 +416,15 @@
 <li>offline：数据线重新连接一下</li>
 <li>unauthorized：未经授权，授权即可</li>
 </ul>
-<h3 id="Andorid-sdk介绍"><a href="#Andorid-sdk介绍" class="headerlink" title="Andorid sdk介绍"></a>Andorid sdk介绍</h3><ul>
+<h3><span id="andorid-sdk介绍">Andorid sdk介绍</span></h3><ul>
 <li>add-ons: 附加库</li>
 <li>build-tools: 编译工具</li>
 <li>platform: 各版本sdk</li>
 <li>platforms-tools: 平台通用工具, 如adb</li>
 <li>tools: 常用工具</li>
 </ul>
-<h3 id="Adb介绍"><a href="#Adb介绍" class="headerlink" title="Adb介绍"></a>Adb介绍</h3><p>Adb(Android Debug Bridge): Andoid设备调试桥梁, 可以再PC端通过命令调试Android设备, 如获取设备状态, 安装/卸载app, 上传/下载文件等操作</p>
-<h3 id="Adb常用命令"><a href="#Adb常用命令" class="headerlink" title="Adb常用命令"></a>Adb常用命令</h3><p><strong>开启/关闭服务</strong></p>
+<h3><span id="adb介绍">Adb介绍</span></h3><p>Adb(Android Debug Bridge): Andoid设备调试桥梁, 可以再PC端通过命令调试Android设备, 如获取设备状态, 安装/卸载app, 上传/下载文件等操作</p>
+<h3><span id="adb常用命令">Adb常用命令</span></h3><p><strong>开启/关闭服务</strong></p>
 <ul>
 <li>adb start-server: 开启服务</li>
 <li>adb kill-server: 关闭服务</li>
@@ -587,7 +587,7 @@
 <li>84 –&gt; “KEYCODE_SEARCH”</li>
 <li>85 –&gt; “TAG_LAST_KEYCODE”</li>
 </ul>
-<h3 id="Appium-API详细介绍"><a href="#Appium-API详细介绍" class="headerlink" title="Appium API详细介绍"></a>Appium API详细介绍</h3><p>如何去定位元素，sdk/tools下uiautomatorviewer.bat双击打开</p>
+<h3><span id="appium-api详细介绍">Appium API详细介绍</span></h3><p>如何去定位元素，sdk/tools下uiautomatorviewer.bat双击打开</p>
 <ul>
 <li><p><code>driver.find_element_by_id</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 找到最右app推荐列表下第一个人昵称</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_element_by_id</span>():</span></span><br><span class="line">    driver.implicitly_wait(<span class="number">60</span>)</span><br><span class="line">    element = driver.find_element_by_id(<span class="string">&quot;cn.xiaochuankeji.tieba:id/simple_member_tv_name&quot;</span>)</span><br><span class="line">	<span class="built_in">print</span>(element.text)    </span><br></pre></td></tr></table></figure></li>
@@ -685,7 +685,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">App自动化测试背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">Appium自动化测试简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.</span> <span class="nav-text">App自动化测试工具对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Appium%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">Appium的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Appium%E5%BA%95%E5%B1%82%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">Appium底层处理流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Appium%E7%9A%84%E5%93%B2%E5%AD%A6"><span class="nav-number">2.4.</span> <span class="nav-text">Appium的哲学</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-Appium-App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BAhttp-www-bcbxhome-com-bcbxxy-forum-php-mod-viewthread-amp-tid-9"><span class="nav-number">3.</span> <span class="nav-text">[Appium自动化测试环境搭建](Appium App自动化测试环境搭建http:&#x2F;&#x2F;www.bcbxhome.com&#x2F;bcbxxy&#x2F;forum.php?mod&#x3D;viewthread&amp;tid&#x3D;9)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%AE%BE%E5%A4%87"><span class="nav-number">4.</span> <span class="nav-text">连接设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Andorid-sdk%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">Andorid sdk介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adb%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.</span> <span class="nav-text">Adb介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adb%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">7.</span> <span class="nav-text">Adb常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Appium-API%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">8.</span> <span class="nav-text">Appium API详细介绍</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">App自动化测试背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Appium自动化测试简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">App自动化测试工具对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">Appium的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">Appium底层处理流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">Appium的哲学</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">[Appium自动化测试环境搭建](Appium App自动化测试环境搭建)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">连接设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">Andorid sdk介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">Adb介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">Adb常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">Appium API详细介绍</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -701,7 +701,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -765,13 +765,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

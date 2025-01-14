@@ -158,7 +158,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -309,7 +309,7 @@
 <span id="more"></span>
 
 
-<h1 id="before"><a href="#before" class="headerlink" title="before"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#before">before</a></h1><p>下面这张图展示了在不同平台docker是如何运行的，OS X和Windows都是借助于虚拟机来运行，而Linux直接运行在宿主机上。</p>
+<h1><span id="before"></span></h1><p>下面这张图展示了在不同平台docker是如何运行的，OS X和Windows都是借助于虚拟机来运行，而Linux直接运行在宿主机上。</p>
 <p><img src="1.bmp" alt="img"></p>
 <p>Linux无需多言，这里需要简单的介绍一下win和mac中所需的虚拟机。</p>
 <p>在Windows和Mac中，Boot2Docker虚拟机提供一整套的docker运行环境，那它都是提供了那些组件呢？</p>
@@ -324,7 +324,7 @@
 <p>mac and win:链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/11IxpxTnIjq7_xF8bnYM4Wg">https://pan.baidu.com/s/11IxpxTnIjq7_xF8bnYM4Wg</a> 提取码：2xly</p>
 </blockquote>
 <p>接下来我们来看看各平台是如何安装和运行docker的。</p>
-<h1 id="for-Centos"><a href="#for-Centos" class="headerlink" title="for-Centos"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-Centos">for-Centos</a></h1><p><strong>可选的操作：查看内核版本</strong></p>
+<h1><span id="for-centos"></span></h1><p><strong>可选的操作：查看内核版本</strong></p>
 <p>目前，CentOS 仅发行版本中的内核支持 Docker。</p>
 <p>Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。</p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">uname -a </span><br><span class="line"></span><br><span class="line"># 示例</span><br><span class="line">[root<span class="title">@localhost</span> ~]# uname -a</span><br><span class="line">Linux localhost <span class="number">3.10</span>.<span class="number">0</span><span class="number">-514</span>.el<span class="number">7</span>.<span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> <span class="variable">#1</span> SMP Tue Nov <span class="number">22</span> <span class="number">16</span>:<span class="number">42</span>:<span class="number">41</span> UTC <span class="number">2016</span> <span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> <span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> <span class="keyword">x</span><span class="number">86</span>_<span class="number">64</span> GNU/Linux</span><br></pre></td></tr></table></figure>
@@ -355,7 +355,7 @@
 <p><strong>启动docker并加入开机启动</strong></p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">start</span> docker    <span class="comment"># 启动</span></span><br><span class="line">systemctl enable docker	  <span class="comment"># 加入开机启动</span></span><br><span class="line"><span class="built_in">ps</span> <span class="literal">-ef</span> | grep docker</span><br></pre></td></tr></table></figure>
 
-<h1 id="for-Ubuntu"><a href="#for-Ubuntu" class="headerlink" title="for Ubuntu"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-ubuntu">for Ubuntu</a></h1><p><strong>安装前检查</strong></p>
+<h1><span id="for-ubuntu"></span></h1><p><strong>安装前检查</strong></p>
 <ul>
 <li>内核版本</li>
 </ul>
@@ -372,14 +372,14 @@
 <li>安装Ubuntu维护的版本，不推荐</li>
 <li>安装Docker维护的版本，推荐</li>
 </ul>
-<h2 id="安装Ubuntu维护的版本"><a href="#安装Ubuntu维护的版本" class="headerlink" title="安装Ubuntu维护的版本"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E5%AE%89%E8%A3%85Ubuntu%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC">安装Ubuntu维护的版本</a></h2><p>使用<code>apt-get</code>命令安装，使用<code>source</code>命令来更新配置：</p>
+<h2><span id="安装ubuntu维护的版本"></span></h2><p>使用<code>apt-get</code>命令安装，使用<code>source</code>命令来更新配置：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install docker.io -y </span><br><span class="line">$ <span class="keyword">source</span> <span class="regexp">/etc/</span>bash_completion.d/docker.io</span><br></pre></td></tr></table></figure>
 
 <p>查看docker安装情况：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker.io <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
 
 <p>注意，这种安装方式安装的docker名字叫做<code>docker.io</code>；另外，这种方式安装的docker的版本较低，所以，我们推荐安装docker维护的版本。</p>
-<h2 id="安装Docker维护的版本"><a href="#安装Docker维护的版本" class="headerlink" title="安装Docker维护的版本"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E5%AE%89%E8%A3%85Docker%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC">安装Docker维护的版本</a></h2><p>由于apt官方库里的docker版本可能比较旧，所以先卸载可能存在的旧版本：</p>
+<h2><span id="安装docker维护的版本"></span></h2><p>由于apt官方库里的docker版本可能比较旧，所以先卸载可能存在的旧版本：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> <span class="builtin-name">remove</span> docker docker-engine docker-ce docker.io</span><br></pre></td></tr></table></figure>
 
 <p>由于这种方式安装需要4步：</p>
@@ -393,7 +393,7 @@
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
 
 <p>注意，这种方式安装的docker，就叫docker</p>
-<h1 id="for-Mac"><a href="#for-Mac" class="headerlink" title="for-Mac"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-Mac">for-Mac</a></h1><p>由开头的图我们知道，Mac中运行docker也是要借助虚拟机的，所以，来看如何安装吧。</p>
+<h1><span id="for-mac"></span></h1><p>由开头的图我们知道，Mac中运行docker也是要借助虚拟机的，所以，来看如何安装吧。</p>
 <p><strong>下载</strong></p>
 <p>去<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop%E4%B8%8B%E8%BD%BD%E6%88%96%E8%80%85%E4%BD%BF%E7%94%A8%E5%BC%80%E5%A4%B4%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85%E3%80%82">https://www.docker.com/products/docker-desktop下载或者使用开头的安装包。</a></p>
 <p><img src="2.png" alt="img"></p>
@@ -418,7 +418,7 @@
 
 <p><img src="9.png" alt="img"></p>
 <p>OK，完事了。</p>
-<h1 id="for-Windows"><a href="#for-Windows" class="headerlink" title="for-Windows"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#for-Windows">for-Windows</a></h1><p>由开头的图我们知道，Windows中运行docker也是要借助虚拟机的，所以，来看如何安装吧。</p>
+<h1><span id="for-windows"></span></h1><p>由开头的图我们知道，Windows中运行docker也是要借助虚拟机的，所以，来看如何安装吧。</p>
 <p><strong>系统要求</strong></p>
 <p>windows7及以上系统</p>
 <p>来看安装。</p>
@@ -442,7 +442,7 @@
 <p>当你打开桌面快捷方式后，docker将启动在任务栏；然后你可以<code>win + R</code>打开终端，输入命令来进行测试。</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">docker <span class="built_in">version</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">可能遇到的问题</a></h1><h2 id="下载镜像超时"><a href="#下载镜像超时" class="headerlink" title="下载镜像超时"></a><a target="_blank" rel="noopener" href="https://mengxun.club/2021/01/21/Docker%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F%E8%B6%85%E6%97%B6">下载镜像超时</a></h2><blockquote>
+<h1><span id="可能遇到的问题"></span></h1><h2><span id="下载镜像超时"></span></h2><blockquote>
 <p>windows环境</p>
 </blockquote>
 <p>由于docker默认的镜像源是国外的，很可能遇到下载失败的问题，比如这样的：</p>
@@ -480,7 +480,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置国内镜像</span></span><br><span class="line">mkdir -p /etc/docker</span><br><span class="line">sudo vim /etc/docker/daemon.json</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">写入以下内容</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;&lt;your accelerate address&gt;&quot;]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">以上操作后重启一下 Docker</span></span><br><span class="line"></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
 <p>see also：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38750084/article/details/90317730">docker：CentOS安装 docker和默认安装目录</a></br><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/dongdong9223/article/details/52998375">如何进入、退出docker的container</a></br><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yufeng218/p/8370670.html">Centos7上安装docker</a></br><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lighten/p/6034984.html">Ubuntu16.04安装docker</a></br><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/BigData_Mining/article/details/87869147">https://blog.csdn.net/BigData_Mining/article/details/87869147</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38750084/article/details/90317730">docker：CentOS安装 docker和默认安装目录</a><br><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/dongdong9223/article/details/52998375">如何进入、退出docker的container</a><br><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yufeng218/p/8370670.html">Centos7上安装docker</a><br><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lighten/p/6034984.html">Ubuntu16.04安装docker</a><br><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/BigData_Mining/article/details/87869147">https://blog.csdn.net/BigData_Mining/article/details/87869147</a></p>
 <p>作者： 听雨危楼</p>
 <p>出处：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Neeo/articles/11945963.html">https://www.cnblogs.com/Neeo/articles/11945963.html</a></p>
 <p>版权：本作品采用「<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a>」许可协议进行许可。</p>
@@ -568,7 +568,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#before"><span class="nav-number">1.</span> <span class="nav-text">before</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Centos"><span class="nav-number">2.</span> <span class="nav-text">for-Centos</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Ubuntu"><span class="nav-number">3.</span> <span class="nav-text">for Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Ubuntu%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">安装Ubuntu维护的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker%E7%BB%B4%E6%8A%A4%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.</span> <span class="nav-text">安装Docker维护的版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Mac"><span class="nav-number">4.</span> <span class="nav-text">for-Mac</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-Windows"><span class="nav-number">5.</span> <span class="nav-text">for-Windows</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">可能遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F%E8%B6%85%E6%97%B6"><span class="nav-number">6.1.</span> <span class="nav-text">下载镜像超时</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -584,7 +584,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -648,13 +648,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

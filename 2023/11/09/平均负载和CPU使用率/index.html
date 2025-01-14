@@ -145,7 +145,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -286,7 +286,7 @@
 <li>I/O 密集型进程，等待 I/O 也会导致平均负载升高，但 CPU 使用率不一定很高；</li>
 <li>大量等待 CPU 的进程调度也会导致平均负载升高，此时的 CPU 使用率也会比较高。</li>
 </ul>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a><strong>案例</strong></h2><p>本次案例，我会再现三种让平均负载升高的情况。这次案例运用到的工具有stress工具和sysstat工具，关于这两个工具的一些说明，在我的这篇文章里已经提到过，我就不再赘述了 <a href="https://link.zhihu.com/?target=https://blog.csdn.net/s_alted/article/details/117412021">Linux 系统性能分析命令和工具</a></p>
+<h2><span id="案例"><strong>案例</strong></span></h2><p>本次案例，我会再现三种让平均负载升高的情况。这次案例运用到的工具有stress工具和sysstat工具，关于这两个工具的一些说明，在我的这篇文章里已经提到过，我就不再赘述了 <a href="https://link.zhihu.com/?target=https://blog.csdn.net/s_alted/article/details/117412021">Linux 系统性能分析命令和工具</a></p>
 <p>本次案例的虚拟机配置</p>
 <p><img src="https://pic2.zhimg.com/80/v2-28d3850c09ebb6f24f4a1f827980b0fd_1440w.webp" alt="img"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载相关工具包</span></span><br><span class="line"> yum install -y stsstat stress</span><br></pre></td></tr></table></figure>
@@ -319,7 +319,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">产生8个进程 每个进程都反复不停的计算随机数的平方根</span><br><span class="line">stress -c 8 --timeout 600</span><br><span class="line">uptime</span><br><span class="line"> load average: 7.44, 3.34, 1.47</span><br></pre></td></tr></table></figure>
 
 <p>由此可见，<strong>大量处在就绪态的进程也会导致平均负载的升高</strong></p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="什么是CPU密集型"><a href="#什么是CPU密集型" class="headerlink" title="什么是CPU密集型"></a>什么是CPU密集型</h3><p>CPU密集型是指一类计算任务或应用程序，其执行过程主要依赖于中央处理器（CPU）的处理能力，而不是其他系统组件（如内存、硬盘等）。在这种类型的任务中，CPU的计算能力是整个系统性能的瓶颈。</p>
+<h2><span id="附录">附录</span></h2><h3><span id="什么是cpu密集型">什么是CPU密集型</span></h3><p>CPU密集型是指一类计算任务或应用程序，其执行过程主要依赖于中央处理器（CPU）的处理能力，而不是其他系统组件（如内存、硬盘等）。在这种类型的任务中，CPU的计算能力是整个系统性能的瓶颈。</p>
 <p>CPU密集型任务通常涉及大量的数值计算、逻辑运算、数据处理和算法执行。一些典型的CPU密集型应用包括：</p>
 <ol>
 <li>科学计算：包括数学模型求解、数值模拟、天气预测、物理仿真等。</li>
@@ -329,7 +329,7 @@
 <li>加密和解密：加密和解密算法的执行需要大量的数学运算，因此也是CPU密集型的应用。</li>
 </ol>
 <p>在处理CPU密集型任务时，性能取决于CPU的速度、核心数量和架构。有时候，可以通过在多个核心上并行执行任务来提高性能，但并不是所有的任务都能充分利用多核处理器的优势。此外，对于某些特定的CPU密集型任务，使用专门的硬件加速器（如GPU、TPU等）可能会显著提高性能。</p>
-<h3 id="什么是IO密集型"><a href="#什么是IO密集型" class="headerlink" title="什么是IO密集型"></a>什么是IO密集型</h3><p>IO密集型是另一类计算任务或应用程序，其执行过程主要受限于输入输出（I/O）操作的速度，而不是CPU的处理能力。在这种类型的任务中，CPU通常需要等待来自外部设备（如硬盘、网络等）的数据读取或写入，从而使CPU的计算能力得不到充分利用。</p>
+<h3><span id="什么是io密集型">什么是IO密集型</span></h3><p>IO密集型是另一类计算任务或应用程序，其执行过程主要受限于输入输出（I/O）操作的速度，而不是CPU的处理能力。在这种类型的任务中，CPU通常需要等待来自外部设备（如硬盘、网络等）的数据读取或写入，从而使CPU的计算能力得不到充分利用。</p>
 <p>IO密集型任务通常涉及大量的文件读写、网络通信、数据库查询等操作。一些典型的IO密集型应用包括：</p>
 <ol>
 <li>文件操作：涉及大规模的文件读取和写入，例如文件复制、数据备份等。</li>
@@ -422,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCPU%E5%AF%86%E9%9B%86%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">什么是CPU密集型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFIO%E5%AF%86%E9%9B%86%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">什么是IO密集型</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">什么是CPU密集型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">什么是IO密集型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -438,7 +438,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -502,13 +502,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

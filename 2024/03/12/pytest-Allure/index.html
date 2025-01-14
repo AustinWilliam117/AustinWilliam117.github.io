@@ -145,7 +145,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -277,7 +277,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Allure报告结构"><a href="#Allure报告结构" class="headerlink" title="Allure报告结构"></a>Allure报告结构</h3><ul>
+        <h3><span id="allure报告结构">Allure报告结构</span></h3><ul>
 <li><p>Overview:整体数据显示。</p>
 </li>
 <li><p>Suites:用例集合,按照套件和类分组的已执行测试的标准结构表示形式。</p>
@@ -295,7 +295,7 @@
 </ul>
 <span id="more"></span>
 
-<h3 id="Allure安装"><a href="#Allure安装" class="headerlink" title="Allure安装"></a>Allure安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install allure-pytest</span><br></pre></td></tr></table></figure>
+<h3><span id="allure安装">Allure安装</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install allure-pytest</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>下载 allure ZIP包 <code>https://github.com/allure-framework/allure2/releases</code></li>
@@ -304,7 +304,7 @@
 <li>使环境变量生效 <code>source ~/.zshrc</code></li>
 <li>验证 <code>allure --version</code></li>
 </ol>
-<h3 id="Allure基本用法"><a href="#Allure基本用法" class="headerlink" title="Allure基本用法"></a>Allure基本用法</h3><ul>
+<h3><span id="allure基本用法">Allure基本用法</span></h3><ul>
 <li><code>@allure.epic():</code> 项目名称</li>
 <li><code>@allure.feature():</code> 模块名称，功能点描述</li>
 <li><code>@allure.story():</code> 接口名称</li>
@@ -318,7 +318,7 @@
 <li><code>@allure.link():</code> 定义一个链接，在测试报告中展现</li>
 <li><code>@allure.attachment():</code> 为测试报告添加附件</li>
 </ul>
-<h3 id="Allure-epic-feature-story-title"><a href="#Allure-epic-feature-story-title" class="headerlink" title="Allure epic/feature/story/title"></a>Allure epic/feature/story/title</h3><ol>
+<h3><span id="allure-epicfeaturestorytitle">Allure epic/feature/story/title</span></h3><ol>
 <li><p>编辑<code>./testcase/alluredemo/test_allure.py</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> allure</span><br><span class="line"></span><br><span class="line"><span class="meta">@allure.epic(<span class="params"><span class="string">&quot;接口项目名称：xx在线接口测试&quot;</span></span>)</span></span><br><span class="line"><span class="meta">@allure.feature(<span class="params"><span class="string">&quot;接口模块名称：IVR接口&quot;</span></span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestApi</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.story(<span class="params"><span class="string">&quot;接口名称：常规请求&quot;</span></span>)</span></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例1&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_01</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_01&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例2&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_02</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_02&quot;</span>)</span><br></pre></td></tr></table></figure></li>
 <li><p>修改<code>pytest.ini</code>文件中的<code>addopts</code>参数</p>
@@ -338,7 +338,7 @@
 <p><img src="./allure1.jpg"></p>
 </li>
 </ol>
-<h3 id="Allure-severity-description"><a href="#Allure-severity-description" class="headerlink" title="Allure severity/description"></a>Allure severity/description</h3><ul>
+<h3><span id="allure-severitydescription">Allure severity/description</span></h3><ul>
 <li>Blocker</li>
 <li>Critical</li>
 <li>Normal</li>
@@ -346,12 +346,12 @@
 <li>Trivial</li>
 </ul>
 <p><code>@allure.severity(allure.serverity_level.BLOCKER)</code></p>
-<p><font color='orange'>这个装饰器既可以修饰方法，也可以修饰类</font></p>
+<p><font color="orange">这个装饰器既可以修饰方法，也可以修饰类</font></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">import</span> allure</span><br><span class="line"></span><br><span class="line"><span class="meta">@allure.epic(<span class="params"><span class="string">&quot;接口项目名称：xx在线接口测试&quot;</span></span>)</span></span><br><span class="line"><span class="meta">@allure.feature(<span class="params"><span class="string">&quot;接口模块名称：IVR接口&quot;</span></span>)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestApi</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.story(<span class="params"><span class="string">&quot;接口名称：常规请求&quot;</span></span>)</span></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例1&quot;</span></span>) </span><span class="comment"># 单次的用例标题</span></span><br><span class="line"><span class="meta">    @allure.description(<span class="params"><span class="string">&quot;@allure.description: 测试用例描述&quot;</span></span>) </span><span class="comment"># 单次的用例描述</span></span><br><span class="line"><span class="meta">    @allure.severity(<span class="params">allure.severity_level.BLOCKER</span>) </span><span class="comment"># 单次的用例优先级</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_01</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_01&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @allure.title(<span class="params"><span class="string">&quot;@allure.title 测试用例2&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_allure_02</span>(<span class="params">self</span>):</span></span><br><span class="line">        allure.dynamic.title(<span class="string">&quot;allure.dynamic.title&quot;</span>) <span class="comment"># 用于数据驱动的标题</span></span><br><span class="line">        allure.dynamic.description(<span class="string">&quot;allure.dynamic.description&quot;</span>) <span class="comment"># 用于数据驱动的用例描述</span></span><br><span class="line">        allure.dynamic.severity(allure.severity_level.BLOCKER) <span class="comment"># 用于数据驱动的用例优先级</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;test_allure_02&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>结果：</p>
 <p><img src="./severity.jpg"></p>
-<h3 id="Allure-link-issue-testcase"><a href="#Allure-link-issue-testcase" class="headerlink" title="Allure link/issue/testcase"></a>Allure link/issue/testcase</h3><ul>
+<h3><span id="allure-linkissuetestcase">Allure link/issue/testcase</span></h3><ul>
 <li><code>@allure.description()</code>: 用例描述</li>
 <li><code>@allure.link(url, name=name)</code>: 接口地址</li>
 <li><code>@allure.issue(url, name=name)</code>: BUG链接</li>
@@ -361,7 +361,7 @@
 
 <p>结果：</p>
 <p><img src="./description.jpg"></p>
-<h3 id="使用YAML作为数据驱动"><a href="#使用YAML作为数据驱动" class="headerlink" title="使用YAML作为数据驱动"></a>使用YAML作为数据驱动</h3><ul>
+<h3><span id="使用yaml作为数据驱动">使用YAML作为数据驱动</span></h3><ul>
 <li><code>allure.attach(file_path, name=None, attachment_type=None)</code>: 附件</li>
 </ul>
 <p><code>attachment_type=allure.AttachmentType.TEXT</code>类型：</p>
@@ -384,7 +384,7 @@
 
 <p>结果：</p>
 <p><img src="./attach.jpg"></p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>[1] <a target="_blank" rel="noopener" href="https://allurereport.org/docs/">https://allurereport.org/docs/</a></p>
+<h3><span id="reference">Reference</span></h3><p>[1] <a target="_blank" rel="noopener" href="https://allurereport.org/docs/">https://allurereport.org/docs/</a></p>
 <p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/555114726">https://zhuanlan.zhihu.com/p/555114726</a></p>
 
     </div>
@@ -469,7 +469,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Allure%E6%8A%A5%E5%91%8A%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">Allure报告结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Allure%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">Allure安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Allure%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">Allure基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Allure-epic-feature-story-title"><span class="nav-number">4.</span> <span class="nav-text">Allure epic&#x2F;feature&#x2F;story&#x2F;title</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Allure-severity-description"><span class="nav-number">5.</span> <span class="nav-text">Allure severity&#x2F;description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Allure-link-issue-testcase"><span class="nav-number">6.</span> <span class="nav-text">Allure link&#x2F;issue&#x2F;testcase</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8YAML%E4%BD%9C%E4%B8%BA%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">使用YAML作为数据驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">8.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Allure报告结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Allure安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Allure基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">Allure epic&#x2F;feature&#x2F;story&#x2F;title</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">Allure severity&#x2F;description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">Allure link&#x2F;issue&#x2F;testcase</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">使用YAML作为数据驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -485,7 +485,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -549,13 +549,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,7 +272,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="安装PostgreSQL"><a href="#安装PostgreSQL" class="headerlink" title="安装PostgreSQL"></a>安装PostgreSQL</h2><blockquote>
+        <h2><span id="安装postgresql">安装PostgreSQL</span></h2><blockquote>
 <p>sudo pacman -S postgresql</p>
 </blockquote>
 <p>在PostgreSQL可以正确使用之前，数据库集群必须被初始化:</p>
@@ -284,7 +284,7 @@
 <span id="more"></span>
 
 <p><strong>注意：</strong> 在本篇文章中需要以postgres用户运行的命令以<code>[postgres]$</code>作为前置符号。你可以以root用户执行<code>su - postgres</code>登陆postgres用户。如果你使用<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Sudo">sudo</a>，可以以普通用户执行<code>sudo -i -u postgres</code>。</p>
-<h2 id="创建第一个数据库-用户"><a href="#创建第一个数据库-用户" class="headerlink" title="创建第一个数据库/用户"></a>创建第一个数据库/用户</h2><p>如果创建一个与你的 Arch 用户 ($USER) 同名的数据库用户，并允许其访问 PostgreSQL 数据库的 shell，那么在使用PostgreSQL 数据库 shell 的时候无需指定用户登录（这样做会比较方便）。</p>
+<h2><span id="创建第一个数据库用户">创建第一个数据库/用户</span></h2><p>如果创建一个与你的 Arch 用户 ($USER) 同名的数据库用户，并允许其访问 PostgreSQL 数据库的 shell，那么在使用PostgreSQL 数据库 shell 的时候无需指定用户登录（这样做会比较方便）。</p>
 <p>以 postgres 用户身份, 添加一个新的数据库用户使用 <a target="_blank" rel="noopener" href="http://www.postgresql.org/docs/9.0/static/app-createuser.html">createuser</a> 命令</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[postgres]</span>$ createuser --<span class="built_in">int</span>eractive</span><br><span class="line">输入要增加的角色名称: 我登录 Arch 的用户名</span><br></pre></td></tr></table></figure>
 
@@ -294,7 +294,7 @@
 
 
 
-<h2 id="PostgreSQL-修改密码"><a href="#PostgreSQL-修改密码" class="headerlink" title="PostgreSQL 修改密码"></a>PostgreSQL 修改密码</h2><h3 id="1-修改PostgreSQL数据库默认用户postgres的密码"><a href="#1-修改PostgreSQL数据库默认用户postgres的密码" class="headerlink" title="1. 修改PostgreSQL数据库默认用户postgres的密码"></a>1. 修改PostgreSQL数据库默认用户postgres的密码</h3><p>PostgreSQL数据库创建一个postgres用户作为数据库的管理员，密码随机，所以需要修改密码，方式如下：</p>
+<h2><span id="postgresql-修改密码">PostgreSQL 修改密码</span></h2><h3><span id="1-修改postgresql数据库默认用户postgres的密码">1. 修改PostgreSQL数据库默认用户postgres的密码</span></h3><p>PostgreSQL数据库创建一个postgres用户作为数据库的管理员，密码随机，所以需要修改密码，方式如下：</p>
 <p>步骤一：登录PostgreSQL</p>
 <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo` `-u postgres psql</span><br></pre></td></tr></table></figure>
 
@@ -309,7 +309,7 @@
 <p>步骤三：退出PostgreSQL客户端</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="selector-tag">q</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="2-修改linux系统postgres用户的密码"><a href="#2-修改linux系统postgres用户的密码" class="headerlink" title="2. 修改linux系统postgres用户的密码"></a>2. 修改linux系统postgres用户的密码</h3><p>PostgreSQL会创建一个默认的linux用户postgres，修改该用户密码的方法如下：</p>
+<h3><span id="2-修改linux系统postgres用户的密码">2. 修改linux系统postgres用户的密码</span></h3><p>PostgreSQL会创建一个默认的linux用户postgres，修改该用户密码的方法如下：</p>
 <p>步骤一：删除用户postgres的密码</p>
 <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo` `passwd` `-d postgres</span><br></pre></td></tr></table></figure>
 
@@ -321,7 +321,7 @@
 
 
 
-<h2 id="PostgreSQL命令"><a href="#PostgreSQL命令" class="headerlink" title="PostgreSQL命令"></a>PostgreSQL命令</h2><p>查看数据库</p>
+<h2><span id="postgresql命令">PostgreSQL命令</span></h2><p>查看数据库</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql <span class="operator">-</span>l</span><br></pre></td></tr></table></figure>
 
 <p>查看数据库版本信息</p>
@@ -352,10 +352,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vim db.sql</span></span><br><span class="line">...</span><br><span class="line">create table posts (title varchar(255), content text);</span><br><span class="line">...</span><br><span class="line"><span class="meta">$</span><span class="bash"> psql komablog</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> \i db.sql	<span class="comment">#导入sql语句</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> \dt</span></span><br></pre></td></tr></table></figure>
 
 <p>退出，帮助分别是：\h \q</p>
-<h2 id="PostgreSQL插件——pgcli"><a href="#PostgreSQL插件——pgcli" class="headerlink" title="PostgreSQL插件——pgcli"></a>PostgreSQL插件——pgcli</h2><h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><p>If you already know how to install python packages, then you can simply do:</p>
+<h2><span id="postgresql插件pgcli">PostgreSQL插件——pgcli</span></h2><h3><span id="quick-start">Quick Start</span></h3><p>If you already know how to install python packages, then you can simply do:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip install -U pgcli</span></span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install pgcli <span class="comment"># Only on Debian based Linux (e.g. Ubuntu, Mint, etc)</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install pgcli  <span class="comment"># Only on macOS</span></span></span><br></pre></td></tr></table></figure>
 
-<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pgcli [database_name]</span></span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pgcli postgresql://[user[:password]@][netloc][:port][/dbname][?extra=value[&amp;other=other-value]]</span></span><br></pre></td></tr></table></figure>
+<h3><span id="usage">Usage</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pgcli [database_name]</span></span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pgcli postgresql://[user[:password]@][netloc][:port][/dbname][?extra=value[&amp;other=other-value]]</span></span><br></pre></td></tr></table></figure>
 
 <p>Examples:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pgcli local_database</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> pgcli postgres://amjith:pa$<span class="variable">$w0rd</span>@example.com:5432/app_db?sslmode=verify-ca&amp;sslrootcert=/myrootcert</span></span><br></pre></td></tr></table></figure>
@@ -364,7 +364,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pgcli --<span class="built_in">help</span></span></span><br><span class="line"></span><br><span class="line">Usage: pgcli [OPTIONS] [DBNAME] [USERNAME]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -h, --host TEXT         Host address of the postgres database.</span><br><span class="line">  -p, --port INTEGER      Port number at which the postgres instance is</span><br><span class="line">                          listening.</span><br><span class="line">  -U, --username TEXT     Username to connect to the postgres database.</span><br><span class="line">  -u, --user TEXT         Username to connect to the postgres database.</span><br><span class="line">  -W, --password          Force password prompt.</span><br><span class="line">  -w, --no-password       Never prompt for password.</span><br><span class="line">  --single-connection     Do not use a separate connection for completions.</span><br><span class="line">  -v, --version           Version of pgcli.</span><br><span class="line">  -d, --dbname TEXT       database name to connect to.</span><br><span class="line">  --pgclirc PATH          Location of pgclirc file.</span><br><span class="line">  -D, --dsn TEXT          Use DSN configured into the [alias_dsn] section of</span><br><span class="line">                          pgclirc file.</span><br><span class="line">  --list-dsn              list of DSN configured into the [alias_dsn] section</span><br><span class="line">                          of pgclirc file.</span><br><span class="line">  --row-limit INTEGER     Set threshold for row limit prompt. Use 0 to disable</span><br><span class="line">                          prompt.</span><br><span class="line">  --less-chatty           Skip intro on startup and goodbye on exit.</span><br><span class="line">  --prompt TEXT           Prompt format (Default: &quot;\u@\h:\d&gt; &quot;).</span><br><span class="line">  --prompt-dsn TEXT       Prompt format for connections using DSN aliases</span><br><span class="line">                          (Default: &quot;\u@\h:\d&gt; &quot;).</span><br><span class="line">  -l, --list              list available databases, then exit.</span><br><span class="line">  --auto-vertical-output  Automatically switch to vertical output mode if the</span><br><span class="line">                          result is wider than the terminal width.</span><br><span class="line">  --warn / --no-warn      Warn before running a destructive query.</span><br><span class="line">  --help                  Show this message and exit.</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://github.com/dbcli/pgcli">官方文档</a></p>
-<h2 id="基础数据类型（常用）"><a href="#基础数据类型（常用）" class="headerlink" title="基础数据类型（常用）"></a>基础数据类型（常用）</h2><ul>
+<h2><span id="基础数据类型常用">基础数据类型（常用）</span></h2><ul>
 <li><p>数值型</p>
 <table>
 <thead>
@@ -570,7 +570,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85PostgreSQL"><span class="nav-number">1.</span> <span class="nav-text">安装PostgreSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93-%E7%94%A8%E6%88%B7"><span class="nav-number">2.</span> <span class="nav-text">创建第一个数据库&#x2F;用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PostgreSQL-%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">PostgreSQL 修改密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%AE%E6%94%B9PostgreSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7postgres%E7%9A%84%E5%AF%86%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">1. 修改PostgreSQL数据库默认用户postgres的密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9linux%E7%B3%BB%E7%BB%9Fpostgres%E7%94%A8%E6%88%B7%E7%9A%84%E5%AF%86%E7%A0%81"><span class="nav-number">3.2.</span> <span class="nav-text">2. 修改linux系统postgres用户的密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PostgreSQL%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">PostgreSQL命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PostgreSQL%E6%8F%92%E4%BB%B6%E2%80%94%E2%80%94pgcli"><span class="nav-number">5.</span> <span class="nav-text">PostgreSQL插件——pgcli</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Quick-Start"><span class="nav-number">5.1.</span> <span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Usage"><span class="nav-number">5.2.</span> <span class="nav-text">Usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">基础数据类型（常用）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">安装PostgreSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">创建第一个数据库&#x2F;用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">PostgreSQL 修改密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">1. 修改PostgreSQL数据库默认用户postgres的密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">2. 修改linux系统postgres用户的密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">PostgreSQL命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">PostgreSQL插件——pgcli</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.1.</span> <span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.2.</span> <span class="nav-text">Usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">基础数据类型（常用）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -586,7 +586,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -650,13 +650,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

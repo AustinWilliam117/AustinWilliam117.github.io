@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -268,7 +268,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="模拟题1"><a href="#模拟题1" class="headerlink" title="模拟题1"></a>模拟题1</h3><ol>
+        <h3><span id="模拟题1">模拟题1</span></h3><ol>
 <li>最适合数字加减运算的是<font color="orange">补码</font>，最适合表示浮点数阶码的编码是<font color="orange">移码</font></li>
 <li>主存容量16MB，按字节编址，表示该主存地址至少需要<font color="orange">24</font>位。</li>
 </ol>
@@ -288,11 +288,11 @@
 <blockquote>
 <p>寻址方式参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42562387/article/details/114433665">https://blog.csdn.net/weixin_42562387/article/details/114433665</a></p>
 </blockquote>
-<h4 id="立即数寻址"><a href="#立即数寻址" class="headerlink" title="立即数寻址"></a>立即数寻址</h4><p>操作数包含在指令中，紧跟着操作码并与操作码一起存放在代码段中，与代码一起被取入CPU的指令队列，指令执行时不需要到其他地址单元中去取。<br>立即寻址中的操作数可以是计算机有效数制下的数值，也可以是带单引号的字符。这种寻址方式主要用于给寄存器或存储单元赋初值的场合。</p>
+<h4><span id="立即数寻址">立即数寻址</span></h4><p>操作数包含在指令中，紧跟着操作码并与操作码一起存放在代码段中，与代码一起被取入CPU的指令队列，指令执行时不需要到其他地址单元中去取。<br>立即寻址中的操作数可以是计算机有效数制下的数值，也可以是带单引号的字符。这种寻址方式主要用于给寄存器或存储单元赋初值的场合。</p>
 <p><strong>立即寻址方式是这七种寻址方式中速度最快的寻址方式。</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ah,80h             ;8位</span><br><span class="line">mov ax,1234h           ;16位</span><br><span class="line">mov eax,12345678h      ;32位</span><br></pre></td></tr></table></figure>
 
-<h4 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h4><p>操作数在CPU内部的寄存器中，在指令中指定寄存器号。需要注意的是:<strong>源操作数与目的操作数字长要相同</strong></p>
+<h4><span id="寄存器寻址">寄存器寻址</span></h4><p>操作数在CPU内部的寄存器中，在指令中指定寄存器号。需要注意的是:<strong>源操作数与目的操作数字长要相同</strong></p>
 <ol>
 <li>源操作数是寄存器</li>
 </ol>
@@ -311,8 +311,8 @@
 <blockquote>
 <p>MOV EAX, EBX;</p>
 </blockquote>
-<h4 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h4><p>操作数存放在内存中，在指令中直接给出该操作数的有效地址，这种寻址方式为直接寻址方式。</p>
-<h4 id="寄存器间接寻址"><a href="#寄存器间接寻址" class="headerlink" title="寄存器间接寻址"></a>寄存器间接寻址</h4><p>操作数在存储器中，操作数的有效地址用SI、DI、BX和BP等四个寄存器之一来指定，称这种寻址方式为寄存器间接寻址方式。</p>
+<h4><span id="直接寻址">直接寻址</span></h4><p>操作数存放在内存中，在指令中直接给出该操作数的有效地址，这种寻址方式为直接寻址方式。</p>
+<h4><span id="寄存器间接寻址">寄存器间接寻址</span></h4><p>操作数在存储器中，操作数的有效地址用SI、DI、BX和BP等四个寄存器之一来指定，称这种寻址方式为寄存器间接寻址方式。</p>
 <p>规定：在不使用段超越前缀的情况下</p>
 <p>若有效地址用SI、DI和BX等之一来指定，则其缺省的段寄存器为DS；<br>若有效地址用BP来指定，则其缺省的段寄存器为SS(即：堆栈段)。</p>
 
@@ -398,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E9%A2%981"><span class="nav-number">1.</span> <span class="nav-text">模拟题1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80"><span class="nav-number">1.1.</span> <span class="nav-text">立即数寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">寄存器寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">1.3.</span> <span class="nav-text">直接寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">1.4.</span> <span class="nav-text">寄存器间接寻址</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">模拟题1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">立即数寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">寄存器寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">直接寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">寄存器间接寻址</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,7 +414,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -478,13 +478,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

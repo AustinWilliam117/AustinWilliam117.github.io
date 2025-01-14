@@ -152,7 +152,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -284,13 +284,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="过程支持"><a href="#过程支持" class="headerlink" title="过程支持"></a>过程支持</h3><p>过程（procedure）或函数是程序员进行结构化编程的工具，两者均有助于提高程序的可理解性和代码的可重用性。过程允许程序员每次只需将精力集中在任务的一部分，由于参数能传递数值并返回结果，因此参数承担过程与其他程序、数据之间接口的角色。</p>
+        <h3><span id="过程支持">过程支持</span></h3><p>过程（procedure）或函数是程序员进行结构化编程的工具，两者均有助于提高程序的可理解性和代码的可重用性。过程允许程序员每次只需将精力集中在任务的一部分，由于参数能传递数值并返回结果，因此参数承担过程与其他程序、数据之间接口的角色。</p>
 <span id="more"></span>
 
 <p><img src="%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81.png"></p>
 <br>
 
-<h4 id="过程（函数）的执行过程"><a href="#过程（函数）的执行过程" class="headerlink" title="过程（函数）的执行过程"></a>过程（函数）的执行过程</h4><p>C语言中的函数（一种典型的<font color="orange">过程</font>）是结构化编程的强大工具</p>
+<h4><span id="过程函数的执行过程">过程（函数）的执行过程</span></h4><p>C语言中的函数（一种典型的<font color="orange">过程</font>）是结构化编程的强大工具</p>
 <p>函数获取参数、执行运算、返回结果，就好比</p>
 <p>侦探拿着一份计划书去执行任务，再带来想要的结果</p>
 <br>
@@ -303,7 +303,7 @@
 <p>6、过程把控制权返回给主程序，执行调用过程指令的下一条指令 <u><strong>怎么找到下个位置？</strong></u></p>
 <br>
 
-<h4 id="支持过程的三大寄存器"><a href="#支持过程的三大寄存器" class="headerlink" title="支持过程的三大寄存器"></a>支持过程的三大寄存器</h4><p>1、主程序（<font color="orange">调用者</font>）将参数放在过程（<font color="orange">被调用者</font>）可以取用的特定位置 <u><strong>什么位置？</strong></u></p>
+<h4><span id="支持过程的三大寄存器">支持过程的三大寄存器</span></h4><p>1、主程序（<font color="orange">调用者</font>）将参数放在过程（<font color="orange">被调用者</font>）可以取用的特定位置 <u><strong>什么位置？</strong></u></p>
 <ul>
 <li>4个<font color="orange">参数寄存器（argument reg）</font>$a0 ~ $a3</li>
 </ul>
@@ -319,7 +319,7 @@
 <p><font color="grey">主程序通过什么指令，可以跳转到过程指令，并把下一条指令的地址存入 $ra ?  j+addi 吗？</font></p>
 <br>
 
-<h4 id="jal-jr-指令对-程序计数器"><a href="#jal-jr-指令对-程序计数器" class="headerlink" title="jal - jr 指令对 程序计数器"></a>jal - jr 指令对 程序计数器</h4><ul>
+<h4><span id="jal-jr-指令对-程序计数器">jal - jr 指令对 程序计数器</span></h4><ul>
 <li>$a0 ~ $a3：用于传递参数的4个参数寄存器</li>
 <li>$v0 ~ $v1：用于返回值的两个值寄存器</li>
 <li>$ra：用于返回起始点的返回地址寄存器</li>
@@ -356,7 +356,7 @@
 <p>（应该是被调用者过程使用）</p>
 <br>
 
-<h4 id="综合练习5：数组清零函数（叶过程）"><a href="#综合练习5：数组清零函数（叶过程）" class="headerlink" title="综合练习5：数组清零函数（叶过程）"></a>综合练习5：数组清零函数（叶过程）</h4><p>（叶子过程就是不调用其他过程）</p>
+<h4><span id="综合练习5数组清零函数叶过程">综合练习5：数组清零函数（叶过程）</span></h4><p>（叶子过程就是不调用其他过程）</p>
 <p>将下列C语言转换成MIPS-32。为简化难度，没有在for循环中定义 i</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> size)</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; size; i++) a[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -364,7 +364,7 @@
 
 
 
-<h4 id="保存寄存器的压栈和出栈-栈指针-sp"><a href="#保存寄存器的压栈和出栈-栈指针-sp" class="headerlink" title="保存寄存器的压栈和出栈 栈指针 $sp"></a>保存寄存器的压栈和出栈 栈指针 $sp</h4><p><img src="%E6%A0%88%E6%8C%87%E9%92%88.png"></p>
+<h4><span id="保存寄存器的压栈和出栈-栈指针-sp">保存寄存器的压栈和出栈 栈指针 $sp</span></h4><p><img src="%E6%A0%88%E6%8C%87%E9%92%88.png"></p>
 <p>在过程调用前，主程序往往已经将自己要用的标量放在了保存寄存器中</p>
 <p>如果过程要使用保存寄存器，要把主程序已经使用的保存寄存器入栈</p>
 <p>栈在内存中以<font color="orange">高地址为栈底，低地址为栈顶</font>，即栈从高地址向低地址“生长”</p>
@@ -373,16 +373,16 @@
 <p><em>一个栈指针4个字节。一个寄存器是32位，1个字为4个字节，8个字节一位。</em></p>
 <p>再用sw将保存寄存器存入栈中（方向从栈底到栈顶）</p>
 <p>过程结束时把这些数据出栈、放回保存寄存器，供主程序继续使用，步骤正好相反</p>
-<h4 id="综合练习6：运算函数（叶过程）"><a href="#综合练习6：运算函数（叶过程）" class="headerlink" title="综合练习6：运算函数（叶过程）"></a>综合练习6：运算函数（叶过程）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> g, <span class="keyword">int</span> h, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> f;</span><br><span class="line">  f = (g+h) - (i+j);</span><br><span class="line">  <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="综合练习6运算函数叶过程">综合练习6：运算函数（叶过程）</span></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> g, <span class="keyword">int</span> h, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> f;</span><br><span class="line">  f = (g+h) - (i+j);</span><br><span class="line">  <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>假设 f 存储在 $s0 中，且 $s0 已经被主程序占用</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为 $s0，已经被主程序占用，且被调用函数也要使用 $s0, 所以需要先将$s0存入栈中，等使用完后，再取出来。</span></span><br><span class="line">cal:</span><br><span class="line">     <span class="builtin-name">add</span> <span class="variable">$sp</span>, <span class="variable">$sp</span>, -4</span><br><span class="line">     sw <span class="variable">$s0</span>, 0(<span class="variable">$sp</span>)</span><br><span class="line">     # int f 应该要初始化一下吧，而且有脏数据呢</span><br><span class="line">     <span class="builtin-name">add</span> <span class="variable">$s0</span>, <span class="variable">$zero</span>, <span class="variable">$zero</span></span><br><span class="line">     # g,h,i,j 被主程序申明过，他们在寄存器<span class="variable">$a0</span>, <span class="variable">$a1</span>, <span class="variable">$a2</span>, <span class="variable">$a3</span>中</span><br><span class="line">     <span class="builtin-name">add</span> <span class="variable">$t0</span>, <span class="variable">$a0</span>, <span class="variable">$a1</span></span><br><span class="line">     <span class="builtin-name">add</span> <span class="variable">$t1</span>, <span class="variable">$a2</span>, <span class="variable">$a3</span></span><br><span class="line">     sub <span class="variable">$s0</span>, <span class="variable">$t0</span>, <span class="variable">$t1</span></span><br><span class="line">     # return f, 将寄存器 <span class="variable">$s0</span> 传入 <span class="variable">$v0</span></span><br><span class="line">     <span class="builtin-name">add</span> <span class="variable">$v0</span>, <span class="variable">$s0</span>, <span class="variable">$zero</span></span><br><span class="line">     # 将先前存放栈中的<span class="variable">$s0</span>再放回去</span><br><span class="line">     <span class="builtin-name">add</span> <span class="variable">$sp</span>, <span class="variable">$sp</span>, 4</span><br><span class="line">     lw <span class="variable">$s0</span>, 0(<span class="variable">$sp</span>)</span><br><span class="line">     # 返回主程序</span><br><span class="line">     jr <span class="variable">$ra</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="综合练习6改进：减少指令条数"><a href="#综合练习6改进：减少指令条数" class="headerlink" title="综合练习6改进：减少指令条数"></a>综合练习6改进：减少指令条数</h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> g, <span class="keyword">int</span> h, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f;</span><br><span class="line">    f = (g+h)-(i+j);</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="综合练习6改进减少指令条数">综合练习6改进：减少指令条数</span></h4><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> g, <span class="keyword">int</span> h, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f;</span><br><span class="line">    f = (g+h)-(i+j);</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 变量f是返回值，所以我们可以直接使用$v0，不使用$s0，这样也避免了出入栈</span></span><br><span class="line"><span class="symbol">cal:</span></span><br><span class="line">    <span class="keyword">add </span>$<span class="built_in">t0</span>, $<span class="built_in">a0</span>, $<span class="built_in">a1</span></span><br><span class="line">    <span class="keyword">add </span>$<span class="built_in">t1</span>, $<span class="built_in">a2</span>, $<span class="built_in">a3</span></span><br><span class="line">    <span class="keyword">sub </span>$<span class="built_in">v0</span>, $<span class="built_in">t0</span>, $<span class="built_in">t1</span></span><br><span class="line">    <span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="嵌套过程调用-综合练习7：数组求平方和（嵌套过程）"><a href="#嵌套过程调用-综合练习7：数组求平方和（嵌套过程）" class="headerlink" title="嵌套过程调用 综合练习7：数组求平方和（嵌套过程）"></a>嵌套过程调用 综合练习7：数组求平方和（嵌套过程）</h4><p>侦探搞外包、接着雇佣其他侦探来完成任务，就是嵌套过程调用</p>
+<h4><span id="嵌套过程调用-综合练习7数组求平方和嵌套过程">嵌套过程调用 综合练习7：数组求平方和（嵌套过程）</span></h4><p>侦探搞外包、接着雇佣其他侦探来完成任务，就是嵌套过程调用</p>
 <figure class="highlight stan"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sum_of_squares(<span class="keyword">int</span> a[], <span class="keyword">int</span> <span class="built_in">size</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">sum</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>, i &lt; <span class="built_in">size</span>, i++)</span><br><span class="line">        <span class="built_in">sum</span> = <span class="built_in">sum</span> + <span class="built_in">square</span>(a[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">square</span>(<span class="keyword">int</span> a)&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">square</span>;</span><br><span class="line">    <span class="built_in">square</span> = a * a;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">square</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其中，i 的寄存器是 $t0，sum 的寄存器是 $t1，square 的寄存器是 $t2</p>
@@ -392,13 +392,13 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">暂时不写了</span><br></pre></td></tr></table></figure>
 
 <p><strong>如果参数多于4个该怎么办呢？MIPS 约定将额外的参数放在栈中帧指针的上方。这样，过程从寄存器 $a0 到 $a3 中获得前4个参数，通过帧指针在内存中寻址获得其余参数</strong></p>
-<h4 id="需要压栈保存的寄存器"><a href="#需要压栈保存的寄存器" class="headerlink" title="需要压栈保存的寄存器"></a>需要压栈保存的寄存器</h4><p>【综合练习6】我们默认<font color="orange">保存寄存器 $s0 ~ $s7</font> 存放到了主程序的变量，需要由过程开始时压栈保存，结束时出栈恢复</p>
+<h4><span id="需要压栈保存的寄存器">需要压栈保存的寄存器</span></h4><p>【综合练习6】我们默认<font color="orange">保存寄存器 $s0 ~ $s7</font> 存放到了主程序的变量，需要由过程开始时压栈保存，结束时出栈恢复</p>
 <p>【综合练习7】如果一个过程（外层函数）嵌套了其他过程（内层函数）外层函数通过 jal 修改了 <font color="orange">返回地址寄存器 $ra </font></p>
 <p>$ra 指向外层函数 jal 的下一条指令，不再是外层函数的返回地址了。</p>
 <p>所以需要将 $ra 先入栈，再出栈？？</p>
 <p><font color="orange">栈指针寄存器 $sp</font>、栈中的内容（即<font color="orange">栈指针以上的栈</font>）也需要由过程保留，在addi栈指针、sw入栈、lw出栈的过程中即可保存</p>
 <p><font color="orange">结论：任何过程须显式地压栈保存即将使用的保存寄存器 $s0 ~ $s7（用那几个存那几个）外层嵌套过程须显式地压栈保存返回地址寄存器 $ra</font></p>
-<h4 id="进阶内容：复杂-MIPS-程序示例"><a href="#进阶内容：复杂-MIPS-程序示例" class="headerlink" title="进阶内容：复杂 MIPS 程序示例"></a>进阶内容：复杂 MIPS 程序示例</h4><p>2.8节（68页）提供了一个递归嵌套调用过程计算阶乘的MIPS程序</p>
+<h4><span id="进阶内容复杂-mips-程序示例">进阶内容：复杂 MIPS 程序示例</span></h4><p>2.8节（68页）提供了一个递归嵌套调用过程计算阶乘的MIPS程序</p>
 <p>2.13节（91页）提供了一个冒泡排序过程嵌套交换过程的MIPS程序</p>
 <p>习题2.27（114页）考察双层for循环的翻译</p>
 <p>习题2.34（115页）考察自嵌套调用的多参数过程的翻译</p>
@@ -427,7 +427,7 @@
 
 
 
-<h4 id="过程帧与帧指针-fp"><a href="#过程帧与帧指针-fp" class="headerlink" title="过程帧与帧指针 $fp"></a>过程帧与帧指针 $fp</h4><p>为了标记运行中过程建立的栈，除了栈顶的栈指针 $sp</p>
+<h4><span id="过程帧与帧指针-fp">过程帧与帧指针 $fp</span></h4><p>为了标记运行中过程建立的栈，除了栈顶的栈指针 $sp</p>
 <p>还可以加一个 <font color="orange">帧指针（frame pointer）$fp</font> 指向栈底</p>
 <p>即过程帧的第一个字</p>
 <br>
@@ -435,7 +435,7 @@
 <p>$fp 和 $sp 之间的空间由正在运行的过程使用</p>
 <p>称为<font color="orange">过程帧</font>，也叫活动记录</p>
 <p><img src="%E5%B8%A7%E6%8C%87%E9%92%88.png"></p>
-<h4 id="全局指针-gp-程序的内存分配"><a href="#全局指针-gp-程序的内存分配" class="headerlink" title="全局指针 $gp 程序的内存分配"></a>全局指针 $gp 程序的内存分配</h4><p>为了便于寻找位置固定的数据</p>
+<h4><span id="全局指针-gp-程序的内存分配">全局指针 $gp 程序的内存分配</span></h4><p>为了便于寻找位置固定的数据</p>
 <p>（主程序使用的变量，以及声明为static的变量，统称静态变量）</p>
 <p>使用一个固定指向静态数据区某一位置的全局指针（global pointer）$gp</p>
 <p>程序在内存中包含五段，地址从低到高分别为</p>
@@ -449,8 +449,8 @@
 <p><img src="%E5%9C%A8%E5%A0%86%E4%B8%AD%E4%B8%BA%E6%96%B0%E6%95%B0%E6%8D%AE%E5%88%86%E9%85%8D%E7%A9%BA%E9%97%B4.png"></p>
 <p>栈和堆此消彼长，实现了内存空间的高效利用</p>
 <p>补充：堆必须是一个完全二叉树，堆里的数据可以任意顺序的存入和移除。</p>
-<h3 id="五种寻址方式"><a href="#五种寻址方式" class="headerlink" title="五种寻址方式"></a>五种寻址方式</h3><p><img src="%E4%BA%94%E7%A7%8D%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F.png"></p>
-<h4 id="32个通用寄存器及其编号"><a href="#32个通用寄存器及其编号" class="headerlink" title="32个通用寄存器及其编号"></a>32个通用寄存器及其编号</h4><table>
+<h3><span id="五种寻址方式">五种寻址方式</span></h3><p><img src="%E4%BA%94%E7%A7%8D%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F.png"></p>
+<h4><span id="32个通用寄存器及其编号">32个通用寄存器及其编号</span></h4><table>
 <thead>
 <tr>
 <th>寄存器</th>
@@ -520,7 +520,7 @@
 <td>是</td>
 </tr>
 </tbody></table>
-<h4 id="R型：寄存器寻址"><a href="#R型：寄存器寻址" class="headerlink" title="R型：寄存器寻址"></a>R型：寄存器寻址</h4><p>所有操作数都是寄存器的指令采用<font color="orange">寄存器寻址（register addressing）</font></p>
+<h4><span id="r型寄存器寻址">R型：寄存器寻址</span></h4><p>所有操作数都是寄存器的指令采用<font color="orange">寄存器寻址（register addressing）</font></p>
 <p>操作数个数从一个到三个不等</p>
 <p>R型指令 &lt;–&gt; 寄存器寻址</p>
 <p>第二部分已经提到过的R型指令有：</p>
@@ -549,7 +549,7 @@
 <td>6位</td>
 </tr>
 </tbody></table>
-<h4 id="I型：立即数寻址和基址偏移寻址"><a href="#I型：立即数寻址和基址偏移寻址" class="headerlink" title="I型：立即数寻址和基址偏移寻址"></a>I型：立即数寻址和基址偏移寻址</h4><p>第三个操作数（第二个源操作数）是常数的指令采用立即数寻址（immediate addressing）具体包裹addi，ori两条指令</p>
+<h4><span id="i型立即数寻址和基址偏移寻址">I型：立即数寻址和基址偏移寻址</span></h4><p>第三个操作数（第二个源操作数）是常数的指令采用立即数寻址（immediate addressing）具体包裹addi，ori两条指令</p>
 <p><font color="grey">其实还包括lui指令，课本没有着重强调其指令格式</font></p>
 <p><img src="%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80%E5%92%8C%E5%9F%BA%E5%9D%80%E5%AF%BB%E5%9D%80.png"></p>
 <p>两条数据传送指令lw、sw</p>
@@ -571,7 +571,7 @@
 <td align="center">16位</td>
 </tr>
 </tbody></table>
-<h4 id="I型：PC相对寻址-字地址和字节地址"><a href="#I型：PC相对寻址-字地址和字节地址" class="headerlink" title="I型：PC相对寻址 字地址和字节地址"></a>I型：PC相对寻址 字地址和字节地址</h4><p>两条条件分支指令beq、bne</p>
+<h4><span id="i型pc相对寻址-字地址和字节地址">I型：PC相对寻址 字地址和字节地址</span></h4><p>两条条件分支指令beq、bne</p>
 <p>在汇编语言中使用标签来表示分支的目标地址，标签翻译机器语言其实是个整数</p>
 <p>告诉计算机从当前指令的地址出发，到达分支目标地址的距离是多少</p>
 <p><font color="orange">程序计数器（program counter，PC）</font>中保存了执行中指令的地址</p>
@@ -581,7 +581,7 @@
 <p>分支32为地址 = PC + 4 + 字地址偏移量</p>
 </blockquote>
 <p><img src="PC%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80.png"></p>
-<h4 id="J型：伪直接寻址"><a href="#J型：伪直接寻址" class="headerlink" title="J型：伪直接寻址"></a>J型：伪直接寻址</h4><p><font color="orange">J 型指令</font>只需要操作码和目的地址两个字段，形式上最为简单</p>
+<h4><span id="j型伪直接寻址">J型：伪直接寻址</span></h4><p><font color="orange">J 型指令</font>只需要操作码和目的地址两个字段，形式上最为简单</p>
 <table>
 <thead>
 <tr>
@@ -607,7 +607,7 @@
 
 
 
-<h4 id="扩大分支与跳转的范围"><a href="#扩大分支与跳转的范围" class="headerlink" title="扩大分支与跳转的范围"></a>扩大分支与跳转的范围</h4><p>PC相对寻址以 PC + 4 为基准，加上一个可正可负的16位补码字地址，寻址范围为</p>
+<h4><span id="扩大分支与跳转的范围">扩大分支与跳转的范围</span></h4><p>PC相对寻址以 PC + 4 为基准，加上一个可正可负的16位补码字地址，寻址范围为</p>
 <p><img src="%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B41.png"></p>
 <p><strong>解释说明</strong>：</p>
 <table>
@@ -651,7 +651,7 @@
 <p>我们使用 j 指令跳转是需要高四位是相同的值才行，但是这个显然不同。</p>
 <p>我们先将 1000 0001(16) 32位地址转换成10进制，使用 lui 、ori 转载进寄存器 $t0 中</p>
 <p>然后我们使用 jr $t0 就能跳转至任意地点了</p>
-<h4 id="寻址方式小结"><a href="#寻址方式小结" class="headerlink" title="寻址方式小结"></a>寻址方式小结</h4><ol>
+<h4><span id="寻址方式小结">寻址方式小结</span></h4><ol>
 <li><p>R 型的<font color="orange"><font>寄存器寻址</font></font>：操作数为1个/2个/3个寄存器的数据</p>
 </li>
 <li><p>I 型的<font color="orange">立即数寻址</font>：addi、lui、ori 三条立即数指令，其中一个操作数是指令字段中的常数</p>
@@ -670,8 +670,8 @@
 <p>以PC高四位为1010的 j 0000 0000 0000 0000 0000 0000 01 为例</p>
 </li>
 </ol>
-<h4 id="MIPS汇编指令小结"><a href="#MIPS汇编指令小结" class="headerlink" title="MIPS汇编指令小结"></a>MIPS汇编指令小结</h4><p><img src="MIPS%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93.png"></p>
-<h3 id="第五部分-C-程序执行过程"><a href="#第五部分-C-程序执行过程" class="headerlink" title="第五部分 C 程序执行过程"></a>第五部分 C 程序执行过程</h3><h4 id="C语言的4个翻译层次"><a href="#C语言的4个翻译层次" class="headerlink" title="C语言的4个翻译层次"></a>C语言的4个翻译层次</h4><p><font color="orange">编译器</font>将高级语言文件（.c）</p>
+<h4><span id="mips汇编指令小结">MIPS汇编指令小结</span></h4><p><img src="MIPS%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93.png"></p>
+<h3><span id="第五部分-c-程序执行过程">第五部分 C 程序执行过程</span></h3><h4><span id="c语言的4个翻译层次">C语言的4个翻译层次</span></h4><p><font color="orange">编译器</font>将高级语言文件（.c）</p>
 <p>翻译成汇编语言文件（.asm）</p>
 <br>
 
@@ -684,11 +684,11 @@
 <br>
 
 <p><font color="orange">加载器</font>可将执行文件放入内存，装载执行</p>
-<h4 id="字符支持-同步指令对-II-sc-ARM-和-x86-简介"><a href="#字符支持-同步指令对-II-sc-ARM-和-x86-简介" class="headerlink" title="字符支持 同步指令对 II-sc ARM 和 x86 简介"></a>字符支持 同步指令对 II-sc ARM 和 x86 简介</h4><p>为了让计算机能够处理C的8位的ASCII字符，MIPS提供<font color="orange">字节传送指令</font>lb，sb 字符通常理解为无符号数，故取字节常使用取无符号字节lbu指令 同理，为了支持Java的16位Unicode字符，MIPS提供<font color="orange">半字传送指令</font>lh，sh，lhu</p>
+<h4><span id="字符支持-同步指令对-ii-sc-arm-和-x86-简介">字符支持 同步指令对 II-sc ARM 和 x86 简介</span></h4><p>为了让计算机能够处理C的8位的ASCII字符，MIPS提供<font color="orange">字节传送指令</font>lb，sb 字符通常理解为无符号数，故取字节常使用取无符号字节lbu指令 同理，为了支持Java的16位Unicode字符，MIPS提供<font color="orange">半字传送指令</font>lh，sh，lhu</p>
 <p>当两个程序访问同一个内存单元，且其中存在写操作时，两程序操作的顺序就尤为重要 MIPS提供<font color="orange">链接取数ll指令</font>和<font color="orange">条件存数sc指令</font>，让程序员能够指定程序操作数据的顺序</p>
 <p><font color="orange">ARM</font>和MIPS同为RISC架构，具有优秀的能耗表现，广泛应用于移动端和嵌入式平台 同MIPS相比，ARM的主要区别是通用寄存器更少(16个)、寻址方式更多(9种) Intel和AMD主导的<font color="orange">x86</font>是一种CISC架构，指令集十分庞大(2018年约1400条) x86是一种本质非常糟糕的架构，最典型的表现是，指令长度从1B到15B不等 由于问世时间恰逢IBM进军PC领域，x86取得了巨大的商业成功，至今占据很大的份额</p>
 <p>Intel将x86移动化的尝试屡屡碰壁，苹果将ARM电脑化的实践却高歌猛进</p>
-<h3 id="复习题"><a href="#复习题" class="headerlink" title="复习题"></a>复习题</h3><p>1、为了实现过程调用，我们引入了哪三类寄存器和哪个指令对? </p>
+<h3><span id="复习题">复习题</span></h3><p>1、为了实现过程调用，我们引入了哪三类寄存器和哪个指令对? </p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">为了实现过程调用，我们引用了</span><br><span class="line">参数寄存器 $<span class="built_in">a0</span> ~ $<span class="built_in">a3</span>, 返回值寄存器 $<span class="built_in">v0</span>, 返回地址寄存器 $<span class="built_in">ra</span></span><br><span class="line">指令对是 <span class="keyword">jal（调用者主程序使用） </span>- <span class="keyword">jr（被调用者函数使用）</span></span><br></pre></td></tr></table></figure>
 
 
@@ -732,7 +732,7 @@
 
 
 
-<h3 id="全章复习"><a href="#全章复习" class="headerlink" title="全章复习"></a>全章复习</h3><blockquote>
+<h3><span id="全章复习">全章复习</span></h3><blockquote>
 <p>转自：B站 翼云图灵</p>
 <p>参考：计算机组成与设计·硬件/软件接口 原书第5版</p>
 </blockquote>
@@ -816,7 +816,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E6%94%AF%E6%8C%81"><span class="nav-number">1.</span> <span class="nav-text">过程支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%EF%BC%88%E5%87%BD%E6%95%B0%EF%BC%89%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">过程（函数）的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%89%E5%A4%A7%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">支持过程的三大寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jal-jr-%E6%8C%87%E4%BB%A4%E5%AF%B9-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">jal - jr 指令对 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A05%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B8%85%E9%9B%B6%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">综合练习5：数组清零函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E5%8E%8B%E6%A0%88%E5%92%8C%E5%87%BA%E6%A0%88-%E6%A0%88%E6%8C%87%E9%92%88-sp"><span class="nav-number">1.5.</span> <span class="nav-text">保存寄存器的压栈和出栈 栈指针 $sp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A06%EF%BC%9A%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0%EF%BC%88%E5%8F%B6%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">综合练习6：运算函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A06%E6%94%B9%E8%BF%9B%EF%BC%9A%E5%87%8F%E5%B0%91%E6%8C%87%E4%BB%A4%E6%9D%A1%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">综合练习6改进：减少指令条数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8-%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A07%EF%BC%9A%E6%95%B0%E7%BB%84%E6%B1%82%E5%B9%B3%E6%96%B9%E5%92%8C%EF%BC%88%E5%B5%8C%E5%A5%97%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="nav-number">1.8.</span> <span class="nav-text">嵌套过程调用 综合练习7：数组求平方和（嵌套过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%8E%8B%E6%A0%88%E4%BF%9D%E5%AD%98%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.9.</span> <span class="nav-text">需要压栈保存的寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E5%86%85%E5%AE%B9%EF%BC%9A%E5%A4%8D%E6%9D%82-MIPS-%E7%A8%8B%E5%BA%8F%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.10.</span> <span class="nav-text">进阶内容：复杂 MIPS 程序示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E5%B8%A7%E4%B8%8E%E5%B8%A7%E6%8C%87%E9%92%88-fp"><span class="nav-number">1.11.</span> <span class="nav-text">过程帧与帧指针 $fp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%8C%87%E9%92%88-gp-%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.12.</span> <span class="nav-text">全局指针 $gp 程序的内存分配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E7%A7%8D%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">五种寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#32%E4%B8%AA%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8%E5%8F%8A%E5%85%B6%E7%BC%96%E5%8F%B7"><span class="nav-number">2.1.</span> <span class="nav-text">32个通用寄存器及其编号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#R%E5%9E%8B%EF%BC%9A%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">2.2.</span> <span class="nav-text">R型：寄存器寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I%E5%9E%8B%EF%BC%9A%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80%E5%92%8C%E5%9F%BA%E5%9D%80%E5%81%8F%E7%A7%BB%E5%AF%BB%E5%9D%80"><span class="nav-number">2.3.</span> <span class="nav-text">I型：立即数寻址和基址偏移寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I%E5%9E%8B%EF%BC%9APC%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80-%E5%AD%97%E5%9C%B0%E5%9D%80%E5%92%8C%E5%AD%97%E8%8A%82%E5%9C%B0%E5%9D%80"><span class="nav-number">2.4.</span> <span class="nav-text">I型：PC相对寻址 字地址和字节地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#J%E5%9E%8B%EF%BC%9A%E4%BC%AA%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="nav-number">2.5.</span> <span class="nav-text">J型：伪直接寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A9%E5%A4%A7%E5%88%86%E6%94%AF%E4%B8%8E%E8%B7%B3%E8%BD%AC%E7%9A%84%E8%8C%83%E5%9B%B4"><span class="nav-number">2.6.</span> <span class="nav-text">扩大分支与跳转的范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E5%B0%8F%E7%BB%93"><span class="nav-number">2.7.</span> <span class="nav-text">寻址方式小结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIPS%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93"><span class="nav-number">2.8.</span> <span class="nav-text">MIPS汇编指令小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E9%83%A8%E5%88%86-C-%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">第五部分 C 程序执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C%E8%AF%AD%E8%A8%80%E7%9A%844%E4%B8%AA%E7%BF%BB%E8%AF%91%E5%B1%82%E6%AC%A1"><span class="nav-number">3.1.</span> <span class="nav-text">C语言的4个翻译层次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E6%94%AF%E6%8C%81-%E5%90%8C%E6%AD%A5%E6%8C%87%E4%BB%A4%E5%AF%B9-II-sc-ARM-%E5%92%8C-x86-%E7%AE%80%E4%BB%8B"><span class="nav-number">3.2.</span> <span class="nav-text">字符支持 同步指令对 II-sc ARM 和 x86 简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">复习题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E7%AB%A0%E5%A4%8D%E4%B9%A0"><span class="nav-number">5.</span> <span class="nav-text">全章复习</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">过程支持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">过程（函数）的执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">支持过程的三大寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">jal - jr 指令对 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">综合练习5：数组清零函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.5.</span> <span class="nav-text">保存寄存器的压栈和出栈 栈指针 $sp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.6.</span> <span class="nav-text">综合练习6：运算函数（叶过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.7.</span> <span class="nav-text">综合练习6改进：减少指令条数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.8.</span> <span class="nav-text">嵌套过程调用 综合练习7：数组求平方和（嵌套过程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.9.</span> <span class="nav-text">需要压栈保存的寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.10.</span> <span class="nav-text">进阶内容：复杂 MIPS 程序示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.11.</span> <span class="nav-text">过程帧与帧指针 $fp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.12.</span> <span class="nav-text">全局指针 $gp 程序的内存分配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">五种寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">32个通用寄存器及其编号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">R型：寄存器寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">I型：立即数寻址和基址偏移寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">I型：PC相对寻址 字地址和字节地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.5.</span> <span class="nav-text">J型：伪直接寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.6.</span> <span class="nav-text">扩大分支与跳转的范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.7.</span> <span class="nav-text">寻址方式小结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.</span> <span class="nav-text">MIPS汇编指令小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">第五部分 C 程序执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">C语言的4个翻译层次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">字符支持 同步指令对 II-sc ARM 和 x86 简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">复习题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">全章复习</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -832,7 +832,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -896,13 +896,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

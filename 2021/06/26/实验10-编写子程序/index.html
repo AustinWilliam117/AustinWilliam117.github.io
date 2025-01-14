@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,7 +272,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="call-指令，组织数据和组织代码的方式，给我们的启发"><a href="#call-指令，组织数据和组织代码的方式，给我们的启发" class="headerlink" title="call 指令，组织数据和组织代码的方式，给我们的启发"></a>call 指令，组织数据和组织代码的方式，给我们的启发</h3><table>
+        <h3><span id="call-指令组织数据和组织代码的方式给我们的启发">call 指令，组织数据和组织代码的方式，给我们的启发</span></h3><table>
 <thead>
 <tr>
 <th>设置参数</th>
@@ -293,8 +293,8 @@
 </tbody></table>
 <span id="more"></span>
 
-<h3 id="编写子程序"><a href="#编写子程序" class="headerlink" title="编写子程序"></a>编写子程序</h3><p>在这次实验中，我们要别写3个子程序，通过它们来认识几个常见的问题和掌握解决这些问题的方法。</p>
-<h4 id="1-显示子字符串"><a href="#1-显示子字符串" class="headerlink" title="1.显示子字符串"></a>1.显示子字符串</h4><p><strong>问题</strong></p>
+<h3><span id="编写子程序">编写子程序</span></h3><p>在这次实验中，我们要别写3个子程序，通过它们来认识几个常见的问题和掌握解决这些问题的方法。</p>
+<h4><span id="1显示子字符串">1.显示子字符串</span></h4><p><strong>问题</strong></p>
 <p>显示字符串是现实工作中经常用到的功能，应该编写一个通用的子程序来实现这个功能。我们应该提供灵活的调用接口，使调用者可以决定显示的位置（行、列）、内容和颜色。</p>
 <p><strong>子程序描述</strong></p>
 <p>名称：show_str</p>
@@ -310,7 +310,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">;名称：show_str</span><br><span class="line"></span><br><span class="line">;功能：在指定的位置，用指定的颜色，显示一个用0结束的字符串</span><br><span class="line"></span><br><span class="line">;参数：(dh)=行号(取值范围0～24)，(dl)=列号(取值范围0～79),(cl)=颜色，ds:si 指向字符串的首地址</span><br><span class="line"></span><br><span class="line">;返回：无</span><br><span class="line"></span><br><span class="line">;应用举例：在屏幕的8行3列，用绿色显示 data 段中的字符串[201~)]</span><br><span class="line"></span><br><span class="line">assume cs:code,ss:stack,ds:data</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">    db &#x27;Welcome to masm!&#x27;,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment stack</span><br><span class="line">    db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">start:      mov ax,stack</span><br><span class="line">            mov ss,ax</span><br><span class="line">            mov sp,128</span><br><span class="line"></span><br><span class="line">            mov di,0</span><br><span class="line">            mov si,0</span><br><span class="line">            mov ax,0</span><br><span class="line"></span><br><span class="line">            call init_reg</span><br><span class="line"></span><br><span class="line">            call get_col</span><br><span class="line">            add di,ax               ;拿到列的返回值</span><br><span class="line">            call get_row</span><br><span class="line">            add di,ax               ;拿到行的返回值</span><br><span class="line"></span><br><span class="line">            mov cl,2</span><br><span class="line">            call show_reg</span><br><span class="line"></span><br><span class="line">            mov ax,4c00h</span><br><span class="line">            int 21h</span><br><span class="line"></span><br><span class="line">;====================================</span><br><span class="line">show_reg:   push di										</span><br><span class="line">            push si</span><br><span class="line">            push cx</span><br><span class="line">            push dx</span><br><span class="line">            push es</span><br><span class="line"></span><br><span class="line">            mov cx,0</span><br><span class="line">            mov dl,2</span><br><span class="line"></span><br><span class="line">show_str:   mov cx,ds:[si]          ;如果cx不为0继续循环</span><br><span class="line">            jcxz show_Ret</span><br><span class="line">            mov es:[di],cx          ;偶数显示字节</span><br><span class="line">            mov es:[di+1],dl        ;奇数显示颜色,2为绿色</span><br><span class="line">            add di,2</span><br><span class="line">            inc si</span><br><span class="line">            loop show_str </span><br><span class="line"></span><br><span class="line">show_Ret:   pop es</span><br><span class="line">            pop dx</span><br><span class="line">            pop cx</span><br><span class="line">            pop si</span><br><span class="line">            pop di</span><br><span class="line"></span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;====================================</span><br><span class="line">get_col:    mov dh,8</span><br><span class="line">            mov al,160              ;一行160个字节，乘以8就是8行</span><br><span class="line">            mul dh</span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;====================================</span><br><span class="line">get_row:    mov dl,3</span><br><span class="line">            mov al,2                ;屏幕一个字符占两个字节</span><br><span class="line">            mul dl</span><br><span class="line">            ret</span><br><span class="line"></span><br><span class="line">;====================================初始化寄存器</span><br><span class="line">init_reg:   mov bx,data</span><br><span class="line">            mov ds,bx</span><br><span class="line"></span><br><span class="line">            mov bx,0B800H</span><br><span class="line">            mov es,bx</span><br><span class="line">            ret </span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
-<h4 id="2-解决除法溢出的问题"><a href="#2-解决除法溢出的问题" class="headerlink" title="2.解决除法溢出的问题"></a>2.解决除法溢出的问题</h4><p>实验10.2 编程，解决除法溢出问题</p>
+<h4><span id="2解决除法溢出的问题">2.解决除法溢出的问题</span></h4><p>实验10.2 编程，解决除法溢出问题</p>
 <p>名称：long_div（书上原名 divdw）</p>
 <p>功能：进行不会产生溢出的除法运算，被除数 dword 型，除数为 word 型，结果为 dword 型</p>
 <p>参数：ax = dword 型数据的 低 16 位</p>
@@ -327,7 +327,7 @@
 
 
 
-<h4 id="3-数值显示"><a href="#3-数值显示" class="headerlink" title="3.数值显示"></a>3.数值显示</h4><p><strong>问题</strong><br>编程，将data段中的数据以十进制的形式显示出来</p>
+<h4><span id="3数值显示">3.数值显示</span></h4><p><strong>问题</strong><br>编程，将data段中的数据以十进制的形式显示出来</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data segment</span><br><span class="line">    dw 123,12666,1,8,3,38</span><br><span class="line">data ends</span><br></pre></td></tr></table></figure>
 
 <p><strong>子程序描述</strong><br>名称：dtoc<br>功能：将 word 型数据转变为表示十进制的字符串，字符串以0为结尾符<br>参数：(ax)=word型数据，ds:si指向字符串的首地址<br>返回：无</p>
@@ -418,7 +418,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#call-%E6%8C%87%E4%BB%A4%EF%BC%8C%E7%BB%84%E7%BB%87%E6%95%B0%E6%8D%AE%E5%92%8C%E7%BB%84%E7%BB%87%E4%BB%A3%E7%A0%81%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E7%BB%99%E6%88%91%E4%BB%AC%E7%9A%84%E5%90%AF%E5%8F%91"><span class="nav-number">1.</span> <span class="nav-text">call 指令，组织数据和组织代码的方式，给我们的启发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%AD%90%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">编写子程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%98%BE%E7%A4%BA%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.1.</span> <span class="nav-text">1.显示子字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%A7%A3%E5%86%B3%E9%99%A4%E6%B3%95%E6%BA%A2%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text">2.解决除法溢出的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%95%B0%E5%80%BC%E6%98%BE%E7%A4%BA"><span class="nav-number">2.3.</span> <span class="nav-text">3.数值显示</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">call 指令，组织数据和组织代码的方式，给我们的启发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">编写子程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">1.显示子字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">2.解决除法溢出的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">3.数值显示</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -434,7 +434,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -498,13 +498,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

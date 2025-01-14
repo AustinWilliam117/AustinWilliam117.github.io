@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -266,14 +266,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h4><p><code>docker pull mysql:8.0.18</code></p>
-<h4 id="编写docker-compose"><a href="#编写docker-compose" class="headerlink" title="编写docker compose"></a>编写docker compose</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot; </span><br><span class="line">services:</span><br><span class="line">  mysql:</span><br><span class="line">    # 使用的镜像和TAG</span><br><span class="line">    image: mysql:8.0.18</span><br><span class="line">    # docker重启后，是否重启</span><br><span class="line">    restart: always</span><br><span class="line">    # 创建的容器名称</span><br><span class="line">    container_name: mysql8</span><br><span class="line">    # 指定端口号</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;33060:3306&quot;</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: admin</span><br><span class="line">    # 挂载卷</span><br><span class="line">    volumes:</span><br><span class="line">      - /data/docker/mysql/conf:/etc/mysql/conf.d</span><br><span class="line">      - /data/docker/mysql/log:/var/log/mysql</span><br><span class="line">      - /data/docker/mysql/data:/var/lib/mysql</span><br></pre></td></tr></table></figure>
+        <h4><span id="拉取镜像">拉取镜像</span></h4><p><code>docker pull mysql:8.0.18</code></p>
+<h4><span id="编写docker-compose">编写docker compose</span></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot; </span><br><span class="line">services:</span><br><span class="line">  mysql:</span><br><span class="line">    # 使用的镜像和TAG</span><br><span class="line">    image: mysql:8.0.18</span><br><span class="line">    # docker重启后，是否重启</span><br><span class="line">    restart: always</span><br><span class="line">    # 创建的容器名称</span><br><span class="line">    container_name: mysql8</span><br><span class="line">    # 指定端口号</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;33060:3306&quot;</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: admin</span><br><span class="line">    # 挂载卷</span><br><span class="line">    volumes:</span><br><span class="line">      - /data/docker/mysql/conf:/etc/mysql/conf.d</span><br><span class="line">      - /data/docker/mysql/log:/var/log/mysql</span><br><span class="line">      - /data/docker/mysql/data:/var/lib/mysql</span><br></pre></td></tr></table></figure>
 
 
 
 <span id="more"></span>
 
-<h4 id="关闭mysql-binlog日志，最大连接数，表大小"><a href="#关闭mysql-binlog日志，最大连接数，表大小" class="headerlink" title="关闭mysql binlog日志，最大连接数，表大小"></a>关闭mysql binlog日志，最大连接数，表大小</h4><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">pid-<span class="keyword">file</span>        = <span class="regexp">/var/</span>run<span class="regexp">/mysqld/my</span>sqld.pid</span><br><span class="line">socket          = <span class="regexp">/var/</span>run<span class="regexp">/mysqld/my</span>sqld.sock</span><br><span class="line">datadir         = <span class="regexp">/var/</span>lib/mysql</span><br><span class="line">secure-<span class="keyword">file</span>-priv= <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"># Custom config should go here</span><br><span class="line"></span><br><span class="line">max_connections = <span class="number">1000</span></span><br><span class="line">tmp_table_size=<span class="number">64</span>M</span><br><span class="line">max_heap_table_size=<span class="number">64</span>M</span><br><span class="line">skip-log-bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4><span id="关闭mysql-binlog日志最大连接数表大小">关闭mysql binlog日志，最大连接数，表大小</span></h4><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">pid-<span class="keyword">file</span>        = <span class="regexp">/var/</span>run<span class="regexp">/mysqld/my</span>sqld.pid</span><br><span class="line">socket          = <span class="regexp">/var/</span>run<span class="regexp">/mysqld/my</span>sqld.sock</span><br><span class="line">datadir         = <span class="regexp">/var/</span>lib/mysql</span><br><span class="line">secure-<span class="keyword">file</span>-priv= <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"># Custom config should go here</span><br><span class="line"></span><br><span class="line">max_connections = <span class="number">1000</span></span><br><span class="line">tmp_table_size=<span class="number">64</span>M</span><br><span class="line">max_heap_table_size=<span class="number">64</span>M</span><br><span class="line">skip-log-bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>首先进到mysql 中查看下binlog状态</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#x27;log_bin&#x27;;</span><br><span class="line"></span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| log_bin       | ON    |</span><br><span class="line">+---------------+-------+</span><br></pre></td></tr></table></figure>
@@ -369,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F"><span class="nav-number">1.</span> <span class="nav-text">拉取镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99docker-compose"><span class="nav-number">2.</span> <span class="nav-text">编写docker compose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%ADmysql-binlog%E6%97%A5%E5%BF%97%EF%BC%8C%E6%9C%80%E5%A4%A7%E8%BF%9E%E6%8E%A5%E6%95%B0%EF%BC%8C%E8%A1%A8%E5%A4%A7%E5%B0%8F"><span class="nav-number">3.</span> <span class="nav-text">关闭mysql binlog日志，最大连接数，表大小</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">拉取镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">编写docker compose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">关闭mysql binlog日志，最大连接数，表大小</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -385,7 +385,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -449,13 +449,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

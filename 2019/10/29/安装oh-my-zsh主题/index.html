@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -277,13 +277,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h4><blockquote>
+        <h4><span id="安装zsh">安装zsh</span></h4><blockquote>
 <p>sudo pacman -S zsh</p>
 </blockquote>
-<h4 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh-my-zsh"></a>oh-my-zsh</h4><blockquote>
+<h4><span id="oh-my-zsh">oh-my-zsh</span></h4><blockquote>
 <p>sh -c “$(curl -fsSL <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;">https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</a></p>
 </blockquote>
-<h4 id="powerlevel10k主题"><a href="#powerlevel10k主题" class="headerlink" title="powerlevel10k主题"></a>powerlevel10k主题</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k</span><br><span class="line">echo &#x27;source ~/powerlevel10k/powerlevel10k.zsh-theme&#x27; &gt;&gt;! ~/.zshrc</span><br></pre></td></tr></table></figure>
+<h4><span id="powerlevel10k主题">powerlevel10k主题</span></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k</span><br><span class="line">echo &#x27;source ~/powerlevel10k/powerlevel10k.zsh-theme&#x27; &gt;&gt;! ~/.zshrc</span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
 
@@ -291,15 +291,15 @@
 
 
 
-<h4 id="powerlevel10k配置以及zplug及其插件的安装"><a href="#powerlevel10k配置以及zplug及其插件的安装" class="headerlink" title="powerlevel10k配置以及zplug及其插件的安装"></a>powerlevel10k配置以及zplug及其插件的安装</h4><p>将下方代码写入~/.zshrc</p>
+<h4><span id="powerlevel10k配置以及zplug及其插件的安装">powerlevel10k配置以及zplug及其插件的安装</span></h4><p>将下方代码写入~/.zshrc</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs pyenv)</span><br><span class="line">POWERLEVEL9K_MODE=&#x27;nerdfont-complete&#x27;</span><br><span class="line">POWERLEVEL9K_PROMPT_ON_NEWLINE=true</span><br><span class="line">POWERLEVEL9K_PROMPT_ADD_NEWLINE=true</span><br><span class="line">POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=&#x27;&#x27;</span><br><span class="line">POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=&#x27;&#x27;</span><br><span class="line">POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=&#x27;&#x27;</span><br><span class="line">POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=&#x27;&#x27;</span><br><span class="line">POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=&quot;%F&#123;blue&#125;\u256D\u2500%F&#123;white&#125;&quot;</span><br><span class="line">POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=&quot;%F&#123;blue&#125;\u2570\uf460%F&#123;white&#125; &quot;</span><br><span class="line">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator dir dir_writable_joined)</span><br><span class="line">POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time</span><br><span class="line">                                    vcs background_jobs_joined time_joined)</span><br><span class="line">POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=&quot;yellow&quot;</span><br><span class="line">POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=&quot;yellow&quot;</span><br><span class="line">POWERLEVEL9K_DIR_HOME_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_DIR_HOME_FOREGROUND=&quot;blue&quot;</span><br><span class="line">POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=&quot;blue&quot;</span><br><span class="line">POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=&quot;red&quot;</span><br><span class="line">POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=&quot;white&quot;</span><br><span class="line">POWERLEVEL9K_ROOT_INDICATOR_BACKGROUND=&quot;red&quot;</span><br><span class="line">POWERLEVEL9K_ROOT_INDICATOR_FOREGROUND=&quot;white&quot;</span><br><span class="line">POWERLEVEL9K_STATUS_OK_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_STATUS_OK_FOREGROUND=&quot;green&quot;</span><br><span class="line">POWERLEVEL9K_STATUS_ERROR_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_STATUS_ERROR_FOREGROUND=&quot;red&quot;</span><br><span class="line">POWERLEVEL9K_TIME_BACKGROUND=&quot;clear&quot;</span><br><span class="line">POWERLEVEL9K_TIME_FOREGROUND=&quot;cyan&quot;</span><br><span class="line">POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=&#x27;clear&#x27;</span><br><span class="line">POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=&#x27;magenta&#x27;</span><br><span class="line">POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=&#x27;clear&#x27;</span><br><span class="line">POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=&#x27;green&#x27;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> zplug configruation</span></span><br><span class="line">if [[ ! -d &quot;$&#123;ZPLUG_HOME&#125;&quot; ]]; then</span><br><span class="line">  if [[ ! -d ~/.zplug ]]; then</span><br><span class="line">    git clone https://github.com/zplug/zplug ~/.zplug</span><br><span class="line">    # If we can&#x27;t get zplug, it&#x27;ll be a very sobering shell experience. To at</span><br><span class="line">    # least complete the sourcing of this file, we&#x27;ll define an always-false</span><br><span class="line">    # returning zplug function.</span><br><span class="line">    if [[ $? != 0 ]]; then</span><br><span class="line">      function zplug() &#123;</span><br><span class="line">        return 1</span><br><span class="line">      &#125;</span><br><span class="line">    fi</span><br><span class="line">  fi</span><br><span class="line">  export ZPLUG_HOME=~/.zplug</span><br><span class="line">fi</span><br><span class="line">if [[ -d &quot;$&#123;ZPLUG_HOME&#125;&quot; ]]; then</span><br><span class="line">  source &quot;$&#123;ZPLUG_HOME&#125;/init.zsh&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">zplug &#x27;plugins/git&#x27;, from:oh-my-zsh, if:&#x27;which git&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"> zplug <span class="string">&#x27;romkatv/powerlevel10k&#x27;</span>, use:powerlevel10k.zsh-theme</span></span><br><span class="line">zplug &quot;plugins/vi-mode&quot;, from:oh-my-zsh</span><br><span class="line">zplug &#x27;zsh-users/zsh-autosuggestions&#x27;</span><br><span class="line">zplug &#x27;zsh-users/zsh-completions&#x27;, defer:2</span><br><span class="line">zplug &#x27;zsh-users/zsh-history-substring-search&#x27;</span><br><span class="line">zplug &#x27;zsh-users/zsh-syntax-highlighting&#x27;, defer:2</span><br><span class="line"></span><br><span class="line">if ! zplug check; then</span><br><span class="line">  zplug install</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">zplug load</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> zsh-autosuggestions 自动补全快捷键修改</span></span><br><span class="line">bindkey &#x27;,&#x27; autosuggest-accept</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-<h4 id="autojump安装"><a href="#autojump安装" class="headerlink" title="autojump安装"></a>autojump安装</h4><p><a target="_blank" rel="noopener" href="https://github.com/wting/autojump">https://github.com/wting/autojump</a></p>
-<h4 id="修改字体"><a href="#修改字体" class="headerlink" title="修改字体"></a>修改字体</h4><p>在manjaro中，只需将终端字体设置成Hack Nerd Font就行(设置中显示所有字体即可找到)</p>
+<h4><span id="autojump安装">autojump安装</span></h4><p><a target="_blank" rel="noopener" href="https://github.com/wting/autojump">https://github.com/wting/autojump</a></p>
+<h4><span id="修改字体">修改字体</span></h4><p>在manjaro中，只需将终端字体设置成Hack Nerd Font就行(设置中显示所有字体即可找到)</p>
 <p>其他请参照<a target="_blank" rel="noopener" href="https://github.com/ryanoasis/nerd-fonts">https://github.com/ryanoasis/nerd-fonts</a></p>
 
     </div>
@@ -385,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85zsh"><span class="nav-number">1.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#oh-my-zsh"><span class="nav-number">2.</span> <span class="nav-text">oh-my-zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#powerlevel10k%E4%B8%BB%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">powerlevel10k主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#powerlevel10k%E9%85%8D%E7%BD%AE%E4%BB%A5%E5%8F%8Azplug%E5%8F%8A%E5%85%B6%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">powerlevel10k配置以及zplug及其插件的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#autojump%E5%AE%89%E8%A3%85"><span class="nav-number">5.</span> <span class="nav-text">autojump安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E4%BD%93"><span class="nav-number">6.</span> <span class="nav-text">修改字体</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">oh-my-zsh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">powerlevel10k主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">powerlevel10k配置以及zplug及其插件的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">autojump安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">修改字体</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -401,7 +401,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -465,13 +465,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

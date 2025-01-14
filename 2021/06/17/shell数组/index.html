@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -279,14 +279,14 @@
 <li>案列分享</li>
 </ul>
 <hr>
-<h3 id="数组介绍"><a href="#数组介绍" class="headerlink" title="数组介绍"></a>数组介绍</h3><p>一个变量只能存一个值，但是现实中又又很多值需要存储，那么变量就有些拘谨了。比如做一个学员信息表，一个班50个人，每个人6条信息，我们需要定义300个变量才能完成。恐怖恐怖，这只是一个班的学生，一个学校呢？一个市呢？……我想静静了！</p>
+<h3><span id="数组介绍">数组介绍</span></h3><p>一个变量只能存一个值，但是现实中又又很多值需要存储，那么变量就有些拘谨了。比如做一个学员信息表，一个班50个人，每个人6条信息，我们需要定义300个变量才能完成。恐怖恐怖，这只是一个班的学生，一个学校呢？一个市呢？……我想静静了！</p>
 <p>仔细想想上述的案例，一个学生六个信息:ID、姓名、性别、年龄、成绩、班级。可不可以定义六个变量就能存储这六类信息呢？答案是当然可以的！变量不行，我们就用数组。</p>
 <span id="more"></span>
 
-<h3 id="基本数组"><a href="#基本数组" class="headerlink" title="基本数组"></a>基本数组</h3><p>数组可以让用户一次赋予多个值，需要读取数据时只需通过索引调用就可以方便读出了。</p>
-<h4 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h4><p><code>数组名称=(元素1 元素2 元素3 ...)</code></p>
-<h3 id="数组读出"><a href="#数组读出" class="headerlink" title="数组读出"></a>数组读出</h3><p><code>$&#123;数组名称&#125;[索引]</code></p>
-<h4 id="数组赋值"><a href="#数组赋值" class="headerlink" title="数组赋值"></a>数组赋值</h4><p><strong>一次赋一个值</strong></p>
+<h3><span id="基本数组">基本数组</span></h3><p>数组可以让用户一次赋予多个值，需要读取数据时只需通过索引调用就可以方便读出了。</p>
+<h4><span id="数组语法">数组语法</span></h4><p><code>数组名称=(元素1 元素2 元素3 ...)</code></p>
+<h3><span id="数组读出">数组读出</span></h3><p><code>$&#123;数组名称&#125;[索引]</code></p>
+<h4><span id="数组赋值">数组赋值</span></h4><p><strong>一次赋一个值</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">array[0]=&#x27;tom&#x27;</span><br><span class="line"></span><br><span class="line">array[1]=&#x27;william&#x27;</span><br><span class="line"></span><br><span class="line">array[2]=&#x27;peter&#x27;</span><br></pre></td></tr></table></figure>
 
 <p><strong>一次赋多个值</strong></p>
@@ -304,7 +304,7 @@
 
 
 <p>方法二：针对关联数组可以通过数组元素的索引进行遍历</p>
-<h3 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h3><p>关联数组可以允许用户自定义数组的索引，这样使用起来更加方便、高效</p>
+<h3><span id="关联数组">关联数组</span></h3><p>关联数组可以允许用户自定义数组的索引，这样使用起来更加方便、高效</p>
 <p><strong>定义关联数组</strong></p>
 <p>声明关联数组变量 <code>declare -A array</code></p>
 <p><strong>关联数组赋值</strong></p>
@@ -333,7 +333,7 @@
 
 
 
-<h3 id="案例分享——学员信息系统"><a href="#案例分享——学员信息系统" class="headerlink" title="案例分享——学员信息系统"></a>案例分享——学员信息系统</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">for ((i=0;i&lt;3;i++))</span><br><span class="line">   do</span><br><span class="line">      read -p &quot;输入第$((i + 1))个人名: &quot; name[$i]</span><br><span class="line">      read -p &quot;输入第$[$i + 1]个年龄: &quot; age[$i]</span><br><span class="line">      read -p &quot;输入第`expr $i + 1`个性别: &quot; gender[$i]</span><br><span class="line">done</span><br><span class="line">clear</span><br><span class="line">      echo -e &quot;\t\t\t\t学员查询系统&quot;</span><br><span class="line">while :</span><br><span class="line">   do</span><br><span class="line">      cp=0</span><br><span class="line"><span class="meta">#</span><span class="bash">      <span class="built_in">echo</span> -e <span class="string">&quot;\t\t\t\t学员查询系统&quot;</span></span></span><br><span class="line">      read -p &quot;输入要查询的姓名: &quot; xm</span><br><span class="line">      [ $xm == &quot;Q&quot; ]&amp;&amp;exit</span><br><span class="line">      for ((i=0;i&lt;3;i++))</span><br><span class="line">         do</span><br><span class="line">              if [ &quot;$xm&quot; == &quot;$&#123;name[$i]&#125;&quot; ];then</span><br><span class="line">                  echo &quot;$&#123;name[$i]&#125; $&#123;age[$i]&#125; $&#123;gender[$i]&#125;&quot;</span><br><span class="line">                  cp=1</span><br><span class="line">              fi</span><br><span class="line">      done</span><br><span class="line">      [ $cp -eq 0 ]&amp;&amp;echo &quot;not found student&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h3><span id="案例分享学员信息系统">案例分享——学员信息系统</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">for ((i=0;i&lt;3;i++))</span><br><span class="line">   do</span><br><span class="line">      read -p &quot;输入第$((i + 1))个人名: &quot; name[$i]</span><br><span class="line">      read -p &quot;输入第$[$i + 1]个年龄: &quot; age[$i]</span><br><span class="line">      read -p &quot;输入第`expr $i + 1`个性别: &quot; gender[$i]</span><br><span class="line">done</span><br><span class="line">clear</span><br><span class="line">      echo -e &quot;\t\t\t\t学员查询系统&quot;</span><br><span class="line">while :</span><br><span class="line">   do</span><br><span class="line">      cp=0</span><br><span class="line"><span class="meta">#</span><span class="bash">      <span class="built_in">echo</span> -e <span class="string">&quot;\t\t\t\t学员查询系统&quot;</span></span></span><br><span class="line">      read -p &quot;输入要查询的姓名: &quot; xm</span><br><span class="line">      [ $xm == &quot;Q&quot; ]&amp;&amp;exit</span><br><span class="line">      for ((i=0;i&lt;3;i++))</span><br><span class="line">         do</span><br><span class="line">              if [ &quot;$xm&quot; == &quot;$&#123;name[$i]&#125;&quot; ];then</span><br><span class="line">                  echo &quot;$&#123;name[$i]&#125; $&#123;age[$i]&#125; $&#123;gender[$i]&#125;&quot;</span><br><span class="line">                  cp=1</span><br><span class="line">              fi</span><br><span class="line">      done</span><br><span class="line">      [ $cp -eq 0 ]&amp;&amp;echo &quot;not found student&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
 
 
@@ -425,7 +425,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">数组介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">基本数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">数组语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%AF%BB%E5%87%BA"><span class="nav-number">3.</span> <span class="nav-text">数组读出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%B5%8B%E5%80%BC"><span class="nav-number">3.1.</span> <span class="nav-text">数组赋值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E6%95%B0%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">关联数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E5%88%86%E4%BA%AB%E2%80%94%E2%80%94%E5%AD%A6%E5%91%98%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">案例分享——学员信息系统</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">数组介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">基本数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">数组语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">数组读出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">数组赋值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">关联数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">案例分享——学员信息系统</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -441,7 +441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -505,13 +505,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

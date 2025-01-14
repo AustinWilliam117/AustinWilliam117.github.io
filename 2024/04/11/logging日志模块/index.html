@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -265,7 +265,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Logging库日志级别"><a href="#Logging库日志级别" class="headerlink" title="Logging库日志级别"></a>Logging库日志级别</h3><table>
+        <h3><span id="logging库日志级别">Logging库日志级别</span></h3><table>
 <thead>
 <tr>
 <th>级别</th>
@@ -315,7 +315,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:root:This is a debug message</span><br><span class="line">INFO:root:This is an info</span><br><span class="line">WARNING:root:This is an warning</span><br><span class="line">ERROR:root:This is an error</span><br><span class="line">CRITICAL:root:This is an critical</span><br></pre></td></tr></table></figure>
 
 <p>现在打印出了所有的日志了</p>
-<h3 id="Logging-basicConfig"><a href="#Logging-basicConfig" class="headerlink" title="Logging.basicConfig()"></a>Logging.basicConfig()</h3><p><strong>logging.basicConfig()</strong> 的参数除了日志等级的这个参数可以设置以外，还可以设置其他的参数，比如：</p>
+<h3><span id="loggingbasicconfig">Logging.basicConfig()</span></h3><p><strong>logging.basicConfig()</strong> 的参数除了日志等级的这个参数可以设置以外，还可以设置其他的参数，比如：</p>
 <table>
 <thead>
 <tr>
@@ -492,7 +492,7 @@
 
 
 
-<h3 id="Logging组件"><a href="#Logging组件" class="headerlink" title="Logging组件"></a>Logging组件</h3><p>Logging中除了以上的一些设置之外，logging还提供了几个组件（类）供我们实现一些特殊的功能，它们主要是：</p>
+<h3><span id="logging组件">Logging组件</span></h3><p>Logging中除了以上的一些设置之外，logging还提供了几个组件（类）供我们实现一些特殊的功能，它们主要是：</p>
 <table>
 <thead>
 <tr>
@@ -532,7 +532,7 @@
 </ul>
 <p><strong>简单的说就是：日志器作为入口，通过设置处理器的方式将日志输出，处理器再通过过滤器和格式器对日志进行相应的处理操作。</strong></p>
 <p>我们来简单的介绍一下这些组件中一些常用的方法：</p>
-<h4 id="Logger-日志器"><a href="#Logger-日志器" class="headerlink" title="Logger 日志器"></a>Logger 日志器</h4><ol>
+<h4><span id="logger-日志器">Logger 日志器</span></h4><ol>
 <li><p>提供应用程序的调用接口</p>
 <p><code>logger = logging.getLogger(__name__)</code></p>
 <p><code>logger</code>是单例的</p>
@@ -588,11 +588,11 @@
 <td>设置一个自定义的<code>lever</code>参数来创建一个日志记录</td>
 </tr>
 </tbody></table>
-<h4 id="Handler-处理器"><a href="#Handler-处理器" class="headerlink" title="Handler 处理器"></a>Handler 处理器</h4><p><code>Handler</code>将日志分发到不同的目的地。可以是文件、标准输出、邮件、或者通过<code>socke</code>、<code>http</code>等协议发送到任何地方</p>
-<p><font color='orange'><code>StreamHeadler</code></font></p>
+<h4><span id="handler-处理器">Handler 处理器</span></h4><p><code>Handler</code>将日志分发到不同的目的地。可以是文件、标准输出、邮件、或者通过<code>socke</code>、<code>http</code>等协议发送到任何地方</p>
+<p><font color="orange"><code>StreamHeadler</code></font></p>
 <p>标准输出<code>stdout</code>（如显示器）分发器</p>
 <p>创建方法：<code>sh = logging.StreamHandler(stream=None)</code></p>
-<p><font color='orange'><code>FileHandler</code></font></p>
+<p><font color="orange"><code>FileHandler</code></font></p>
 <p>将日志保存到磁盘文件的处理器</p>
 <p>创建方法：<code>fh = logging.FileHandler(filename, mode=&#39;a&#39;, encoding=None, delay=False)</code></p>
 <p><code>setFormatter():</code> 设置当前handler对象使用的消息格式</p>
@@ -624,7 +624,7 @@
 <td>将日志消息发送到磁盘文件，并支持日志文件按时间切割</td>
 </tr>
 </tbody></table>
-<h4 id="Fliter-过滤器"><a href="#Fliter-过滤器" class="headerlink" title="Fliter 过滤器"></a>Fliter 过滤器</h4><p>看名字大家就知道这是一个过滤类，那么过滤什么呢？</p>
+<h4><span id="fliter-过滤器">Fliter 过滤器</span></h4><p>看名字大家就知道这是一个过滤类，那么过滤什么呢？</p>
 <p>Filter可以被Handler和Logger用来做比之前设置的日志等级level更为细粒度的、更复杂的相关过滤功能。</p>
 <p>简单的说Filter是一个过滤器基类，它只允许某个logger层级下的日志事件通过过滤，保存下来。该类定义如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">logging</span>.<span class="title">Filter</span>(<span class="title">name</span></span>=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    filter(record)</span><br></pre></td></tr></table></figure>
@@ -632,7 +632,7 @@
 <p>过滤举例：</p>
 <p>例如用 ‘A.B’ 初始化的 Filter，那么其允许Logger ‘A.B’, ‘A.B.C’, ‘A.B.C.D’, ‘A.B.D’ 等日志记录的事件，logger‘A.BB’, ‘B.A.B’ 等就不满足过滤的条件。</p>
 <p>如果用空字符串来对Filter初始化，所有日志记录的事件都将不会被过滤。</p>
-<h4 id="Formatter-格式器"><a href="#Formatter-格式器" class="headerlink" title="Formatter 格式器"></a>Formatter 格式器</h4><p><code>Formater</code>主要负责日志的格式化输出的</p>
+<h4><span id="formatter-格式器">Formatter 格式器</span></h4><p><code>Formater</code>主要负责日志的格式化输出的</p>
 <p>构造方法：<code>ft = logging.Formatter.__init__(fmt=None, datefmt=None, style=&#39; %&#39;)</code></p>
 <p><code>datefmt</code>默认是<code>%Y-%m-%d %H:%M:%S</code>样式的</p>
 <p><code>style</code>参数默认为百分符%，这表示<code>%(&lt;dictionary key&gt;)s</code>格式的字符串</p>
@@ -644,7 +644,7 @@
 
 
 
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="conf形式配置文件"><a href="#conf形式配置文件" class="headerlink" title="conf形式配置文件"></a><code>conf</code>形式配置文件</h4><p>我们知道在**logging.basicConfig()**中，是进行一些日志的配置的，如果每次都去改动代码，那将变得十分的麻烦，特别是在程序发布或者上线的时候。所以我们可以使用一个什么好的方法来规避这个问题呢？有的，那就是配置文件。</p>
+<h3><span id="配置文件">配置文件</span></h3><h4><span id="conf形式配置文件"><code>conf</code>形式配置文件</span></h4><p>我们知道在**logging.basicConfig()**中，是进行一些日志的配置的，如果每次都去改动代码，那将变得十分的麻烦，特别是在程序发布或者上线的时候。所以我们可以使用一个什么好的方法来规避这个问题呢？有的，那就是配置文件。</p>
 <p>我们在文件<strong>logging.conf</strong>中写入相关的信息，内容如下：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[loggers]</span></span><br><span class="line"><span class="attr">keys</span>=root,appname</span><br><span class="line"></span><br><span class="line"><span class="section">[handlers]</span></span><br><span class="line"><span class="attr">keys</span>=fileHandler,consoleHandler</span><br><span class="line"></span><br><span class="line"><span class="section">[formatters]</span></span><br><span class="line"><span class="attr">keys</span>=simpleFormatter</span><br><span class="line"></span><br><span class="line"><span class="section">[logger_root]</span></span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="comment">; logger.addHandler(consoleHandler)</span></span><br><span class="line"><span class="attr">handlers</span>=consoleHandler</span><br><span class="line"></span><br><span class="line"><span class="section">[logger_appname]</span></span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="attr">handlers</span>=fileHandler,consoleHandler</span><br><span class="line"><span class="comment">; 别名 logging.getLogger(&#x27;appname&#x27;)</span></span><br><span class="line"><span class="attr">qualname</span>=appname</span><br><span class="line"><span class="comment">; 继承关系 0 不继承</span></span><br><span class="line"><span class="attr">propagate</span>=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="section">[handler_consoleHandler]</span></span><br><span class="line"><span class="comment">; consoleHandler = logging.StreamHandler()</span></span><br><span class="line"><span class="attr">class</span>=StreamHandler</span><br><span class="line"><span class="comment">; sys.stdout 标准输出，即 console 输出</span></span><br><span class="line"><span class="attr">args</span>=(sys.stdout,)</span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="attr">formatter</span>=simpleFormatter</span><br><span class="line"></span><br><span class="line"><span class="section">[handler_fileHandler]</span></span><br><span class="line"><span class="attr">class</span>=handlers.TimedRotatingFileHandler</span><br><span class="line"><span class="comment">; 日志滚动更新，每天24点分隔日志，1 代表 delay多少s，0 代表文件保留的时间，0即不删除</span></span><br><span class="line"><span class="attr">args</span>=(<span class="string">&#x27;appname.log&#x27;</span>, <span class="string">&#x27;midnight&#x27;</span>, <span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line"><span class="attr">level</span>=DEBUG</span><br><span class="line"><span class="attr">formatter</span>=simpleFormatter</span><br><span class="line"></span><br><span class="line"><span class="section">[formatter_simpleFormatter]</span></span><br><span class="line"><span class="attr">format</span>=%(asctime)s [%(levelname)s] [%(filename)s:%(line<span class="literal">no</span>)s] [%(name)s] %(message)s</span><br><span class="line"><span class="comment">;datefmt=%Y-%m-%d %H:%M:%S</span></span><br></pre></td></tr></table></figure>
 
@@ -656,7 +656,7 @@
 
 
 
-<h3 id="自定义logger日志输出文件"><a href="#自定义logger日志输出文件" class="headerlink" title="自定义logger日志输出文件"></a>自定义<code>logger</code>日志输出文件</h3><p>以上介绍的知识点，大家在平时或在实际的项目中使用基本上就足够了，下面我们简单的介绍一下怎么进行自定义logger进行日志的输出。</p>
+<h3><span id="自定义logger日志输出文件">自定义<code>logger</code>日志输出文件</span></h3><p>以上介绍的知识点，大家在平时或在实际的项目中使用基本上就足够了，下面我们简单的介绍一下怎么进行自定义logger进行日志的输出。</p>
 <p>我们写一个<strong>sel_def_logger.py</strong>文件，文件中的定义一个类，内容如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> strftime</span><br><span class="line"><span class="comment"># 输出日志路径</span></span><br><span class="line">PATH = os.path.abspath(<span class="string">&#x27;.&#x27;</span>) + <span class="string">&#x27;/logs/&#x27;</span></span><br><span class="line"><span class="comment"># 设置日志格式#和时间格式</span></span><br><span class="line">FMT = <span class="string">&#x27;%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s: %(message)s&#x27;</span></span><br><span class="line">DATEFMT = <span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyLog</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.logger = logging.getLogger()</span><br><span class="line">        self.formatter = logging.Formatter(fmt=FMT, datefmt=DATEFMT)</span><br><span class="line">        self.log_filename = <span class="string">&#x27;&#123;0&#125;&#123;1&#125;.log&#x27;</span>.<span class="built_in">format</span>(PATH, strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>))</span><br><span class="line"></span><br><span class="line">        self.logger.addHandler(self.get_file_handler(self.log_filename))</span><br><span class="line">        self.logger.addHandler(self.get_console_handler())</span><br><span class="line">        <span class="comment"># 设置日志的默认级别</span></span><br><span class="line">        self.logger.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出到文件handler的函数定义</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_file_handler</span>(<span class="params">self, filename</span>):</span></span><br><span class="line">        filehandler = logging.FileHandler(filename, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">        filehandler.setFormatter(self.formatter)</span><br><span class="line">        <span class="keyword">return</span> filehandler</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 输出到控制台handler的函数定义</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_console_handler</span>(<span class="params">self</span>):</span></span><br><span class="line">        console_handler = logging.StreamHandler(sys.stdout)</span><br><span class="line">        console_handler.setFormatter(self.formatter)</span><br><span class="line">        <span class="keyword">return</span> console_handler</span><br></pre></td></tr></table></figure>
 
@@ -665,7 +665,7 @@
 
 
 
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/logging.html#module-logging">logging — Python的日志记录工具</a></p>
+<h3><span id="reference">Reference</span></h3><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/logging.html#module-logging">logging — Python的日志记录工具</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/166671955">Python实用教程系列——Logging日志模块</a></p>
 
     </div>
@@ -747,7 +747,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Logging%E5%BA%93%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">Logging库日志级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logging-basicConfig"><span class="nav-number">2.</span> <span class="nav-text">Logging.basicConfig()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logging%E7%BB%84%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">Logging组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Logger-%E6%97%A5%E5%BF%97%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">Logger 日志器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Handler-%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">Handler 处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fliter-%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">Fliter 过滤器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Formatter-%E6%A0%BC%E5%BC%8F%E5%99%A8"><span class="nav-number">3.4.</span> <span class="nav-text">Formatter 格式器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#conf%E5%BD%A2%E5%BC%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">conf形式配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89logger%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">自定义logger日志输出文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Logging库日志级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Logging.basicConfig()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">Logging组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">Logger 日志器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">Handler 处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.3.</span> <span class="nav-text">Fliter 过滤器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.4.</span> <span class="nav-text">Formatter 格式器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.1.</span> <span class="nav-text">conf形式配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">自定义logger日志输出文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -763,7 +763,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -827,13 +827,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

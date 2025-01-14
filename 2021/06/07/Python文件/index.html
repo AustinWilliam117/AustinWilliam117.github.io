@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -271,7 +271,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="open-方法"><a href="#open-方法" class="headerlink" title="open 方法"></a>open 方法</h3><p>Python open() 方法用于打开一个文件，并返回文件对象，在对文件进行处理过程中都需要使用这个函数，如果文件无法被打开，会抛出OSError</p>
+        <h3><span id="open-方法">open 方法</span></h3><p>Python open() 方法用于打开一个文件，并返回文件对象，在对文件进行处理过程中都需要使用这个函数，如果文件无法被打开，会抛出OSError</p>
 <span id="more"></span>
 
 <p><strong>使用 open() 方法一定要保证关闭文件对象，即调用 close() 方法</strong></p>
@@ -422,7 +422,7 @@
 <td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-writelines.html">file.writelines(sequence)</a>向文件写入一个序列字符串列表，如果需要换行则要自己加入每行的换行符。</td>
 </tr>
 </tbody></table>
-<h3 id="with-open"><a href="#with-open" class="headerlink" title="with open()"></a>with open()</h3><h4 id="读取整个文件"><a href="#读取整个文件" class="headerlink" title="读取整个文件"></a>读取整个文件</h4><p>要读取整个文件，需要包含几行文本文件。下面创建一个文件<strong>pi_digits.txt</strong></p>
+<h3><span id="with-open">with open()</span></h3><h4><span id="读取整个文件">读取整个文件</span></h4><p>要读取整个文件，需要包含几行文本文件。下面创建一个文件<strong>pi_digits.txt</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3.1415926535</span><br><span class="line">8979323846</span><br><span class="line">2643383279</span><br></pre></td></tr></table></figure>
 
 <p>下面程序打开并读取这个文件，在将其内容显示在屏幕上，<strong>file_reader.py</strong></p>
@@ -438,8 +438,8 @@
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch Desktop]$ python file_reader.py</span><br><span class="line">3.1415926</span><br><span class="line">897479203</span><br><span class="line">937743020</span><br><span class="line">[william@William-arch Desktop]$ </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h4 id="文件路径"><a href="#文件路径" class="headerlink" title="文件路径"></a>文件路径</h4><p>注意Windows系统中，在文件路径中使用反斜杠（ \ ）而不是斜杠 ( / )</p>
-<h4 id="逐行读取"><a href="#逐行读取" class="headerlink" title="逐行读取"></a>逐行读取</h4><p>读取文件时，常常需要检查其中的每一行：你可能要在文件中查找特定的信息，或者要以某种方式修改文件中的文本。</p>
+<h4><span id="文件路径">文件路径</span></h4><p>注意Windows系统中，在文件路径中使用反斜杠（ \ ）而不是斜杠 ( / )</p>
+<h4><span id="逐行读取">逐行读取</span></h4><p>读取文件时，常常需要检查其中的每一行：你可能要在文件中查找特定的信息，或者要以某种方式修改文件中的文本。</p>
 <p>要以每次一行的方式检查文件，可对文件对象使用for循环<strong>file_reader.py</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_digits.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> file_object:</span><br><span class="line">        <span class="built_in">print</span>(line)</span><br></pre></td></tr></table></figure>
 
@@ -450,25 +450,25 @@
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[william@William-arch Desktop]$ python test.py</span><br><span class="line">3.1415926</span><br><span class="line">897479203</span><br><span class="line">937743020</span><br><span class="line">[william@William-arch Desktop]$ </span><br></pre></td></tr></table></figure>
 
-<h4 id="创建一个文件包含各行内容的列表"><a href="#创建一个文件包含各行内容的列表" class="headerlink" title="创建一个文件包含各行内容的列表"></a>创建一个文件包含各行内容的列表</h4><p>使用关键字with时，open()返回的文件对象只在with代码快内可用。如果要在with代码块外访问文件的内容，可在with代码块将文件的各行存储在一个列表中，并在with代码块外使用该列表：你可以立即处理文件的各个部分，也可推迟到程序后面再处理。</p>
+<h4><span id="创建一个文件包含各行内容的列表">创建一个文件包含各行内容的列表</span></h4><p>使用关键字with时，open()返回的文件对象只在with代码快内可用。如果要在with代码块外访问文件的内容，可在with代码块将文件的各行存储在一个列表中，并在with代码块外使用该列表：你可以立即处理文件的各个部分，也可推迟到程序后面再处理。</p>
 <p>下面的是with代码块中将文件pi_digits.txt的各行存储在一个列表中，再在with代码块外打印它们：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_digits.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">    lines = file_object.readlines()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">    <span class="built_in">print</span>(line.rstrip())</span><br></pre></td></tr></table></figure>
 
 <p>我自己写了一个方法也可以实现上述操作</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filename  = <span class="string">&#x27;pi_digits.txt&#x27;</span></span><br><span class="line">list1 = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> file_object:</span><br><span class="line">        list1.append(line.rstrip())</span><br><span class="line">    <span class="built_in">print</span>(list1)</span><br></pre></td></tr></table></figure>
 
-<h4 id="使用文件的内容"><a href="#使用文件的内容" class="headerlink" title="使用文件的内容"></a>使用文件的内容</h4><p>在读取文件到内存后，就可以以任何方式使用这些数据了。下面以简单的方式使用圆周率的值。首先，我们将创建一个字符串，它包含文件中存储的所有数字，且没有任何空格。</p>
+<h4><span id="使用文件的内容">使用文件的内容</span></h4><p>在读取文件到内存后，就可以以任何方式使用这些数据了。下面以简单的方式使用圆周率的值。首先，我们将创建一个字符串，它包含文件中存储的所有数字，且没有任何空格。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_string.py&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">    lines = file_object.readlines()</span><br><span class="line">    </span><br><span class="line">pi_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">    pi_strinng += line.rstrip()</span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span>(pi_string)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(pi_string))</span><br></pre></td></tr></table></figure>
 
-<h4 id="包含一百万的大型文件"><a href="#包含一百万的大型文件" class="headerlink" title="包含一百万的大型文件"></a>包含一百万的大型文件</h4><p>前面我们分析的都是一个只有三行的文本文件，但这些代码也可处理大得多的文件。如果我们有一个文本文件，其中包含精确到小数点后1 000 000位而不是30位的圆周率值，也可创建一个包含所有这些数字的字符串。在这里我们只打印到小数点后50位，以免终端显示全部是1 000 000位而不断地翻滚：</p>
+<h4><span id="包含一百万的大型文件">包含一百万的大型文件</span></h4><p>前面我们分析的都是一个只有三行的文本文件，但这些代码也可处理大得多的文件。如果我们有一个文本文件，其中包含精确到小数点后1 000 000位而不是30位的圆周率值，也可创建一个包含所有这些数字的字符串。在这里我们只打印到小数点后50位，以免终端显示全部是1 000 000位而不断地翻滚：</p>
 <p><strong>pi_string.py</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_million_digits.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">    lines = file_object.readlines()</span><br><span class="line">    </span><br><span class="line">pi_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">    pi_string += line.strip()</span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span>(pi_string[:<span class="number">52</span>] + <span class="string">&quot;...&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(pi_string))</span><br></pre></td></tr></table></figure>
 
 <p>对于你可处理的数据量，Python没有任何限制；只要系统的内存足够多，想处理多少数据都可以</p>
-<h4 id="圆周率中包含你的生日吗"><a href="#圆周率中包含你的生日吗" class="headerlink" title="圆周率中包含你的生日吗"></a>圆周率中包含你的生日吗</h4><p>可将生日表示为一个由数字组成的字符串，再检查这个字符串是否包含在pi_string中:</p>
+<h4><span id="圆周率中包含你的生日吗">圆周率中包含你的生日吗</span></h4><p>可将生日表示为一个由数字组成的字符串，再检查这个字符串是否包含在pi_string中:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_million_digits.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">    lines = file_object.readlines()</span><br><span class="line">    </span><br><span class="line">pi_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">    pi_string += line.rstrip()</span><br><span class="line">    </span><br><span class="line">birthday = <span class="built_in">input</span>(<span class="string">&quot;Enter your birthday, in the form mmddyy: &quot;</span>)</span><br><span class="line"><span class="keyword">if</span> birthday <span class="keyword">in</span> pi_string:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Your birthday appears in the first million digits of pi!&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Your birthday does not appear in the first million digits of pi.&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>10-1 Python 学习笔记：在文本编辑器中新建一个文件，写几句话来总结一下你至此学到的 Python 知识，其中每一行都以“In Python you can”打头。将这个文件命名为learning_python.txt，并将其存储到为完成本章练习而编写的程序所在的目录中。</p>
+<h4><span id="练习">练习</span></h4><p>10-1 Python 学习笔记：在文本编辑器中新建一个文件，写几句话来总结一下你至此学到的 Python 知识，其中每一行都以“In Python you can”打头。将这个文件命名为learning_python.txt，并将其存储到为完成本章练习而编写的程序所在的目录中。</p>
 <p>编写一个程序，它读取这个文件，并将你所写的内容打印三次：</p>
 <p>第一次打印时读取整个文件；</p>
 <p>第二次打印时遍历文件对象；</p>
@@ -484,8 +484,8 @@
 
 
 
-<h3 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h3><p>保存数据的最简单的方式之一是将其写入到文件中。通过将输出写入文件，即便关闭包含程序输出的终端窗口，这些输出也依然存在：你可以在程序结束运行后查看这些输出，可与别人分享输出文件，还可编写程序来将这些输出读取到内存中并进行处理。</p>
-<h4 id="写入空文件"><a href="#写入空文件" class="headerlink" title="写入空文件"></a>写入空文件</h4><p>要将文本写入文件，在调用open()时需要应该另一个实参，告诉Python你要写入打开的文件。</p>
+<h3><span id="写入文件">写入文件</span></h3><p>保存数据的最简单的方式之一是将其写入到文件中。通过将输出写入文件，即便关闭包含程序输出的终端窗口，这些输出也依然存在：你可以在程序结束运行后查看这些输出，可与别人分享输出文件，还可编写程序来将这些输出读取到内存中并进行处理。</p>
+<h4><span id="写入空文件">写入空文件</span></h4><p>要将文本写入文件，在调用open()时需要应该另一个实参，告诉Python你要写入打开的文件。</p>
 <p><strong>wite_message.py</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;programming.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">    file_object.write(<span class="string">&#x27;I lone programming!&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
@@ -493,7 +493,7 @@
 <p>如果要写入的文件不存在，函数open()将自动创建它。</p>
 <p>以写入(‘w’)模式打开文件时千万要小心，因为如果指定的文件已经存在，Python将在返回文件对象前清空该文件。</p>
 <p><strong>Python只能将字符串写入文本文件。要将数值数据存储到文本文件中，必须系那是用函数str()将其转换为字符串格式。</strong></p>
-<h4 id="写入多行"><a href="#写入多行" class="headerlink" title="写入多行"></a>写入多行</h4><p>函数write()不会在你写入的文本末尾添加换行符，因此写入多行时没有指定换行符。文件看起来可能不是你希望的那样：</p>
+<h4><span id="写入多行">写入多行</span></h4><p>函数write()不会在你写入的文本末尾添加换行符，因此写入多行时没有指定换行符。文件看起来可能不是你希望的那样：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;programming.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">    file_object.write(<span class="string">&quot;I love programming.&quot;</span>)</span><br><span class="line">    file_object.write(<span class="string">&quot;I love creating new games.&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>如果你打开programming.txt，将发现两行内容挤在一起：</p>
@@ -504,7 +504,7 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I love programming.</span><br><span class="line">I love creating new games.</span><br></pre></td></tr></table></figure>
 
-<h4 id="附加到文件"><a href="#附加到文件" class="headerlink" title="附加到文件"></a>附加到文件</h4><p>如果你要给文件添加内容，而不是覆盖原有的内容，可以附加模式打开文件。你以附加模式打开文件时，Python不会在返回文件对象前清空文件，而你写入到文件的行都将添加到文件末尾。如果指定的文件不存在，Python将为你创建一个空文件。</p>
+<h4><span id="附加到文件">附加到文件</span></h4><p>如果你要给文件添加内容，而不是覆盖原有的内容，可以附加模式打开文件。你以附加模式打开文件时，Python不会在返回文件对象前清空文件，而你写入到文件的行都将添加到文件末尾。如果指定的文件不存在，Python将为你创建一个空文件。</p>
 <p><strong>write_message.py</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;programming.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename,<span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">    file_object.write(<span class="string">&quot;I also love findding meaning in large datasets.\n&quot;</span>)</span><br><span class="line">    file_object.write(<span class="string">&quot;I love creating apps that can run in a browser.\n&quot;</span>)</span><br></pre></td></tr></table></figure>
 
@@ -597,7 +597,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#open-%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">open 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#with-open"><span class="nav-number">2.</span> <span class="nav-text">with open()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B4%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">读取整个文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="nav-number">2.2.</span> <span class="nav-text">文件路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96"><span class="nav-number">2.3.</span> <span class="nav-text">逐行读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%90%84%E8%A1%8C%E5%86%85%E5%AE%B9%E7%9A%84%E5%88%97%E8%A1%A8"><span class="nav-number">2.4.</span> <span class="nav-text">创建一个文件包含各行内容的列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">2.5.</span> <span class="nav-text">使用文件的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%85%E5%90%AB%E4%B8%80%E7%99%BE%E4%B8%87%E7%9A%84%E5%A4%A7%E5%9E%8B%E6%96%87%E4%BB%B6"><span class="nav-number">2.6.</span> <span class="nav-text">包含一百万的大型文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%86%E5%91%A8%E7%8E%87%E4%B8%AD%E5%8C%85%E5%90%AB%E4%BD%A0%E7%9A%84%E7%94%9F%E6%97%A5%E5%90%97"><span class="nav-number">2.7.</span> <span class="nav-text">圆周率中包含你的生日吗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">2.8.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">写入文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E7%A9%BA%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">写入空文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E5%A4%9A%E8%A1%8C"><span class="nav-number">3.2.</span> <span class="nav-text">写入多行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E5%88%B0%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">附加到文件</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">open 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">with open()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">读取整个文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">文件路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">逐行读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">创建一个文件包含各行内容的列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.5.</span> <span class="nav-text">使用文件的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.6.</span> <span class="nav-text">包含一百万的大型文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.7.</span> <span class="nav-text">圆周率中包含你的生日吗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">写入文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">写入空文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">写入多行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.3.</span> <span class="nav-text">附加到文件</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -613,7 +613,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -677,13 +677,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

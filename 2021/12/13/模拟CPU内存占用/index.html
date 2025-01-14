@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -265,17 +265,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="模拟CPU占满"><a href="#模拟CPU占满" class="headerlink" title="模拟CPU占满"></a>模拟CPU占满</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in `seq 1 $(cat /proc/cpuinfo |grep &quot;physical id&quot; |wc -l)`; do dd if=/dev/zero of=/dev/null &amp; done</span><br></pre></td></tr></table></figure>
+        <h4><span id="模拟cpu占满">模拟CPU占满</span></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in `seq 1 $(cat /proc/cpuinfo |grep &quot;physical id&quot; |wc -l)`; do dd if=/dev/zero of=/dev/null &amp; done</span><br></pre></td></tr></table></figure>
 
-<h4 id="模拟CPU只占两核"><a href="#模拟CPU只占两核" class="headerlink" title="模拟CPU只占两核"></a>模拟CPU只占两核</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in `seq 1 2`; do dd if=/dev/zero of=/dev/null &amp; done</span><br></pre></td></tr></table></figure>
+<h4><span id="模拟cpu只占两核">模拟CPU只占两核</span></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in `seq 1 2`; do dd if=/dev/zero of=/dev/null &amp; done</span><br></pre></td></tr></table></figure>
 
-<h4 id="网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）"><a href="#网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）" class="headerlink" title="网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）"></a>网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）</h4><span id="more"></span>
+<h4><span id="网络异常可通过以下命令在接口服务端服务器设置记住测试完删除命令否则一直生效">网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）</span></h4><span id="more"></span>
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为延迟 100 毫秒发送。</span></span><br><span class="line">1.tc qdisc add dev eth0 root netem delay 100ms</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将删除 eth0 网卡 的传输设置为延迟 100 毫秒发送。</span></span><br><span class="line">2.tc qdisc del dev eth0 root netem delay 100ms</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 10ms 该命令将 eth0 网卡 的传输设置为延迟 100ms ± 10ms (90 ~ 110 ms 之间的任意值)发送。</span></span><br><span class="line">3.tc qdisc add dev eth0 root netem delay 100ms 10ms</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为 100ms ,同 时,大约有 30% 的包会延迟 ± 10ms 发送。</span></span><br><span class="line">4.tc qdisc add dev eth0 root netem delay 100ms 10ms 30%</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为随机丢掉 1% 的数据包</span></span><br><span class="line">5.tc qdisc add dev eth0 root netem loss 1%</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该命令将 eth0 网卡 的传输设置为随机丢掉 1% 的数据包,成功率为 30%</span></span><br><span class="line">6.tc qdisc add dev eth0 root netem loss 1% 30%</span><br></pre></td></tr></table></figure>
 
-<h4 id="查看已经配置的网络条件"><a href="#查看已经配置的网络条件" class="headerlink" title="查看已经配置的网络条件"></a>查看已经配置的网络条件</h4><p><code>tc qdisc show dev eth0</code></p>
-<h4 id="查看已经配置的网络条件-1"><a href="#查看已经配置的网络条件-1" class="headerlink" title="查看已经配置的网络条件"></a>查看已经配置的网络条件</h4><p><code>tc qdisc del dev eth0 root</code></p>
-<h4 id="监控CPU、内存"><a href="#监控CPU、内存" class="headerlink" title="监控CPU、内存"></a>监控CPU、内存</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 总的CPU</span></span><br><span class="line">nohup top -b -d 10 -n 240 | grep &quot;%Cpu(s)&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 总的内存</span></span><br><span class="line">nohup top -b -d 10 -n 240 | grep &quot;KiB Mem&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进程监控</span></span><br><span class="line">nohup top -b -d 10 -n 180 | grep 进程号</span><br></pre></td></tr></table></figure>
+<h4><span id="查看已经配置的网络条件">查看已经配置的网络条件</span></h4><p><code>tc qdisc show dev eth0</code></p>
+<h4><span id="查看已经配置的网络条件">查看已经配置的网络条件</span></h4><p><code>tc qdisc del dev eth0 root</code></p>
+<h4><span id="监控cpu-内存">监控CPU、内存</span></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 总的CPU</span></span><br><span class="line">nohup top -b -d 10 -n 240 | grep &quot;%Cpu(s)&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 总的内存</span></span><br><span class="line">nohup top -b -d 10 -n 240 | grep &quot;KiB Mem&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进程监控</span></span><br><span class="line">nohup top -b -d 10 -n 180 | grep 进程号</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p><code>nohup</code> 后台运行</p>
@@ -365,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9FCPU%E5%8D%A0%E6%BB%A1"><span class="nav-number">1.</span> <span class="nav-text">模拟CPU占满</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9FCPU%E5%8F%AA%E5%8D%A0%E4%B8%A4%E6%A0%B8"><span class="nav-number">2.</span> <span class="nav-text">模拟CPU只占两核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%8F%AF%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E5%9C%A8%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%EF%BC%88%E8%AE%B0%E4%BD%8F%E6%B5%8B%E8%AF%95%E5%AE%8C%E5%88%A0%E9%99%A4%E5%91%BD%E4%BB%A4%E5%90%A6%E5%88%99%E4%B8%80%E7%9B%B4%E7%94%9F%E6%95%88%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B7%B2%E7%BB%8F%E9%85%8D%E7%BD%AE%E7%9A%84%E7%BD%91%E7%BB%9C%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">查看已经配置的网络条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B7%B2%E7%BB%8F%E9%85%8D%E7%BD%AE%E7%9A%84%E7%BD%91%E7%BB%9C%E6%9D%A1%E4%BB%B6-1"><span class="nav-number">5.</span> <span class="nav-text">查看已经配置的网络条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7CPU%E3%80%81%E5%86%85%E5%AD%98"><span class="nav-number">6.</span> <span class="nav-text">监控CPU、内存</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">模拟CPU占满</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">模拟CPU只占两核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">网络异常，可通过以下命令在接口服务端服务器设置（记住测试完删除命令否则一直生效）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">查看已经配置的网络条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">查看已经配置的网络条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">监控CPU、内存</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -381,7 +381,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -445,13 +445,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -277,24 +277,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="autojump"><a href="#autojump" class="headerlink" title="autojump"></a>autojump</h2><p>可自动跳转目录，避免每次输入很长代码</p>
-<h3 id="安装autojump"><a href="#安装autojump" class="headerlink" title="安装autojump"></a>安装autojump</h3><h4 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/wting/autojump.git</span><br><span class="line"></span><br><span class="line">cd autojump</span><br><span class="line"></span><br><span class="line">./install.py or ./uninstall.py</span><br></pre></td></tr></table></figure>
+        <h2><span id="autojump">autojump</span></h2><p>可自动跳转目录，避免每次输入很长代码</p>
+<h3><span id="安装autojump">安装autojump</span></h3><h4><span id="手动安装">手动安装</span></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/wting/autojump.git</span><br><span class="line"></span><br><span class="line">cd autojump</span><br><span class="line"></span><br><span class="line">./install.py or ./uninstall.py</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 
 <p><strong>安装后会提示你将代码写入.zshrc或者.bashrc</strong>，写入后在你第二次再打开文件时，就可以在任意路径下直接<code>j folder</code>就行了</p>
-<h4 id="arch用户安装autojump（有些小问题不推荐新手）"><a href="#arch用户安装autojump（有些小问题不推荐新手）" class="headerlink" title="arch用户安装autojump（有些小问题不推荐新手）"></a>arch用户安装autojump（有些小问题不推荐新手）</h4><blockquote>
+<h4><span id="arch用户安装autojump有些小问题不推荐新手">arch用户安装autojump（有些小问题不推荐新手）</span></h4><blockquote>
 <p>sudo pacman -S autojump</p>
 </blockquote>
 <p>安装后同样会提示将代码写入.zshrc或者.bashrc，按提示为标准</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">autojump 参考代码</span></span><br><span class="line">[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] &amp;&amp; . ~/.autojump/etc/profile.d/autojump.sh</span><br></pre></td></tr></table></figure>
 
-<h2 id="bash-insulter"><a href="#bash-insulter" class="headerlink" title="bash-insulter"></a>bash-insulter</h2><p>输入错误代码就会挨骂的插件，在谩骂声中鞭策自己吧</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Method 1 - know what you are doing</span></span><br><span class="line">git clone https://github.com/hkbakke/bash-insulter.git bash-insulter</span><br><span class="line">sudo cp bash-insulter/src/bash.command-not-found /etc/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Method 2 - I don<span class="string">&#x27;t care, insult me!</span></span></span><br><span class="line">sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found</span><br></pre></td></tr></table></figure>
+<h2><span id="bash-insulter">bash-insulter</span></h2><p>输入错误代码就会挨骂的插件，在谩骂声中鞭策自己吧</p>
+<h3><span id="安装">安装</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Method 1 - know what you are doing</span></span><br><span class="line">git clone https://github.com/hkbakke/bash-insulter.git bash-insulter</span><br><span class="line">sudo cp bash-insulter/src/bash.command-not-found /etc/</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Method 2 - I don<span class="string">&#x27;t care, insult me!</span></span></span><br><span class="line">sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">bash-insulter</span></span><br><span class="line">if [ -f /etc/bash.command-not-found ]; then</span><br><span class="line">    . /etc/bash.command-not-found</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h3><span id="配置">配置</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">bash-insulter</span></span><br><span class="line">if [ -f /etc/bash.command-not-found ]; then</span><br><span class="line">    . /etc/bash.command-not-found</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
-<h2 id="oh-my-zsh自带的一些插件"><a href="#oh-my-zsh自带的一些插件" class="headerlink" title="oh-my-zsh自带的一些插件"></a>oh-my-zsh自带的一些插件</h2><ol>
+<h2><span id="oh-my-zsh自带的一些插件">oh-my-zsh自带的一些插件</span></h2><ol>
 <li><p>plugins/vi-mode</p>
 <p> 使zsh可以像vi那样输入</p>
 </li>
@@ -398,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#autojump"><span class="nav-number">1.</span> <span class="nav-text">autojump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85autojump"><span class="nav-number">1.1.</span> <span class="nav-text">安装autojump</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.1.</span> <span class="nav-text">手动安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arch%E7%94%A8%E6%88%B7%E5%AE%89%E8%A3%85autojump%EF%BC%88%E6%9C%89%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E4%B8%8D%E6%8E%A8%E8%8D%90%E6%96%B0%E6%89%8B%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">arch用户安装autojump（有些小问题不推荐新手）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bash-insulter"><span class="nav-number">2.</span> <span class="nav-text">bash-insulter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#oh-my-zsh%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">oh-my-zsh自带的一些插件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">autojump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">安装autojump</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.1.</span> <span class="nav-text">手动安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.2.</span> <span class="nav-text">arch用户安装autojump（有些小问题不推荐新手）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">bash-insulter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">oh-my-zsh自带的一些插件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,7 +414,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -478,13 +478,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

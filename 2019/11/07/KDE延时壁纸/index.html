@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -279,11 +279,11 @@
 
       
         <p>原文: <a target="_blank" rel="noopener" href="https://blog.brucezhang.cf/2018/12/07/kde-dynamic-wallpaper.html">https://blog.brucezhang.cf/2018/12/07/kde-dynamic-wallpaper.html</a></p>
-<h4 id="1-获取并整理图片"><a href="#1-获取并整理图片" class="headerlink" title="1. 获取并整理图片"></a>1. 获取并整理图片</h4><p><img src="DeepinScreenshot_select-area_20191107175922.png"></p>
+<h4><span id="1-获取并整理图片">1. 获取并整理图片</span></h4><p><img src="DeepinScreenshot_select-area_20191107175922.png"></p>
 <p>你也可以在这里找到所有的资源 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/apple/comments/8oz25c/all_16_full_resolution_macos_mojave_dynamic/">Reddit Page</a>，然后按上面的格式排列一下所有的图片，文件名里面的数字表示当前的小时数，你可以根据自己的喜好调整黑夜的时长哦，反正晚上就用最黑的那张就好了。</p>
 <span id="more"></span>
 
-<h4 id="2-编写脚本"><a href="#2-编写脚本" class="headerlink" title="2. 编写脚本"></a>2. 编写脚本</h4><p>首先，第一个脚本是用来修改所有桌面的壁纸的脚本，是其他网友分享的脚本，可以保存为 /home/你的用户名/bin/ksetwallpaper ，后文以此路径为例，请注意对应修改为你的路径。</p>
+<h4><span id="2-编写脚本">2. 编写脚本</span></h4><p>首先，第一个脚本是用来修改所有桌面的壁纸的脚本，是其他网友分享的脚本，可以保存为 /home/你的用户名/bin/ksetwallpaper ，后文以此路径为例，请注意对应修改为你的路径。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env python3</span></span><br><span class="line">import dbus</span><br><span class="line">import argparse</span><br><span class="line"></span><br><span class="line">jscript = &quot;&quot;&quot;</span><br><span class="line">var allDesktops = desktops();</span><br><span class="line">print (allDesktops);</span><br><span class="line">for (i=0;i&lt;allDesktops.length;i++) &#123;</span><br><span class="line">    d = allDesktops[i];</span><br><span class="line">    d.wallpaperPlugin = &quot;org.kde.image&quot;;</span><br><span class="line">    d.currentConfigGroup = Array(&quot;Wallpaper&quot;, &quot;org.kde.image&quot;, &quot;General&quot;);</span><br><span class="line">    d.writeConfig(&quot;Image&quot;, &quot;file://%s&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=&#x27;KDE Wallpaper setter&#x27;)</span><br><span class="line">parser.add_argument(&#x27;file&#x27;, help=&#x27;Wallpaper file name&#x27;)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bus = dbus.SessionBus()</span><br><span class="line">plasma = dbus.Interface(bus.get_object(&#x27;org.kde.plasmashell&#x27;, &#x27;/PlasmaShell&#x27;), </span><br><span class="line">dbus_interface=&#x27;org.kde.PlasmaShell&#x27;)</span><br><span class="line"></span><br><span class="line">plasma.evaluateScript(jscript % args.file)</span><br></pre></td></tr></table></figure>
 
 
@@ -297,7 +297,7 @@
 
 
 <p>然后依然是给这个脚本添加可执行权限 chmod +x /home/你的用户名/bin/wallpaper_timechange</p>
-<h4 id="3-编写用户单元和定时器"><a href="#3-编写用户单元和定时器" class="headerlink" title="3. 编写用户单元和定时器"></a>3. 编写用户单元和定时器</h4><p>这里当然要用上超级好用的 SYSTEMD! (Selling my underpants!)</p>
+<h4><span id="3-编写用户单元和定时器">3. 编写用户单元和定时器</span></h4><p>这里当然要用上超级好用的 SYSTEMD! (Selling my underpants!)</p>
 <p>我们要新建一个用户单元用于执行换壁纸的任务，另一个用户定时器用来定时执行前面的脚本。</p>
 <p>首先，我们新建一个文件，假如文件路径为 /home/你的用户名/.config/systemd/user/wallpaper-hourly.service</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Set wallpaper according to hour</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/home/你的用户名/bin/wallpaper_timechange</span><br></pre></td></tr></table></figure>
@@ -406,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%8E%B7%E5%8F%96%E5%B9%B6%E6%95%B4%E7%90%86%E5%9B%BE%E7%89%87"><span class="nav-number">1.</span> <span class="nav-text">1. 获取并整理图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">2. 编写脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E5%8D%95%E5%85%83%E5%92%8C%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">3. 编写用户单元和定时器</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1. 获取并整理图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2. 编写脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3. 编写用户单元和定时器</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -422,7 +422,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -486,13 +486,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

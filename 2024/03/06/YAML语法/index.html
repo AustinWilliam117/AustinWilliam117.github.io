@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -265,7 +265,7 @@
       
         <p>YAML 是 “YAML Ain’t a Markup Language”（YAML 不是一种标记语言）的递归缩写</p>
 <p>YAML 的配置文件后缀为 <strong>.yml</strong>，如：<strong>runoob.yml</strong> 。</p>
-<h4 id="YAML基本语法"><a href="#YAML基本语法" class="headerlink" title="YAML基本语法"></a>YAML基本语法</h4><ul>
+<h4><span id="yaml基本语法">YAML基本语法</span></h4><ul>
 <li><p>大小写敏感</p>
 </li>
 <li><p>使用缩进表示层级关系</p>
@@ -279,13 +279,13 @@
 </ul>
 <span id="more"></span>
 
-<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p>YAML 支持以下几种数据类型：</p>
+<h4><span id="数据类型">数据类型</span></h4><p>YAML 支持以下几种数据类型：</p>
 <ul>
 <li>对象：键值对的集合</li>
 <li>数组：一组按次序排列的值，又称为序列（sequence） / 列表（list）</li>
 <li>纯量（scalars）：单个的、不可再分的值</li>
 </ul>
-<h4 id="YAML-对象"><a href="#YAML-对象" class="headerlink" title="YAML 对象"></a>YAML 对象</h4><p>对象键值对使用冒号结构表示 <strong>key: value</strong>，冒号后面要加一个空格。</p>
+<h4><span id="yaml-对象">YAML 对象</span></h4><p>对象键值对使用冒号结构表示 <strong>key: value</strong>，冒号后面要加一个空格。</p>
 <p>也可以使用 **key:{key1: value1, key2: value2, …}**。</p>
 <p>还可以使用缩进表示层级关系；</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">key:</span> </span><br><span class="line">    <span class="attr">child-key:</span> <span class="string">value</span></span><br><span class="line">    <span class="attr">child-key2:</span> <span class="string">value2</span></span><br></pre></td></tr></table></figure>
@@ -294,7 +294,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">?</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexkey1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexkey2</span></span><br><span class="line"><span class="string">:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexvalue1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">complexvalue2</span></span><br></pre></td></tr></table></figure>
 
 <p>意思即对象的属性是一个数组 [complexkey1,complexkey2]，对应的值也是一个数组 [complexvalue1,complexvalue2]</p>
-<h4 id="YAML-数组"><a href="#YAML-数组" class="headerlink" title="YAML 数组"></a>YAML 数组</h4><p>以 <strong>-</strong> 开头的行表示构成一个数组：</p>
+<h4><span id="yaml-数组">YAML 数组</span></h4><p>以 <strong>-</strong> 开头的行表示构成一个数组：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">A</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">B</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">C</span></span><br></pre></td></tr></table></figure>
 
 <p>YAML 支持多维数组，可以使用行内表示：</p>
@@ -310,13 +310,13 @@
 <p>数组也可以使用流式(flow)的方式表示：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">companies:</span> [&#123;<span class="attr">id:</span> <span class="number">1</span>,<span class="attr">name:</span> <span class="string">company1</span>,<span class="attr">price:</span> <span class="string">200W</span>&#125;,&#123;<span class="attr">id:</span> <span class="number">2</span>,<span class="attr">name:</span> <span class="string">company2</span>,<span class="attr">price:</span> <span class="string">500W</span>&#125;]</span><br></pre></td></tr></table></figure>
 
-<h4 id="复合结构"><a href="#复合结构" class="headerlink" title="复合结构"></a>复合结构</h4><p>数组和对象可以构成复合结构，例：</p>
+<h4><span id="复合结构">复合结构</span></h4><p>数组和对象可以构成复合结构，例：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">languages:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ruby</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Perl</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Python</span> </span><br><span class="line"><span class="attr">websites:</span></span><br><span class="line">  <span class="attr">YAML:</span> <span class="string">yaml.org</span> </span><br><span class="line">  <span class="attr">Ruby:</span> <span class="string">ruby-lang.org</span> </span><br><span class="line">  <span class="attr">Python:</span> <span class="string">python.org</span> </span><br><span class="line">  <span class="attr">Perl:</span> <span class="string">use.perl.org</span></span><br></pre></td></tr></table></figure>
 
 <p>转换为 json 为：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">  <span class="attr">languages:</span> [ <span class="string">&#x27;Ruby&#x27;</span>, <span class="string">&#x27;Perl&#x27;</span>, <span class="string">&#x27;Python&#x27;</span>],</span><br><span class="line">  <span class="attr">websites:</span> &#123;</span><br><span class="line">    <span class="attr">YAML:</span> <span class="string">&#x27;yaml.org&#x27;</span>,</span><br><span class="line">    <span class="attr">Ruby:</span> <span class="string">&#x27;ruby-lang.org&#x27;</span>,</span><br><span class="line">    <span class="attr">Python:</span> <span class="string">&#x27;python.org&#x27;</span>,</span><br><span class="line">    <span class="attr">Perl:</span> <span class="string">&#x27;use.perl.org&#x27;</span> </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="纯量"><a href="#纯量" class="headerlink" title="纯量"></a>纯量</h4><p>纯量是最基本的，不可再分的值，包括：</p>
+<h4><span id="纯量">纯量</span></h4><p>纯量是最基本的，不可再分的值，包括：</p>
 <ul>
 <li>字符串</li>
 <li>布尔值</li>
@@ -335,7 +335,7 @@
 <p>yaml_until.py</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">YamlUtil</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,yaml_file</span>):</span></span><br><span class="line">        self.yaml_file = yaml_file</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取yaml文件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read_yaml</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(self.yaml_file,encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            value = yaml.load(f,Loader=yaml.FullLoader)</span><br><span class="line">            <span class="built_in">print</span>(value)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    YamlUtil(<span class="string">&#x27;test_api.yaml&#x27;</span>).read_yaml()</span><br></pre></td></tr></table></figure>
 
-<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p>[1] <a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/yaml-intro.html">runoob YAML 入门教程</a></p>
+<h4><span id="reference">Reference</span></h4><p>[1] <a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/yaml-intro.html">runoob YAML 入门教程</a></p>
 
     </div>
 
@@ -419,7 +419,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#YAML%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">YAML基本语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YAML-%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">YAML 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YAML-%E6%95%B0%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">YAML 数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%BB%93%E6%9E%84"><span class="nav-number">5.</span> <span class="nav-text">复合结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%AF%E9%87%8F"><span class="nav-number">6.</span> <span class="nav-text">纯量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reference"><span class="nav-number">7.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">YAML基本语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">YAML 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">YAML 数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">复合结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">纯量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -435,7 +435,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -499,13 +499,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

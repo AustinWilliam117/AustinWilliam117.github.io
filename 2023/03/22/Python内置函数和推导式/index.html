@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -279,9 +279,9 @@
 <li>匿名函数</li>
 <li>生成器</li>
 <li>内置函数</li>
-<li><span style='color:orange;'><strong>附加</strong></span>：推导式，属于数据类型的知识，内部的高级的用法会涉及到【生成器】和【函数】的知识。</li>
+<li><span style="color:orange;"><strong>附加</strong></span>：推导式，属于数据类型的知识，内部的高级的用法会涉及到【生成器】和【函数】的知识。</li>
 </ul>
-<h3 id="1-匿名函数"><a href="#1-匿名函数" class="headerlink" title="1.匿名函数"></a>1.匿名函数</h3><p>传统的函数的定义包括了：函数名 + 函数体</p>
+<h3><span id="1匿名函数">1.匿名函数</span></h3><p>传统的函数的定义包括了：函数名 + 函数体</p>
 <p>匿名函数，则是基于 lamdba 表达式实现定义一个可以没有名字的函数，例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data_list = [ <span class="keyword">lambda</span> x : x + <span class="number">100</span>, <span class="keyword">lambda</span> x : x + <span class="number">101</span>, <span class="keyword">lambda</span> x : x + <span class="number">102</span>]</span><br><span class="line"><span class="built_in">print</span>(data_list[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>&lt;function &lt;<span class="keyword">lambda</span>&gt; at <span class="number">0x1047963b0</span>&gt;</span><br></pre></td></tr></table></figure>
 
@@ -303,7 +303,7 @@
 
 
 
-<h4 id="扩展：三元运算"><a href="#扩展：三元运算" class="headerlink" title="扩展：三元运算"></a>扩展：三元运算</h4><p>简单的函数，可以基于lambda表达式实现。</p>
+<h4><span id="扩展三元运算">扩展：三元运算</span></h4><p>简单的函数，可以基于lambda表达式实现。</p>
 <p>简单的条件语句，可以基于三元运算实现，例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="built_in">input</span>(<span class="string">&quot;请写入内容&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="string">&quot;蒙珣&quot;</span> <span class="keyword">in</span> num:</span><br><span class="line">  data = <span class="string">&quot;帅哥&quot;</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  data = <span class="string">&quot;美女&quot;</span></span><br><span class="line">  </span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
 
@@ -315,7 +315,7 @@
 
 
 
-<h3 id="2-生成器"><a href="#2-生成器" class="headerlink" title="2.生成器"></a>2.生成器</h3><p>生成器是由函数 + yield 关键字创造出来的写法，在特定情况下，用他可以帮助我们节省内存。（类似C动态分配内存）</p>
+<h3><span id="2生成器">2.生成器</span></h3><p>生成器是由函数 + yield 关键字创造出来的写法，在特定情况下，用他可以帮助我们节省内存。（类似C动态分配内存）</p>
 <ul>
 <li><p>生成器函数，但函数中有yield存在时，这个函数就是生产生成器函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="number">111</span>)</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
@@ -327,7 +327,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">111</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">222</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">333</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">444</span>)</span><br><span class="line">    </span><br><span class="line">data = func()</span><br><span class="line"></span><br><span class="line">v1 = <span class="built_in">next</span>(data)</span><br><span class="line"><span class="built_in">print</span>(v1)</span><br><span class="line"></span><br><span class="line">v2 = <span class="built_in">next</span>(data)</span><br><span class="line"><span class="built_in">print</span>(v2)</span><br><span class="line"></span><br><span class="line">v3 = <span class="built_in">next</span>(data)</span><br><span class="line"><span class="built_in">print</span>(v3)</span><br><span class="line"></span><br><span class="line">v4 = <span class="built_in">next</span>(data)</span><br><span class="line"><span class="built_in">print</span>(v4)  <span class="comment"># 结束或中途遇到return，程序爆：StopIteration 错误</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>生成器的特点是，记录在函数中的执行位置，下次执行next时，会从上一次的位置基础上再继续向下执行。</p>
-<h4 id="生成器的应用场景"><a href="#生成器的应用场景" class="headerlink" title="生成器的应用场景"></a>生成器的应用场景</h4><ul>
+<h4><span id="生成器的应用场景">生成器的应用场景</span></h4><ul>
 <li><p>假设要让你生成 300w个随机的4位数，并打印出来。</p>
 <ul>
 <li><p>在内存中一次性创建300w个</p>
@@ -348,12 +348,12 @@
 </ul>
 <p>​    <img src="iShot_2023-03-23_23.08.39.png"></p>
 <p>所以，当以后需要我们在内存中创建很多数据时，可以想着用基于生成器来实现一点一点生成（用一点生产一点），以节省内存的开销。</p>
-<h4 id="生成器的扩展"><a href="#生成器的扩展" class="headerlink" title="生成器的扩展"></a>生成器的扩展</h4><p>send() 方法会返回生成器所产生的下一个值，或者如果生成器没有产生下一个值就退出则会引发 StopIteration。当调用 send() 来启动生成器时，它必须以  None 作为调用参数，因为这时没有可以接收值 yield 表达式。</p>
+<h4><span id="生成器的扩展">生成器的扩展</span></h4><p>send() 方法会返回生成器所产生的下一个值，或者如果生成器没有产生下一个值就退出则会引发 StopIteration。当调用 send() 来启动生成器时，它必须以  None 作为调用参数，因为这时没有可以接收值 yield 表达式。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">111</span>)</span><br><span class="line">    v1 = <span class="keyword">yield</span> <span class="number">1</span>  <span class="comment"># 遇到 yield 将 yield 后面的值返还给 generator.send() 方法，即赋值给n1，yield在还没有赋值时，就已经被封存了，在下次 generator.send() 调用时，才将 666 赋值给v1</span></span><br><span class="line">    <span class="built_in">print</span>(v1)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">222</span>)</span><br><span class="line">    v2 = <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="built_in">print</span>(v2)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">333</span>)</span><br><span class="line">    v3 = <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line">    <span class="built_in">print</span>(v3)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="number">444</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data = func()</span><br><span class="line"></span><br><span class="line">n1 = data.send(<span class="literal">None</span>)</span><br><span class="line"><span class="built_in">print</span>(n1)</span><br><span class="line"></span><br><span class="line">n2 = data.send(<span class="number">666</span>)</span><br><span class="line"><span class="built_in">print</span>(n2)</span><br><span class="line"></span><br><span class="line">n3 = data.send(<span class="number">777</span>)</span><br><span class="line"><span class="built_in">print</span>(n3)</span><br><span class="line"></span><br><span class="line">n4 = data.send(<span class="number">888</span>)</span><br><span class="line"><span class="built_in">print</span>(n4)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">111</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">666</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">222</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">777</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">333</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">3</span></span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="3-内置函数"><a href="#3-内置函数" class="headerlink" title="3.内置函数"></a>3.内置函数</h3><p><img src="iShot_2023-03-23_23.26.59.png"></p>
+<h3><span id="3内置函数">3.内置函数</span></h3><p><img src="iShot_2023-03-23_23.26.59.png"></p>
 <p>Python内部为我们提供了很多方便的内置函数，在此整理出来36个给大家来讲解。</p>
 <ul>
 <li><p>第1组（5个）</p>
@@ -470,7 +470,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="4-推导式"><a href="#4-推导式" class="headerlink" title="4.推导式"></a>4.推导式</h3><p>推导式是Python中提供了一个非常方便的功能，可以让我们通过一行代码实现创建list、dict、tuple、set 的同时初始化一些值。</p>
+<h3><span id="4推导式">4.推导式</span></h3><p>推导式是Python中提供了一个非常方便的功能，可以让我们通过一行代码实现创建list、dict、tuple、set 的同时初始化一些值。</p>
 <p>请创建一个列表，并在列表中初始化：0、1、2、3、4、5、6、7、8、9…299 整数元素。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">300</span>):</span><br><span class="line">    data.append(i)</span><br></pre></td></tr></table></figure>
 
@@ -484,7 +484,7 @@
 <li><p>元组，<span style="color:red">不同于其他类型。</span></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不会立即执行内部循环去生成数据，而是得到一个生成器。</span></span><br><span class="line">data = (i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>))</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h4><ol>
+<h4><span id="练习题">练习题</span></h4><ol>
 <li><p>去除列表中每个元素的 <code>.mp4</code>后缀。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">data_list = [</span><br><span class="line">    <span class="string">&#x27;1-5 编译器和解释器.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-17 今日作业.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-9 Python解释器种类.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-16 今日总结.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-2 课堂笔记的创建.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-15 Pycharm使用和破解（win系统）.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-12 python解释器的安装（mac系统）.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-13 python解释器的安装（win系统）.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-8 Python介绍.mp4&#x27;</span>, <span class="string">&#x27;1-7 编程语言的分类.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-3 常见计算机基本概念.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-14 Pycharm使用和破解（mac系统）.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-10 CPython解释器版本.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-1 今日概要.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-6 学习编程本质上的三件事.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-18 作业答案和讲解.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-4 编程语言.mp4&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1-11 环境搭建说明.mp4&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">result = []</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> data_list:</span><br><span class="line">    result.append(item.rsplit(<span class="string">&#x27;.&#x27;</span>,<span class="number">1</span>)[<span class="number">0</span>])</span><br><span class="line">    </span><br><span class="line">result = [ item.rsplit(<span class="string">&#x27;.&#x27;</span>,<span class="number">1</span>)[<span class="number">0</span>] <span class="keyword">for</span> item <span class="keyword">in</span> data_list]</span><br></pre></td></tr></table></figure></li>
 <li><p>将字典中的元素按照 <code>键-值</code>格式化，并最终使用 <code>;</code>连接起来。</p>
@@ -500,7 +500,7 @@
 <li><p>看代码写结果（新浪微博面试题）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data_list = [<span class="keyword">lambda</span> x: x + i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]  <span class="comment"># [函数,函数,函数]   i=9</span></span><br><span class="line"></span><br><span class="line">v1 = data_list[<span class="number">0</span>](<span class="number">100</span>)</span><br><span class="line">v2 = data_list[<span class="number">3</span>](<span class="number">100</span>)</span><br><span class="line"><span class="built_in">print</span>(v1, v2)  <span class="comment"># 109 109</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="小高级"><a href="#小高级" class="headerlink" title="小高级"></a>小高级</h4><ol>
+<h4><span id="小高级">小高级</span></h4><ol>
 <li><p>推导式支持嵌套</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = [ i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line"></span><br><span class="line">data = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    data.append(i)</span><br></pre></td></tr></table></figure>
 
@@ -512,7 +512,7 @@
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">num</span>():</span></span><br><span class="line">       <span class="keyword">return</span> (<span class="keyword">lambda</span> x: i * x <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>))</span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   <span class="comment"># 1. num()并获取返回值  生成器对象</span></span><br><span class="line">   <span class="comment"># 2. for循环返回值</span></span><br><span class="line">   <span class="comment"># 3. 返回值的每个元素(2)</span></span><br><span class="line">   result = [m(<span class="number">2</span>) <span class="keyword">for</span> m <span class="keyword">in</span> num()]  <span class="comment"># [0,2,4,6 ]</span></span><br><span class="line">   <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a>5.总结</h3><ol>
+<h3><span id="5总结">5.总结</span></h3><ol>
 <li><p>匿名函数，基于lambda表达式实现一行创建一个函数。一般用于编写简单的函数。</p>
 </li>
 <li><p>三元运算，用一行代码实现处理简单的条件判断和赋值。</p>
@@ -538,7 +538,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="6-作业"><a href="#6-作业" class="headerlink" title="6. 作业"></a>6. 作业</h3><ol>
+<h3><span id="6-作业">6. 作业</span></h3><ol>
 <li><p>看代码写结果（这题我做错了…）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">v = [ <span class="keyword">lambda</span> :x  <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)] </span><br><span class="line"><span class="built_in">print</span>(v)</span><br><span class="line"><span class="built_in">print</span>(v[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(v[<span class="number">0</span>]())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成了10个函数后，此时的x为9</span></span><br></pre></td></tr></table></figure></li>
 <li><p>看代码写结果</p>
@@ -644,7 +644,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1.匿名函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%EF%BC%9A%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97"><span class="nav-number">1.1.</span> <span class="nav-text">扩展：三元运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">2.生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.1.</span> <span class="nav-text">生成器的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E6%89%A9%E5%B1%95"><span class="nav-number">2.2.</span> <span class="nav-text">生成器的扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">3.内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%8E%A8%E5%AF%BC%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">4.推导式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="nav-number">4.1.</span> <span class="nav-text">练习题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E9%AB%98%E7%BA%A7"><span class="nav-number">4.2.</span> <span class="nav-text">小高级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">5.总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%BD%9C%E4%B8%9A"><span class="nav-number">6.</span> <span class="nav-text">6. 作业</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1.匿名函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">扩展：三元运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2.生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">生成器的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">生成器的扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3.内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">4.推导式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.1.</span> <span class="nav-text">练习题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">4.2.</span> <span class="nav-text">小高级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">5.总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">6. 作业</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -660,7 +660,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -724,13 +724,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

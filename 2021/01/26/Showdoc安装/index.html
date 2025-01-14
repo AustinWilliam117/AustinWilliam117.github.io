@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,22 +272,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自动脚本脚本利用docker来安装运行环境，适用于linux服务器。如果你的服务器没有docker服务，脚本会尝试安装之。安装docker的过程可能有些慢。如果你已经安装过docker，脚本会省略部分步骤，从而加快showdoc安装进度。</p>
+        <h3><span id="前言">前言</span></h3><p>自动脚本脚本利用docker来安装运行环境，适用于linux服务器。如果你的服务器没有docker服务，脚本会尝试安装之。安装docker的过程可能有些慢。如果你已经安装过docker，脚本会省略部分步骤，从而加快showdoc安装进度。</p>
 <p>当脚本安装docker失败时，你可以手动安装好docker后再执行脚本 。若装好了docker后还是再失败，则可根据此教程一步步地安装和调试： <a target="_blank" rel="noopener" href="https://www.showdoc.com.cn/help?page_id=65610">https://www.showdoc.com.cn/help?page_id=65610</a></p>
 <span id="more"></span>
 
 <p>如果服务器系统本身不支持docker，则只能通过手动安装PHP环境的方式来运行showdoc：<a target="_blank" rel="noopener" href="https://www.showdoc.com.cn/help?page_id=13732">https://www.showdoc.com.cn/help?page_id=13732</a></p>
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#下载脚本并赋予权限   wget https:<span class="comment">//www.showdoc.com.cn/script/showdoc;chmod +x showdoc;  #默认安装中文版。如果想安装英文版，请加上en参数，如 ./showdoc en  ./showdoc</span></span></span><br></pre></td></tr></table></figure>
+<h3><span id="使用方法">使用方法</span></h3><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#下载脚本并赋予权限   wget https:<span class="comment">//www.showdoc.com.cn/script/showdoc;chmod +x showdoc;  #默认安装中文版。如果想安装英文版，请加上en参数，如 ./showdoc en  ./showdoc</span></span></span><br></pre></td></tr></table></figure>
 
-<h3 id="安装后说明"><a href="#安装后说明" class="headerlink" title="安装后说明"></a>安装后说明</h3><p>安装好后，showdoc的数据都会存放在 /showdoc_data/html 目录下。./showdoc 脚本可放置在任何目录，方便以后使用。也可以重新从官方地址下载。</p>
+<h3><span id="安装后说明">安装后说明</span></h3><p>安装好后，showdoc的数据都会存放在 /showdoc_data/html 目录下。./showdoc 脚本可放置在任何目录，方便以后使用。也可以重新从官方地址下载。</p>
 <p>你可以打开 <a target="_blank" rel="noopener" href="http://xxx.com:4999/">http://xxx.com:4999</a> 来访问showdoc (xxx.com为你的服务器域名或者IP)。账户密码是showdoc/123456，登录后你便可以看到右上方的管理后台入口。建议登录后修改密码。</p>
-<h3 id="从手动方式升级到自动脚本方式"><a href="#从手动方式升级到自动脚本方式" class="headerlink" title="从手动方式升级到自动脚本方式"></a>从手动方式升级到自动脚本方式</h3><p>如果你之前是手动安装showdoc，可考虑升级到现在这种自动脚本方式。升级到脚本方式后，就可以使用上脚本的自动化功能 ，比如说升级到最新版，重启，卸载等。<br>升级方法：</p>
+<h3><span id="从手动方式升级到自动脚本方式">从手动方式升级到自动脚本方式</span></h3><p>如果你之前是手动安装showdoc，可考虑升级到现在这种自动脚本方式。升级到脚本方式后，就可以使用上脚本的自动化功能 ，比如说升级到最新版，重启，卸载等。<br>升级方法：</p>
 <p>1，首先参考前文部分，在服务器全新安装一个showdoc</p>
 <p>2，把原来showdoc目录的Sqlite/showdoc.db.php覆盖/showdoc_data/html/Sqlite/showdoc.db.php ，Public/Uploads覆盖 /showdoc_data/html/Public/Uploads</p>
 <p>3，执行命令</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">777</span> -R <span class="regexp">/showdoc_data/</span>html ./showdoc update</span><br></pre></td></tr></table></figure>
 
-<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#下面附上脚本其他命令，以便管理showdoc时可以用得上。 #停止 ./showdoc stop  #重启 ./showdoc restart #升级showdoc到最新版 ./showdoc update #卸载showdoc ./showdoc uninstall</span><br></pre></td></tr></table></figure>
+<h3><span id="其他命令">其他命令</span></h3><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#下面附上脚本其他命令，以便管理showdoc时可以用得上。 #停止 ./showdoc stop  #重启 ./showdoc restart #升级showdoc到最新版 ./showdoc update #卸载showdoc ./showdoc uninstall</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -370,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%90%8E%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">安装后说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%89%8B%E5%8A%A8%E6%96%B9%E5%BC%8F%E5%8D%87%E7%BA%A7%E5%88%B0%E8%87%AA%E5%8A%A8%E8%84%9A%E6%9C%AC%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">从手动方式升级到自动脚本方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">其他命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">安装后说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">从手动方式升级到自动脚本方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">其他命令</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -386,7 +386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -450,13 +450,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

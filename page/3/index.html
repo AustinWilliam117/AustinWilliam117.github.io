@@ -137,7 +137,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -190,109 +190,6 @@
 
           <div class="content index posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/09/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/09/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">批量修改目录下所有文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-11-09 16:50:55 / Modified: 16:53:03" itemprop="dateCreated datePublished" datetime="2023-11-09T16:50:55+08:00">2023-11-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>653</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="批量修改目录下所有文件"><a href="#批量修改目录下所有文件" class="headerlink" title="批量修改目录下所有文件"></a>批量修改目录下所有文件</h4><p>批量修改目录下所有文件中包含 192.168.128.48 替换成 10.54.0.30</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -<span class="built_in">type</span> f -<span class="built_in">exec</span> sed -i <span class="string">&#x27;s/192.168.128.48/10.54.0.30/g&#x27;</span> &#123;&#125; +</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="批量修改目录下所有文件夹以及文件"><a href="#批量修改目录下所有文件夹以及文件" class="headerlink" title="批量修改目录下所有文件夹以及文件"></a>批量修改目录下所有文件夹以及文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory \( -<span class="built_in">type</span> f -o -<span class="built_in">type</span> d \) -<span class="built_in">exec</span> sed -i <span class="string">&#x27;s/192.168.128.48/10.54.0.30/g&#x27;</span> &#123;&#125; +</span><br></pre></td></tr></table></figure>
-
-
-
-<p><code>find</code> 命令中的 <code>-type f</code>、<code>-exec</code> 和 <code>&#123;&#125;</code> 是用于搜索和处理文件的参数和操作符。</p>
-<ul>
-<li><p><code>-type f</code> 是 <code>find</code> 命令的一个选项，用于指定搜索文件类型。在这种情况下，<code>-type f</code> 表示只搜索普通文件（不包括目录、符号链接等）。</p>
-</li>
-<li><p><code>-exec</code> 是一个 <code>find</code> 命令中的一个选项，用于在找到的文件上执行一个命令。它后面应该跟随一个要执行的命令，以及一个分号 <code>;</code>。在示例中，<code>-exec</code> 用于执行 <code>sed</code> 命令。</p>
-</li>
-<li><p><code>&#123;&#125;</code> 是一个特殊标记，它在 <code>-exec</code> 后面用来表示 <code>find</code> 命令找到的每个文件的位置。</p>
-</li>
-<li><p><code>&#123;&#125;</code> 将被替换为实际的文件名。当你使用 <code>-exec</code> 时，你可以在其中使用 <code>&#123;&#125;</code> 来代表每个找到的文件。</p>
-</li>
-<li><p><code>+</code> 是一个特殊的 <code>find</code> 语法，用于告诉 <code>find</code> 命令在找到的文件上执行命令，而不是为每个文件分别执行一次命令。这可以提高效率，特别是在处理大量文件时。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
       
   
   
@@ -1162,6 +1059,99 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/31/Centos7%E5%AE%89%E8%A3%85Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/31/Centos7%E5%AE%89%E8%A3%85Docker/" class="post-title-link" itemprop="url">Centos7安装Docker</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-03-31 20:55:59 / Modified: 21:10:20" itemprop="dateCreated datePublished" datetime="2023-03-31T20:55:59+08:00">2023-03-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、安装前必读"><a href="#一、安装前必读" class="headerlink" title="一、安装前必读"></a>一、安装前必读</h2><p>在安装 Docker 之前，先说一下配置，我这里是Centos7 Linux 内核：官方建议 3.10 以上，3.8以上貌似也可。</p>
+<p>注意：本文的命令使用的是 root 用户登录执行，不是 root 的话所有命令前面要加 <code>sudo</code></p>
+<p><strong>1.查看当前的内核版本</strong></p>
+<p><code>uanme -r</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-4-8-centos ~]<span class="comment"># uname -a</span></span><br><span class="line">Linux VM-4-8-centos 3.10.0-1160.71.1.el7.x86_64 <span class="comment">#1 SMP Tue Jun 28 15:37:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">[root@VM-4-8-centos ~]<span class="comment"># uname -r</span></span><br><span class="line">3.10.0-1160.71.1.el7.x86_64</span><br><span class="line">[root@VM-4-8-centos ~]<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/31/Centos7%E5%AE%89%E8%A3%85Docker/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1233,7 +1223,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1297,13 +1287,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

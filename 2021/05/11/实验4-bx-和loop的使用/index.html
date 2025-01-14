@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -273,12 +273,12 @@
 
       
         <p>实验4 [bx] 和 loop 的使用</p>
-<h4 id="1-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH"><a href="#1-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH" class="headerlink" title="1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)"></a>1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)</h4><h4 id="2-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH-，程序中只能使用9条指令，9条指令中包括-“mov-ax-4c00h”-和-“int-21h”"><a href="#2-编程，向内存-0-200-0-23F-依次传送数据-0-63-3FH-，程序中只能使用9条指令，9条指令中包括-“mov-ax-4c00h”-和-“int-21h”" class="headerlink" title="2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”"></a>2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”</h4><span id="more"></span>
+<h4><span id="1-编程向内存-0200-~-023f-依次传送数据-0~633fh">1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)</span></h4><h4><span id="2-编程向内存-0200-~-023f-依次传送数据-0~633fh程序中只能使用9条指令9条指令中包括-mov-ax4c00h-和-int-21h">2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”</span></h4><span id="more"></span>
 
 <p>1和2题一起写</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,0</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov cx,40h</span><br><span class="line">	mov bx,200h</span><br><span class="line">	s:mov [bx],bx</span><br><span class="line">	inc bx</span><br><span class="line">	loop s</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-下面的程序的功能是将-“mov-ax-4c00h”-之前的指令复制到内存-0-200-处，补全程序。上机调试，跟踪运行结果。"><a href="#3-下面的程序的功能是将-“mov-ax-4c00h”-之前的指令复制到内存-0-200-处，补全程序。上机调试，跟踪运行结果。" class="headerlink" title="3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。"></a>3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,________  cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov ax,0020h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov bx,0</span><br><span class="line">	mov cx,________  17h</span><br><span class="line">	s:mov al,[bx]</span><br><span class="line">    mov es:[bx],al</span><br><span class="line">    inc bx</span><br><span class="line">    loop s</span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h4><span id="3-下面的程序的功能是将-mov-ax4c00h-之前的指令复制到内存-0200-处补全程序-上机调试跟踪运行结果">3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。</span></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">	mov ax,________  cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov ax,0020h</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov bx,0</span><br><span class="line">	mov cx,________  17h</span><br><span class="line">	s:mov al,[bx]</span><br><span class="line">    mov es:[bx],al</span><br><span class="line">    inc bx</span><br><span class="line">    loop s</span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
 <p>提示：</p>
 <ul>
@@ -377,7 +377,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BC%96%E7%A8%8B%EF%BC%8C%E5%90%91%E5%86%85%E5%AD%98-0-200-0-23F-%E4%BE%9D%E6%AC%A1%E4%BC%A0%E9%80%81%E6%95%B0%E6%8D%AE-0-63-3FH"><span class="nav-number">1.</span> <span class="nav-text">1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BC%96%E7%A8%8B%EF%BC%8C%E5%90%91%E5%86%85%E5%AD%98-0-200-0-23F-%E4%BE%9D%E6%AC%A1%E4%BC%A0%E9%80%81%E6%95%B0%E6%8D%AE-0-63-3FH-%EF%BC%8C%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%8F%AA%E8%83%BD%E4%BD%BF%E7%94%A89%E6%9D%A1%E6%8C%87%E4%BB%A4%EF%BC%8C9%E6%9D%A1%E6%8C%87%E4%BB%A4%E4%B8%AD%E5%8C%85%E6%8B%AC-%E2%80%9Cmov-ax-4c00h%E2%80%9D-%E5%92%8C-%E2%80%9Cint-21h%E2%80%9D"><span class="nav-number">2.</span> <span class="nav-text">2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%8B%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8A%9F%E8%83%BD%E6%98%AF%E5%B0%86-%E2%80%9Cmov-ax-4c00h%E2%80%9D-%E4%B9%8B%E5%89%8D%E7%9A%84%E6%8C%87%E4%BB%A4%E5%A4%8D%E5%88%B6%E5%88%B0%E5%86%85%E5%AD%98-0-200-%E5%A4%84%EF%BC%8C%E8%A1%A5%E5%85%A8%E7%A8%8B%E5%BA%8F%E3%80%82%E4%B8%8A%E6%9C%BA%E8%B0%83%E8%AF%95%EF%BC%8C%E8%B7%9F%E8%B8%AA%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2. 编程，向内存 0:200 ~ 0:23F 依次传送数据 0~63(3FH)，程序中只能使用9条指令，9条指令中包括 “mov ax,4c00h” 和 “int 21h”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3. 下面的程序的功能是将 “mov ax,4c00h” 之前的指令复制到内存 0:200 处，补全程序。上机调试，跟踪运行结果。</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -393,7 +393,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -457,13 +457,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

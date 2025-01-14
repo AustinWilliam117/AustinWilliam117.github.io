@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,10 +272,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="什么是幂等性？"><a href="#什么是幂等性？" class="headerlink" title="什么是幂等性？"></a>什么是幂等性？</h3><p>多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）</p>
+        <h3><span id="什么是幂等性">什么是幂等性？</span></h3><p>多次请求某一个资源对于资源本身应该具有同样等结果,也就是说,其任意多次执行对资源本身所产生等影响的结果均与第一次执行的影响的结果相同。（多次请求的资源都是相同的导致数据库存储脏数据）</p>
 <span id="more"></span>
 
-<h3 id="产生幂等性场景"><a href="#产生幂等性场景" class="headerlink" title="产生幂等性场景"></a>产生幂等性场景</h3><ol>
+<h3><span id="产生幂等性场景">产生幂等性场景</span></h3><ol>
 <li>网络波动, 可能会引起重复请求</li>
 <li>用户重复操作,用户在操作时候可能会无意触发多次下单交易,甚至没有响应而有意触发多次交易</li>
 <li>应用使用了失效或超时重试机制(Nginx重试、RPC重试或业务层重试等)</li>
@@ -286,9 +286,9 @@
 <li>定时任务重复执行</li>
 <li>用户双击提交按钮</li>
 </ol>
-<h3 id="幂等在哪一层实现？"><a href="#幂等在哪一层实现？" class="headerlink" title="幂等在哪一层实现？"></a>幂等在哪一层实现？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据访问层</span><br><span class="line">注: 只要数据库交互的那一层都可以实现,</span><br></pre></td></tr></table></figure>
+<h3><span id="幂等在哪一层实现">幂等在哪一层实现？</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数据访问层</span><br><span class="line">注: 只要数据库交互的那一层都可以实现,</span><br></pre></td></tr></table></figure>
 
-<h3 id="幂等性解决方案"><a href="#幂等性解决方案" class="headerlink" title="幂等性解决方案"></a>幂等性解决方案</h3><blockquote>
+<h3><span id="幂等性解决方案">幂等性解决方案</span></h3><blockquote>
 <p><strong>1. 按钮只可操作一次</strong></p>
 </blockquote>
 <p>一般是提交后把按钮置灰或loding状态,消除用户因为重复点击而产生的重复记录,比如添加操作,由于点击两次而产生两条记录</p>
@@ -431,7 +431,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%82%E7%AD%89%E6%80%A7%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是幂等性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E5%B9%82%E7%AD%89%E6%80%A7%E5%9C%BA%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">产生幂等性场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%82%E7%AD%89%E5%9C%A8%E5%93%AA%E4%B8%80%E5%B1%82%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">幂等在哪一层实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%82%E7%AD%89%E6%80%A7%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">幂等性解决方案</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">什么是幂等性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">产生幂等性场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">幂等在哪一层实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">幂等性解决方案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -447,7 +447,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -511,13 +511,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

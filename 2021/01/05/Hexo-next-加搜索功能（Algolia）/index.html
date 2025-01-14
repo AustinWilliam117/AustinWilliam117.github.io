@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,7 +272,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Algolia-注册帐号"><a href="#Algolia-注册帐号" class="headerlink" title="Algolia 注册帐号"></a>Algolia 注册帐号</h3><ol>
+        <h3><span id="algolia-注册帐号">Algolia 注册帐号</span></h3><ol>
 <li><p>在 <a target="_blank" rel="noopener" href="https://www.algolia.com/">algolia</a> 注册登录后，打开 <code>dashboard</code><br>Indices -&gt; new index，注意 indexName 中不要有英文引号，避免不必要的麻烦</p>
 </li>
 <li><p>API Keys 中查看 id/keys，需要：</p>
@@ -280,18 +280,18 @@
 </ol>
 <span id="more"></span>
 
-<h3 id="hexo-配置"><a href="#hexo-配置" class="headerlink" title="hexo 配置"></a>hexo 配置</h3><p>在 <code>_config.yml</code> 中添加配置：</p>
+<h3><span id="hexo-配置">hexo 配置</span></h3><p>在 <code>_config.yml</code> 中添加配置：</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">algolia:</span></span><br><span class="line"><span class="symbol">  applicationID:</span> 上面的 Application ID</span><br><span class="line"><span class="symbol">  apiKey:</span> 上面的 Search-Only API Key</span><br><span class="line"><span class="symbol">  indexName:</span> 上面创建的 new index 的 indexName</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装-hexo-algolia"><a href="#安装-hexo-algolia" class="headerlink" title="安装 hexo-algolia"></a>安装 hexo-algolia</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-algolia <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<h3><span id="安装-hexo-algolia">安装 hexo-algolia</span></h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-algolia <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p>algolia 官网声明，Admin API Key 不能写在配置里，会有风险，写到环境变量中(Mac):</p>
+<h3><span id="设置环境变量">设置环境变量</span></h3><p>algolia 官网声明，Admin API Key 不能写在配置里，会有风险，写到环境变量中(Mac):</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> algolia Admin API Key</span></span><br><span class="line">export HEXO_ALGOLIA_INDEXING_KEY=你的 Admin API Key</span><br></pre></td></tr></table></figure>
 
-<h3 id="生成-algolia-索引"><a href="#生成-algolia-索引" class="headerlink" title="生成 algolia 索引"></a>生成 algolia 索引</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo algolia</span></span><br></pre></td></tr></table></figure>
+<h3><span id="生成-algolia-索引">生成 algolia 索引</span></h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo algolia</span></span><br></pre></td></tr></table></figure>
 
 <p>提示成功后可以在 algolia Indices 中看到你的博客记录</p>
-<h3 id="修改-next-配置"><a href="#修改-next-配置" class="headerlink" title="修改 next 配置"></a>修改 next 配置</h3><p>themes/next/_config.yml 中修改：</p>
+<h3><span id="修改-next-配置">修改 next 配置</span></h3><p>themes/next/_config.yml 中修改：</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Algolia Search</span></span><br><span class="line"><span class="symbol">algolia_search:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line"><span class="symbol">  hits:</span></span><br><span class="line"><span class="symbol">    per_page:</span> <span class="number">10</span></span><br><span class="line"><span class="symbol">  labels:</span></span><br><span class="line"><span class="symbol">    input_placeholder:</span> 请输入关键字</span><br><span class="line"><span class="symbol">    hits_empty:</span> <span class="string">&quot;没有找到与 $&#123;query&#125; 相关的内容&quot;</span></span><br><span class="line"><span class="symbol">    hits_stats:</span> <span class="string">&quot;$&#123;hits&#125; 条相关记录，共耗时 $&#123;time&#125;ms&quot;</span></span><br></pre></td></tr></table></figure>
     </div>
 
@@ -375,7 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Algolia-%E6%B3%A8%E5%86%8C%E5%B8%90%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">Algolia 注册帐号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">hexo 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-hexo-algolia"><span class="nav-number">3.</span> <span class="nav-text">安装 hexo-algolia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90-algolia-%E7%B4%A2%E5%BC%95"><span class="nav-number">5.</span> <span class="nav-text">生成 algolia 索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-next-%E9%85%8D%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text">修改 next 配置</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Algolia 注册帐号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">hexo 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">安装 hexo-algolia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">生成 algolia 索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">修改 next 配置</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -391,7 +391,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -455,13 +455,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

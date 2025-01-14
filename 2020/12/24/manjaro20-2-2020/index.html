@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,7 +272,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="使用国内源"><a href="#使用国内源" class="headerlink" title="使用国内源"></a>使用国内源</h2><blockquote>
+        <h2><span id="使用国内源">使用国内源</span></h2><blockquote>
 <p>sudo pacman-mirrors -i -c China -m rank</p>
 </blockquote>
 <p>然后添加 ArchLinuxCN 的源，编辑/etc/pacman.conf，在文件末尾添加如下内容：</p>
@@ -287,22 +287,22 @@
 <blockquote>
 <p>sudo pacman -Syy &amp;&amp; sudo pacman -S archlinuxcn-keyring &amp;&amp; sudo pacman -Syy</p>
 </blockquote>
-<h4 id="解决WINDOWS和LINUX双系统时间不一致问题"><a href="#解决WINDOWS和LINUX双系统时间不一致问题" class="headerlink" title="解决WINDOWS和LINUX双系统时间不一致问题"></a>解决WINDOWS和LINUX双系统时间不一致问题</h4><blockquote>
+<h4><span id="解决windows和linux双系统时间不一致问题">解决WINDOWS和LINUX双系统时间不一致问题</span></h4><blockquote>
 <p>sudo timedatectl set-local-rtc true</p>
 </blockquote>
-<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><h3 id="一、zsh-oh-my-zsh"><a href="#一、zsh-oh-my-zsh" class="headerlink" title="一、zsh / oh my zsh"></a>一、zsh / oh my zsh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S zsh</span><br><span class="line"></span><br><span class="line">sh -c &quot;$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
+<h2><span id="软件安装">软件安装</span></h2><h3><span id="一-zsh-oh-my-zsh">一、zsh / oh my zsh</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S zsh</span><br><span class="line"></span><br><span class="line">sh -c &quot;$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="二、搜狗输入法（更推荐现在使用fcitx5或者rime）"><a href="#二、搜狗输入法（更推荐现在使用fcitx5或者rime）" class="headerlink" title="二、搜狗输入法（更推荐现在使用fcitx5或者rime）"></a>二、搜狗输入法（更推荐现在使用fcitx5或者rime）</h3><p>fcitx5的安装可参考我的文章 <a target="_blank" rel="noopener" href="https://austinwilliam117.github.io/2020/12/28/%E4%BD%A0%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E8%BE%93%E5%85%A5%E6%B3%95%E4%BD%95%E5%BF%85%E6%98%AF%E6%90%9C%E7%8B%97%EF%BC%8C%E6%8B%A5%E6%8A%B1fcitx5/">你的下一个输入法何必是搜狗，拥抱fictx5</a></p>
+<h3><span id="二-搜狗输入法更推荐现在使用fcitx5或者rime">二、搜狗输入法（更推荐现在使用fcitx5或者rime）</span></h3><p>fcitx5的安装可参考我的文章 <a target="_blank" rel="noopener" href="https://austinwilliam117.github.io/2020/12/28/%E4%BD%A0%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E8%BE%93%E5%85%A5%E6%B3%95%E4%BD%95%E5%BF%85%E6%98%AF%E6%90%9C%E7%8B%97%EF%BC%8C%E6%8B%A5%E6%8A%B1fcitx5/">你的下一个输入法何必是搜狗，拥抱fictx5</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S fcitx-im             # 全部安装</span><br><span class="line">sudo pacman -S fcitx-configtool     # 图形化配置工具</span><br><span class="line">yay fcitx-sogoupinyin</span><br></pre></td></tr></table></figure>
 
 <p> 安装完成后，新建并配置~/.xprofile，添加如下内容：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">LC_ALL</span>=zh_CN.UTF-8</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">GTK_IM_MODULE</span>=fcitx</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">QT_IM_MODULE</span>=fcitx</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">XMODIFIERS</span>=<span class="string">&quot;@im=fcitx&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>重启或注销即可显示，可在终端用fcitx-configtool配置输入法</p>
-<h3 id="三、mysql"><a href="#三、mysql" class="headerlink" title="三、mysql"></a>三、mysql</h3><blockquote>
+<h3><span id="三-mysql">三、mysql</span></h3><blockquote>
 <p>//下载Mysql<br>pacman -S mysql<br>//初始化Mysql，记住生成的密码，方便修改<br>sudo mysqld –initialize –user=mysql –basedir=/usr –datadir=/var/lib/mysql<br>//设置开机启动<br>systemctl enable mysqld.service<br>//启动Mysql<br>sudo systemctl start mysqld.service<br>//修改密码<br>mysql -u root -p<br>mysql&gt; ALTER USER ‘root‘@’localhost’ IDENTIFIED BY ‘新密码’;</p>
 </blockquote>
-<h3 id="四、其他软件-字体"><a href="#四、其他软件-字体" class="headerlink" title="四、其他软件/字体"></a>四、其他软件/字体</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S code                 #VScode</span><br><span class="line">sudo pacman -S google-chrome        #Chrome浏览器</span><br><span class="line">sudo pacman -S typora</span><br><span class="line">sudo pacman -S latte-dock</span><br><span class="line">sudo pacman -S yay</span><br><span class="line">yay wps-office</span><br><span class="line">sudo pacman -S flameshot        #火焰截图</span><br></pre></td></tr></table></figure>
+<h3><span id="四-其他软件字体">四、其他软件/字体</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S code                 #VScode</span><br><span class="line">sudo pacman -S google-chrome        #Chrome浏览器</span><br><span class="line">sudo pacman -S typora</span><br><span class="line">sudo pacman -S latte-dock</span><br><span class="line">sudo pacman -S yay</span><br><span class="line">yay wps-office</span><br><span class="line">sudo pacman -S flameshot        #火焰截图</span><br></pre></td></tr></table></figure>
 
 <p>中文字体安装：manjaro的中文字体比较丑，还有辨识度低的问题。<strong>极为推荐安装其他字体</strong><br>个人认为思源黑体最为好看</p>
 <p><strong>用法sudo pacman -S packname</strong></p>
@@ -313,7 +313,7 @@
 <p>链接及教程：<a target="_blank" rel="noopener" href="https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack">https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack</a></p>
 <p>下载过慢可网盘链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1PjrhtPwWG_XaAyCZ-xZ0OA">https://pan.baidu.com/s/1PjrhtPwWG_XaAyCZ-xZ0OA</a>  密码: mbdp</p>
 <p>可参考<br><a target="_blank" rel="noopener" href="https://github.com/ryanoasis/nerd-fonts">https://github.com/ryanoasis/nerd-fonts</a> 提供多种字体</p>
-<h3 id="五、-QQ、WeChat"><a href="#五、-QQ、WeChat" class="headerlink" title="五、 QQ、WeChat"></a>五、 QQ、WeChat</h3><p>安装deepin-wine5的qq(由于基于deepin-wine 2版的不能使用，直接从aur下载安装</p>
+<h3><span id="五-qq-wechat">五、 QQ、WeChat</span></h3><p>安装deepin-wine5的qq(由于基于deepin-wine 2版的不能使用，直接从aur下载安装</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yay -S com<span class="selector-class">.qq</span><span class="selector-class">.im</span><span class="selector-class">.deepin</span></span><br><span class="line">yay -S deepin-wine-tim</span><br></pre></td></tr></table></figure>
 
 <p>安装deepin-wine的微信</p>
@@ -328,27 +328,27 @@
 
 
 
-<h4 id="修改字体DPI-Tim与qq修改下关键字）"><a href="#修改字体DPI-Tim与qq修改下关键字）" class="headerlink" title="修改字体DPI(Tim与qq修改下关键字）"></a>修改字体DPI(Tim与qq修改下关键字）</h4><p>微信</p>
+<h4><span id="修改字体dpitim与qq修改下关键字">修改字体DPI(Tim与qq修改下关键字）</span></h4><p>微信</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env <span class="attribute">WINEPREFIX</span>=<span class="string">&quot;<span class="variable">$HOME</span>/.deepinwine/Deepin-WeChat&quot;</span> deepin-wine5 winecfg</span><br></pre></td></tr></table></figure>
 
 <p>QQ</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env <span class="attribute">WINEPREFIX</span>=<span class="string">&quot;<span class="variable">$HOME</span>/.deepinwine/Deepin-QQ&quot;</span> deepin-wine5 winecfg</span><br></pre></td></tr></table></figure>
 
 <p>调节DPI到125</p>
-<h4 id="修改deepin-wechat中文输入时为方块问题"><a href="#修改deepin-wechat中文输入时为方块问题" class="headerlink" title="修改deepin wechat中文输入时为方块问题"></a>修改deepin wechat中文输入时为方块问题</h4><blockquote>
+<h4><span id="修改deepin-wechat中文输入时为方块问题">修改deepin wechat中文输入时为方块问题</span></h4><blockquote>
 <p>sudo gedit /opt/deepinwine/tools/run.sh</p>
 </blockquote>
 <p>找到 <strong>WINE_CMD=”deepin-wine”</strong> 修改为</p>
 <blockquote>
 <p>WINE_CMD=”LC_ALL=zh_CN.UTF-8 deepin-wine”</p>
 </blockquote>
-<h3 id="六、科学上网"><a href="#六、科学上网" class="headerlink" title="六、科学上网"></a>六、科学上网</h3><p>科学上网可以参考如下地址，下载electron-ssr</p>
+<h3><span id="六-科学上网">六、科学上网</span></h3><p>科学上网可以参考如下地址，下载electron-ssr</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/shadowsocksrr/electron-ssr">https://github.com/shadowsocksrr/electron-ssr</a></p>
 <p>Google chrome可使用SwitchyOmega，关于SwitchyOmega的离线下载网址如下：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/FelisCatus/SwitchyOmega/releases">https://github.com/FelisCatus/SwitchyOmega/releases</a></p>
 <p>Manjaro安装SwitchyOmega时，需将google chrome设置为开发者模式，将离线包后缀改为.zip并解压，再将离线包拖入google chrome即可。</p>
 <p>auto switch用到的规则链表<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt%EF%BC%88%E5%9C%A8%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E4%B8%8B%E4%BD%BF%E7%94%A8%EF%BC%89">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt（在代理模式下使用）</a></p>
-<h3 id="七、终端下Trojan代理"><a href="#七、终端下Trojan代理" class="headerlink" title="七、终端下Trojan代理"></a>七、终端下Trojan代理</h3><p>命令行使用Trojan代理</p>
+<h3><span id="七-终端下trojan代理">七、终端下Trojan代理</span></h3><p>命令行使用Trojan代理</p>
 <p>下载: <code>sudo pacman -S proxychains</code> </p>
 <p>配置: <code>sudo vim /etc/proxychains.conf</code> </p>
 <p>在最后的ProxyList里注释默认的socks代理： socks4 前增加# </p>
@@ -356,7 +356,7 @@
 <p>测试本地IP: <code>curl -4 ip.sb</code>，将显示自己的IP </p>
 <p>测试代理IP: <code>proxychains curl -4 ip.sb</code>，将显示Trojan代理的IP </p>
 <p>后续使用的命令行需要代理时，只需要在前面加上 <code>proxychains</code> 即可 如 <code>proxychains npm install</code></p>
-<h3 id="八、manjaro下网易云音乐无法输入中文"><a href="#八、manjaro下网易云音乐无法输入中文" class="headerlink" title="八、manjaro下网易云音乐无法输入中文"></a>八、manjaro下网易云音乐无法输入中文</h3><p>在manjaro下安装好网易云音乐后，却无法输入中文。原因是manjaro下没有用它的框架导致，通过以下方法解决。</p>
+<h3><span id="八-manjaro下网易云音乐无法输入中文">八、manjaro下网易云音乐无法输入中文</span></h3><p>在manjaro下安装好网易云音乐后，却无法输入中文。原因是manjaro下没有用它的框架导致，通过以下方法解决。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo vim /opt/netease/netease-cloud-music/netease-cloud-music.bash</span></span><br><span class="line">-------------------------------------------------------------------------</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">HERE=&quot;$(dirname &quot;$(readlink -f &quot;$&#123;0&#125;&quot;)&quot;)&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="string">&quot;<span class="variable">$&#123;HERE&#125;</span>&quot;</span>/libs</span></span><br><span class="line">export QT_PLUGIN_PATH=&quot;$&#123;HERE&#125;&quot;/plugins </span><br><span class="line">export QT_QPA_PLATFORM_PLUGIN_PATH=&quot;$&#123;HERE&#125;&quot;/plugins/platforms</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">export</span> XDG_CURRENT_DESKTOP=DDE</span></span><br><span class="line">export LD_LIBRARY_PATH=/usr/lib</span><br><span class="line">exec &quot;$&#123;HERE&#125;&quot;/netease-cloud-music $@</span><br><span class="line">12345678910</span><br></pre></td></tr></table></figure>
 
 <p>将上述文件修改成这个样子。</p>
@@ -366,7 +366,7 @@
 
 
 
-<h3 id="九、安装deb包的方法"><a href="#九、安装deb包的方法" class="headerlink" title="九、安装deb包的方法"></a>九、安装deb包的方法</h3><p>由于百度云盘出了Linux版，我们可以下载.deb的文件包（<strong>也可使用dpkg包管理来安装.deb包，但不推荐</strong>sudo dpkg -i package.deb）</p>
+<h3><span id="九-安装deb包的方法">九、安装deb包的方法</span></h3><p>由于百度云盘出了Linux版，我们可以下载.deb的文件包（<strong>也可使用dpkg包管理来安装.deb包，但不推荐</strong>sudo dpkg -i package.deb）</p>
 <p>检查有没有安装debtap</p>
 <blockquote>
 <p>sudo pacman -Q debtap</p>
@@ -387,7 +387,7 @@
 <blockquote>
 <p>sudo pacman -U xxx.tar.xz</p>
 </blockquote>
-<h3 id="十、powerlevel10k-vim-plug"><a href="#十、powerlevel10k-vim-plug" class="headerlink" title="十、powerlevel10k / vim-plug"></a>十、powerlevel10k / vim-plug</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> powerlevel10k</span></span><br><span class="line"></span><br><span class="line">git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k</span><br><span class="line">echo &#x27;source ~/powerlevel10k/powerlevel10k.zsh-theme&#x27; &gt;&gt;! ~/.zshrc</span><br></pre></td></tr></table></figure>
+<h3><span id="十-powerlevel10k-vim-plug">十、powerlevel10k / vim-plug</span></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> powerlevel10k</span></span><br><span class="line"></span><br><span class="line">git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k</span><br><span class="line">echo &#x27;source ~/powerlevel10k/powerlevel10k.zsh-theme&#x27; &gt;&gt;! ~/.zshrc</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim-plug</span></span><br><span class="line">mkdir ~/.vim/autoload/</span><br><span class="line">cd ~/.vim/autoload/</span><br><span class="line">wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -473,7 +473,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">使用国内源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3WINDOWS%E5%92%8CLINUX%E5%8F%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98"><span class="nav-number">1.0.1.</span> <span class="nav-text">解决WINDOWS和LINUX双系统时间不一致问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81zsh-oh-my-zsh"><span class="nav-number">2.1.</span> <span class="nav-text">一、zsh &#x2F; oh my zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%90%9C%E7%8B%97%E8%BE%93%E5%85%A5%E6%B3%95%EF%BC%88%E6%9B%B4%E6%8E%A8%E8%8D%90%E7%8E%B0%E5%9C%A8%E4%BD%BF%E7%94%A8fcitx5%E6%88%96%E8%80%85rime%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">二、搜狗输入法（更推荐现在使用fcitx5或者rime）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81mysql"><span class="nav-number">2.3.</span> <span class="nav-text">三、mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B6%E4%BB%96%E8%BD%AF%E4%BB%B6-%E5%AD%97%E4%BD%93"><span class="nav-number">2.4.</span> <span class="nav-text">四、其他软件&#x2F;字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81-QQ%E3%80%81WeChat"><span class="nav-number">2.5.</span> <span class="nav-text">五、 QQ、WeChat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E4%BD%93DPI-Tim%E4%B8%8Eqq%E4%BF%AE%E6%94%B9%E4%B8%8B%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%89"><span class="nav-number">2.5.1.</span> <span class="nav-text">修改字体DPI(Tim与qq修改下关键字）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9deepin-wechat%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%97%B6%E4%B8%BA%E6%96%B9%E5%9D%97%E9%97%AE%E9%A2%98"><span class="nav-number">2.5.2.</span> <span class="nav-text">修改deepin wechat中文输入时为方块问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91"><span class="nav-number">2.6.</span> <span class="nav-text">六、科学上网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%BB%88%E7%AB%AF%E4%B8%8BTrojan%E4%BB%A3%E7%90%86"><span class="nav-number">2.7.</span> <span class="nav-text">七、终端下Trojan代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81manjaro%E4%B8%8B%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87"><span class="nav-number">2.8.</span> <span class="nav-text">八、manjaro下网易云音乐无法输入中文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%AE%89%E8%A3%85deb%E5%8C%85%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.9.</span> <span class="nav-text">九、安装deb包的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E3%80%81powerlevel10k-vim-plug"><span class="nav-number">2.10.</span> <span class="nav-text">十、powerlevel10k &#x2F; vim-plug</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">使用国内源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.0.1.</span> <span class="nav-text">解决WINDOWS和LINUX双系统时间不一致问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">一、zsh &#x2F; oh my zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">二、搜狗输入法（更推荐现在使用fcitx5或者rime）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">三、mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">四、其他软件&#x2F;字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.5.</span> <span class="nav-text">五、 QQ、WeChat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.5.1.</span> <span class="nav-text">修改字体DPI(Tim与qq修改下关键字）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.5.2.</span> <span class="nav-text">修改deepin wechat中文输入时为方块问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.6.</span> <span class="nav-text">六、科学上网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.7.</span> <span class="nav-text">七、终端下Trojan代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.8.</span> <span class="nav-text">八、manjaro下网易云音乐无法输入中文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.9.</span> <span class="nav-text">九、安装deb包的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.10.</span> <span class="nav-text">十、powerlevel10k &#x2F; vim-plug</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -489,7 +489,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -553,13 +553,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

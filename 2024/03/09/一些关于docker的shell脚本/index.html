@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -267,7 +267,7 @@
 </ul>
 <span id="more"></span>
 
-<h3 id="Docker多实例一键换包"><a href="#Docker多实例一键换包" class="headerlink" title="Docker多实例一键换包"></a>Docker多实例一键换包</h3><ol>
+<h3><span id="docker多实例一键换包">Docker多实例一键换包</span></h3><ol>
 <li><p>先来看一下五个docker实例的目录结构，下方仅展示其中一个实例，其他实例仅存在数字差别</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost audiolistening_arm]<span class="comment"># tree -L 1 ./audio_1/</span></span><br><span class="line">./audio_1/</span><br><span class="line">├── conf</span><br><span class="line">├── docker-audio1.yml</span><br><span class="line">├── logs</span><br><span class="line">└── user_manage_web</span><br><span class="line"></span><br><span class="line">./audio_2/</span><br><span class="line">├── conf</span><br><span class="line">├── docker-audio2.yml</span><br><span class="line">└── logs</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">./audio_5/</span><br><span class="line">├── conf</span><br><span class="line">├── docker-audio5.yml</span><br><span class="line">└── logs</span><br></pre></td></tr></table></figure></li>
 <li><p>接着我们来看下audio_1的yaml文件</p>
@@ -279,7 +279,7 @@
 <p><img src="./%E7%BB%93%E6%9E%9C.png"></p>
 </li>
 </ol>
-<h3 id="Docker监控容器并输出到文件"><a href="#Docker监控容器并输出到文件" class="headerlink" title="Docker监控容器并输出到文件"></a>Docker监控容器并输出到文件</h3><p>这个脚本是用于监控大批量文件下载的内存开销的，所以打印了时间。当时因为用例少所以就没有使用python做统计。之前的文章有docker的监控与统计，所以这里就不说了</p>
+<h3><span id="docker监控容器并输出到文件">Docker监控容器并输出到文件</span></h3><p>这个脚本是用于监控大批量文件下载的内存开销的，所以打印了时间。当时因为用例少所以就没有使用python做统计。之前的文章有docker的监控与统计，所以这里就不说了</p>
 <p>当然这个脚本有时间还是要写个python文件统计一下的</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">now=$(date &quot;+%Y-%m-%d_%H_%M_%S&quot;)</span><br><span class="line"></span><br><span class="line">while true;do printf &quot;\n$(date &quot;+%Y-%m-%d_%H_%M_%S&quot;):\n&quot; | tee --append stats_$now.txt;  docker stats --no-stream audiolistening_42 | tee --append stats_$now.txt; sleep 1; done</span><br></pre></td></tr></table></figure>
 
@@ -369,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%A4%9A%E5%AE%9E%E4%BE%8B%E4%B8%80%E9%94%AE%E6%8D%A2%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">Docker多实例一键换包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E7%9B%91%E6%8E%A7%E5%AE%B9%E5%99%A8%E5%B9%B6%E8%BE%93%E5%87%BA%E5%88%B0%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Docker监控容器并输出到文件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Docker多实例一键换包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Docker监控容器并输出到文件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -385,7 +385,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -449,13 +449,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

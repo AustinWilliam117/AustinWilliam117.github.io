@@ -139,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -265,7 +265,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="enumerate-说明"><a href="#enumerate-说明" class="headerlink" title="enumerate()说明"></a>enumerate()说明</h2><ul>
+        <h2><span id="enumerate说明">enumerate()说明</span></h2><ul>
 <li><p>enumerate()是python的内置函数</p>
 </li>
 <li><p>enumerate在字典上是枚举、列举的意思</p>
@@ -283,7 +283,7 @@
 <li><p>enumerate()返回一个enumerate对象，例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>seq = <span class="built_in">range</span>(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">enumerate</span>(seq)</span><br><span class="line">&lt;<span class="built_in">enumerate</span> <span class="built_in">object</span> at <span class="number">0x7f74995b8140</span>&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="enumerate-使用"><a href="#enumerate-使用" class="headerlink" title="enumerate()使用"></a>enumerate()使用</h2><ul>
+<h2><span id="enumerate使用">enumerate()使用</span></h2><ul>
 <li><p>如果对一个列表，既要遍历索引又要遍历元素时，首先可以这样写：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list1)):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(i,list1[i])</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span> 这</span><br><span class="line"><span class="number">1</span> 是</span><br><span class="line"><span class="number">2</span> 一个</span><br><span class="line"><span class="number">3</span> 测试</span><br></pre></td></tr></table></figure></li>
 <li><p>上述方法有些累赘，利用enumerate()会更加直接和优美：</p>
@@ -291,7 +291,7 @@
 <li><p>enumerate还可以接收第二个参数，用于指定索引起始值，如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list1 = [<span class="string">&quot;这&quot;</span>,<span class="string">&quot;是&quot;</span>,<span class="string">&quot;一个&quot;</span>,<span class="string">&quot;测试&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> index,item <span class="keyword">in</span> <span class="built_in">enumerate</span>(list1,<span class="number">1</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(index,item)</span><br><span class="line">...</span><br><span class="line"><span class="number">1</span> 这</span><br><span class="line"><span class="number">2</span> 是</span><br><span class="line"><span class="number">3</span> 一个</span><br><span class="line"><span class="number">4</span> 测试</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>如果要统计文件的行数，可以这样写：</p>
+<h2><span id="补充">补充</span></h2><p>如果要统计文件的行数，可以这样写：</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="built_in">len</span>(<span class="built_in">open</span>(filepath,<span class="string">&#x27;r&#x27;</span>).readlines())</span><br></pre></td></tr></table></figure>
 
 <p>这种方法简单，但是可能比较慢，当文件比较大时甚至不能工作。</p>
@@ -383,7 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#enumerate-%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">enumerate()说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enumerate-%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">enumerate()使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">3.</span> <span class="nav-text">补充</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">enumerate()说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">enumerate()使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">补充</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -399,7 +399,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -463,13 +463,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

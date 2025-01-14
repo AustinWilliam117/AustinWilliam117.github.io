@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">203</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">202</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,24 +272,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们知道，使用 Github+hexo 搭建一个个人博客确实需要花不少时间的，我们搭好博客后使用的挺好，但是如果我们有一天电脑突然坏了，或者换了系统，那么我们怎么使用 hexo 再发布文章到个人博客呢？</p>
+        <h2><span id="前言">前言</span></h2><p>我们知道，使用 Github+hexo 搭建一个个人博客确实需要花不少时间的，我们搭好博客后使用的挺好，但是如果我们有一天电脑突然坏了，或者换了系统，那么我们怎么使用 hexo 再发布文章到个人博客呢？</p>
 <p>如果我们还是按照之间我们总结的教程再次搭建一个博客，然后修改代码更换 hexo 主题等，各种配置特别繁琐，那么有没有一种方便的方法，直接使用我们之前搭建好的博客的源文件呢？</p>
-<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><h3 id="一、安装必要软件"><a href="#一、安装必要软件" class="headerlink" title="一、安装必要软件"></a>一、安装必要软件</h3><p>安装 Git </p>
+<h2><span id="操作步骤">操作步骤</span></h2><h3><span id="一-安装必要软件">一、安装必要软件</span></h3><p>安装 Git </p>
 <p>安装 node JS</p>
 <span id="more"></span>
 
-<h3 id="二、源文件拷贝"><a href="#二、源文件拷贝" class="headerlink" title="二、源文件拷贝"></a>二、源文件拷贝</h3><p>将你原来电脑上个人博客目录下必要文件拷到你的新电脑上（比如F:/Blog目录下），注意无需拷全部，只拷如下几个目录：</p>
+<h3><span id="二-源文件拷贝">二、源文件拷贝</span></h3><p>将你原来电脑上个人博客目录下必要文件拷到你的新电脑上（比如F:/Blog目录下），注意无需拷全部，只拷如下几个目录：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_config.yml <span class="keyword">package</span>.json scaffolds<span class="regexp">/ source/</span> themes/</span><br></pre></td></tr></table></figure>
 
-<h3 id="三、安装-hexo"><a href="#三、安装-hexo" class="headerlink" title="三、安装 hexo"></a>三、安装 hexo</h3><p>在 cmd 下输入下面指令安装 hexo：</p>
+<h3><span id="三-安装-hexo">三、安装 hexo</span></h3><p>在 cmd 下输入下面指令安装 hexo：</p>
 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-<span class="keyword">cli</span> -g</span><br></pre></td></tr></table></figure>
 
-<h3 id="四、进入-F-Blog-目录（你拷贝到新电脑的目录），输入下面指令安装相关模块"><a href="#四、进入-F-Blog-目录（你拷贝到新电脑的目录），输入下面指令安装相关模块" class="headerlink" title="四、进入 F:/Blog 目录（你拷贝到新电脑的目录），输入下面指令安装相关模块"></a>四、进入 F:/Blog 目录（你拷贝到新电脑的目录），输入下面指令安装相关模块</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm installnpm install hexo-deployer-git --save  <span class="regexp">//</span> 文章部署到 git 的模块（下面为选择安装）</span><br><span class="line">npm install hexo-generator-feed --save  <span class="regexp">//</span> 建立 RSS 订阅</span><br><span class="line">npm install hexo-generator-sitemap --save <span class="regexp">//</span> 建立站点地图</span><br></pre></td></tr></table></figure>
+<h3><span id="四-进入-fblog-目录你拷贝到新电脑的目录输入下面指令安装相关模块">四、进入 F:/Blog 目录（你拷贝到新电脑的目录），输入下面指令安装相关模块</span></h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm installnpm install hexo-deployer-git --save  <span class="regexp">//</span> 文章部署到 git 的模块（下面为选择安装）</span><br><span class="line">npm install hexo-generator-feed --save  <span class="regexp">//</span> 建立 RSS 订阅</span><br><span class="line">npm install hexo-generator-sitemap --save <span class="regexp">//</span> 建立站点地图</span><br></pre></td></tr></table></figure>
 
-<h3 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h3><p>这时候使用 <code>hexo s</code> 基本可以看到你新添加的文章了。</p>
-<h3 id="六、部署发布文章"><a href="#六、部署发布文章" class="headerlink" title="六、部署发布文章"></a>六、部署发布文章</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean   <span class="regexp">//</span> 清除缓存 网页正常情况下可以忽略此条命令</span><br><span class="line">hexo g       <span class="regexp">//</span> 生成静态网页</span><br><span class="line">hexo d       <span class="regexp">//</span> 开始部署</span><br></pre></td></tr></table></figure>
+<h3><span id="五-测试">五、测试</span></h3><p>这时候使用 <code>hexo s</code> 基本可以看到你新添加的文章了。</p>
+<h3><span id="六-部署发布文章">六、部署发布文章</span></h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean   <span class="regexp">//</span> 清除缓存 网页正常情况下可以忽略此条命令</span><br><span class="line">hexo g       <span class="regexp">//</span> 生成静态网页</span><br><span class="line">hexo d       <span class="regexp">//</span> 开始部署</span><br></pre></td></tr></table></figure>
 
-<h3 id="七、Github-添加-SSH-Keys"><a href="#七、Github-添加-SSH-Keys" class="headerlink" title="七、Github 添加 SSH Keys"></a>七、Github 添加 SSH Keys</h3><p> 首先在本地创建 <code>SSH Keys</code>:</p>
+<h3><span id="七-github-添加-ssh-keys">七、Github 添加 SSH Keys</span></h3><p> 首先在本地创建 <code>SSH Keys</code>:</p>
 <p>$ ssh-keygen -t rsa -C “user.email”</p>
 <p>后面的邮箱即为 github 注册邮箱，也是你登录 Github 的邮箱，之后会要求确认路径和输入密码，一路回车就行。</p>
 <p>成功的话会在 <code>~/</code>下生成 <code>.ssh</code>文件夹，进去，打开 <code>id_rsa.pub</code>，复制里面的<code>key</code>即可。</p>
@@ -376,7 +376,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">一、安装必要软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%BA%90%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D"><span class="nav-number">2.2.</span> <span class="nav-text">二、源文件拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85-hexo"><span class="nav-number">2.3.</span> <span class="nav-text">三、安装 hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%BF%9B%E5%85%A5-F-Blog-%E7%9B%AE%E5%BD%95%EF%BC%88%E4%BD%A0%E6%8B%B7%E8%B4%9D%E5%88%B0%E6%96%B0%E7%94%B5%E8%84%91%E7%9A%84%E7%9B%AE%E5%BD%95%EF%BC%89%EF%BC%8C%E8%BE%93%E5%85%A5%E4%B8%8B%E9%9D%A2%E6%8C%87%E4%BB%A4%E5%AE%89%E8%A3%85%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%9D%97"><span class="nav-number">2.4.</span> <span class="nav-text">四、进入 F:&#x2F;Blog 目录（你拷贝到新电脑的目录），输入下面指令安装相关模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%B5%8B%E8%AF%95"><span class="nav-number">2.5.</span> <span class="nav-text">五、测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%83%A8%E7%BD%B2%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0"><span class="nav-number">2.6.</span> <span class="nav-text">六、部署发布文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81Github-%E6%B7%BB%E5%8A%A0-SSH-Keys"><span class="nav-number">2.7.</span> <span class="nav-text">七、Github 添加 SSH Keys</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">一、安装必要软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">二、源文件拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">三、安装 hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">四、进入 F:&#x2F;Blog 目录（你拷贝到新电脑的目录），输入下面指令安装相关模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.5.</span> <span class="nav-text">五、测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.6.</span> <span class="nav-text">六、部署发布文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.7.</span> <span class="nav-text">七、Github 添加 SSH Keys</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -392,7 +392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">203</span>
+          <span class="site-state-item-count">202</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -456,13 +456,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">784k</span>
+    <span title="Symbols count total">783k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">11:53</span>
+    <span title="Reading time total">11:52</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
