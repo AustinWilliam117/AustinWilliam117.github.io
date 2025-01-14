@@ -21433,4 +21433,117 @@ name ends
         <tag>构建之法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>编码——隐匿在计算机软硬件背后的语言</title>
+    <url>/2025/01/14/%E7%BC%96%E7%A0%81%E2%80%94%E2%80%94%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>关于《编码——隐匿在计算机软硬件背后的语言》这本书的一些小笔记</p>
+<p>图片比较大，img标签有点麻烦了，谁能给我写个js哈哈哈🤦🏻‍♀️</p>
+<span id="more"></span>
+
+<h3><span id="二进制加法器">二进制加法器</span></h3><p>为了实现加法器，两数操作即如下图：</p>
+<p><img src="01.png"></p>
+<p>我们需要一个或门和一个与非门的输出，并将结果用一个与门连接起来，这样我们就得到了两数相加的正确结果</p>
+<p><img src="02.png"></p>
+<p><img src="03.png"></p>
+<p>这个电路有一个专门的名字：异或门，简称：XOR</p>
+<table>
+<thead>
+<tr>
+<th>XOR</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>它的符号为</p>
+<p><img src="04.png"></p>
+<p>当我们把异或门和进位电路（与门）连在一起时就得到了一个半加器å</p>
+<p><img src="05.png"></p>
+<p>为了简化，我们将其画成如下形式</p>
+<p><img src="06.png"></p>
+<p>之所以叫半加器，是因为它只能做两个数相加的操作，无法将进位数加入其中进行运算。也是由其物理特性决定，只有两个输入位，以及加和输出和进位输出。</p>
+<p>为了对三个二进制数进行加法运算，我们需要将两个半加器和一个或门做如下连接。</p>
+<p><img src="07.png"></p>
+<p>简化图形如下：</p>
+<p><img src="08.png"></p>
+<p>下面，我们将8个全加器连接起来，每个全加器的进位输出都作为下一个全加器的进位输入</p>
+<p><img src="09.png"></p>
+<p>下面画成一个盒子的完整的8位二进制加法器，输入标记为A<del>0</del> ~ A<del>7</del>和B<del>0</del> ~ B<del>7</del>，输出标记为S<del>0</del> ~ S<del>7</del></p>
+<p><img src="10.png"></p>
+<p><font color="orange">其中A<del>0</del>、B<del>0</del>、S<del>0</del> 都是最低有效位，而A<del>7</del>、B<del>7</del>、S<del>7</del>都是最高有效位</font></p>
+<p>如果把下面一排的每个二进制位和其对应的2的幂相乘再依次相加，你就会得到0110-1001的十进制数表示64+32+8+1，即105。</p>
+<p>当然，我们也可以把8位加法器用下图表示</p>
+<p><img src="11.png"></p>
+<p>一旦你搭建起了8位二进制加法器，你就可以再搭建另外一个加法器。把它们级联起来就可以很容易地扩展出一个16位加法器。</p>
+<p><img src="12.png"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>二进制加法器</title>
+    <url>/2025/01/14/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>关于《编码——隐匿在计算机软硬件背后的语言》这本书的一些小笔记</p>
+<p>图片比较大，img标签有点麻烦了，谁能给我写个js哈哈哈🤦🏻‍♀️</p>
+<span id="more"></span>
+
+<h3><span id="二进制加法器">二进制加法器</span></h3><p>为了实现加法器，两数操作即如下图：</p>
+<p><img src="01.png"></p>
+<p>我们需要一个或门和一个与非门的输出，并将结果用一个与门连接起来，这样我们就得到了两数相加的正确结果</p>
+<p><img src="02.png"></p>
+<p><img src="03.png"></p>
+<p>这个电路有一个专门的名字：异或门，简称：XOR</p>
+<table>
+<thead>
+<tr>
+<th>XOR</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>它的符号为</p>
+<p><img src="04.png"></p>
+<p>当我们把异或门和进位电路（与门）连在一起时就得到了一个半加器å</p>
+<p><img src="05.png"></p>
+<p>为了简化，我们将其画成如下形式</p>
+<p><img src="06.png"></p>
+<p>之所以叫半加器，是因为它只能做两个数相加的操作，无法将进位数加入其中进行运算。也是由其物理特性决定，只有两个输入位，以及加和输出和进位输出。</p>
+<p>为了对三个二进制数进行加法运算，我们需要将两个半加器和一个或门做如下连接。</p>
+<p><img src="07.png"></p>
+<p>简化图形如下：</p>
+<p><img src="08.png"></p>
+<p>下面，我们将8个全加器连接起来，每个全加器的进位输出都作为下一个全加器的进位输入</p>
+<p><img src="09.png"></p>
+<p>下面画成一个盒子的完整的8位二进制加法器，输入标记为A<del>0</del> ~ A<del>7</del>和B<del>0</del> ~ B<del>7</del>，输出标记为S<del>0</del> ~ S<del>7</del></p>
+<p><img src="10.png"></p>
+<p><font color="orange">其中A<del>0</del>、B<del>0</del>、S<del>0</del> 都是最低有效位，而A<del>7</del>、B<del>7</del>、S<del>7</del>都是最高有效位</font></p>
+<p>如果把下面一排的每个二进制位和其对应的2的幂相乘再依次相加，你就会得到0110-1001的十进制数表示64+32+8+1，即105。</p>
+<p>当然，我们也可以把8位加法器用下图表示</p>
+<p><img src="11.png"></p>
+<p>一旦你搭建起了8位二进制加法器，你就可以再搭建另外一个加法器。把它们级联起来就可以很容易地扩展出一个16位加法器。</p>
+<p><img src="12.png"></p>
+]]></content>
+      <tags>
+        <tag>编码——隐匿在计算机软硬件背后的语言</tag>
+      </tags>
+  </entry>
 </search>
