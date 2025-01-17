@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="改进加法器，实现减法操作减法没有进位机制，而是使用到了借位。但是通过一连串逻辑电路实现借位机制比较麻烦，那么我们如何避免发生借位，而有能实现减法呢？  例如：计算 253 - 176  我们可以先加上1000，再减去1000来实现。但是1000-176还是有借位，于是我们可以拆分为999+1的形式。即：  253 - 176 &#x3D; 253 + (999 - 176) +1 - 1000 &#x3D; 77">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何实现减法——求补器">
+<meta property="og:url" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/index.html">
+<meta property="og:site_name" content="蒙珣的博客">
+<meta property="og:description" content="改进加法器，实现减法操作减法没有进位机制，而是使用到了借位。但是通过一连串逻辑电路实现借位机制比较麻烦，那么我们如何避免发生借位，而有能实现减法呢？  例如：计算 253 - 176  我们可以先加上1000，再减去1000来实现。但是1000-176还是有借位，于是我们可以拆分为999+1的形式。即：  253 - 176 &#x3D; 253 + (999 - 176) +1 - 1000 &#x3D; 77">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/01.png">
+<meta property="og:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/02.png">
+<meta property="og:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/03.png">
+<meta property="og:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/04.png">
+<meta property="og:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/05.png">
+<meta property="article:published_time" content="2025-01-17T06:47:14.000Z">
+<meta property="article:modified_time" content="2025-01-17T08:17:16.989Z">
+<meta property="article:author" content="蒙珣">
+<meta property="article:tag" content="编码——隐匿在计算机软硬件背后的语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/01.png">
+
+<link rel="canonical" href="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>如何实现减法——求补器 | 蒙珣的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="蒙珣的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">蒙珣的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">上帝为锤炼生命，将布设下一个残酷的谜语。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">51</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">20</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">204</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何实现减法——求补器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2025-01-17 14:47:14 / Modified: 16:17:16" itemprop="dateCreated datePublished" datetime="2025-01-17T14:47:14+08:00">2025-01-17</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4><span id="改进加法器实现减法操作">改进加法器，实现减法操作</span></h4><p>减法没有进位机制，而是使用到了借位。但是通过一连串逻辑电路实现借位机制比较麻烦，那么我们如何避免发生借位，而有能实现减法呢？</p>
+<blockquote>
+<p>例如：计算 253 - 176</p>
+</blockquote>
+<p>我们可以先加上1000，再减去1000来实现。但是1000-176还是有借位，于是我们可以拆分为999+1的形式。即：</p>
+<blockquote>
+<p>253 - 176 = 253 + (999 - 176) +1 - 1000 = 77</p>
+</blockquote>
+<p>其实上面这个例子就是在求补码，通过补码来计算减法</p>
+<blockquote>
+<p>两数相减=被减数 + 减数求补码</p>
+</blockquote>
+<span id="more"></span>
+
+<p><strong>如果被减数小于减数呢？</strong></p>
+<blockquote>
+<p>例如：计算 176 - 253</p>
+</blockquote>
+<p>还是同样的操作，即：</p>
+<blockquote>
+<p>176 - 253 = 176 + (999 - 253) + 1 - 1000 = -77</p>
+</blockquote>
+<p>当然，在计算机中我们需要用二进制来表示他们，可以自行转换成二进制计算。需要注意的是我们目前没办法表示负数，所以二进制得到的结果为77，即 01001101</p>
+<p>这样我们就能改进上一章的加法器了，<font color="orange"><strong>为了避免问题太复杂，这个新的加/减法器只执行减数小于被减数的减法操作，即结果为正数的操作。</strong></font></p>
+<p>下图为我们之前的加法器：</p>
+<p><img src="./01.png"></p>
+<p>而<strong>新的加/减法器可以设计为当计算减法时：减数求反码，CI(进位输入)+1，得到补码的操作</strong>。当计算加法时：CI 为0，也不求减数的反码。</p>
+<p>对于求反，我们可以使用8个反相器来实现。</p>
+<p><img src="./02.png"></p>
+<p>而当运行加法运算时，我们不希望反相器工作。所以，我们还需要改进下电路。通过八个异或门来代替反相器。</p>
+<p>当计算减法时，“取反”输出信号1。当计算加法时，“取反”输出信号0。</p>
+<p><img src="03.png"></p>
+<p>回想一下异或门的工作方式，如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th align="center">XOR</th>
+<th align="center">0</th>
+<th align="center">1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>如果“取反”信号为1，则输出信号反置。例如，如果输入为01100001，输出则为10011110。</p>
+<p>将8个异或门合并起来画成一个器件，称为求补器(Ones’ Complement)，如下所示</p>
+<p><img src="04.png"></p>
+<p>现在还需要我们的加/减法器的CO(进位输出)输出问题。</p>
+<ol>
+<li>当计算加法时，即出现上位溢出的情况，我们需要将CO位输出1，即计算结果大于255，该结果需要舍弃</li>
+<li>当计算减法时。当被减数大于减数，我们可以正常得出结果。当被<strong>减数小于减数</strong>，我们的结果会出现下溢的情况，该结果也需要舍弃。</li>
+</ol>
+<p>所以我们需要一个异或门来实现。</p>
+<br>
+
+<p>将一个求补器，一个8位二进制加法器和一个异或门做如下连接。</p>
+<p><img src="05.png"></p>
+<p>注意，这里三个信号都标识为“SUB”，这就是加/减法转换开关。当该信号为0的时候，其进行的是加法运算，为1时进行的则是减法运算。在减法中，输入B（第二排开关）在送入加法器之前，需先通过求补电路进行取反。此外，在做减法时，我们通过设定CI（进位输入）为1来使得结果加1。而在加法中，求补电路将不起作用，且输入CI为0。</p>
+<hr>
+<p>我们可以试着模拟一下这个加/减法器。</p>
+<ol>
+<li><p>模拟计算：253 - 176</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">253</span>的二进制码是：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">176</span>的二进制码是：<span class="number">1011</span> <span class="number">0000</span></span><br><span class="line"></span><br><span class="line"><span class="number">253</span>的补码是：<span class="number">0000</span> <span class="number">0011</span></span><br><span class="line"><span class="number">176</span>的补码是：<span class="number">0101</span> <span class="number">0000</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> B输入为<span class="number">176</span>，即<span class="number">1011</span> <span class="number">0000</span>。经过求补器后（求补器中的SUB输出为<span class="number">1</span>），为<span class="number">0100</span> <span class="number">1111</span></span><br><span class="line"><span class="number">2.</span> 在加法器中，CI为<span class="number">1</span>（SUB输出<span class="number">1</span>）。</span><br><span class="line">  即<span class="number">253</span>+<span class="number">176</span>的反码+<span class="number">1</span> = <span class="number">253</span> + <span class="number">176</span>的补码 = <span class="number">253</span> - <span class="number">176</span></span><br><span class="line"></span><br><span class="line"><span class="number">253</span> - <span class="number">176</span> = <span class="number">253</span> + <span class="number">176</span>的补码</span><br><span class="line">	= <span class="number">1111</span> <span class="number">1101</span> + <span class="number">0101</span> <span class="number">0000</span></span><br><span class="line">	= <span class="number">1</span> <span class="number">0100</span> <span class="number">1101</span> </span><br><span class="line">					</span><br><span class="line">此时CO为<span class="number">1</span>，SUB为<span class="number">1</span>（减法为<span class="number">1</span>），经过异或门输出为<span class="number">0</span>。</span><br><span class="line">最后结果为：<span class="number">0100</span> <span class="number">1101</span>，即：<span class="number">77</span></span><br></pre></td></tr></table></figure></li>
+<li><p>模拟计算：176 - 253</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">253</span>的二进制码是：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">176</span>的二进制码是：<span class="number">1011</span> <span class="number">0000</span></span><br><span class="line"></span><br><span class="line"><span class="number">253</span>的补码是：<span class="number">0000</span> <span class="number">0011</span></span><br><span class="line"><span class="number">176</span>的补码是：<span class="number">0101</span> <span class="number">0000</span></span><br><span class="line">  </span><br><span class="line"><span class="number">1.</span> A输入为<span class="number">176</span>，即：<span class="number">1011</span> <span class="number">0000</span>。B输入为<span class="number">253</span>，即：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">2.</span> 减法运算，SUB输出<span class="number">1</span>，对B求反码。即：<span class="number">0000</span> <span class="number">0010.</span></span><br><span class="line"><span class="number">3.</span> <span class="number">8</span>位加法器中，SUB输出为<span class="number">1</span>，即CI为<span class="number">1</span>，<span class="number">176</span>+<span class="number">253</span>的反码+<span class="number">1</span>。</span><br><span class="line">  即<span class="number">176</span>+<span class="number">253</span>的补码 = <span class="number">1011</span> <span class="number">0000</span> + <span class="number">0000</span> <span class="number">0011</span></span><br><span class="line">  	= <span class="number">1011</span> <span class="number">0011</span> = <span class="number">128</span>+<span class="number">77</span> = <span class="number">205</span></span><br><span class="line"><span class="number">4.</span> CO为<span class="number">0</span>，SUB为<span class="number">1</span>，经过XOR后，结果为<span class="number">1</span>，出现下溢。舍弃当前结果</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4><span id="如何表示负数">如何表示负数</span></h4><p>详细内容可以看原文，这里只简单介绍</p>
+<p>在8位二进制中，我们可以用1开头来表示负数。</p>
+<p><font color="orange">对于无符号的8位二进制数，表示的范围为：0 ~ 255。对于有符号的二进制数表示的范围为：-128 ~ 127</font></p>
+<table>
+<thead>
+<tr>
+<th align="center">二进制数</th>
+<th align="center">十进制数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1000 0000</td>
+<td align="center">-128</td>
+</tr>
+<tr>
+<td align="center">1000 0001</td>
+<td align="center">-127</td>
+</tr>
+<tr>
+<td align="center">1000 0010</td>
+<td align="center">-126</td>
+</tr>
+<tr>
+<td align="center">1000 0011</td>
+<td align="center">-125</td>
+</tr>
+<tr>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">1111 1101</td>
+<td align="center">-3</td>
+</tr>
+<tr>
+<td align="center">1111 1110</td>
+<td align="center">-2</td>
+</tr>
+<tr>
+<td align="center">1111 1111</td>
+<td align="center">-1</td>
+</tr>
+<tr>
+<td align="center">0000 0000</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0000 0001</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">0000 0002</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">0111 1100</td>
+<td align="center">124</td>
+</tr>
+<tr>
+<td align="center">0111 1101</td>
+<td align="center">125</td>
+</tr>
+<tr>
+<td align="center">0111 1110</td>
+<td align="center">126</td>
+</tr>
+<tr>
+<td align="center">0111 1111</td>
+<td align="center">127</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BC%96%E7%A0%81%E2%80%94%E2%80%94%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80/" rel="tag"># 编码——隐匿在计算机软硬件背后的语言</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/01/14/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/" rel="prev" title="二进制加法器">
+      <i class="fa fa-chevron-left"></i> 二进制加法器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/01/17/%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8/" rel="next" title="反馈与触发器">
+      反馈与触发器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">改进加法器，实现减法操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">如何表示负数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="蒙珣"
+      src="/images/logo.JPG">
+  <p class="site-author-name" itemprop="name">蒙珣</p>
+  <div class="site-description" itemprop="description">甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AustinWilliam117" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AustinWilliam117" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mengxu1996@gmail.com" title="E-Mail → mailto:mengxu1996@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://music.163.com/#/user/home?id=246814561" title="NetEase → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;246814561" rel="noopener" target="_blank"><i class="fa fa-music fa-fw"></i>NetEase</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/39266086" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;39266086" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蒙珣</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">785k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">11:54</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

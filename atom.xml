@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-01-14T07:12:33.418Z</updated>
+  <updated>2025-01-17T10:45:52.062Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,17 +17,68 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>反馈与触发器</title>
+    <link href="http://example.com/2025/01/17/%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8/"/>
+    <id>http://example.com/2025/01/17/%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8/</id>
+    <published>2025-01-17T09:55:40.000Z</published>
+    <updated>2025-01-17T10:45:52.062Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>非常重要的一章内容，相对之前章节也要更难一些。可以参考b站视频辅助学习</p><p><a href="https://www.bilibili.com/video/BV1oL411D77D?spm_id_from=333.788.videopod.sections&vd_source=7edae3cd790e850cc7836ab5c5d9ac4b">锁存器与触发器详解合集</a></p><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;非常重要的一章内容，相对之前章节也要更难一些。可以参考b站视频辅助学习&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1oL411D77D?spm_id_from=333.788.videopod.sections&amp;vd_source=7edae3cd790e850cc7836ab5c5d9ac4b&quot;&gt;锁存器与触发器详解合集&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="编码——隐匿在计算机软硬件背后的语言" scheme="http://example.com/tags/%E7%BC%96%E7%A0%81%E2%80%94%E2%80%94%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何实现减法——求补器</title>
+    <link href="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/"/>
+    <id>http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/</id>
+    <published>2025-01-17T06:47:14.000Z</published>
+    <updated>2025-01-17T08:17:16.989Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4><span id="改进加法器实现减法操作">改进加法器，实现减法操作</span></h4><p>减法没有进位机制，而是使用到了借位。但是通过一连串逻辑电路实现借位机制比较麻烦，那么我们如何避免发生借位，而有能实现减法呢？</p><blockquote><p>例如：计算 253 - 176</p></blockquote><p>我们可以先加上1000，再减去1000来实现。但是1000-176还是有借位，于是我们可以拆分为999+1的形式。即：</p><blockquote><p>253 - 176 = 253 + (999 - 176) +1 - 1000 = 77</p></blockquote><p>其实上面这个例子就是在求补码，通过补码来计算减法</p><blockquote><p>两数相减=被减数 + 减数求补码</p></blockquote><span id="more"></span><p><strong>如果被减数小于减数呢？</strong></p><blockquote><p>例如：计算 176 - 253</p></blockquote><p>还是同样的操作，即：</p><blockquote><p>176 - 253 = 176 + (999 - 253) + 1 - 1000 = -77</p></blockquote><p>当然，在计算机中我们需要用二进制来表示他们，可以自行转换成二进制计算。需要注意的是我们目前没办法表示负数，所以二进制得到的结果为77，即 01001101</p><p>这样我们就能改进上一章的加法器了，<font color="orange"><strong>为了避免问题太复杂，这个新的加/减法器只执行减数小于被减数的减法操作，即结果为正数的操作。</strong></font></p><p>下图为我们之前的加法器：</p><p><img src="./01.png"></p><p>而<strong>新的加/减法器可以设计为当计算减法时：减数求反码，CI(进位输入)+1，得到补码的操作</strong>。当计算加法时：CI 为0，也不求减数的反码。</p><p>对于求反，我们可以使用8个反相器来实现。</p><p><img src="./02.png"></p><p>而当运行加法运算时，我们不希望反相器工作。所以，我们还需要改进下电路。通过八个异或门来代替反相器。</p><p>当计算减法时，“取反”输出信号1。当计算加法时，“取反”输出信号0。</p><p><img src="03.png"></p><p>回想一下异或门的工作方式，如下表所示。</p><table><thead><tr><th align="center">XOR</th><th align="center">0</th><th align="center">1</th></tr></thead><tbody><tr><td align="center">0</td><td align="center">0</td><td align="center">1</td></tr><tr><td align="center">1</td><td align="center">1</td><td align="center">0</td></tr></tbody></table><p>如果“取反”信号为1，则输出信号反置。例如，如果输入为01100001，输出则为10011110。</p><p>将8个异或门合并起来画成一个器件，称为求补器(Ones’ Complement)，如下所示</p><p><img src="04.png"></p><p>现在还需要我们的加/减法器的CO(进位输出)输出问题。</p><ol><li>当计算加法时，即出现上位溢出的情况，我们需要将CO位输出1，即计算结果大于255，该结果需要舍弃</li><li>当计算减法时。当被减数大于减数，我们可以正常得出结果。当被<strong>减数小于减数</strong>，我们的结果会出现下溢的情况，该结果也需要舍弃。</li></ol><p>所以我们需要一个异或门来实现。</p><br><p>将一个求补器，一个8位二进制加法器和一个异或门做如下连接。</p><p><img src="05.png"></p><p>注意，这里三个信号都标识为“SUB”，这就是加/减法转换开关。当该信号为0的时候，其进行的是加法运算，为1时进行的则是减法运算。在减法中，输入B（第二排开关）在送入加法器之前，需先通过求补电路进行取反。此外，在做减法时，我们通过设定CI（进位输入）为1来使得结果加1。而在加法中，求补电路将不起作用，且输入CI为0。</p><hr><p>我们可以试着模拟一下这个加/减法器。</p><ol><li><p>模拟计算：253 - 176</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">253</span>的二进制码是：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">176</span>的二进制码是：<span class="number">1011</span> <span class="number">0000</span></span><br><span class="line"></span><br><span class="line"><span class="number">253</span>的补码是：<span class="number">0000</span> <span class="number">0011</span></span><br><span class="line"><span class="number">176</span>的补码是：<span class="number">0101</span> <span class="number">0000</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> B输入为<span class="number">176</span>，即<span class="number">1011</span> <span class="number">0000</span>。经过求补器后（求补器中的SUB输出为<span class="number">1</span>），为<span class="number">0100</span> <span class="number">1111</span></span><br><span class="line"><span class="number">2.</span> 在加法器中，CI为<span class="number">1</span>（SUB输出<span class="number">1</span>）。</span><br><span class="line">  即<span class="number">253</span>+<span class="number">176</span>的反码+<span class="number">1</span> = <span class="number">253</span> + <span class="number">176</span>的补码 = <span class="number">253</span> - <span class="number">176</span></span><br><span class="line"></span><br><span class="line"><span class="number">253</span> - <span class="number">176</span> = <span class="number">253</span> + <span class="number">176</span>的补码</span><br><span class="line">= <span class="number">1111</span> <span class="number">1101</span> + <span class="number">0101</span> <span class="number">0000</span></span><br><span class="line">= <span class="number">1</span> <span class="number">0100</span> <span class="number">1101</span> </span><br><span class="line"></span><br><span class="line">此时CO为<span class="number">1</span>，SUB为<span class="number">1</span>（减法为<span class="number">1</span>），经过异或门输出为<span class="number">0</span>。</span><br><span class="line">最后结果为：<span class="number">0100</span> <span class="number">1101</span>，即：<span class="number">77</span></span><br></pre></td></tr></table></figure></li><li><p>模拟计算：176 - 253</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">253</span>的二进制码是：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">176</span>的二进制码是：<span class="number">1011</span> <span class="number">0000</span></span><br><span class="line"></span><br><span class="line"><span class="number">253</span>的补码是：<span class="number">0000</span> <span class="number">0011</span></span><br><span class="line"><span class="number">176</span>的补码是：<span class="number">0101</span> <span class="number">0000</span></span><br><span class="line">  </span><br><span class="line"><span class="number">1.</span> A输入为<span class="number">176</span>，即：<span class="number">1011</span> <span class="number">0000</span>。B输入为<span class="number">253</span>，即：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">2.</span> 减法运算，SUB输出<span class="number">1</span>，对B求反码。即：<span class="number">0000</span> <span class="number">0010.</span></span><br><span class="line"><span class="number">3.</span> <span class="number">8</span>位加法器中，SUB输出为<span class="number">1</span>，即CI为<span class="number">1</span>，<span class="number">176</span>+<span class="number">253</span>的反码+<span class="number">1</span>。</span><br><span class="line">  即<span class="number">176</span>+<span class="number">253</span>的补码 = <span class="number">1011</span> <span class="number">0000</span> + <span class="number">0000</span> <span class="number">0011</span></span><br><span class="line">  = <span class="number">1011</span> <span class="number">0011</span> = <span class="number">128</span>+<span class="number">77</span> = <span class="number">205</span></span><br><span class="line"><span class="number">4.</span> CO为<span class="number">0</span>，SUB为<span class="number">1</span>，经过XOR后，结果为<span class="number">1</span>，出现下溢。舍弃当前结果</span><br></pre></td></tr></table></figure></li></ol><h4><span id="如何表示负数">如何表示负数</span></h4><p>详细内容可以看原文，这里只简单介绍</p><p>在8位二进制中，我们可以用1开头来表示负数。</p><p><font color="orange">对于无符号的8位二进制数，表示的范围为：0 ~ 255。对于有符号的二进制数表示的范围为：-128 ~ 127</font></p><table><thead><tr><th align="center">二进制数</th><th align="center">十进制数</th></tr></thead><tbody><tr><td align="center">1000 0000</td><td align="center">-128</td></tr><tr><td align="center">1000 0001</td><td align="center">-127</td></tr><tr><td align="center">1000 0010</td><td align="center">-126</td></tr><tr><td align="center">1000 0011</td><td align="center">-125</td></tr><tr><td align="center">…</td><td align="center">…</td></tr><tr><td align="center">1111 1101</td><td align="center">-3</td></tr><tr><td align="center">1111 1110</td><td align="center">-2</td></tr><tr><td align="center">1111 1111</td><td align="center">-1</td></tr><tr><td align="center">0000 0000</td><td align="center">0</td></tr><tr><td align="center">0000 0001</td><td align="center">1</td></tr><tr><td align="center">0000 0002</td><td align="center">2</td></tr><tr><td align="center">…</td><td align="center">…</td></tr><tr><td align="center">0111 1100</td><td align="center">124</td></tr><tr><td align="center">0111 1101</td><td align="center">125</td></tr><tr><td align="center">0111 1110</td><td align="center">126</td></tr><tr><td align="center">0111 1111</td><td align="center">127</td></tr></tbody></table>]]></content>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;改进加法器，实现减法操作&quot;&gt;&lt;a href=&quot;#改进加法器，实现减法操作&quot; class=&quot;headerlink&quot; title=&quot;改进加法器，实现减法操作&quot;&gt;&lt;/a&gt;改进加法器，实现减法操作&lt;/h4&gt;&lt;p&gt;减法没有进位机制，而是使用到了借位。但是通过一连串逻辑电路实现借位机制比较麻烦，那么我们如何避免发生借位，而有能实现减法呢？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;例如：计算 253 - 176&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们可以先加上1000，再减去1000来实现。但是1000-176还是有借位，于是我们可以拆分为999+1的形式。即：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;253 - 176 = 253 + (999 - 176) +1 - 1000 = 77&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其实上面这个例子就是在求补码，通过补码来计算减法&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;两数相减=被减数 + 减数求补码&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+    <category term="编码——隐匿在计算机软硬件背后的语言" scheme="http://example.com/tags/%E7%BC%96%E7%A0%81%E2%80%94%E2%80%94%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
     <title>二进制加法器</title>
     <link href="http://example.com/2025/01/14/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/"/>
     <id>http://example.com/2025/01/14/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E5%99%A8/</id>
     <published>2025-01-14T03:57:33.000Z</published>
-    <updated>2025-01-14T07:12:33.418Z</updated>
+    <updated>2025-01-17T09:54:59.125Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>关于《编码——隐匿在计算机软硬件背后的语言》这本书的一些小笔记</p><p>图片比较大，img标签有点麻烦了，谁能给我写个js哈哈哈🤦🏻‍♀️</p><span id="more"></span><h3><span id="二进制加法器">二进制加法器</span></h3><p>为了实现加法器，两数操作即如下图：</p><p><img src="01.png"></p><p>我们需要一个或门和一个与非门的输出，并将结果用一个与门连接起来，这样我们就得到了两数相加的正确结果</p><p><img src="02.png"></p><p><img src="03.png"></p><p>这个电路有一个专门的名字：异或门，简称：XOR</p><table><thead><tr><th>XOR</th><th>0</th><th>1</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table><p>它的符号为</p><p><img src="04.png"></p><p>当我们把异或门和进位电路（与门）连在一起时就得到了一个半加器å</p><p><img src="05.png"></p><p>为了简化，我们将其画成如下形式</p><p><img src="06.png"></p><p>之所以叫半加器，是因为它只能做两个数相加的操作，无法将进位数加入其中进行运算。也是由其物理特性决定，只有两个输入位，以及加和输出和进位输出。</p><p>为了对三个二进制数进行加法运算，我们需要将两个半加器和一个或门做如下连接。</p><p><img src="07.png"></p><p>简化图形如下：</p><p><img src="08.png"></p><p>下面，我们将8个全加器连接起来，每个全加器的进位输出都作为下一个全加器的进位输入</p><p><img src="09.png"></p><p>下面画成一个盒子的完整的8位二进制加法器，输入标记为A<del>0</del> ~ A<del>7</del>和B<del>0</del> ~ B<del>7</del>，输出标记为S<del>0</del> ~ S<del>7</del></p><p><img src="10.png"></p><p><font color="orange">其中A<del>0</del>、B<del>0</del>、S<del>0</del> 都是最低有效位，而A<del>7</del>、B<del>7</del>、S<del>7</del>都是最高有效位</font></p><p>如果把下面一排的每个二进制位和其对应的2的幂相乘再依次相加，你就会得到0110-1001的十进制数表示64+32+8+1，即105。</p><p>当然，我们也可以把8位加法器用下图表示</p><p><img src="11.png"></p><p>一旦你搭建起了8位二进制加法器，你就可以再搭建另外一个加法器。把它们级联起来就可以很容易地扩展出一个16位加法器。</p><p><img src="12.png"></p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>关于《编码——隐匿在计算机软硬件背后的语言》这本书的一些小笔记</p><p>图片比较大，img标签有点麻烦了，谁能给我写个js哈哈哈🤦🏻‍♀️</p><p>拓展阅读：<a href="https://github.com/test-wsl/Computer-Organization/blob/master/Computer-Organization.md">https://github.com/test-wsl/Computer-Organization/blob/master/Computer-Organization.md</a></p><span id="more"></span><h3><span id="二进制加法器">二进制加法器</span></h3><p>为了实现加法器，两数操作即如下图：</p><p><img src="01.png"></p><p>我们需要一个或门和一个与非门的输出，并将结果用一个与门连接起来，这样我们就得到了两数相加的正确结果</p><p><img src="02.png"></p><p><img src="03.png"></p><p>这个电路有一个专门的名字：异或门，简称：XOR</p><table><thead><tr><th>XOR</th><th>0</th><th>1</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table><p>它的符号为</p><p><img src="04.png"></p><p>当我们把异或门和进位电路（与门）连在一起时就得到了一个半加器å</p><p><img src="05.png"></p><p>为了简化，我们将其画成如下形式</p><p><img src="06.png"></p><p>之所以叫半加器，是因为它只能做两个数相加的操作，无法将进位数加入其中进行运算。也是由其物理特性决定，只有两个输入位，以及加和输出和进位输出。</p><p>为了对三个二进制数进行加法运算，我们需要将两个半加器和一个或门做如下连接。</p><p><img src="07.png"></p><p>简化图形如下：</p><p><img src="08.png"></p><p>下面，我们将8个全加器连接起来，每个全加器的进位输出都作为下一个全加器的进位输入</p><p><img src="09.png"></p><p>下面画成一个盒子的完整的8位二进制加法器，输入标记为A<del>0</del> ~ A<del>7</del>和B<del>0</del> ~ B<del>7</del>，输出标记为S<del>0</del> ~ S<del>7</del></p><p><img src="10.png"></p><p><font color="orange">其中A<del>0</del>、B<del>0</del>、S<del>0</del> 都是最低有效位，而A<del>7</del>、B<del>7</del>、S<del>7</del>都是最高有效位</font></p><p>如果把下面一排的每个二进制位和其对应的2的幂相乘再依次相加，你就会得到0110-1001的十进制数表示64+32+8+1，即105。</p><p>当然，我们也可以把8位加法器用下图表示</p><p><img src="11.png"></p><p>一旦你搭建起了8位二进制加法器，你就可以再搭建另外一个加法器。把它们级联起来就可以很容易地扩展出一个16位加法器。</p><p><img src="12.png"></p><p>回顾一下我们所有学过的加法器：</p><p><img src="13.png"></p>]]></content>
     
     
     <summary type="html">&lt;p&gt;关于《编码——隐匿在计算机软硬件背后的语言》这本书的一些小笔记&lt;/p&gt;
-&lt;p&gt;图片比较大，img标签有点麻烦了，谁能给我写个js哈哈哈🤦🏻‍♀️&lt;/p&gt;</summary>
+&lt;p&gt;图片比较大，img标签有点麻烦了，谁能给我写个js哈哈哈🤦🏻‍♀️&lt;/p&gt;
+&lt;p&gt;拓展阅读：&lt;a href=&quot;https://github.com/test-wsl/Computer-Organization/blob/master/Computer-Organization.md&quot;&gt;https://github.com/test-wsl/Computer-Organization/blob/master/Computer-Organization.md&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -561,55 +612,6 @@
     
     
     <category term="测试" scheme="http://example.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>平均负载和CPU使用率</title>
-    <link href="http://example.com/2023/11/09/%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%E5%92%8CCPU%E4%BD%BF%E7%94%A8%E7%8E%87/"/>
-    <id>http://example.com/2023/11/09/%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%E5%92%8CCPU%E4%BD%BF%E7%94%A8%E7%8E%87/</id>
-    <published>2023-11-09T08:53:35.000Z</published>
-    <updated>2023-11-09T08:55:28.362Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>我们知道：</p><ul><li>平均负载是指单位时间内，处在可执行状态和不可中断睡眠状态的进程的平均数。也就是说，它包括了处在执行态，阻塞态和就绪态的进程。</li><li>CPU使用率是指在单位时间内CPU处于非空闲状态的时间比，反映了CPU的繁忙程度。例如：单核CPU单位时间内非空闲态运行时间为0.8s，那么他的CPU使用率为80%；双核CPU单位时间内非空闲态运行时间分别为0.4s和0.6s，那么它的CPU使用率为（0.4+0.6）/2*100%=50%</li></ul><span id="more"></span><p>我们再举个更生动的例子： 有一家银行，他只有一个业务窗口，每次只能接待一个人（单核CPU）。有一天一共有五个人来了，那么就会出现一人在办理手续，其余四人在等待的情况（CPU负载为5） 我们约定在业务窗口的那个人只有真正在办理业务才算是真正使用（CPU使用率）如下图</p><p><img src="https://pic3.zhimg.com/80/v2-ba61b5707d5016d2581582f217ddf0aa_1440w.webp" alt="img"></p><p>了解了负载与CPU使用率的关系之后，我们来聊聊什么情况下会导致负载上升以及平均负载和CPU使用率的关系</p><ul><li>CPU 密集型进程，使用大量 CPU 会导致平均负载升高，此时这两者是一致的；</li><li>I/O 密集型进程，等待 I/O 也会导致平均负载升高，但 CPU 使用率不一定很高；</li><li>大量等待 CPU 的进程调度也会导致平均负载升高，此时的 CPU 使用率也会比较高。</li></ul><h2><span id="案例"><strong>案例</strong></span></h2><p>本次案例，我会再现三种让平均负载升高的情况。这次案例运用到的工具有stress工具和sysstat工具，关于这两个工具的一些说明，在我的这篇文章里已经提到过，我就不再赘述了 <a href="https://link.zhihu.com/?target=https://blog.csdn.net/s_alted/article/details/117412021">Linux 系统性能分析命令和工具</a></p><p>本次案例的虚拟机配置</p><p><img src="https://pic2.zhimg.com/80/v2-28d3850c09ebb6f24f4a1f827980b0fd_1440w.webp" alt="img"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载相关工具包</span></span><br><span class="line"> yum install -y stsstat stress</span><br></pre></td></tr></table></figure><p><strong>场景1：CPU密集型进程（CPU使用率高）</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#模拟cpu使用率为100%，持续时间为600s</span></span><br><span class="line">stress --cpu 1 --timeout 600</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看平均负载变化情况</span></span><br><span class="line">uptime</span><br><span class="line">... load average: 1.11, 0.59, 0.29</span><br></pre></td></tr></table></figure><p>可以看到，在过去1分钟内，CPU的平均负载高达1.11，这说明cpu占有率已经超过100% 使用sysstat工具包中的mpstat查看cpu性能情况</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpstat -P ALL 5</span><br></pre></td></tr></table></figure><p><img src="https://pic3.zhimg.com/80/v2-df0efca4d3e8ada0aa19e8adb9f3e5fe_1440w.webp" alt="img"></p><p>可以看到，CPU的使用率已经为100%，而且他的iowait只有0. 这说明：<strong>平均负载的升高是由于CPU使用率为100%，也就是说CPU使用率的升高导致了平均负载的升高</strong> 我们用pidstat命令查看一下进程的性能情况，看看是哪个进程造成了如此高的CPU使用率</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pidstat -u 5 1</span><br><span class="line">UID  PID  %usr  %system  %guest  %<span class="built_in">wait</span>  %CPU  CPU  Command</span><br><span class="line"> 0   2962  100.00  0.00   0.00   0.00   100.00  1   stress</span><br></pre></td></tr></table></figure><p>就是刚开始我们所用的stress命令导致了这么一个情况的发生</p><p><strong>场景二：I/O 密集型进程</strong> 我们首先使用stress工具来模拟IO压力，有时候大量的等待I/O线程也会导致负载升高，即不停的执行sync</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-i： 产生n个进程 每个进程反复调用sync()，sync()用于将内存上的内容写到硬盘上</span><br><span class="line">stress -i 1 --timeout 300</span><br><span class="line">uptime</span><br><span class="line">load average: 1.09, 0.54, 0.36</span><br></pre></td></tr></table></figure><p>可以看到，过去1min之内的平均负载高达1.09 看一下CPU性能情况</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpstat -P  ALL 5</span><br></pre></td></tr></table></figure><p><img src="https://pic3.zhimg.com/80/v2-1447431512f59dccfbe44ce0138bb396_1440w.webp" alt="img"></p><p>我们看到，图中的 iowait 为0，并没有出现我们认为的 Iowait 升高情况，但是sys升高了，这是为什么呢？ 因为对于部分人（包括我）的虚拟机而言，使用的是 stress 中的sync()系统调用，作用是刷新缓冲区内存到磁盘中。而我们的虚拟机缓冲区可能比较小无法产生大的IO压力。这样大部分就都是系统调用的消耗了。</p><p>由此可见，<strong>大量的等待IO也会导致平均负载的升高，但是CPU使用率不一定升高</strong></p><p><strong>场景三：大量进程的场景</strong> 在这个场景中，我们模拟同时有8个进程。但是我们的CPU只有一个，剩下7个进程就会在等待CPU，与此同时我们的CPU处于严重过载的状态</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">产生8个进程 每个进程都反复不停的计算随机数的平方根</span><br><span class="line">stress -c 8 --timeout 600</span><br><span class="line">uptime</span><br><span class="line"> load average: 7.44, 3.34, 1.47</span><br></pre></td></tr></table></figure><p>由此可见，<strong>大量处在就绪态的进程也会导致平均负载的升高</strong></p><h2><span id="附录">附录</span></h2><h3><span id="什么是cpu密集型">什么是CPU密集型</span></h3><p>CPU密集型是指一类计算任务或应用程序，其执行过程主要依赖于中央处理器（CPU）的处理能力，而不是其他系统组件（如内存、硬盘等）。在这种类型的任务中，CPU的计算能力是整个系统性能的瓶颈。</p><p>CPU密集型任务通常涉及大量的数值计算、逻辑运算、数据处理和算法执行。一些典型的CPU密集型应用包括：</p><ol><li>科学计算：包括数学模型求解、数值模拟、天气预测、物理仿真等。</li><li>图像和视频处理：如图像编辑、视频渲染、视频编解码等。</li><li>数据分析：涉及大规模数据的处理、排序、搜索、数据挖掘等。</li><li>人工智能和机器学习：训练深度神经网络时，涉及大量的矩阵运算和向量计算，因此通常是CPU密集型的。</li><li>加密和解密：加密和解密算法的执行需要大量的数学运算，因此也是CPU密集型的应用。</li></ol><p>在处理CPU密集型任务时，性能取决于CPU的速度、核心数量和架构。有时候，可以通过在多个核心上并行执行任务来提高性能，但并不是所有的任务都能充分利用多核处理器的优势。此外，对于某些特定的CPU密集型任务，使用专门的硬件加速器（如GPU、TPU等）可能会显著提高性能。</p><h3><span id="什么是io密集型">什么是IO密集型</span></h3><p>IO密集型是另一类计算任务或应用程序，其执行过程主要受限于输入输出（I/O）操作的速度，而不是CPU的处理能力。在这种类型的任务中，CPU通常需要等待来自外部设备（如硬盘、网络等）的数据读取或写入，从而使CPU的计算能力得不到充分利用。</p><p>IO密集型任务通常涉及大量的文件读写、网络通信、数据库查询等操作。一些典型的IO密集型应用包括：</p><ol><li>文件操作：涉及大规模的文件读取和写入，例如文件复制、数据备份等。</li><li>网络通信：涉及网络数据传输的应用，例如网页服务器、视频流服务等。</li><li>数据库操作：涉及频繁的数据库查询和写入操作，例如在线交易系统、数据存储服务等。</li><li>大规模数据处理：需要频繁地读取和写入大量数据，例如日志分析、大数据处理等。</li></ol><p>在处理IO密集型任务时，CPU的速度和计算能力通常不是性能的瓶颈，而是IO设备的速度和响应时间决定了整体系统性能。因此，针对IO密集型任务，优化IO操作、使用高速IO设备（如SSD）、采用异步IO等技术可以显著提高系统性能。</p><p>值得注意的是，某些应用程序可能同时具有CPU密集型和IO密集型的特点，这时候需要综合考虑CPU和IO设备的性能，进行合理的系统优化。</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;我们知道：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;平均负载是指单位时间内，处在可执行状态和不可中断睡眠状态的进程的平均数。也就是说，它包括了处在执行态，阻塞态和就绪态的进程。&lt;/li&gt;
-&lt;li&gt;CPU使用率是指在单位时间内CPU处于非空闲状态的时间比，反映了CPU的繁忙程度。例如：单核CPU单位时间内非空闲态运行时间为0.8s，那么他的CPU使用率为80%；双核CPU单位时间内非空闲态运行时间分别为0.4s和0.6s，那么它的CPU使用率为（0.4+0.6）/2*100%=50%&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
-    
-    
-    <category term="测试" scheme="http://example.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>批量修改目录下所有文件</title>
-    <link href="http://example.com/2023/11/09/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6/"/>
-    <id>http://example.com/2023/11/09/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6/</id>
-    <published>2023-11-09T08:50:55.000Z</published>
-    <updated>2023-11-09T08:53:03.425Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h4><span id="批量修改目录下所有文件">批量修改目录下所有文件</span></h4><p>批量修改目录下所有文件中包含 192.168.128.48 替换成 10.54.0.30</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory -<span class="built_in">type</span> f -<span class="built_in">exec</span> sed -i <span class="string">&#x27;s/192.168.128.48/10.54.0.30/g&#x27;</span> &#123;&#125; +</span><br></pre></td></tr></table></figure><h4><span id="批量修改目录下所有文件夹以及文件">批量修改目录下所有文件夹以及文件</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/directory \( -<span class="built_in">type</span> f -o -<span class="built_in">type</span> d \) -<span class="built_in">exec</span> sed -i <span class="string">&#x27;s/192.168.128.48/10.54.0.30/g&#x27;</span> &#123;&#125; +</span><br></pre></td></tr></table></figure><p><code>find</code> 命令中的 <code>-type f</code>、<code>-exec</code> 和 <code>&#123;&#125;</code> 是用于搜索和处理文件的参数和操作符。</p><ul><li><p><code>-type f</code> 是 <code>find</code> 命令的一个选项，用于指定搜索文件类型。在这种情况下，<code>-type f</code> 表示只搜索普通文件（不包括目录、符号链接等）。</p></li><li><p><code>-exec</code> 是一个 <code>find</code> 命令中的一个选项，用于在找到的文件上执行一个命令。它后面应该跟随一个要执行的命令，以及一个分号 <code>;</code>。在示例中，<code>-exec</code> 用于执行 <code>sed</code> 命令。</p></li><li><p><code>&#123;&#125;</code> 是一个特殊标记，它在 <code>-exec</code> 后面用来表示 <code>find</code> 命令找到的每个文件的位置。</p></li><li><p><code>&#123;&#125;</code> 将被替换为实际的文件名。当你使用 <code>-exec</code> 时，你可以在其中使用 <code>&#123;&#125;</code> 来代表每个找到的文件。</p></li><li><p><code>+</code> 是一个特殊的 <code>find</code> 语法，用于告诉 <code>find</code> 命令在找到的文件上执行命令，而不是为每个文件分别执行一次命令。这可以提高效率，特别是在处理大量文件时。</p></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
-    
-    
-    <category term="shell" scheme="http://example.com/tags/shell/"/>
     
   </entry>
   
