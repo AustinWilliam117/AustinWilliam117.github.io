@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-01-17T10:45:52.062Z</updated>
+  <updated>2025-01-17T11:25:20.944Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://example.com/2025/01/17/%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8/"/>
     <id>http://example.com/2025/01/17/%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8/</id>
     <published>2025-01-17T09:55:40.000Z</published>
-    <updated>2025-01-17T10:45:52.062Z</updated>
+    <updated>2025-01-17T11:25:20.944Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>非常重要的一章内容，相对之前章节也要更难一些。可以参考b站视频辅助学习</p><p><a href="https://www.bilibili.com/video/BV1oL411D77D?spm_id_from=333.788.videopod.sections&vd_source=7edae3cd790e850cc7836ab5c5d9ac4b">锁存器与触发器详解合集</a></p><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>非常重要的一章内容，相对之前章节也要更难一些。可以参考b站视频辅助学习</p><p><a href="https://www.bilibili.com/video/BV1oL411D77D?spm_id_from=333.788.videopod.sections&vd_source=7edae3cd790e850cc7836ab5c5d9ac4b">锁存器与触发器详解合集</a></p><span id="more"></span><h3><span id="反馈与触发器feedback-amp-flip-flop">反馈与触发器（feedback &amp; Flip-Flop）</span></h3><h4><span id="振荡器oscillator">振荡器（oscillator）</span></h4><p>我们可以下图这个继电器来实现一个蜂鸣器。当继电器开关闭合后，金属簧片就会上下跳动——电路也会随之连通或断开——声音也就会随之发出。</p><p><img src="01.png"></p><br><p><img src="02.png"></p><br><p><img src="03.png"></p><p>闭合开关导致，导致电磁铁产生磁性，将金属簧片拉下来。当金属簧片断开时，电路也就不联通了。此时，因为物理结构，金属簧片又会弹回原位，导致电路再次连通。即我们就形成了一个蜂鸣器（需要你在簧片上绑一个小锤子，旁边再放一个锣）</p><p>此电路可以简化为一个反向器。</p><p><img src="04.png"></p><p>当反向器输入0时，他就输出1；当输入1时，输出就为0。电路中的开关一旦闭合，反向器中的继电器就会在连通与断开这两种状态之间反复交替。你也可以将电路中的开关省去，这样就可以使反向器连续地工作，如下所示。</p><p><img src="05.png"></p><p>电路的输出是什么呢？其实就是要么提供电压，要么不提供电压，在两者之间切换。我们也可以换种方式来表达——输出结果要么是0，要么是1。</p><p>我们把这种电路称为振荡器(oscillator)，振荡器却在不需要人干涉的情况下，可以完全自发地工作。振荡器有着举足轻重的作用。<strong>为了使不同组件同步工作，所有计算机都配备着某种振荡器。</strong></p><p><img src="06.png"></p><p>这幅图表示随着时间的推移，振荡器的输出在0和1之间按照固有的规律交替变化。正因为这一点，<strong>振荡器又经常被称为时钟(clock)，通过振荡进行计数也是一种计时方式。</strong></p><p><img src="07.png"></p><p>周期的倒数就是振荡器的频率(frequency)。在这个例子中振荡器的周期是0.05s，那么其频率就是1÷0.05s，即振荡器每秒钟产生20次循环，而相应的输出每秒钟也变化20次。<strong>因此振荡器的频率就是20赫兹，记做20 Hz</strong></p><h4><span id="反馈与触发器feedback-amp-flip-flop">反馈与触发器（feedback &amp; Flip-Flop）</span></h4><p>让我们来回顾一下或非门的逻辑。只有在两端输入都没有电压时输出才有电压</p><table><thead><tr><th align="center">NOR</th><th align="center">0</th><th align="center">1</th></tr></thead><tbody><tr><td align="center">0</td><td align="center">1</td><td align="center">0</td></tr><tr><td align="center">1</td><td align="center">0</td><td align="center">0</td></tr></tbody></table><p>下面是一个包含两个或非门、两个开关和一个灯泡的电路。</p><p><img src="08.png"></p><p>值得注意的是这种特殊的弯曲的连线方式：<font color="orange"><strong>左边或非门的输出是右边或非门的输入，而右边或非门的输出是左边或非门的输入。这种连接方式我们称之为反馈(feedback)。</strong></font>系统的输出返回给输入这种形式和我们在振荡器中讨论的情况很相似</p><p>初始情况下，两个输入都是0。当我们闭合上面的开关时，左边的或非门立刻输出0，右边的或非门输出也会变为1，这时灯泡被点亮。</p><p><img src="09.png"></p><p>但是当我们在打开上面的开关时，灯泡依然点亮。并且，无论我们怎么<strong>调整上面的开关</strong>灯泡依然点亮，究其原因可以发现这是由于左边或非门的输出一直为0。</p><p><img src="10.png"></p><p>当我们闭合下面的开关时，右边或非门的输入中有一个立刻变为1，其输出就相应地变为0，灯泡随之熄灭。左边或非门的输出此刻变为1。这时你再去断开下面的开关就会发现，灯泡一直处在熄灭状态。</p><p>在两个开关都断开的状态下，灯泡有时亮着，有时却不亮。<font color="orange">两个开关都断开时，电路有两个稳定态，这类电路统称为触发器(Flip-Flop)</font></p><p><strong>触发器电路可以保持信息，它可以“记住”某些信息</strong>。特别地，对于本章先前所讲述的触发器，<strong>它可以记住最近一次是哪个开关先闭合</strong>。如果你遇到这样一种触发器，如果它的灯泡是亮着的，你就可以推测出最后一次连通的是上面的开关；而如果灯泡不亮则可推测出最后一次连通的是下面的开关。</p>]]></content>
     
     
     <summary type="html">&lt;p&gt;非常重要的一章内容，相对之前章节也要更难一些。可以参考b站视频辅助学习&lt;/p&gt;
