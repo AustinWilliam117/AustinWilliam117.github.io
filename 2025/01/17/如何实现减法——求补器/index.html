@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/04.png">
 <meta property="og:image" content="http://example.com/2025/01/17/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E2%80%94%E2%80%94%E6%B1%82%E8%A1%A5%E5%99%A8/05.png">
 <meta property="article:published_time" content="2025-01-17T06:47:14.000Z">
-<meta property="article:modified_time" content="2025-01-17T08:17:16.989Z">
+<meta property="article:modified_time" content="2025-01-19T03:54:41.765Z">
 <meta property="article:author" content="蒙珣">
 <meta property="article:tag" content="编码——隐匿在计算机软硬件背后的语言">
 <meta name="twitter:card" content="summary">
@@ -136,7 +136,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">51</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">53</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -146,7 +146,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">205</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">208</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -226,10 +226,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2025-01-17 14:47:14 / Modified: 16:17:16" itemprop="dateCreated datePublished" datetime="2025-01-17T14:47:14+08:00">2025-01-17</time>
+              <time title="Created: 2025-01-17 14:47:14" itemprop="dateCreated datePublished" datetime="2025-01-17T14:47:14+08:00">2025-01-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-01-19 11:54:41" itemprop="dateModified" datetime="2025-01-19T11:54:41+08:00">2025-01-19</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
@@ -263,7 +269,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4><span id="改进加法器实现减法操作">改进加法器，实现减法操作</span></h4><p>减法没有进位机制，而是使用到了借位。但是通过一连串逻辑电路实现借位机制比较麻烦，那么我们如何避免发生借位，而有能实现减法呢？</p>
+        <h3 id="改进加法器实现减法操作"><a href="#改进加法器，实现减法操作" class="headerlink" title="改进加法器，实现减法操作"></a>改进加法器，实现减法操作</h3><p>减法没有进位机制，而是使用到了借位。但是通过一连串逻辑电路实现借位机制比较麻烦，那么我们如何避免发生借位，而有能实现减法呢？</p>
 <blockquote>
 <p>例如：计算 253 - 176</p>
 </blockquote>
@@ -337,7 +343,7 @@
 <li><p>模拟计算：176 - 253</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">253</span>的二进制码是：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">176</span>的二进制码是：<span class="number">1011</span> <span class="number">0000</span></span><br><span class="line"></span><br><span class="line"><span class="number">253</span>的补码是：<span class="number">0000</span> <span class="number">0011</span></span><br><span class="line"><span class="number">176</span>的补码是：<span class="number">0101</span> <span class="number">0000</span></span><br><span class="line">  </span><br><span class="line"><span class="number">1.</span> A输入为<span class="number">176</span>，即：<span class="number">1011</span> <span class="number">0000</span>。B输入为<span class="number">253</span>，即：<span class="number">1111</span> <span class="number">1101</span></span><br><span class="line"><span class="number">2.</span> 减法运算，SUB输出<span class="number">1</span>，对B求反码。即：<span class="number">0000</span> <span class="number">0010.</span></span><br><span class="line"><span class="number">3.</span> <span class="number">8</span>位加法器中，SUB输出为<span class="number">1</span>，即CI为<span class="number">1</span>，<span class="number">176</span>+<span class="number">253</span>的反码+<span class="number">1</span>。</span><br><span class="line">  即<span class="number">176</span>+<span class="number">253</span>的补码 = <span class="number">1011</span> <span class="number">0000</span> + <span class="number">0000</span> <span class="number">0011</span></span><br><span class="line">  	= <span class="number">1011</span> <span class="number">0011</span> = <span class="number">128</span>+<span class="number">77</span> = <span class="number">205</span></span><br><span class="line"><span class="number">4.</span> CO为<span class="number">0</span>，SUB为<span class="number">1</span>，经过XOR后，结果为<span class="number">1</span>，出现下溢。舍弃当前结果</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4><span id="如何表示负数">如何表示负数</span></h4><p>详细内容可以看原文，这里只简单介绍</p>
+<h3 id="如何表示负数"><a href="#如何表示负数" class="headerlink" title="如何表示负数"></a>如何表示负数</h3><p>详细内容可以看原文，这里只简单介绍</p>
 <p>在8位二进制中，我们可以用1开头来表示负数。</p>
 <p><font color="orange">对于无符号的8位二进制数，表示的范围为：0 ~ 255。对于有符号的二进制数表示的范围为：-128 ~ 127</font></p>
 <table>
@@ -495,7 +501,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">改进加法器，实现减法操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">如何表示负数</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E5%8A%A0%E6%B3%95%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%87%8F%E6%B3%95%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">改进加法器，实现减法操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A1%A8%E7%A4%BA%E8%B4%9F%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">如何表示负数</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -511,7 +517,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">205</span>
+          <span class="site-state-item-count">208</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -524,7 +530,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -575,13 +581,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">794k</span>
+    <span title="Symbols count total">797k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">12:02</span>
+    <span title="Reading time total">12:04</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>

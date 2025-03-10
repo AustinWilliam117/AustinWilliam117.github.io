@@ -130,7 +130,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">51</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">53</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">205</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">208</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,282 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/20/%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%8F%A5%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/20/%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%8F%A5%E5%AD%90/" class="post-title-link" itemprop="url">随机生成句子</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-20 23:14:45 / Modified: 23:16:03" itemprop="dateCreated datePublished" datetime="2022-06-20T23:14:45+08:00">2022-06-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，存在则删除</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file_exists</span>():</span></span><br><span class="line">    file_path = <span class="string">&#x27;/root/file&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(file_path):</span><br><span class="line">        os.remove(file_path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 封装句子生成</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_sentence</span>(<span class="params">i</span>):</span></span><br><span class="line">    f = Faker(<span class="string">&#x27;zh_CN&#x27;</span>)</span><br><span class="line">    s = f.sentence(nb_words=i, variable_nb_words=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将句子与标签拼接，生成文本</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_document</span>(<span class="params">sentence_list</span>):</span></span><br><span class="line">    create_paragraph = <span class="string">&#x27;&lt;audio src=&quot;询问.wav&quot;&gt;&#123;&#125;&lt;/audio&gt;&#123;&#125;&lt;audio src=&quot;金额.wav&quot;&gt;&#123;&#125;&lt;/audio&gt;&#123;&#125;&lt;audio src=&quot;请您在.wav&quot; &gt;&#123;&#125;&lt;/audio&gt;&#123;&#125;&lt;audio src=&quot;逾期提醒.wav&quot; &gt;&#123;&#125;&lt;/audio&gt;\n&#x27;</span>.<span class="built_in">format</span>(*sentence_list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/root/file&#x27;</span>,<span class="string">&#x27;at&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(create_paragraph)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主程序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    file_exists()</span><br><span class="line"></span><br><span class="line">    concurrent_time = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入并发次数：&quot;</span>))</span><br><span class="line">    loop_time = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入循环次数：&quot;</span>))</span><br><span class="line"></span><br><span class="line">    word_list = [<span class="number">21</span>,<span class="number">3</span>,<span class="number">15</span>,<span class="number">1</span>,<span class="number">18</span>,<span class="number">5</span>,<span class="number">33</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(loop_time*concurrent_time):</span><br><span class="line">        sentence_list = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> word_list:</span><br><span class="line">            data = create_sentence(i)</span><br><span class="line">            sentence_list.append(data)</span><br><span class="line">        create_document(sentence_list)</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/%E5%B0%8F%E6%97%B6%E5%80%99%E7%9A%84%E7%88%B1%E5%A5%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/22/%E5%B0%8F%E6%97%B6%E5%80%99%E7%9A%84%E7%88%B1%E5%A5%BD/" class="post-title-link" itemprop="url">小时候的爱好</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-22 22:45:41 / Modified: 23:06:12" itemprop="dateCreated datePublished" datetime="2022-03-22T22:45:41+08:00">2022-03-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>328</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>无意中看到了绘画书，突然好想画画啊，也算是圆了小时候没钱买画笔的一个梦想吧。</p>
+<p>然后油画全套差不多200左右突然就心疼起自己的钱来…</p>
+<p>明明吃饭、出去玩、买别的都挺舍得的😂，是否有一丝当年老妈的感触呢？</p>
+<p>也可能我并没有准备好，所以没有下定决心要买吧。</p>
+<p>不过我觉得我能按照书上的教程画个八九不离十吧应该。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/22/%E5%B0%8F%E6%97%B6%E5%80%99%E7%9A%84%E7%88%B1%E5%A5%BD/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/19/3-19%E9%9B%AA%E4%B8%AD%E9%95%BF%E5%9F%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/19/3-19%E9%9B%AA%E4%B8%AD%E9%95%BF%E5%9F%8E/" class="post-title-link" itemprop="url">3.19雪中长城</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-19 22:46:51" itemprop="dateCreated datePublished" datetime="2022-03-19T22:46:51+08:00">2022-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-20 22:10:07" itemprop="dateModified" datetime="2022-03-20T22:10:07+08:00">2022-03-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>214</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>好想变强，好想好好睡觉，好想走遍山河。</p>
+<p>最近感觉自己越来越闲鱼了，上班之外基本啥也没有做，读书学习都没了兴趣。</p>
+<p>现在唯一要等的就是花开了吧，唯一还有动力能做的就是游玩计划了吧。</p>
+<p>苦瓜柠檬茶很好喝，苦瓜清甜而不苦，加上柠檬带有一丝微微的酸甜，还有冰能很好维持这种味道就久而不消散，以至于很久之后感觉嘴巴里还是清香甘甜的。</p>
+<p>这个冬季，在每个雪天，去过了北京自然博物馆、天坛、故宫、香山、黑龙潭、北京游乐公园、长城</p>
+<p>所以我能变成更好的那个自己吗</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/19/3-19%E9%9B%AA%E4%B8%AD%E9%95%BF%E5%9F%8E/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -855,300 +1131,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/25/%E4%B8%80%E6%9C%88%E5%B0%8F%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/25/%E4%B8%80%E6%9C%88%E5%B0%8F%E8%AE%B0/" class="post-title-link" itemprop="url">一月小记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-01-25 23:18:56 / Modified: 23:36:52" itemprop="dateCreated datePublished" datetime="2022-01-25T23:18:56+08:00">2022-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今年1月真的是全新的开始。不得不说，如果你心情烦闷了，不如一个人去野外走走。如果你感到孤独了，不如叫个朋友陪你旅行。</p>
-<p>这不1月1日新年初始，我就去了凤凰岭。毕竟新年爬山，步步高升嘛！</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/25/%E4%B8%80%E6%9C%88%E5%B0%8F%E8%AE%B0/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/20/2022%E5%B9%B4%E7%9A%84%E9%9B%AA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/20/2022%E5%B9%B4%E7%9A%84%E9%9B%AA/" class="post-title-link" itemprop="url">2022年的雪</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-01-20 21:46:35 / Modified: 22:22:46" itemprop="dateCreated datePublished" datetime="2022-01-20T21:46:35+08:00">2022-01-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>622</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div id="aplayer-vIeMPxEm" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="355794" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div>
-
-<br>
-
-<p>还记得2021年年初的时候，也下了很大的雪。我却在家里看着《武林外传》感叹美景，实在罪过。</p>
-<p>那篇文章的标题叫《雪》😂</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/20/2022%E5%B9%B4%E7%9A%84%E9%9B%AA/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/18/%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B9%9F%E6%9B%BE%E8%BF%B7%E8%8C%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/18/%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B9%9F%E6%9B%BE%E8%BF%B7%E8%8C%AB/" class="post-title-link" itemprop="url">如果你也曾迷茫</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-01-18 21:52:20 / Modified: 22:11:01" itemprop="dateCreated datePublished" datetime="2022-01-18T21:52:20+08:00">2022-01-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div id="aplayer-GEcqiuyN" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="355798" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div>
-
-</br>
-
-<blockquote>
-<p>转自：央视新闻夜读</p>
-</blockquote>
-<blockquote>
-<p>在《夜读》读者的留言里，有许多这样的<strong>“灵魂发问”</strong>：</p>
-<p><strong>马上18了</strong>，大家都说这是最好的年龄，但<strong>我为什么觉得这么迷茫？</strong></p>
-<p><strong>还有几个月就要毕业了，却完全不知道自己要做什么</strong>，好迷茫，怎么办？</p>
-<p><strong>北漂的第十年，最近突然开始迷茫</strong>，我的坚持真的有意义吗？</p>
-<p>已经<strong>28岁了，却好像仍然没有在社会上找到自己的位置</strong>，怎么会这样？</p>
-<p>过了年就30了，<strong>立没立不知道，迷茫倒是真的……</strong></p>
-<p>你大概也察觉出关键词了吧：<strong>迷茫。</strong></p>
-<p>谁的青春不迷茫？但迷茫这种状态，并不是青春的专属，无论你在人生的哪个阶段，都难免有被它笼罩的时刻，所以，学会走出迷茫，也许是一个人一生的功课。</p>
-<p>《夜读》奉上几个走出迷茫的小建议，可能算不上什么“解药”，但若能给你些许慰藉，便是值得。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/18/%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B9%9F%E6%9B%BE%E8%BF%B7%E8%8C%AB/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1220,7 +1202,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">205</span>
+          <span class="site-state-item-count">208</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1233,7 +1215,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1284,13 +1266,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">794k</span>
+    <span title="Symbols count total">797k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">12:02</span>
+    <span title="Reading time total">12:04</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
