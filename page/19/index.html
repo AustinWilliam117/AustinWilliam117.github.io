@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">208</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">209</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,110 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/19/%E5%9C%A8VirtualBox%E4%B8%AD%E5%88%9B%E5%BB%BA%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo.JPG">
+      <meta itemprop="name" content="蒙珣">
+      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蒙珣的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/19/%E5%9C%A8VirtualBox%E4%B8%AD%E5%88%9B%E5%BB%BA%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/" class="post-title-link" itemprop="url">在VirtualBox中创建共享文件夹</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-19 22:05:23" itemprop="dateCreated datePublished" datetime="2021-01-19T22:05:23+08:00">2021-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>317</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><p>打开VirtualBox管理器，点击设置</p>
+</li>
+<li><p>点击“共享文件夹”选项右侧的加号。</p>
+</li>
+<li><p>填入你想要共享的文件路径</p>
+</li>
+<li><p>共享路径选好后，会自动将文件夹名称作为共享文件夹名称，勾上“固定分配”，这样这个路径可以永久使用。</p>
+</li>
+<li><p>现在进入虚拟机，打开Terminal，输入以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /pcshare</span><br><span class="line"></span><br><span class="line">sudo chmod 777 /pcshare</span><br><span class="line"></span><br><span class="line">sudo mount -t vboxsf uBuntuSharePath /pcshare</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意uBuntuSharePath就是之前步骤所创建的PC机上的共享文件夹名称。</strong></p>
+</li>
+<li><p>之后每次启动虚拟机，都需要先在Terminal中输入命令“sudo mount -t vboxsf uBuntuSharePath /pcshare”。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1117,102 +1221,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/11/SQL%E8%AF%AD%E5%8F%A5%E7%BB%83%E4%B9%A050%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/logo.JPG">
-      <meta itemprop="name" content="蒙珣">
-      <meta itemprop="description" content="甚念伤吾生，正宜委运去。纵浪大化中，不喜亦不惧。应尽便须尽，无复独多虑。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蒙珣的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/11/SQL%E8%AF%AD%E5%8F%A5%E7%BB%83%E4%B9%A050%E9%A2%98/" class="post-title-link" itemprop="url">SQL语句练习50题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-11 21:34:15" itemprop="dateCreated datePublished" datetime="2021-01-11T21:34:15+08:00">2021-01-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-11 22:08:04" itemprop="dateModified" datetime="2021-11-11T22:08:04+08:00">2021-11-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>17k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>15 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>原文：知乎小番茄<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43289968">SQL面试必会50题</a><br>转载: 启明星的指引 <a target="_blank" rel="noopener" href="https://blog.csdn.net/fashion2014/article/details/78826299">sql语句练习50题(Mysql版)</a></p>
-<h2 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/01/11/SQL%E8%AF%AD%E5%8F%A5%E7%BB%83%E4%B9%A050%E9%A2%98/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1284,7 +1292,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">208</span>
+          <span class="site-state-item-count">209</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1348,13 +1356,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">797k</span>
+    <span title="Symbols count total">799k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">12:04</span>
+    <span title="Reading time total">12:06</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
