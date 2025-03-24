@@ -22201,19 +22201,74 @@ name ends
 <p>接下来看一下他们的比较</p>
 <p><img src="24.png"></p>
 <h5 id="时间片轮转rr-round-robin"><a href="#时间片轮转（RR-Round-Robin）" class="headerlink" title="时间片轮转（RR, Round-Robin）"></a>时间片轮转（RR, Round-Robin）</h5><p><img src="25.png"></p>
-<h5 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h5><ul>
-<li><p>系统进程优先级 <strong>高于</strong> 用于进程</p>
-</li>
-<li><p>前台进程优先级 <strong>高于</strong> 后台进程</p>
-</li>
-<li><p>操作系统 **更偏好 **I/O繁忙型进程</p>
-</li>
+<h5 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h5><p><img src="26.png"></p>
+<ul>
+<li>系统进程优先级 <strong>高于</strong> 用于进程</li>
+<li>前台进程优先级 <strong>高于</strong> 后台进程</li>
+<li>操作系统 **更偏好 **I/O繁忙型进程</li>
 </ul>
 <p><strong>动态优先级</strong></p>
 <ul>
-<li>如果某进程在就绪队列</li>
+<li>和上面静态优先级相对应的是动态优先级。创建进程时先赋予进程⼀个优先级，但优先级会随进程的推进或等待时间的增加⽽改变，以便获得更好的调度性能。例如，规定优先级随等待时间的增加⽽提⾼，于是，对于优先级初值较低的进程，等待⾜够长的时间后也可获得CPU</li>
 </ul>
-<h5 id="多级队列调度算法"><a href="#多级队列调度算法" class="headerlink" title="多级队列调度算法"></a>多级队列调度算法</h5><h5 id="多级队列反馈算法"><a href="#多级队列反馈算法" class="headerlink" title="多级队列反馈算法"></a>多级队列反馈算法</h5>]]></content>
+<h5 id="多级队列反馈算法"><a href="#多级队列反馈算法" class="headerlink" title="多级队列反馈算法"></a>多级队列反馈算法</h5><p>多级队列反馈算法综合了</p>
+<ul>
+<li>FCFS算法的公平，</li>
+<li>SJF算法能尽快处理完短作业，平均等待/周转时间等参数很优秀</li>
+<li>时间片调度轮转算法可以让各个进程得到及时的响应</li>
+<li>优先级调度算法可以灵活地调整各种进程被服务的机会</li>
+</ul>
+<p>下面的例子很好的说明了这个算法</p>
+<p><img src="27.png"></p>
+<p><img src="28.png"></p>
+<p><strong>接下来看一下他们的比较</strong></p>
+<p><img src="29.png"></p>
+<p><img src="24.png"></p>
+<h5 id="多级队列调度算法"><a href="#多级队列调度算法" class="headerlink" title="多级队列调度算法"></a>多级队列调度算法</h5><p><img src="30.png"></p>
+<h3 id="同步与互斥"><a href="#同步与互斥" class="headerlink" title="同步与互斥"></a>同步与互斥</h3><h4 id="同步与互斥的基本概念"><a href="#同步与互斥的基本概念" class="headerlink" title="同步与互斥的基本概念"></a>同步与互斥的基本概念</h4><p>异步：和同步相对，同步是顺序执行，而异步是彼此独立，在等待某个事件的过程中继续做自己的事，不要等待这一事件完成后再工作。线程是实现异步的一个方式，异步是让调用方法的主线程不需要同步等待另一个线程的完成，从而让主线程干其他事情。</p>
+<p>异步：在并发环境中，各任务各自独立执行，相互之间互不干扰。</p>
+<p><img src="31.png"></p>
+<h4 id="进程互斥的软件实现方法"><a href="#进程互斥的软件实现方法" class="headerlink" title="进程互斥的软件实现方法"></a>进程互斥的软件实现方法</h4><h5 id="单标志法违背空闲让进"><a href="#单标志法（违背空闲让进）" class="headerlink" title="单标志法（违背空闲让进）"></a>单标志法（违背空闲让进）</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> turn = <span class="number">0</span>;	<span class="comment">// turn 表示当前允许进入临界区的进程号</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// P0进程</span></span><br><span class="line"><span class="keyword">while</span> (turn != <span class="number">0</span>);	<span class="comment">// 进入区</span></span><br><span class="line">critical section;	<span class="comment">// 临界区</span></span><br><span class="line">turn = <span class="number">1</span>;	<span class="comment">// 退出区</span></span><br><span class="line">remainder section;	<span class="comment">// 执行剩余代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// P1进程</span></span><br><span class="line"><span class="keyword">while</span> (turn != <span class="number">1</span>);</span><br><span class="line">critical section;</span><br><span class="line">turn = <span class="number">0</span>;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p>该算法<font color="orange">可以实现“同一时刻最多只允许一个进程访问临界区”</font></p>
+<p>但是当P1进程先执行时，就会陷入“死”循环，需要等到时间片用完才可切换P0进程。因此<font color="orange">违背了实现临界区互斥必须遵循的“空闲让进”原则</font></p>
+<h5 id="双标志检查法"><a href="#双标志检查法" class="headerlink" title="双标志检查法"></a>双标志检查法</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bool</span> flag[<span class="number">2</span>];	<span class="comment">// 表示进入临界区意愿的数组</span></span><br><span class="line">flag[<span class="number">0</span>] = <span class="literal">false</span>;	<span class="comment">// 刚开始设置两个进程都不想进入临界区</span></span><br><span class="line">flag[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// P0 进程</span></span><br><span class="line"><span class="keyword">while</span> (flag[<span class="number">1</span>]);	<span class="comment">// 如果此时 P0 想进入临界区，P1 就一直循环等待</span></span><br><span class="line">flag[<span class="number">0</span>] = <span class="literal">true</span>;	<span class="comment">// 标记为 P1 进程想要进入临界区</span></span><br><span class="line">critical section;	<span class="comment">// 访问临界区</span></span><br><span class="line">flag[<span class="number">0</span>] = <span class="literal">false</span>;	<span class="comment">// 访问完临界区，修改标记为 P1 不想使用临界区</span></span><br><span class="line">remainder section;</span><br><span class="line"></span><br><span class="line"><span class="comment">// P1 进程</span></span><br><span class="line"><span class="keyword">while</span> (flag[<span class="number">0</span>]);</span><br><span class="line">flag[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">critcal section;</span><br><span class="line">flag[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p>如果连个进程交替执行，此时他俩几乎同时跳过了检查，所以导致都可以进入临界区。</p>
+<p>因此，双标志先检查法的<font color="orange">主要问题是：违反了“忙则等待”的原则</font></p>
+<p>原因在于，检查和上锁不是一气呵成的，在检查后，上锁前可发生进程切换</p>
+<h5 id="双标志后检查法违背空闲让进-有限等待"><a href="#双标志后检查法（违背空闲让进、有限等待）" class="headerlink" title="双标志后检查法（违背空闲让进、有限等待）"></a>双标志后检查法（违背空闲让进、有限等待）</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bool</span> flag[<span class="number">2</span>];	<span class="comment">// 表示进入临界区意愿的数组</span></span><br><span class="line">flag[<span class="number">0</span>] = <span class="literal">false</span>;	<span class="comment">// 刚开始设置两个进程都不想进入临界区</span></span><br><span class="line">flag[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// P0 进程</span></span><br><span class="line">flag[<span class="number">0</span>] = <span class="literal">true</span>;	<span class="comment">// 标记为 P1 进程想要进入临界区</span></span><br><span class="line"><span class="keyword">while</span> (flag[<span class="number">1</span>]);	<span class="comment">// 如果此时 P0 想进入临界区，P1 就一直循环等待</span></span><br><span class="line">critical section;	<span class="comment">// 访问临界区</span></span><br><span class="line">flag[<span class="number">0</span>] = <span class="literal">false</span>;	<span class="comment">// 访问完临界区，修改标记为 P1 不想使用临界区</span></span><br><span class="line">remainder section;</span><br><span class="line"></span><br><span class="line"><span class="comment">// P1 进程</span></span><br><span class="line">flag[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">while</span> (flag[<span class="number">0</span>]);</span><br><span class="line">critcal section;</span><br><span class="line">flag[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p>由于先上锁，后检查。在两个进程并发执行时，会导致两个进程互相争抢进入临界区，谁也不让谁进入，导致饥饿现象。</p>
+<p>虽然解决了“忙则等待”，但是违背了“空闲让进”和“优先等待”</p>
+<h5 id="peterson算法未遵守让权等待"><a href="#Peterson算法（未遵守让权等待）" class="headerlink" title="Peterson算法（未遵守让权等待）"></a>Peterson算法（未遵守让权等待）</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bool</span> flag[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> turn = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// P0 进程：</span></span><br><span class="line">flag[<span class="number">0</span>] = <span class="literal">true</span>;	<span class="comment">// 主动争取进入临界区</span></span><br><span class="line">turn = <span class="number">1</span>;	<span class="comment">// 主动谦让</span></span><br><span class="line"><span class="keyword">while</span> (flag[<span class="number">1</span>] &amp;&amp; turn = <span class="number">1</span>);	<span class="comment">// 对方想进，且最后一次自己让梨，那自己就循环等待</span></span><br><span class="line">critical section;							</span><br><span class="line">flag[<span class="number">0</span>] = flag;</span><br><span class="line">remainder section;</span><br><span class="line"></span><br><span class="line"><span class="comment">// P1 进程：</span></span><br><span class="line">flag[<span class="number">1</span>] = <span class="literal">true</span>;	<span class="comment">// 表示自己想要进入临界区</span></span><br><span class="line">turn = <span class="number">0</span>;	<span class="comment">// 可以优先让对方进入临界区</span></span><br><span class="line"><span class="keyword">while</span> (flag[<span class="number">0</span>] &amp;&amp; turn = <span class="number">0</span>);	<span class="comment">// 对方想进，且最后一次自己让梨，那自己就循环等待</span></span><br><span class="line">critical section;</span><br><span class="line">flag[<span class="number">0</span>] = flag;</span><br><span class="line">remainder section;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Peterson 算法用软件方法解决了进程互斥问题，<font color="orange">遵循了空闲让进、忙则等待、优先等待三个原则，但是仍然未遵守让权等待的原则</font></strong></p>
+<p><img src="32.png"></p>
+<h4 id="进程互斥的硬件实现方法"><a href="#进程互斥的硬件实现方法" class="headerlink" title="进程互斥的硬件实现方法"></a>进程互斥的硬件实现方法</h4><h5 id="中断屏蔽法适用于单处理机-内核进程"><a href="#中断屏蔽法（适用于单处理机、内核进程）" class="headerlink" title="中断屏蔽法（适用于单处理机、内核进程）"></a>中断屏蔽法（适用于单处理机、内核进程）</h5><p><img src="33.png"></p>
+<h5 id="testandset指令不满足让权等待适用于多cpu"><a href="#TestAndSet指令（不满足让权等待，适用于多CPU）" class="headerlink" title="TestAndSet指令（不满足让权等待，适用于多CPU）"></a>TestAndSet指令（不满足让权等待，适用于多CPU）</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lock 表示当前临界区是否被加锁</span></span><br><span class="line"><span class="comment">// true 表示已加锁，false 表示未加锁</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">TestAndSet</span><span class="params">(<span class="keyword">bool</span> *lock)</span></span>&#123;</span><br><span class="line">  <span class="keyword">bool</span> old;</span><br><span class="line">  old = *lock;										<span class="comment">// old 用来存放 lock 原来的值</span></span><br><span class="line">  *lock = <span class="literal">true</span>;										<span class="comment">// 无论之前是否已加锁，都将 lock 设为 true</span></span><br><span class="line">  <span class="keyword">return</span> old;											<span class="comment">// 返回 lock 原来的值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下是使用 TSL 指令实现互斥的算法逻辑</span></span><br><span class="line"><span class="keyword">while</span> (TestAndSet (&amp;lock));				<span class="comment">// 上锁并检查</span></span><br><span class="line">临界区代码段</span><br><span class="line">lock = <span class="literal">false</span>;											<span class="comment">// 解锁</span></span><br><span class="line">剩余区代码段...</span><br></pre></td></tr></table></figure>
+
+<p>TSL 指令把上锁和检查操作用硬件的方式变成了一气呵成的的原子操作。</p>
+<p>优点：</p>
+<ul>
+<li>实现简单，无需像让见实现方法那样严格检查是否会有逻辑漏洞</li>
+<li>适用于多处理机环境</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不满足“让权等待”原则，暂时无法进入临界区的进程会占用CPU并循环执行TSL指令，从而导致“忙等”</li>
+</ul>
+<h5 id="swap指令不满足让权等待-适用于多cpu"><a href="#Swap指令（不满足让权等待、适用于多CPU）" class="headerlink" title="Swap指令（不满足让权等待、适用于多CPU）"></a>Swap指令（不满足让权等待、适用于多CPU）</h5><p>Swap 指令是用硬件实现的，执行的过程不允许被中断，只能一气呵成</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Swap 指令的作用是交换两个变量的值</span></span><br><span class="line">Swap (<span class="keyword">bool</span> *a, <span class="keyword">bool</span> *b)&#123;</span><br><span class="line">  <span class="keyword">bool</span> temp;</span><br><span class="line">  temp = *a;</span><br><span class="line">  *a = *b;</span><br><span class="line">  *b = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下是用 Swap 指令实现互斥的逻辑算法</span></span><br><span class="line"><span class="comment">// lock表示当前临界区是否被加锁</span></span><br><span class="line"><span class="keyword">bool</span> old = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">while</span> (old == <span class="literal">true</span>)</span><br><span class="line">  Swap (&amp;lock, &amp;old);</span><br><span class="line">临界区代码段...</span><br><span class="line">lock = fasle;</span><br><span class="line">剩余区代码段...</span><br></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<ul>
+<li>实现简单，无需像让见实现方法那样严格检查是否会有逻辑漏洞</li>
+<li>适用于多处理机环境</li>
+</ul>
+<p>缺点：</p>
+<p>不满足“让权等待”原则，暂时无法进入临界区的进程会占用CPU并循环执行Swap指令，从而导致“忙等”</p>
+]]></content>
       <tags>
         <tag>操作系统</tag>
       </tags>
